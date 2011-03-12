@@ -10,7 +10,7 @@
 
         <field name="body" fieldName="body" type="string" />
 
-        <reference-one fieldName="thread" targetDocument="FOS\CommentBundle\Document\Thread" />
+        <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
 
         <field name="createdAt" fieldName="createdAt" type="date" />
 
