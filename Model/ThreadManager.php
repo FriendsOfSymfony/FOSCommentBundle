@@ -8,23 +8,23 @@ namespace FOS\CommentBundle\Model;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-abstract class CommentThreadManager implements CommentThreadManagerInterface
+abstract class ThreadManager implements ThreadManagerInterface
 {
     /**
      * @param string $identifier
-     * @return CommentThreadInterface
+     * @return ThreadInterface
      */
     public function findThreadByIdentifier($identifier)
     {
-        return $this->findCommentThreadBy(array('identifier' => $identifier));
+        return $this->findThreadBy(array('identifier' => $identifier));
     }
 
     /**
      * Creates an empty comment thread instance
      *
-     * @return CommentThread
+     * @return Thread
      */
-    function createCommentThread()
+    function createThread()
     {
         $class = $this->getClass();
         $commentThread = new $class;

@@ -16,12 +16,12 @@ class Comment extends AbstractComment
     /**
      * Thread of this comment
      *
-     * @var CommentThread
+     * @var Thread
      */
     protected $thread;
 
     /**
-     * @return CommentThread
+     * @return Thread
      */
     public function getThread()
     {
@@ -29,10 +29,10 @@ class Comment extends AbstractComment
     }
 
     /**
-     * @param  CommentThread
+     * @param  Thread
      * @return null
      */
-    public function setThread($thread)
+    public function setThread(Thread $thread)
     {
         $this->thread = $thread;
     }

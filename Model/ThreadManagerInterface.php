@@ -10,37 +10,37 @@ namespace FOS\CommentBundle\Model;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-interface CommentThreadManagerInterface
+interface ThreadManagerInterface
 {
     /**
      * @param string $identifier
-     * @return CommentThreadInterface
+     * @return ThreadInterface
      */
     function findThreadByIdentifier($identifier);
 
     /**
      * Adds a comment in a thread
      *
-     * @param CommentThreadInterface $commentThread
+     * @param ThreadInterface $commentThread
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    function addComment(CommentThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
+    function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
 
     /**
      * Finds one comment thread by the given criteria
      *
      * @param array $criteria
-     * @return CommentThreadInterface
+     * @return ThreadInterface
      */
-    function findCommentThreadBy(array $criteria);
+    function findThreadBy(array $criteria);
 
     /**
      * Creates an empty comment thread instance
      *
-     * @return CommentThread
+     * @return Thread
      */
-    function createCommentThread();
+    function createThread();
 
     /**
      * Returns the comment thread fully qualified class name

@@ -12,7 +12,7 @@ namespace FOS\CommentBundle\Model;
 /**
  * Storage agnostic comment thread object
  */
-abstract class CommentThread implements CommentThreadInterface
+abstract class Thread implements ThreadInterface
 {
     /**
      * Identifier, a unique string that binds the comments together in a thread (tree).

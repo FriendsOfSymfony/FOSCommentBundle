@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="FOS\CommentBundle\Document\CommentThread" collection="fos_comment_thread">
+    <document name="FOS\CommentBundle\Document\Thread" collection="fos_comment_thread">
 
         <field name="identifier" type="string" id="true" strategy="NONE" />
 

@@ -4,9 +4,9 @@ namespace FOS\CommentBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\CommentInterface;
-use FOS\CommentBundle\Model\CommentThreadManager as BaseCommentThreadManager;
+use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 
-class CommentThreadManager extends BaseCommentThreadManager
+class ThreadManager extends BaseThreadManager
 {
     protected $dm;
     protected $repository;
@@ -31,9 +31,9 @@ class CommentThreadManager extends BaseCommentThreadManager
      * Finds one comment thread by the given criteria
      *
      * @param array $criteria
-     * @return CommentThreadInterface
+     * @return ThreadInterface
      */
-    function findCommentThreadBy(array $criteria)
+    function findThreadBy(array $criteria)
     {
         return $this->findOneBy($criteria);
     }
@@ -41,11 +41,11 @@ class CommentThreadManager extends BaseCommentThreadManager
     /**
      * Adds a comment in a thread
      *
-     * @param CommentThreadInterface $commentThread
+     * @param ThreadInterface $commentThread
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    public function addComment(CommentThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null)
+    public function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null)
     {
         throw new \Exception('Not implemented');
     }

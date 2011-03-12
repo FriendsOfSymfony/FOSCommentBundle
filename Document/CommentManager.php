@@ -45,7 +45,7 @@ class CommentManager extends BaseCommentManager
      *         )
      *     )
      */
-    function findCommentsByThread(CommentThreadInterface $thread)
+    function findCommentsByThread(ThreadInterface $thread)
     {
         throw new Exception('Not implemented.');
     }

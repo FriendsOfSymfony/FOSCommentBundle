@@ -13,7 +13,7 @@ namespace FOS\CommentBundle\Model;
 /*
  * Binds a comment tree to anything, using a unique, arbitrary identifier
  */
-interface CommentThreadInterface
+interface ThreadInterface
 {
     /**
      * Identifier, a unique string that binds the comments together in a thread (tree).

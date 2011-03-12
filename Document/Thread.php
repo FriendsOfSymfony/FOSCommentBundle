@@ -9,8 +9,8 @@
 
 namespace FOS\CommentBundle\Document;
 
-use FOS\CommentBundle\Model\CommentThread as AbstractCommentThread;
+use FOS\CommentBundle\Model\Thread as AbstractThread;
 
-class CommentThread extends AbstractCommentThread
+class Thread extends AbstractThread
 {
 }

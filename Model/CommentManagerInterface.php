@@ -30,7 +30,7 @@ interface CommentManagerInterface
      *         )
      *     )
      */
-    function findCommentsByThread(CommentThreadInterface $thread);
+    function findCommentsByThread(ThreadInterface $thread);
 
     /**
      * Creates an empty comment instance
