@@ -33,7 +33,7 @@ interface ThreadInterface
      *
      * @return bool
      */
-    function getIsCommentable();
+    function isCommentable();
 
     /**
      * @param bool $isCommentable

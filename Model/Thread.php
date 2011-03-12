@@ -49,7 +49,7 @@ abstract class Thread implements ThreadInterface
     /**
      * @return bool
      */
-    public function getIsCommentable()
+    public function isCommentable()
     {
         return $this->isCommentable;
     }
