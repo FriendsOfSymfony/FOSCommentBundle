@@ -27,7 +27,7 @@ abstract class CommentThread implements CommentThreadInterface
      *
      * @var bool
      */
-    protected $isCommentable;
+    protected $isCommentable = true;
 
     /**
      * @return string

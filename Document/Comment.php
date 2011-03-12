@@ -13,5 +13,27 @@ use FOS\CommentBundle\Model\Comment as AbstractComment;
 
 class Comment extends AbstractComment
 {
+    /**
+     * Thread of this comment
+     *
+     * @var CommentThread
+     */
+    protected $thread;
 
+    /**
+     * @return CommentThread
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
+
+    /**
+     * @param  CommentThread
+     * @return null
+     */
+    public function setThread($thread)
+    {
+        $this->thread = $thread;
+    }
 }

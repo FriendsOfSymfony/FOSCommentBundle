@@ -4,15 +4,11 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="FOS\CommentBundle\Document\Comment" collection="fos_comment_comment">
+    <document name="FOS\CommentBundle\Document\CommentThread" collection="fos_comment_thread">
 
-        <field name="id" id="true" />
+        <field name="identifier" type="string" id="true" strategy="NONE" />
 
-        <field name="body" fieldName="body" type="string" />
-
-        <reference-one fieldName="thread" targetDocument="FOS\CommentBundle\Document\Thread" />
-
-        <field name="createdAt" fieldName="createdAt" type="date" />
+        <field name="isCommentable" fieldName="isCommentable" type="boolean" />
 
     </document>
 

@@ -26,4 +26,27 @@ class CommentManager extends BaseCommentManager
         $this->repository = $dm->getRepository($class);
         $this->class      = $dm->getClassMetadata($class)->name;
     }
+
+    /*
+     * Common, strategy agnostic method to get all nested comments.
+     * Will typically be used when it comes to display the comments.
+     *
+     * @param  string $identifier
+     * @return array(
+     *     'comment' => CommentInterface,
+     *     'children' => array(
+     *         0 => array (
+     *             'comment' => CommentInterface,
+     *             'children' => array(...)
+     *         ),
+     *         1 => array (
+     *             'comment' => CommentInterface,
+     *             'children' => array(...)
+     *         )
+     *     )
+     */
+    function findCommentsByThread(CommentThreadInterface $thread)
+    {
+        throw new Exception('Not implemented.');
+    }
 }
