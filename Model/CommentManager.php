@@ -8,7 +8,7 @@ namespace FOS\CommentBundle\Model;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-abstract class CommentManager implements CommentManagerInterface, CommentProviderInterface
+abstract class CommentManager implements CommentManagerInterface
 {
     /**
      * Returns an empty comment instance
