@@ -19,15 +19,6 @@ interface ThreadManagerInterface
     function findThreadByIdentifier($identifier);
 
     /**
-     * Adds a comment in a thread
-     *
-     * @param ThreadInterface $commentThread
-     * @param CommentInterface $comment
-     * @param CommentInterface $parent Only used when replying to a specific CommentInterface
-     */
-    function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
-
-    /**
      * Finds one comment thread by the given criteria
      *
      * @param array $criteria

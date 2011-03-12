@@ -18,19 +18,33 @@ interface CommentManagerInterface
      *
      * @param  string $identifier
      * @return array(
-     *     'comment' => CommentInterface,
-     *     'children' => array(
-     *         0 => array (
-     *             'comment' => CommentInterface,
-     *             'children' => array(...)
-     *         ),
-     *         1 => array (
-     *             'comment' => CommentInterface,
-     *             'children' => array(...)
+     *     0 => array(
+     *         'comment' => CommentInterface,
+     *         'children' => array(
+     *             0 => array (
+     *                 'comment' => CommentInterface,
+     *                 'children' => array(...)
+     *             ),
+     *             1 => array (
+     *                 'comment' => CommentInterface,
+     *                 'children' => array(...)
+     *             )
      *         )
+     *     ),
+     *     1 => array(
+     *         ...
      *     )
      */
     function findCommentsByThread(ThreadInterface $thread);
+
+    /**
+     * Adds a comment in a thread
+     *
+     * @param ThreadInterface $commentThread
+     * @param CommentInterface $comment
+     * @param CommentInterface $parent Only used when replying to a specific CommentInterface
+     */
+    function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
 
     /**
      * Creates an empty comment instance
