@@ -11,19 +11,18 @@ namespace FOS\CommentBundle\Model;
 
 interface CommentInterface
 {
-    function getId();
+    /**
+     * @return string
+     */
+    function getBody();
+
+    /**
+     * @param string $body
+     */
+    function setBody($body);
 
     /**
      * @return DateTime
      */
     function getCreatedAt();
-
-    /**
-     * @return DateTime
-     */
-    function getUpdatedAt();
-
-    function incrementCreatedAt();
-
-    function incrementUpdatedAt();
 }

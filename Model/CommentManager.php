@@ -10,6 +10,29 @@ namespace FOS\CommentBundle\Model;
  */
 abstract class CommentManager implements CommentManagerInterface, CommentProviderInterface
 {
+    /*
+     * Common, strategy agnostic method to get all nested comments.
+     * Will typically be used when it comes to display the comments.
+     *
+     * @param  string $identifier
+     * @return array(
+     *     'comment' => CommentInterface,
+     *     'children' => array(
+     *         0 => array (
+     *             'comment' => CommentInterface,
+     *             'children' => array(...)
+     *         ),
+     *         1 => array (
+     *             'comment' => CommentInterface,
+     *             'children' => array(...)
+     *         )
+     *     )
+     */
+    function findCommentsByThread(CommentThreadInterface $thread)
+    {
+        throw new Exception('Not implemented.');
+    }
+
     /**
      * Returns an empty comment instance
      *

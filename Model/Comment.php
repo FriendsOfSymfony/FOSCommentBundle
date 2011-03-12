@@ -19,14 +19,21 @@ abstract class Comment implements CommentInterface
     protected $id;
 
     /**
-     * @var DateTime
+     * Comment text
+     *
+     * @var string
      */
-    protected $createdAt;
+    protected $body = null;
 
     /**
      * @var DateTime
      */
-    protected $updatedAt;
+    protected $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+    }
 
     /**
      * Return the comment unique id
@@ -39,32 +46,28 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCreatedAt()
+    public function getBody()
     {
-        return $this->createdAt;
+      return $this->body;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setBody($body)
+    {
+      $this->body = $body;
     }
 
     /**
      * @return DateTime
      */
-    public function getUpdatedAt()
+    public function getCreatedAt()
     {
-        return $this->updatedAt;
-    }
-
-    public function incrementCreatedAt()
-    {
-        if (null === $this->createdAt) {
-            $this->createdAt = new DateTime();
-        }
-        $this->updatedAt = new DateTime();
-    }
-
-    public function incrementUpdatedAt()
-    {
-        $this->updatedAt = new DateTime();
+        return $this->createdAt;
     }
 
     public function __toString()
