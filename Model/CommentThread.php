@@ -20,14 +20,14 @@ abstract class CommentThread implements CommentThreadInterface
      *
      * @var string
      */
-    protected $identifier = null;
+    protected $identifier;
 
     /**
      * Tells if new comments can be added in this thread
      *
      * @var bool
      */
-    protected $isCommentable = null;
+    protected $isCommentable;
 
     /**
      * @return string

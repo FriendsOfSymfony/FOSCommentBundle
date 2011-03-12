@@ -23,7 +23,7 @@ abstract class Comment implements CommentInterface
      *
      * @var string
      */
-    protected $body = null;
+    protected $body;
 
     /**
      * @var DateTime
@@ -50,7 +50,7 @@ abstract class Comment implements CommentInterface
      */
     public function getBody()
     {
-      return $this->body;
+        return $this->body;
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class Comment implements CommentInterface
      */
     public function setBody($body)
     {
-      $this->body = $body;
+        $this->body = $body;
     }
 
     /**

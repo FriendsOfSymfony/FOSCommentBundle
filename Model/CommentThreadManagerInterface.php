@@ -28,6 +28,14 @@ interface CommentThreadManagerInterface
     function addComment(CommentThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
 
     /**
+     * Finds one comment thread by the given criteria
+     *
+     * @param array $criteria
+     * @return CommentThreadInterface
+     */
+    function findCommentThreadBy(array $criteria);
+
+    /**
      * Creates an empty comment thread instance
      *
      * @return CommentThread
