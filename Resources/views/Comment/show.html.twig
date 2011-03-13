@@ -1,0 +1,9 @@
+<div class="comment">
+    <div class="metas">
+        By [someone] - {{ comment.createdAt|date }}
+    </div>
+    {{ comment.body }}
+    <div class="replies">
+        {% include "FOSCommentBundle:Comment:tree.html.twig" with {"nodes": children|default([])} %}
+    </div>
+</div>

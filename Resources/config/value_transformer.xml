@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="fos_comment.value_transformer.thread.class">FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer</parameter>
+    </parameters>
+
+    <services>
+        <service id="fos_comment.value_transformer.thread" class="%fos_comment.value_transformer.thread.class%">
+            <argument type="service" id="fos_comment.manager.thread" />
+        </service>
+    </services>
+
+</container>

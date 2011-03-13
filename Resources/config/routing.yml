@@ -1,0 +1,4 @@
+fos_comment_comment_create:
+    pattern:        /new
+    defaults:       { _controller: FOSCommentBundle:Comment:create, _format: json }
+    requirements:   { _method: "post" }

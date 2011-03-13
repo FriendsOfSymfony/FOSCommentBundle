@@ -24,7 +24,7 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array() as $basename) {
+        foreach (array('value_transformer') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 

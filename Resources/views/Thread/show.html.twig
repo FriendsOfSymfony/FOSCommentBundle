@@ -4,4 +4,6 @@
 
 <h3>Showing {{ thread.numComments }} comments</h3>
 
-{% render "FOSCommentBundle:Comment:tree" with {"thread": thread} %}
+<div class="fos_comment_thread_comments">
+    {% render "FOSCommentBundle:Comment:tree" with {"thread": thread} %}
+</div>

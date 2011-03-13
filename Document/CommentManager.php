@@ -74,20 +74,26 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Adds a comment in a thread
+     * Adds a comment
      *
-     * @param ThreadInterface $commentThread
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    public function addComment(ThreadInterface $thread, CommentInterface $comment, CommentInterface $parent = null)
+    public function addComment(CommentInterface $comment, CommentInterface $parent = null)
     {
+        if (null !== $comment->getId()) {
+            throw new InvalidArgumentException('Can not add already saved comment');
+        }
+        if (null === $comment->getThread()) {
+            throw new InvalidArgumentException('The comment must have a thread');
+        }
         if (null !== $parent) {
             $comment->setAncestors($this->createAncestors($parent));
         }
-        $comment->setThread($thread);
+        $thread = $comment->getThread();
         $thread->setNumComments($thread->getNumComments() + 1);
         $this->dm->persist($comment);
+        $this->dm->flush();
     }
 
     /**

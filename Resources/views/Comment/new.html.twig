@@ -1,2 +1,8 @@
+<form class="fos_comment_form" action="{{ path("fos_comment_comment_create") }}" method="POST">
 
+    {{ form_field(form.body) }}
+    {{ form_field(form.thread) }}
 
+    <input type="submit" value="Post" />
+
+</form>

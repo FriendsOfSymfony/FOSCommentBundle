@@ -40,11 +40,10 @@ interface CommentManagerInterface
     /**
      * Adds a comment in a thread
      *
-     * @param ThreadInterface $commentThread
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null);
+    function addComment(CommentInterface $comment, CommentInterface $parent = null);
 
     /**
      * Creates an empty comment instance

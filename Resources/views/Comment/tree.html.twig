@@ -1,11 +1,3 @@
 {% for node in nodes %}
-    <div class="comment">
-        <div class="metas">
-            By [someone] - {{ node.comment.createdAt|date }}
-        </div>
-        {{ node.comment.body }}
-        <div class="replies">
-            {% render "FOSCommentBundle:Comment:tree.html.twig" with {"nodes": node.children} %}
-        </div>
-    </div>
+    {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node.comment, "children": node.children } %}
 {% endfor %}
