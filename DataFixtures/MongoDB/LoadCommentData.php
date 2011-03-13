@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\CommentBundle\DataFixtures\MongoDB;
+namespace FOS\CommentBundle\DataFixtures\MongoDB;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
