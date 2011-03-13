@@ -60,14 +60,4 @@ class Comment extends AbstractComment
     {
         $this->ancestors = $ancestors;
     }
-
-    public function getDepth()
-    {
-        return count($this->ancestors);
-    }
-
-    public function getParentId()
-    {
-        return end($this->ancestors);
-    }
 }
