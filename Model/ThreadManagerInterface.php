@@ -19,6 +19,13 @@ interface ThreadManagerInterface
     function findThreadByIdentifier($identifier);
 
     /**
+     * If no thread is found, one is created and persisted (but not flushed)
+     * @param string $identifier
+     * @return ThreadInterface
+     */
+    function findThreadByIdentifierOrCreate($identifier);
+
+    /**
      * Finds one comment thread by the given criteria
      *
      * @param array $criteria

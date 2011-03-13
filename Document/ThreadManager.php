@@ -31,9 +31,27 @@ class ThreadManager extends BaseThreadManager
      * @param array $criteria
      * @return ThreadInterface
      */
-    function findThreadBy(array $criteria)
+    public function findThreadBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
+    }
+
+    /**
+     * If no thread is found, one is created, persisted and flushed
+     * @param string $identifier
+     * @return ThreadInterface
+     */
+    public function findThreadByIdentifierOrCreate($identifier)
+    {
+        $thread = $this->findThreadByIdentifier($identifier);
+        if (!$thread) {
+            $thread = $this->createThread();
+            $thread->setIdentifier($identifier);
+            $this->dm->persist($thread);
+            $this->dm->flush();
+        }
+
+        return $thread;
     }
 
     /**

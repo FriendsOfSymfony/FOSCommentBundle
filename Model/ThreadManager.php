@@ -24,7 +24,7 @@ abstract class ThreadManager implements ThreadManagerInterface
      *
      * @return Thread
      */
-    function createThread()
+    public function createThread()
     {
         $class = $this->getClass();
         $commentThread = new $class;
