@@ -35,7 +35,7 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    function findCommentsByThreadIdentifier($threadIdentifier);
+    function findCommentsByThread(ThreadInterface $thread);
 
     /**
      * Adds a comment in a thread

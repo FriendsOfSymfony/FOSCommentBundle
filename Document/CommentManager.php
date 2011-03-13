@@ -50,12 +50,12 @@ class CommentManager extends BaseCommentManager
      *         ...
      *     )
      */
-    public function findCommentsByThreadIdentifier($threadIdentifier)
+    public function findCommentsByThread(ThreadInterface $thread)
     {
         $comments = $this->repository
             ->createQueryBuilder()
             ->select('_id', 'body', 'ancestors')
-            ->field('thread.$id')->equals($threadIdentifier)
+            ->field('thread.$id')->equals($thread->getIdentifier())
             ->sort('ancestors', 'ASC')
             ->getQuery()
             ->execute();

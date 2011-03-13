@@ -7,9 +7,11 @@ class CommentManagerAcceptanceTest extends WebTestCase
     public function testFindCommentsByThreadIdentifier()
     {
         $container      = $this->createClient()->getContainer();
+        $threadManager  = $container->get('fos_comment.manager.thread');
         $commentManager = $container->get('fos_comment.manager.comment');
 
-        $comments = $commentManager->findCommentsByThreadIdentifier('homepage');
+        $thread   = $threadManager->findThreadByIdentifier('homepage');
+        $comments = $commentManager->findCommentsByThread($thread);
 
         $firstComment = $comments[0]['comment'];
         $this->assertEquals('1 - First comment in root', $firstComment->getBody());
