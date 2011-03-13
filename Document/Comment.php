@@ -21,6 +21,13 @@ class Comment extends AbstractComment
     protected $thread;
 
     /**
+     * All ancestors of the comment
+     *
+     * @var array
+     */
+    protected $ancestors = array();
+
+    /**
      * @return Thread
      */
     public function getThread()
@@ -35,5 +42,32 @@ class Comment extends AbstractComment
     public function setThread(Thread $thread)
     {
         $this->thread = $thread;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAncestors()
+    {
+        return $this->ancestors;
+    }
+
+    /**
+     * @param  array
+     * @return null
+     */
+    public function setAncestors(array $ancestors)
+    {
+        $this->ancestors = $ancestors;
+    }
+
+    public function getDepth()
+    {
+        return count($this->ancestors);
+    }
+
+    public function getParentId()
+    {
+        return end($this->ancestors);
     }
 }

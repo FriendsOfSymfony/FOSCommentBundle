@@ -12,6 +12,8 @@
 
         <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
 
+        <field name="ancestors" fieldName="ancestors" type="collection" />
+
         <field name="createdAt" fieldName="createdAt" type="date" />
 
     </document>
