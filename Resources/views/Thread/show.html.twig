@@ -1,0 +1,7 @@
+<h3>Add New Comment</h3>
+
+{% render "FOSCommentBundle:Comment:new" with {"thread": thread} %}
+
+<h3>Showing {{ thread.numComments }} comments</h3>
+
+{% render "FOSCommentBundle:Comment:tree" with {"thread": thread} %}
