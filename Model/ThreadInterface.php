@@ -39,4 +39,18 @@ interface ThreadInterface
      * @param bool $isCommentable
      */
     function setIsCommentable($isCommentable);
+
+    /**
+     * Gets the number of comments
+     *
+     * @return integer
+     */
+    function getNumComments();
+
+    /**
+     * Sets the number of comments
+     *
+     * @param integer $numComments
+     */
+    function setNumComments($numComments);
 }

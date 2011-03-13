@@ -30,6 +30,13 @@ abstract class Thread implements ThreadInterface
     protected $isCommentable = true;
 
     /**
+     * Denormalized number of comments
+     *
+     * @var integer
+     */
+    protected $numComments = 0;
+
+    /**
      * @return string
      */
     public function getIdentifier()
@@ -61,6 +68,26 @@ abstract class Thread implements ThreadInterface
     public function setIsCommentable($isCommentable)
     {
         $this->isCommentable = (bool) $isCommentable;
+    }
+
+    /**
+     * Gets the number of comments
+     *
+     * @return integer
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * Sets the number of comments
+     *
+     * @param integer $numComments
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = intval($numComments);
     }
 
     public function __toString()

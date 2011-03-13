@@ -80,12 +80,13 @@ class CommentManager extends BaseCommentManager
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    public function addComment(ThreadInterface $commentThread, CommentInterface $comment, CommentInterface $parent = null)
+    public function addComment(ThreadInterface $thread, CommentInterface $comment, CommentInterface $parent = null)
     {
-        $comment->setThread($commentThread);
         if (null !== $parent) {
             $comment->setAncestors($this->createAncestors($parent));
         }
+        $comment->setThread($thread);
+        $thread->setNumComments($thread->getNumComments() + 1);
         $this->dm->persist($comment);
     }
 
