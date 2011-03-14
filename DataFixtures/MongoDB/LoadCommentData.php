@@ -34,41 +34,47 @@ class LoadCommentData implements FixtureInterface, OrderedFixtureInterface, Cont
         $this->objectManager->persist($homepageThread);
 
         /**
-         * 1
-         *  6
          * 2
+         *  4
          *  3
          *   5
-         *  4
+         * 1
+         *  6
          */
         $comment1 = $this->commentManager->createComment();
         $comment1->setBody('1 - First comment in root');
-        $this->commentManager->addComment($homepageThread, $comment1);
+        $comment1->setThread($homepageThread);
+        $this->commentManager->addComment($comment1);
         $this->objectManager->flush();
 
         $comment2 = $this->commentManager->createComment();
         $comment2->setBody('2 - Second comment in root');
-        $this->commentManager->addComment($homepageThread, $comment2);
+        $comment2->setThread($homepageThread);
+        $this->commentManager->addComment($comment2);
         $this->objectManager->flush();
 
         $comment3 = $this->commentManager->createComment();
         $comment3->setBody('3 - First comment in comment 2');
-        $this->commentManager->addComment($homepageThread, $comment3, $comment2);
+        $comment3->setThread($homepageThread);
+        $this->commentManager->addComment($comment3, $comment2);
         $this->objectManager->flush();
 
         $comment4 = $this->commentManager->createComment();
         $comment4->setBody('4 - Second comment in comment 2');
-        $this->commentManager->addComment($homepageThread, $comment4, $comment2);
+        $comment4->setThread($homepageThread);
+        $this->commentManager->addComment($comment4, $comment2);
         $this->objectManager->flush();
 
         $comment5 = $this->commentManager->createComment();
         $comment5->setBody('5 - First comment in comment 3');
-        $this->commentManager->addComment($homepageThread, $comment5, $comment3);
+        $comment5->setThread($homepageThread);
+        $this->commentManager->addComment($comment5, $comment3);
         $this->objectManager->flush();
 
         $comment6 = $this->commentManager->createComment();
         $comment6->setBody('6 - First comment in comment 1');
-        $this->commentManager->addComment($homepageThread, $comment6, $comment1);
+        $comment6->setThread($homepageThread);
+        $this->commentManager->addComment($comment6, $comment1);
         $this->objectManager->flush();
 
         // Empty thread
