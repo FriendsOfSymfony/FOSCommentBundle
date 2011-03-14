@@ -24,20 +24,20 @@ class Configuration
         $rootNode = $treeBuilder->root('fos_comment', 'array');
 
         $rootNode
-            ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
             ->arrayNode('class')->isRequired()
-                ->arrayNode('model')
+                ->arrayNode('model')->isRequired()
                     ->scalarNode('comment')->isRequired()->end()
                 ->end()
-                ->arrayNode('form')
+                ->arrayNode('form')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('FOS\CommentBundle\Form\CommentForm')->end()
                 ->end()
             ->end()
-            ->arrayNode('service')
-                ->arrayNode('form_factory')
+            ->arrayNode('service')->addDefaultsIfNotSet()
+                ->arrayNode('form_factory')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.form_factory.comment.default')->end()
                 ->end()
-                ->arrayNode('blamer')
+                ->arrayNode('blamer')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.blamer.comment.noop')->end()
                 ->end()
             ->end();
