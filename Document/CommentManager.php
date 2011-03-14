@@ -116,6 +116,16 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
+     * Find one comment by its ID
+     *
+     * @return Comment or null
+     **/
+    public function findCommentById($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
      * Returns the fully qualified comment thread class name
      *
      * @return string

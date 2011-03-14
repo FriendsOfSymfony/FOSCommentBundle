@@ -46,6 +46,13 @@ interface CommentManagerInterface
     function addComment(CommentInterface $comment, CommentInterface $parent = null);
 
     /**
+     * Find one comment by its ID
+     *
+     * @return Comment or null
+     **/
+    function findCommentById($id);
+
+    /**
      * Creates an empty comment instance
      *
      * @return Comment
