@@ -25,20 +25,20 @@ class Configuration
 
         $rootNode
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
-            ->arrayNode('class')
+            ->arrayNode('class')->isRequired()
                 ->arrayNode('model')
-                    ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('comment')->isRequired()->end()
                 ->end()
                 ->arrayNode('form')
-                    ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('comment')->cannotBeEmpty()->defaultValue('FOS\CommentBundle\Form\CommentForm')->end()
                 ->end()
             ->end()
             ->arrayNode('service')
                 ->arrayNode('form_factory')
-                    ->scalarNode('comment')->isRequired()->defaultValue('fos_comment.form_factory.comment.default')->end()
+                    ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.form_factory.comment.default')->end()
                 ->end()
                 ->arrayNode('blamer')
-                    ->scalarNode('comment')->isRequired()->defaultValue('fos_comment.blamer.comment.noop')->end()
+                    ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.blamer.comment.noop')->end()
                 ->end()
             ->end();
 
