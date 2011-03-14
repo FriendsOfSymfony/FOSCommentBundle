@@ -42,6 +42,7 @@ class CommentController extends ContainerAware
         $form->bind($this->container->get('request'), $comment);
 
         if ($form->isValid()) {
+            $this->container->get('fos_comment.blamer')->blame($comment);
             $parent = $this->container->get('fos_comment.manager.comment')->findCommentById(
                 $this->container->get('request')->request->get('reply_to')
             );
