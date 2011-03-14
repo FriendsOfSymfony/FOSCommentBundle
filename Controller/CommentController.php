@@ -15,7 +15,6 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 
 use FOS\CommentBundle\Form\CommentForm;
-use Symfony\Component\Form\HiddenField;
 
 class CommentController extends ContainerAware
 {

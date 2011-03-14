@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Form\CommentForm;
 use Symfony\Component\Form\HiddenField;
 
@@ -25,9 +26,7 @@ class ThreadController extends ContainerAware
             throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
         }
 
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $comment->setThread($thread);
-
+        $comment = $this->createComment($thread);
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
@@ -35,5 +34,13 @@ class ThreadController extends ContainerAware
             'thread' => $thread,
             'form'   => $form
         ));
+    }
+
+    protected function createComment(ThreadInterface $thread)
+    {
+        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
+        $comment->setThread($thread);
+
+        return $comment;
     }
 }
