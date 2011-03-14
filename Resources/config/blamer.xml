@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.blamer.noop" class="FOS\CommentBundle\Blamer\NoopCommentBlamer" />
+        <service id="fos_comment.blamer.comment.noop" class="FOS\CommentBundle\Blamer\NoopCommentBlamer" />
 
-        <service id="fos_comment.blamer.security" class="FOS\CommentBundle\Blamer\SecurityCommentBlamer">
+        <service id="fos_comment.blamer.comment.security" class="FOS\CommentBundle\Blamer\SecurityCommentBlamer">
             <argument type="service" id="security.context" />
         </service>
     </services>

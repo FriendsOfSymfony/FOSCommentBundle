@@ -25,10 +25,22 @@ class Configuration
 
         $rootNode
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
-            ->arrayNode('model')
-                ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+            ->arrayNode('class')
+                ->arrayNode('model')
+                    ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+                ->end()
+                ->arrayNode('form')
+                    ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+                ->end()
             ->end()
-            ->scalarNode('blamer')->isRequired()->defaultValue('fos_comment.blamer.noop')->end();
+            ->arrayNode('service')
+                ->arrayNode('form_factory')
+                    ->scalarNode('comment')->isRequired()->defaultValue('fos_comment.form_factory.comment.default')->end()
+                ->end()
+                ->arrayNode('blamer')
+                    ->scalarNode('comment')->isRequired()->defaultValue('fos_comment.blamer.comment.noop')->end()
+                ->end()
+            ->end();
 
         return $treeBuilder->buildTree();
     }
