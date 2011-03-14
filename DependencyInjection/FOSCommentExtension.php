@@ -24,10 +24,11 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('value_transformer') as $basename) {
+        foreach (array('value_transformer', 'blamer') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
+        $container->setParameter('fos_comment.model.comment.class', $config['model']['comment']);
+        $container->setAlias('fos_comment.blamer', $config['blamer']);
     }
 }

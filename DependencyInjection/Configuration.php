@@ -24,23 +24,12 @@ class Configuration
         $rootNode = $treeBuilder->root('fos_comment', 'array');
 
         $rootNode
-            ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end();
-
-        $this->addClassSection($rootNode);
+            ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+            ->arrayNode('model')
+                ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
+            ->end()
+            ->scalarNode('blamer')->isRequired()->defaultValue('fos_comment.blamer.noop')->end();
 
         return $treeBuilder->buildTree();
-    }
-
-    private function addClassSection(NodeBuilder $node)
-    {
-        $node
-            ->arrayNode('class')
-                ->isRequired()
-                ->addDefaultsIfNotSet()
-                ->arrayNode('model')
-                    ->isRequired()
-                    ->scalarNode('comment')->isRequired()->cannotBeEmpty()->end()
-                ->end()
-            ->end();
     }
 }
