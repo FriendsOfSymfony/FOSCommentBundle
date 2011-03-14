@@ -32,32 +32,20 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Show a comment form
-     */
-    public function newAction(ThreadInterface $thread)
-    {
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $comment->setThread($thread);
-        $form = $this->createForm();
-        $form->setData($comment);
-
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:new.html.twig', array(
-            'thread' => $thread,
-            'form'   => $form
-        ));
-    }
-
-    /**
      * Submit a comment form
      */
     public function createAction()
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $form = $this->createForm();
+        $form = CommentForm::create($this->container->get('form.context'), 'fos_comment_create');
+        $form->add(new HiddenField('thread', array('value_transformer' => $this->container->get('fos_comment.value_transformer.thread'))));
         $form->bind($this->container->get('request'), $comment);
 
         if ($form->isValid()) {
-            $this->container->get('fos_comment.manager.comment')->addComment($comment);
+            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById(
+                $this->container->get('request')->request->get('reply_to')
+            );
+            $this->container->get('fos_comment.manager.comment')->addComment($comment, $parent);
             return $this->onCreateSuccess($form);
         }
 
@@ -66,29 +54,13 @@ class CommentController extends ContainerAware
 
     protected function onCreateSuccess(CommentForm $form)
     {
-        return new Response(json_encode(array(
-            'success' => true,
-            'comment' => $this->container->get('templating')->render('FOSCommentBundle:Comment:show.html.twig', array(
-                'comment' => $form->getData()
-            ))
-        )));
+        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
+            'identifier' => $form->getData()->getThread()->getIdentifier()
+        ));
     }
 
     protected function onCreateError(CommentForm $form)
     {
-        return new Response(json_encode(array(
-            'success' => false,
-            'form'    => $this->container->get('templating')->render('FOSCommentBundle:Comment:new.html.twig', array(
-                'form' => $form
-            ))
-        )));
-    }
-
-    protected function createForm()
-    {
-        $form = CommentForm::create($this->container->get('form.context'), 'fos_comment_create');
-        $form->add(new HiddenField('thread', array('value_transformer' => $this->container->get('fos_comment.value_transformer.thread'))));
-
-        return $form;
+        return new Response("", 400);
     }
 }

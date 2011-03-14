@@ -1,9 +1,15 @@
-<h3>Add New Comment</h3>
+<div class="fos_comment_thread_show">
 
-{% render "FOSCommentBundle:Comment:new" with {"thread": thread} %}
+    {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": form, "first": 0 == thread.numComments} %}
 
-<h3>Showing {{ thread.numComments }} comments</h3>
+    {% if thread.numComments > 0 %}
+        <h3>Showing {{ thread.numComments }} comments</h3>
+        <div class="fos_comment_thread_comments">
+            {% render "FOSCommentBundle:Comment:tree" with {"thread": thread} %}
+        </div>
+    {% endif %}
 
-<div class="fos_comment_thread_comments">
-    {% render "FOSCommentBundle:Comment:tree" with {"thread": thread} %}
+    <div class="fos_comment_reply_prototype">
+        {% include "FOSCommentBundle:Comment:reply.html.twig" with {"form": form} %}
+    </div>
 </div>
