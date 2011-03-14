@@ -9,7 +9,7 @@
     </parameters>
 
     <services>
-        <service id="fos_comment.form_factory.comment.default" class="FOS\CommentBundle\FormFactory\CommentFormFactory">
+        <service id="fos_comment.form_factory.comment.default" class="FOS\CommentBundle\FormFactory\CommentFormFactory" public="false">
             <argument type="service" id="form.context" />
             <argument type="service" id="fos_comment.value_transformer.thread" />
             <argument>%fos_comment.form.comment.class%</argument>
