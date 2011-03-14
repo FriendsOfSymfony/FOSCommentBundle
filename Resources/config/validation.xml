@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+
+    <class name="FOS\CommentBundle\Model\Comment">
+
+        <property name="body">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a message</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">3</option>
+                <option name="message">The message is too short</option>
+            </constraint>
+        </property>
+    </class>
+
+</constraint-mapping>
