@@ -10,6 +10,8 @@
 
         <field name="isCommentable" fieldName="isCommentable" type="boolean" />
 
+        <field name="numComments" fieldName="numComments" type="int" />
+
     </document>
 
 </doctrine-mongo-mapping>

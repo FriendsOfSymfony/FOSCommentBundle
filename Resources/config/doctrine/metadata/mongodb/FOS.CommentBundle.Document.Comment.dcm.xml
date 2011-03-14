@@ -10,8 +10,6 @@
 
         <field name="body" fieldName="body" type="string" />
 
-        <field name="numComments" fieldName="numComments" type="integer" />
-
         <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
 
         <field name="ancestors" fieldName="ancestors" type="collection" />
