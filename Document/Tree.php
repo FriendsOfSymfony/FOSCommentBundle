@@ -24,14 +24,11 @@ class Tree
 
     public function toArray()
     {
-        $array = array('comment' => $this->comment, 'children' => array());;
+        $children = array();
         foreach ($this->children as $child) {
-            $array['children'][] = $child->toArray();
-        }
-        if (!$this->comment) {
-            $array = $array['children'];
+            array_unshift($children, $child->toArray());
         }
 
-        return $array;
+        return $this->comment ? array('comment' => $this->comment, 'children' => $children) : $children;
     }
 }
