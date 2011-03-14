@@ -37,16 +37,16 @@ class CommentController extends ContainerAware
     public function createAction()
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $form = CommentForm::create($this->container->get('form.context'), 'fos_comment_create');
-        $form->add(new HiddenField('thread', array('value_transformer' => $this->container->get('fos_comment.value_transformer.thread'))));
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->bind($this->container->get('request'), $comment);
 
         if ($form->isValid()) {
-            $this->container->get('fos_comment.blamer')->blame($comment);
+            $this->container->get('fos_comment.blamer.comment')->blame($comment);
             $parent = $this->container->get('fos_comment.manager.comment')->findCommentById(
                 $this->container->get('request')->request->get('reply_to')
             );
             $this->container->get('fos_comment.manager.comment')->addComment($comment, $parent);
+
             return $this->onCreateSuccess($form);
         }
 

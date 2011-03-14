@@ -21,11 +21,14 @@ class ThreadController extends ContainerAware
     public function showAction($identifier)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifierOrCreate($identifier);
+        if (!$thread) {
+            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
+        }
 
         $comment = $this->container->get('fos_comment.manager.comment')->createComment();
         $comment->setThread($thread);
-        $form = CommentForm::create($this->container->get('form.context'), 'fos_comment_create');
-        $form->add(new HiddenField('thread', array('value_transformer' => $this->container->get('fos_comment.value_transformer.thread'))));
+
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
