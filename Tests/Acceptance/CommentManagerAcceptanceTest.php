@@ -13,22 +13,36 @@ class CommentManagerAcceptanceTest extends WebTestCase
         $thread   = $threadManager->findThreadByIdentifier('homepage');
         $comments = $commentManager->findCommentsByThread($thread);
 
-        $firstComment = $comments[0]['comment'];
-        $this->assertEquals('1 - First comment in root', $firstComment->getBody());
-
-        $secondComment = $comments[1]['comment'];
+        /**
+         * 2
+         *  4
+         *  3
+         *   5
+         * 1
+         *  6
+         */
+        $secondComment = $comments[0]['comment'];
         $this->assertEquals('2 - Second comment in root', $secondComment->getBody());
 
-        $firstCommentChildren = $comments[0]['children'];
+        $firstComment = $comments[1]['comment'];
+        $this->assertEquals('1 - First comment in root', $firstComment->getBody());
+
+        $firstCommentChildren = $comments[1]['children'];
         $this->assertEquals(1, count($firstCommentChildren));
 
-        $firstCommentChild = $comments[0]['children'][0]['comment'];
+        $firstCommentChild = $comments[1]['children'][0]['comment'];
         $this->assertEquals('6 - First comment in comment 1', $firstCommentChild->getBody());
 
-        $firstCommentChildChildren = $comments[0]['children'][0]['children'];
+        $firstCommentChildChildren = $comments[1]['children'][0]['children'];
         $this->assertEquals(0, count($firstCommentChildChildren));
 
-        $deepComment = $comments[1]['children'][0]['children'][0]['comment'];
+        $firstCommentInComment2 = $comments[0]['children'][0]['comment'];
+        $this->assertEquals('4 - Second comment in comment 2', $firstCommentInComment2->getBody());
+
+        $secondCommentInComment2 = $comments[0]['children'][1]['comment'];
+        $this->assertEquals('3 - First comment in comment 2', $secondCommentInComment2->getBody());
+
+        $deepComment = $comments[0]['children'][1]['children'][0]['comment'];
         $this->assertEquals('5 - First comment in comment 3', $deepComment->getBody());
     }
 }
