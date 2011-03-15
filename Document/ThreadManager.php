@@ -55,6 +55,17 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
+     * Saves a new thread
+     *
+     * @param ThreadInterface $thread
+     */
+    function addThread(ThreadInterface $thread)
+    {
+        $this->dm->persist($thread);
+        $this->dm->flush();
+    }
+
+    /**
      * Returns the fully qualified comment thread class name
      *
      * @return string
