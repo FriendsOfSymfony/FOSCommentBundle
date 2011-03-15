@@ -29,6 +29,18 @@ interface ThreadInterface
     function setIdentifier($identifier);
 
     /**
+     * Url of the page where the thread lives
+     * @return string
+     */
+    function getPermalink();
+
+    /**
+     * @param  string
+     * @return null
+     */
+    function setPermalink($permalink);
+
+    /**
      * Tells if new comments can be added in this thread
      *
      * @return bool

@@ -37,6 +37,13 @@ abstract class Thread implements ThreadInterface
     protected $numComments = 0;
 
     /**
+     * Url of the page where the thread lives
+     *
+     * @var string
+     */
+    protected $permalink;
+
+    /**
      * @return string
      */
     public function getIdentifier()
@@ -51,6 +58,23 @@ abstract class Thread implements ThreadInterface
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPermalink()
+    {
+      return $this->permalink;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setPermalink($permalink)
+    {
+      $this->permalink = $permalink;
     }
 
     /**

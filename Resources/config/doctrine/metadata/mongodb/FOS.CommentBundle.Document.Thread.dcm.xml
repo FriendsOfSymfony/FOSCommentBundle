@@ -8,6 +8,8 @@
 
         <field name="identifier" type="string" id="true" strategy="NONE" />
 
+        <field name="permalink" type="string" />
+
         <field name="isCommentable" fieldName="isCommentable" type="boolean" />
 
         <field name="numComments" fieldName="numComments" type="int" />
