@@ -37,24 +37,6 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * If no thread is found, one is created, persisted and flushed
-     * @param string $identifier
-     * @return ThreadInterface
-     */
-    public function findThreadByIdentifierOrCreate($identifier)
-    {
-        $thread = $this->findThreadByIdentifier($identifier);
-        if (!$thread) {
-            $thread = $this->createThread();
-            $thread->setIdentifier($identifier);
-            $this->dm->persist($thread);
-            $this->dm->flush();
-        }
-
-        return $thread;
-    }
-
-    /**
      * Saves a new thread
      *
      * @param ThreadInterface $thread
