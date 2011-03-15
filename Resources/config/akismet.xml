@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="fos_comment.akismet" class="FOS\CommentBundle\Akismet" scope="request" public="false">
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_comment.zend_akismet" />
+        </service>
+
+        <service id="fos_comment.zend_akismet" class="Zend\Service\Akismet\Akismet" public="false">
+            <argument>%fos_comment.akismet.api_key%</argument>
+            <argument>%fos_comment.akismet.url%</argument>
+        </service>
+
+    </services>
+
+</container>

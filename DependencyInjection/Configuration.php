@@ -21,10 +21,17 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_comment', 'array');
 
-        $rootNode
+        $treeBuilder->root('fos_comment', 'array')
+
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+
+            ->arrayNode('akismet')->addDefaultsIfNotSet()
+                ->booleanNode('enabled')->cannotBeEmpty()->defaultFalse()->end()
+                ->scalarNode('api_key')->end()
+                ->scalarNode('url')->end()
+            ->end()
+
             ->arrayNode('class')->isRequired()
                 ->arrayNode('model')->isRequired()
                     ->scalarNode('comment')->isRequired()->end()
