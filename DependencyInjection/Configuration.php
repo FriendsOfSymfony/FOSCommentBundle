@@ -40,9 +40,13 @@ class Configuration
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('FOS\CommentBundle\Form\CommentForm')->end()
                 ->end()
             ->end()
+
             ->arrayNode('service')->addDefaultsIfNotSet()
                 ->arrayNode('form_factory')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.form_factory.comment.default')->end()
+                ->end()
+                ->arrayNode('creator')->addDefaultsIfNotSet()
+                    ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.creator.comment.default')->end()
                 ->end()
                 ->arrayNode('blamer')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.blamer.comment.noop')->end()
