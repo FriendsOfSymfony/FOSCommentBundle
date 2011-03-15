@@ -1,6 +1,6 @@
 <?php
 
-namespace Fos\CommentBundle;
+namespace FOS\CommentBundle;
 
 use Zend\Service\Akismet\Akismet as ZendAkismet;
 use Symfony\Component\HttpFoundation\Request;

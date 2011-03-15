@@ -4,6 +4,6 @@ namespace FOS\CommentBundle\Creator;
 
 use Exception;
 
-class CommentCreatorException
+class CommentCreatorException extends Exception
 {
 }
