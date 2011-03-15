@@ -63,6 +63,14 @@ abstract class Comment implements CommentInterface
     }
 
     /**
+     * @return string name of the comment author
+     */
+    public function getAuthorName()
+    {
+        return 'Anonymous';
+    }
+
+    /**
      * @return DateTime
      */
     public function getCreatedAt()
