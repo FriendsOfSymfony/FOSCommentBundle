@@ -27,7 +27,7 @@ class Configuration
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
 
             ->arrayNode('akismet')->addDefaultsIfNotSet()
-                ->booleanNode('enabled')->cannotBeEmpty()->defaultFalse()->end()
+                ->booleanNode('enabled')->defaultFalse()->end()
                 ->scalarNode('api_key')->end()
                 ->scalarNode('url')->end()
             ->end()
