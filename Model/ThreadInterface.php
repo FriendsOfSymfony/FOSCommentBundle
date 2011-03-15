@@ -65,4 +65,16 @@ interface ThreadInterface
      * @param integer $numComments
      */
     function setNumComments($numComments);
+
+    /**
+     * Denormalized date of the last comment
+     * @return DateTime
+     */
+    function getLastCommentAt();
+
+    /**
+     * @param  DateTime
+     * @return null
+     */
+     function setLastCommentAt($lastCommentAt);
 }

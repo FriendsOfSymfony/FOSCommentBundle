@@ -9,6 +9,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use DateTime;
+
 /**
  * Storage agnostic comment thread object
  */
@@ -35,6 +37,13 @@ abstract class Thread implements ThreadInterface
      * @var integer
      */
     protected $numComments = 0;
+
+    /**
+     * Denormalized date of the last comment
+     *
+     * @var DateTime
+     */
+    protected $lastCommentAt = null;
 
     /**
      * Url of the page where the thread lives
@@ -65,7 +74,7 @@ abstract class Thread implements ThreadInterface
      */
     public function getPermalink()
     {
-      return $this->permalink;
+        return $this->permalink;
     }
 
     /**
@@ -74,7 +83,7 @@ abstract class Thread implements ThreadInterface
      */
     public function setPermalink($permalink)
     {
-      $this->permalink = $permalink;
+        $this->permalink = $permalink;
     }
 
     /**
@@ -112,6 +121,23 @@ abstract class Thread implements ThreadInterface
     public function setNumComments($numComments)
     {
         $this->numComments = intval($numComments);
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getLastCommentAt()
+    {
+        return $this->lastCommentAt;
+    }
+
+    /**
+     * @param  DateTime
+     * @return null
+     */
+    public function setLastCommentAt($lastCommentAt)
+    {
+        $this->lastCommentAt = $lastCommentAt;
     }
 
     public function __toString()

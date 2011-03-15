@@ -7,6 +7,7 @@ use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use InvalidArgumentException;
+use DateTime;
 
 class CommentManager extends BaseCommentManager
 {
@@ -92,6 +93,7 @@ class CommentManager extends BaseCommentManager
         }
         $thread = $comment->getThread();
         $thread->setNumComments($thread->getNumComments() + 1);
+        $thread->setLastCommentAt(new DateTime());
         $this->dm->persist($comment);
         $this->dm->flush();
     }
