@@ -19,7 +19,7 @@ use FOS\CommentBundle\Form\CommentForm;
 class CommentController extends ContainerAware
 {
     /**
-     * Show a thread comments
+     * Shows a thread comments tree
      */
     public function treeAction(ThreadInterface $thread)
     {
@@ -27,6 +27,19 @@ class CommentController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
             'nodes' => $nodes
+        ));
+    }
+
+    /**
+     * Shows a thread comments list
+     */
+    public function listFeedAction(ThreadInterface $thread)
+    {
+        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread);
+
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
+            'nodes'     => $nodes,
+            'permalink' => $thread->getPermalink()
         ));
     }
 

@@ -2,6 +2,8 @@
 
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": form, "first": 0 == thread.numComments} %}
 
+    <a href="{{ path("fos_comment_thread_show_feed", {"identifier": thread.identifier}) }}">RSS feed</a>
+
     {% if thread.numComments > 0 %}
         <h3>Showing {{ thread.numComments }} comments</h3>
         <div class="fos_comment_thread_comments">

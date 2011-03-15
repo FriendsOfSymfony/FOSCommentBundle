@@ -41,6 +41,23 @@ class ThreadController extends ContainerAware
         ));
     }
 
+    /**
+     * Show an xml feed for a thread
+     *
+     * @return Response
+     **/
+    public function showFeedAction($identifier)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
+        if (!$thread) {
+            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
+        }
+
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(
+            'thread' => $thread
+        ));
+    }
+
     protected function createComment(ThreadInterface $thread)
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment();
