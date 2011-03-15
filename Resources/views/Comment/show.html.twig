@@ -1,12 +1,12 @@
 <div class="fos_comment_comment_show">
     <div class="fos_comment_comment_metas">
-        By [someone] - {{ comment.createdAt|date }}
+        By {{ comment.authorName }} - {{ comment.createdAt|date }}
     </div>
     <div class="fos_comment_comment_body">
         {{ comment.body }}
     </div>
     <div class="fos_comment_comment_reply">
-        <button data-id="{{ comment.id }}" data-name="[someone]" class="fos_comment_comment_reply_show_form">Reply</button>
+        <button data-id="{{ comment.id }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
     </div>
     <div class="fos_comment_comment_replies">
         {% include "FOSCommentBundle:Comment:tree.html.twig" with {"nodes": children|default([])} %}

@@ -23,7 +23,7 @@ class SecurityCommentBlamer implements CommentBlamerInterface
     public function blame(CommentInterface $comment)
     {
         if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $comment->setUser($this->securityContext->getToken()->getUser());
+            $comment->setAuthor($this->securityContext->getToken()->getUser());
         }
     }
 }
