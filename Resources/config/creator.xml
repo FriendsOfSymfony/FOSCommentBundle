@@ -5,6 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="fos_comment.creator.thread.default" class="FOS\CommentBundle\Creator\DefaultThreadCreator" public="false" scope="request">
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_comment.manager.thread" />
+        </service>
         <service id="fos_comment.creator.comment.default" class="FOS\CommentBundle\Creator\DefaultCommentCreator" public="false" scope="request">
             <argument type="service" id="request" />
             <argument type="service" id="fos_comment.manager.comment" />

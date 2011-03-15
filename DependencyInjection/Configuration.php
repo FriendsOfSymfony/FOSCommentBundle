@@ -46,6 +46,7 @@ class Configuration
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.form_factory.comment.default')->end()
                 ->end()
                 ->arrayNode('creator')->addDefaultsIfNotSet()
+                    ->scalarNode('thread')->cannotBeEmpty()->defaultValue('fos_comment.creator.thread.default')->end()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.creator.comment.default')->end()
                 ->end()
                 ->arrayNode('blamer')->addDefaultsIfNotSet()

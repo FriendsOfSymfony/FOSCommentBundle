@@ -38,6 +38,7 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.comment.class', $config['class']['form']['comment']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
+        $container->setAlias('fos_comment.creator.thread', $config['service']['creator']['thread']);
         $container->setAlias('fos_comment.creator.comment', $config['service']['creator']['comment']);
         $container->setAlias('fos_comment.blamer.comment', $config['service']['blamer']['comment']);
     }
