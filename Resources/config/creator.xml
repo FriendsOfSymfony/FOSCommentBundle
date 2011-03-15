@@ -13,7 +13,7 @@
             <argument type="service" id="request" />
             <argument type="service" id="fos_comment.manager.comment" />
             <argument type="service" id="fos_comment.blamer.comment" />
-            <argument type="service" id="fos_comment.akismet" on-invalid="NULL" />
+            <argument type="service" id="fos_comment.akismet" on-invalid="null" />
         </service>
     </services>
 
