@@ -18,12 +18,17 @@ class ThreadController extends ContainerAware
 {
     /**
      * Show a thread, its comments and the comment form if available
+     * There is no routing for this action, call it from a template:
+     * {% render "FOSComment:Thread:show" with {"identifier": "something_unique"} %}
+     * If the thread for the identifier does not exist, it will be created
+     *
+     * @return Response
      */
     public function showAction($identifier)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifierOrCreate($identifier);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
         if (!$thread) {
-            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
+            $thread = $this->container->get('fos_comment.creator.thread')->create($identifier);
         }
 
         $comment = $this->createComment($thread);
