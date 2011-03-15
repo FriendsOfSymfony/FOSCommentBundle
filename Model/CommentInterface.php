@@ -12,6 +12,11 @@ namespace FOS\CommentBundle\Model;
 interface CommentInterface
 {
     /**
+     * @return string name of the comment author
+     */
+    function getAuthorName();
+
+    /**
      * @return string
      */
     function getBody();
