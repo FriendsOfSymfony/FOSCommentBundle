@@ -55,7 +55,6 @@ class CommentManager extends BaseCommentManager
     {
         $comments = $this->repository
             ->createQueryBuilder()
-            ->select('_id', 'body', 'ancestors')
             ->field('thread.$id')->equals($thread->getIdentifier())
             ->sort('ancestors', 'ASC')
             ->getQuery()
