@@ -4,6 +4,7 @@
         <author>{{ node.comment.authorName }}</author>
         <updated>{{ node.comment.createdAt|date("c") }}</updated>
         <link rel="alternate">{{ permalink }}#{{ node.comment.id }}</link>
+        <summary>{{ node.comment.body }}</summary>
     </entry>
     {% include "FOSCommentBundle:Comment:listFeed.xml.twig" with {"nodes": node.children, "permalink": permalink} %}
 {% endfor %}
