@@ -26,12 +26,6 @@ class Configuration
 
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
 
-            ->arrayNode('akismet')->addDefaultsIfNotSet()
-                ->booleanNode('enabled')->defaultFalse()->end()
-                ->scalarNode('api_key')->end()
-                ->scalarNode('url')->end()
-            ->end()
-
             ->arrayNode('class')->isRequired()
                 ->arrayNode('model')->isRequired()
                     ->scalarNode('comment')->isRequired()->end()
@@ -52,6 +46,12 @@ class Configuration
                 ->arrayNode('blamer')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.blamer.comment.noop')->end()
                 ->end()
+            ->end()
+
+            ->arrayNode('akismet')->addDefaultsIfNotSet()
+                ->booleanNode('enabled')->defaultFalse()->end()
+                ->scalarNode('url')->end()
+                ->scalarNode('api_key')->end()
             ->end();
 
         return $treeBuilder->buildTree();
