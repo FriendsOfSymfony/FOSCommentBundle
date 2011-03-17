@@ -26,6 +26,7 @@ Add the FOS namespace to your autoloader
 ::
 
     // app/autoload.php
+
     $loader->registerNamespaces(array(
         'FOS' => __DIR__.'/../src',
         // your other namespaces
@@ -54,6 +55,7 @@ You have to include the CommentBundle in your Doctrine mapping configuration,
 along with the bundle containing your custom Comment class::
 
     # app/config/config.yml
+
     doctrine_mongo_db:
         document_managers:
             default:
@@ -76,6 +78,7 @@ ODM
 In YAML::
 
     # app/config/config.yml
+
     fos_comment:
         db_driver: mongodb
         class:
@@ -103,6 +106,7 @@ You will probably want to include the builtin routes, there are only two of them
 In YAML::
 
     # app/config/routing.yml
+
     fos_comment:
         resource: @FOSCommentBundle/Resources/config/routing.yml
 
@@ -135,13 +139,15 @@ Configuration example:
 
 All configuration options are listed below::
 
+    # app/config/config.yml
+
     fos_comment:
         db_driver:    mongodb
         class:
             model:
-                comment: Foo\BarBundle\Document\Comment
+                comment: Bar\CommentBundle\Document\Comment
             form:
-                comment: Foo\BarBundle\Document\CommentForm
+                comment: Bar\CommentBundle\Document\CommentForm
         service:
             form_factory:
                 comment: foo_bar.form_factory.comment
@@ -159,3 +165,98 @@ All configuration options are listed below::
 .. _Akismet: http://akismet.com
 .. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
 .. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
+
+Integration with FOS\UserBundle
+===============================
+
+By default, comments are made anonymously.
+You may want to use FOS\UserBundle authentication to sign the comments.
+
+Override the comment class
+--------------------------
+
+Create your own Comment class to add the relation to the User model.
+While there, make it implement SignedCommentInterface::
+
+    // src/Bar/CommentBundle/Document/Comment.php
+
+    <?php
+
+    namespace Bar\CommentBundle\Document;
+
+    use FOS\CommentBundle\Document\Comment as BaseComment;
+    use FOS\CommentBundle\Model\SignedCommentInterface;
+    use Bar\UserBundle\Document\User;
+
+    /**
+     * @mongodb:Document()
+     */
+    class Comment extends BaseComment implements SignedCommentInterface
+    {
+        /**
+         * Author of the comment
+         *
+         * @mongodb:ReferenceOne(targetDocument="Bar\UserBundle\Document\User")
+         * @var User
+         */
+        protected $author;
+
+        /**
+         * @return User
+         */
+        public function getAuthor()
+        {
+            return $this->author;
+        }
+
+        /**
+         * @param User
+         */
+        public function setAuthor($author)
+        {
+            $this->author = $author;
+        }
+
+        /**
+         * Get authorName
+         * @return string
+         */
+        public function getAuthorName()
+        {
+            return $this->getAuthor()->getUsername();
+        }
+    }
+
+Then declare your comment class::        
+
+    # app/config/config.yml
+
+    fos_comment:
+        db_driver:    mongodb
+        class:
+            model:
+                comment: Bar\CommentBundle\Document\Comment
+
+Use the builtin security blamer
+-------------------------------
+
+Now tell CommentBundle to use the authenticated FOS User to sign new comments::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            blamer:
+                comment: fos_comment.blamer.comment.security
+    
+And that's it, really.
+
+Notable services
+================
+
+You can replace the following services with your own implementation:
+
+Blamer
+------
+
+Interface: FOS/CommentBundle/Blamer/CommentBlamerInterface
