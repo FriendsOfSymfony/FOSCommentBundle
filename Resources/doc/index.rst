@@ -266,7 +266,7 @@ The default implementation does the following things to create a comment:
 
 - Sign the comment using the comment blamer
 
-- Validate the comment against spam if akismet is enabled
+- Validate the comment against spam using the spam detection
 
 - Choose a parent comment, if the request provides one
   If no parent is given, the new comment will be added to the tree root.
