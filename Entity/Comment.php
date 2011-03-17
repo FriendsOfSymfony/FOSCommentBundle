@@ -49,7 +49,7 @@ class Comment extends AbstractComment
      */
     public function getAncestors()
     {
-        return explode('/', $this->ancestors);
+        return $this->ancestors ? explode('/', $this->ancestors) : array();
     }
 
     /**

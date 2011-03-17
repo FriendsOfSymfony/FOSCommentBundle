@@ -63,12 +63,13 @@ class CommentManager extends BaseCommentManager
     {
         $comments = $this->repository
             ->createQueryBuilder('c')
-            ->join('c.Thread t')
-            ->where('t.identifier = ?', $thread->getIdentifier())
-            ->sort('ancestors', 'ASC')
+            ->join('c.thread', 't')
+            ->where('t.identifier = :thread')
+            ->orderBy('c.ancestors', 'ASC')
+            ->setParameter('thread', $thread->getIdentifier())
             ->getQuery()
             ->execute();
-
+            
         $tree = new Tree();
         foreach($comments as $index => $comment) {
             $path = $tree;
