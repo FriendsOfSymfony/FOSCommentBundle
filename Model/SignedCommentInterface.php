@@ -21,5 +21,5 @@ interface SignedCommentInterface
      *
      * @param UserInterface $user
      */
-    function setAuthor(UserInterface $user);
+    function setAuthor($author);
 }

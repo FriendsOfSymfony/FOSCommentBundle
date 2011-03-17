@@ -2,7 +2,7 @@
 
 namespace FOS\CommentBundle\Blamer;
 
-use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\SignedCommentInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -20,7 +20,7 @@ class SecurityCommentBlamer implements CommentBlamerInterface
         $this->securityContext = $securityContext;
     }
 
-    public function blame(CommentInterface $comment)
+    public function blame(SignedCommentInterface $comment)
     {
         if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $comment->setAuthor($this->securityContext->getToken()->getUser());
