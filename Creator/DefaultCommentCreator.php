@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\CommentBundle\Model\CommentManagerInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Blamer\CommentBlamerInterface;
-use FOS\CommentBundle\Akismet;
+use FOS\CommentBundle\SpamDetection\SpamDetectionInterface;
 
 /**
  * @see CommentCreatorInterface
@@ -16,21 +16,21 @@ class DefaultCommentCreator implements CommentCreatorInterface
     protected $request;
     protected $commentManager;
     protected $commentBlamer;
-    protected $akismet;
+    protected $spamDetection;
 
-    public function __construct(Request $request, CommentManagerInterface $commentManager, CommentBlamerInterface $commentBlamer, Akismet $akismet = null)
+    public function __construct(Request $request, CommentManagerInterface $commentManager, CommentBlamerInterface $commentBlamer, SpamDetectionInterface $spamDetection)
     {
         $this->request        = $request;
         $this->commentManager = $commentManager;
         $this->commentBlamer  = $commentBlamer;
-        $this->akismet        = $akismet;
+        $this->spamDetection  = $spamDetection;
     }
 
     public function create(CommentInterface $comment)
     {
         $this->commentBlamer->blame($comment);
 
-        if ($this->akismet && $this->akismet->isSpam($comment)) {
+        if ($this->spamDetection->isSpam($comment)) {
             return false;
         }
 

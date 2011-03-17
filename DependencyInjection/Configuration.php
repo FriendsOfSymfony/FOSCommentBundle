@@ -46,10 +46,12 @@ class Configuration
                 ->arrayNode('blamer')->addDefaultsIfNotSet()
                     ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.blamer.comment.noop')->end()
                 ->end()
+                ->arrayNode('spam_detection')->addDefaultsIfNotSet()
+                    ->scalarNode('comment')->cannotBeEmpty()->defaultValue('fos_comment.spam_detection.comment.noop')->end()
+                ->end()
             ->end()
 
             ->arrayNode('akismet')->addDefaultsIfNotSet()
-                ->booleanNode('enabled')->defaultFalse()->end()
                 ->scalarNode('url')->end()
                 ->scalarNode('api_key')->end()
             ->end();

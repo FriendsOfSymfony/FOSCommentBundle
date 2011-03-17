@@ -1,6 +1,6 @@
 <?php
 
-namespace FOS\CommentBundle;
+namespace FOS\CommentBundle\SpamDetection;
 
 use FOS\CommentBundle\Model\CommentInterface;
 

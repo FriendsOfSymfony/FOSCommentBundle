@@ -1,6 +1,6 @@
 <?php
 
-namespace FOS\CommentBundle;
+namespace FOS\CommentBundle\SpamDetection;
 
 use Zend\Service\Akismet\Akismet as ZendAkismet;
 use Symfony\Component\HttpFoundation\Request;
