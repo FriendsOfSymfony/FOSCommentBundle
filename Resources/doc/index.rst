@@ -211,6 +211,39 @@ Now tell CommentBundle to use the authenticated FOS User to sign new comments::
     
 And that's it, really.
 
+Notable services
+================
+
+You can replace the following services with your own implementation:
+
+Blamer
+------
+
+Interface: FOS/CommentBundle/Blamer/CommentBlamerInterface
+
+The blamer service is responsible for giving an author name to a new comment.
+
+CommentBundle provides two implementations:
+
+- fos_comment.blamer.comment.noop
+
+  This one does nothing. Comments are anonymous.
+  It is the default blamer implementation.
+
+- fos_comment.blamer.comment.security 
+
+  Uses Symfony2 Security token user to sign comments.
+  Expects comments implementing SignedCommentInterface.
+
+You can change the blamer implementation from your app config::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            blamer:
+                comment: bar_comment.my_fancy_comment_blamer
+
 Configuration example:
 ======================
 
@@ -242,15 +275,3 @@ All configuration options are listed below::
 .. _Akismet: http://akismet.com
 .. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
 .. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
-
-Notable services
-================
-
-You can replace the following services with your own implementation:
-
-Blamer
-------
-
-Interface: FOS/CommentBundle/Blamer/CommentBlamerInterface
-
---- WIP
