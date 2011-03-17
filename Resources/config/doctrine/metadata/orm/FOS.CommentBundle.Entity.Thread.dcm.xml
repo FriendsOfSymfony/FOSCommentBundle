@@ -5,16 +5,16 @@
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="FOS\CommentBundle\Entity\Thread" table="fos_comment_thread">
-        
+
         <id name="identifier" type="string" column="identifier" />
-        
+
         <field name="permalink" column="permalink" type="string" />
-        
+
         <field name="isCommentable" column="isCommentable" type="boolean" />
-        
+
         <field name="numComments" column="numComments" type="integer" />
-    
+
         <field name="lastCommentAt" column="lastCommentAt" type="datetime" nullable="true" />
     </entity>
-    
+
 </doctrine-mapping>
