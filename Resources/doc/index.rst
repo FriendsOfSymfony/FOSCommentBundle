@@ -1,5 +1,5 @@
 Provides threaded comments for your Symfony2 Project.
-[See it in action](http://lichess.org/1j21ti43)
+`See it in action`_
 
 Features
 ========
@@ -8,7 +8,7 @@ Features
 - Can include comment threads in any page
 - Compatible with any persistence backend. Actually Doctrine2 mongodb-odm is implemented.
 - Optional integration with FOS\UserBundle
-- Optional integration with [Akismet](http://akismet.com)
+- Optional integration with `Akismet`_
 
 Installation
 ============
@@ -17,12 +17,14 @@ Add CommentBundle to your src/ dir
 -------------------------------------
 
 ::
+
     $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git src/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
 
 ::
+
     // app/autoload.php
     $loader->registerNamespaces(array(
         'FOS' => __DIR__.'/../src',
@@ -71,9 +73,7 @@ and a Comment class.
 ODM
 ~~~
 
-In YAML:
-
-::
+In YAML::
 
     # app/config/config.yml
     fos_comment:
@@ -82,9 +82,7 @@ In YAML:
             model:
                 comment: FOS\CommentBundle\Document\Comment
 
-Or if you prefer XML:
-
-::
+Or if you prefer XML::
 
     # app/config/config.xml
 
@@ -102,17 +100,13 @@ Register routing
 
 You will probably want to include the builtin routes, there are only two of them:
 
-In YAML:
-
-::
+In YAML::
 
     # app/config/routing.yml
     fos_comment:
         resource: @FOSCommentBundle/Resources/config/routing.yml
 
-Or if you prefer XML:
-
-::
+Or if you prefer XML::
 
     # app/config/routing.xml
 
@@ -121,9 +115,8 @@ Or if you prefer XML:
 Enable comments on a page
 -------------------------
 
-It is as easy as it can get. In any template, add the following:
+It is as easy as it can get. In any template, add the following::
 
-::
     {% render "FOSComment:Thread:show" with {"identifier": "foo"} %}
 
 The first time the page is rendered, the "foo" thread is created.
@@ -135,9 +128,7 @@ Style it
 
 Nested comments require CSS and JS to be usable.
 Such assets are not provided in this bundle,
-but you can take inspiration from these ones:
-[CSS](https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css)
-[JS](https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js)
+but you can take inspiration from these ones: `CSS`_ `JS`_
 
 Configuration example:
 ======================
@@ -163,3 +154,8 @@ All configuration options are listed below::
             enabled: true
             url: http://lichess.org
             api_key: keep_it_secret
+
+.. _See it in action: http://lichess.org/1j21ti43
+.. _Akismet: http://akismet.com
+.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
+.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
