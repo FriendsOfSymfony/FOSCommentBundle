@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="fos_comment.model.thread.class">FOS\CommentBundle\Entity\Thread</parameter>
+        <parameter key="fos_comment.model.comment.class">FOS\CommentBundle\Entity\Comment</parameter>
+
+        <parameter key="fos_comment.manager.thread.class">FOS\CommentBundle\Entity\ThreadManager</parameter>
+        <parameter key="fos_comment.manager.comment.class">FOS\CommentBundle\Entity\CommentManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="fos_comment.manager.thread" class="%fos_comment.manager.thread.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%fos_comment.model.thread.class%</argument>
+        </service>
+        <service id="fos_comment.manager.comment" class="%fos_comment.manager.comment.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%fos_comment.model.comment.class%</argument>
+        </service>
+    </services>
+
+</container>

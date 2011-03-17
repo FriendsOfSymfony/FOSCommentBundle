@@ -1,15 +1,15 @@
 <?php
 
 /**
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\Document;
+namespace FOS\CommentBundle\Entity;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManager;
 use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 
@@ -22,14 +22,14 @@ class ThreadManager extends BaseThreadManager
     /**
      * Constructor.
      *
-     * @param DocumentManager         $dm
-     * @param string                  $class
+     * @param EntityManager     $em
+     * @param string            $class
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(EntityManager $em, $class)
     {
-        $this->dm         = $dm;
-        $this->repository = $dm->getRepository($class);
-        $this->class      = $dm->getClassMetadata($class)->name;
+        $this->em         = $em;
+        $this->repository = $em->getRepository($class);
+        $this->class      = $em->getClassMetadata($class)->name;
     }
 
     /**
@@ -50,8 +50,8 @@ class ThreadManager extends BaseThreadManager
      */
     function addThread(ThreadInterface $thread)
     {
-        $this->dm->persist($thread);
-        $this->dm->flush();
+        $this->em->persist($thread);
+        $this->em->flush();
     }
 
     /**

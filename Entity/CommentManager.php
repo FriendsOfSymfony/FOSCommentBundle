@@ -1,15 +1,15 @@
 <?php
 
 /**
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\Document;
+namespace FOS\CommentBundle\Entity;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
@@ -19,21 +19,21 @@ use DateTime;
 
 class CommentManager extends BaseCommentManager
 {
-    protected $dm;
+    protected $em;
     protected $repository;
     protected $class;
 
     /**
      * Constructor.
      *
-     * @param DocumentManager         $dm
+     * @param EntityManager           $em
      * @param string                  $class
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(EntityManager $em, $class)
     {
-        $this->dm         = $dm;
-        $this->repository = $dm->getRepository($class);
-        $this->class      = $dm->getClassMetadata($class)->name;
+        $this->em         = $em;
+        $this->repository = $em->getRepository($class);
+        $this->class      = $em->getClassMetadata($class)->name;
     }
 
     /*
@@ -62,12 +62,14 @@ class CommentManager extends BaseCommentManager
     public function findCommentsByThread(ThreadInterface $thread)
     {
         $comments = $this->repository
-            ->createQueryBuilder()
-            ->field('thread.$id')->equals($thread->getIdentifier())
-            ->sort('ancestors', 'ASC')
+            ->createQueryBuilder('c')
+            ->join('c.thread', 't')
+            ->where('t.identifier = :thread')
+            ->orderBy('c.ancestors', 'ASC')
+            ->setParameter('thread', $thread->getIdentifier())
             ->getQuery()
             ->execute();
-
+            
         $tree = new Tree();
         foreach($comments as $index => $comment) {
             $path = $tree;
@@ -101,8 +103,8 @@ class CommentManager extends BaseCommentManager
         $thread = $comment->getThread();
         $thread->setNumComments($thread->getNumComments() + 1);
         $thread->setLastCommentAt(new DateTime());
-        $this->dm->persist($comment);
-        $this->dm->flush();
+        $this->em->persist($comment);
+        $this->em->flush();
     }
 
     /**

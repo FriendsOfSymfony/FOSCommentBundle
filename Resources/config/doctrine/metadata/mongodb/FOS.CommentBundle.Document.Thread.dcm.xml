@@ -13,6 +13,8 @@
         <field name="isCommentable" fieldName="isCommentable" type="boolean" />
 
         <field name="numComments" fieldName="numComments" type="int" />
+        
+        <field name="lastCommentAt" fieldName="lastCommentAt" type="date" />
 
     </document>
 
