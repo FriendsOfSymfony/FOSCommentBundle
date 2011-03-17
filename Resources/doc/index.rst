@@ -219,7 +219,7 @@ You can replace the following services with your own implementation:
 Blamer
 ------
 
-Interface: FOS/CommentBundle/Blamer/CommentBlamerInterface
+Interface: src/FOS/CommentBundle/Blamer/CommentBlamerInterface.php
 
 The blamer service is responsible for giving an author name to a new comment.
 
@@ -242,7 +242,34 @@ You can change the blamer implementation from your app config::
     fos_comment:
         service:
             blamer:
-                comment: bar_comment.my_fancy_comment_blamer
+                comment: bar_comment.my_comment_blamer
+
+Creator
+-------
+
+Interface: src/FOS/CommentBundle/Creator/CommentCreatorInterface.php
+
+Responsible for creating new comments from a request.
+
+The default implementation does the following things to create a comment:
+
+- Sign the comment using the comment blamer
+
+- Validate the comment against spam if akismet is enabled
+
+- Choose a parent comment, if the request provides one
+  If no parent is given, the new comment will be added to the tree root.
+
+- Save the comment using the comment manager
+
+You can change the creator implementation from your app config::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            creator:
+                comment: bar_comment.my_comment_creator
 
 Configuration example:
 ======================
