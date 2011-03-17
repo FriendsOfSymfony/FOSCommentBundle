@@ -121,7 +121,7 @@ Enable comments on a page
 
 It is as easy as it can get. In any template, add the following::
 
-    {% render "FOSComment:Thread:show" with {"identifier": "foo"} %}
+    {% render "FOSCommentBundle:Thread:show" with {"identifier": "foo"} %}
 
 The first time the page is rendered, the "foo" thread is created.
 
