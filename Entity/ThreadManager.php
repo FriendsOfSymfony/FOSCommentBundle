@@ -48,7 +48,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @param ThreadInterface $thread
      */
-    function addThread(ThreadInterface $thread)
+    public function addThread(ThreadInterface $thread)
     {
         $this->em->persist($thread);
         $this->em->flush();
