@@ -12,7 +12,9 @@
         
         <field name="body" column="body" type="string" />
         
-        <many-to-one field="thread" target-entity="FOS\CommentBundle\Entity\Thread" />
+        <many-to-one field="thread" target-entity="FOS\CommentBundle\Entity\Thread">
+            <join-column name="thread_identifier" referenced-column-name="identifier" />
+        </many-to-one>
         
         <field name="ancestors" column="ancestors" type="string" length="1024" />
         
