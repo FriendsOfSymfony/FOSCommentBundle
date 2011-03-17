@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 
-class Akismet
+class AkismetSpamDetection implements SpamDetectionInterface
 {
     protected $request;
     protected $akismet;
