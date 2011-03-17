@@ -11,6 +11,8 @@
     {% block fos_comment_form_fields %}
         <textarea name="{{ form.body.name }}"></textarea>
         <input type="hidden" name="{{ form.thread.name }}" value="{{ form.thread.displayedData }}" />
+        
+        {{ form_hidden(form) }}
     {% endblock %}
 
     <div class="fos_comment_submit">
