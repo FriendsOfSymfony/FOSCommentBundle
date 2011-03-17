@@ -219,7 +219,13 @@ You can replace the following services with your own implementation:
 Blamer
 ------
 
-Interface: Blamer/CommentBlamerInterface.php
+Blamer/CommentBlamerInterface.php::
+
+    interface CommentBlamerInterface
+    {
+        function blame(CommentInterface $comment);
+    }
+
 
 The blamer service is responsible for giving an author name to a new comment.
 
@@ -247,7 +253,12 @@ You can change the blamer implementation from your app config::
 Creator
 -------
 
-Interface: Creator/CommentCreatorInterface.php
+Creator/CommentCreatorInterface.php::
+
+    interface CommentCreatorInterface
+    {
+        function create(CommentInterface $comment);
+    }
 
 Responsible for creating new comments from a request.
 
@@ -270,6 +281,47 @@ You can change the creator implementation from your app config::
         service:
             creator:
                 comment: bar_comment.my_comment_creator
+
+Spam detection
+--------------
+
+SpamDetection/SpamDetectionInterface.php::
+
+    interface SpamDetectionInterface
+    {
+        function isSpam(CommentInterface $comment);
+    }
+
+Decides if a comment is a spam or not.
+
+CommentBundle ships with two implementations:
+
+- fos_comment.spam_detection.comment.noop
+
+  This one does nothing. Comments are never considered as spam.
+  It is the default spam_detection implementation.
+
+- fos_comment.spam_detection.comment.akismet 
+
+  Uses `Akismet`_ to check comments against spam.
+  Requires two configuration values from your app config::
+
+    fos_comment:
+        service:
+            spam_detection:
+                comment: bar_comment.spam_detection.comment.akismet
+        akismet:
+            url: http://website.com/
+            api_key: keep_it_secret
+
+You can change the blamer implementation from your app config::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            blamer:
+                comment: bar_comment.my_comment_spam_detection
 
 Configuration example:
 ======================
