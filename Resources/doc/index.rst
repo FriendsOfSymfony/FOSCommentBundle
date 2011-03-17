@@ -202,14 +202,6 @@ While there, make it implement SignedCommentInterface::
         protected $author;
 
         /**
-         * @return User
-         */
-        public function getAuthor()
-        {
-            return $this->author;
-        }
-
-        /**
          * @param User
          */
         public function setAuthor($author)

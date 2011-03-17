@@ -12,13 +12,6 @@ interface SignedCommentInterface
     /**
      * Sets the author of the Comment
      *
-     * @return UserInterface
-     */
-    function getAuthor();
-
-    /**
-     * Sets the author of the Comment
-     *
      * @param UserInterface $user
      */
     function setAuthor($author);
