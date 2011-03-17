@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use FOS\CommentBundle\Document\Comment;
+use FOS\CommentBundle\Entity\Comment;
 
 class LoadCommentData implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
 {
