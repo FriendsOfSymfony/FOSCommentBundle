@@ -282,19 +282,20 @@ All configuration options are listed below::
         db_driver:    mongodb
         class:
             model:
-                comment: Bar\CommentBundle\Document\Comment
+                comment: FOS\CommentBundle\Document\Comment
             form:
-                comment: Bar\CommentBundle\Document\CommentForm
+                comment: FOS\CommentBundle\Document\CommentForm
         service:
             form_factory:
-                comment: foo_bar.form_factory.comment
+                comment: foo_bar.form_factory.comment.default
             creator:
-                comment: foo_bar.creator.comment
-                thread: foo_bar.creator.thread
+                comment: foo_bar.creator.comment.default
+                thread: foo_bar.creator.thread.default
             blamer:
-                comment: foo_bar.blamer.comment
+                comment: foo_bar.blamer.comment.noop
+            spam_detection:
+                comment: foo_bar.spam_detection.comment.noop
         akismet:
-            enabled: true
             url: http://lichess.org
             api_key: keep_it_secret
 
