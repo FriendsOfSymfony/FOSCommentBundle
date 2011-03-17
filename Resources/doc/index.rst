@@ -134,38 +134,6 @@ Nested comments require CSS and JS to be usable.
 Such assets are not provided in this bundle,
 but you can take inspiration from these ones: `CSS`_ `JS`_
 
-Configuration example:
-======================
-
-All configuration options are listed below::
-
-    # app/config/config.yml
-
-    fos_comment:
-        db_driver:    mongodb
-        class:
-            model:
-                comment: Bar\CommentBundle\Document\Comment
-            form:
-                comment: Bar\CommentBundle\Document\CommentForm
-        service:
-            form_factory:
-                comment: foo_bar.form_factory.comment
-            creator:
-                comment: foo_bar.creator.comment
-                thread: foo_bar.creator.thread
-            blamer:
-                comment: foo_bar.blamer.comment
-        akismet:
-            enabled: true
-            url: http://lichess.org
-            api_key: keep_it_secret
-
-.. _See it in action: http://lichess.org/1j21ti43
-.. _Akismet: http://akismet.com
-.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
-.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
-
 Integration with FOS\UserBundle
 ===============================
 
@@ -243,6 +211,38 @@ Now tell CommentBundle to use the authenticated FOS User to sign new comments::
     
 And that's it, really.
 
+Configuration example:
+======================
+
+All configuration options are listed below::
+
+    # app/config/config.yml
+
+    fos_comment:
+        db_driver:    mongodb
+        class:
+            model:
+                comment: Bar\CommentBundle\Document\Comment
+            form:
+                comment: Bar\CommentBundle\Document\CommentForm
+        service:
+            form_factory:
+                comment: foo_bar.form_factory.comment
+            creator:
+                comment: foo_bar.creator.comment
+                thread: foo_bar.creator.thread
+            blamer:
+                comment: foo_bar.blamer.comment
+        akismet:
+            enabled: true
+            url: http://lichess.org
+            api_key: keep_it_secret
+
+.. _See it in action: http://lichess.org/1j21ti43
+.. _Akismet: http://akismet.com
+.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
+.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
+
 Notable services
 ================
 
@@ -252,3 +252,5 @@ Blamer
 ------
 
 Interface: FOS/CommentBundle/Blamer/CommentBlamerInterface
+
+--- WIP
