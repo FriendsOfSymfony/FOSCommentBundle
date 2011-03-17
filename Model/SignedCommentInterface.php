@@ -7,7 +7,7 @@ use FOS\UserBundle\Model\UserInterface;
 /**
  * A signed comment is bound to a FOS\UserBundle User model.
  */
-interface SignedCommentInterface
+interface SignedCommentInterface extends CommentInterface
 {
     /**
      * Sets the author of the Comment

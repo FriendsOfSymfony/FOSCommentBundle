@@ -2,9 +2,12 @@
 
 namespace FOS\CommentBundle\Blamer;
 
+use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
+
+use InvalidArgumentException;
 
 /**
  * Blames a comment using Symfony2 security component
@@ -20,8 +23,11 @@ class SecurityCommentBlamer implements CommentBlamerInterface
         $this->securityContext = $securityContext;
     }
 
-    public function blame(SignedCommentInterface $comment)
+    public function blame(CommentInterface $comment)
     {
+        if (!$comment instanceof SignedCommentInterface) {
+            throw new InvalidArgumentException('The comment must implement SignedCommentInterface');
+        }
         if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $comment->setAuthor($this->securityContext->getToken()->getUser());
         }
