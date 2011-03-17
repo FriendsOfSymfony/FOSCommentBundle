@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\Tree;
 use InvalidArgumentException;
 use DateTime;
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace FOS\CommentBundle\Document;
+namespace FOS\CommentBundle\Model;
 
 class Tree
 {
     private $comment;
     private $children = array();
 
-    public function __construct(Comment $comment = null)
+    public function __construct(CommentInterface $comment = null)
     {
         $this->comment = $comment;
     }
 
-    public function add(Comment $comment)
+    public function add(CommentInterface $comment)
     {
         $this->children[$comment->getId()] = new Tree($comment);
     }
