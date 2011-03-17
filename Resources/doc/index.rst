@@ -219,7 +219,7 @@ You can replace the following services with your own implementation:
 Blamer
 ------
 
-Interface: src/FOS/CommentBundle/Blamer/CommentBlamerInterface.php
+Interface: Blamer/CommentBlamerInterface.php
 
 The blamer service is responsible for giving an author name to a new comment.
 
@@ -247,7 +247,7 @@ You can change the blamer implementation from your app config::
 Creator
 -------
 
-Interface: src/FOS/CommentBundle/Creator/CommentCreatorInterface.php
+Interface: Creator/CommentCreatorInterface.php
 
 Responsible for creating new comments from a request.
 
@@ -303,3 +303,48 @@ All configuration options are listed below::
 .. _Akismet: http://akismet.com
 .. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
 .. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
+
+Implement a new persistence backend
+===================================
+
+Manager
+-------
+
+To provide a new backend implementation:, you must implement these two interfaces:
+
+- Model/ThreadManagerInterface.php
+- Model/CommentManagerInterface.php 
+
+MongoDB manager implementation examples:
+
+- Document/ThreadManager.php
+- Document/CommentManager.php 
+
+Note that the MongoDB manager classes only contain MongoDB specific logic,
+backend agnostic logic lives in the abstract managers.
+
+Model
+-----
+
+You should also provide concrete models for the interfaces:
+
+- Model/ThreadInterface.php
+- Model/CommentInterface.php 
+
+MongoDB model implementation examples:
+
+- Document/Comment.php 
+- Document/Thread.php
+
+Note that the MongoDB model classes only contain MongoDB specific logic,
+backend agnostic logic lives in the abstract models.
+
+Mapping
+-------
+
+You may also need to define mappings.
+
+MongoDB mapping examples:
+
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
