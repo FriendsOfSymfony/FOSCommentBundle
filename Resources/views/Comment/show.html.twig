@@ -1,4 +1,4 @@
-<div class="fos_comment_comment_show" id="{{ comment.id }}">
+<div class="fos_comment_comment_show depth_{{ depth }}" id="{{ comment.id }}">
     <div class="fos_comment_comment_metas">
         By {{ comment.authorName }} - {{ comment.createdAt|date }}
     </div>
@@ -9,6 +9,6 @@
         <button data-id="{{ comment.id }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
     </div>
     <div class="fos_comment_comment_replies">
-        {% include "FOSCommentBundle:Comment:tree.html.twig" with {"nodes": children|default([])} %}
+        {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth + 1, "displayDepth": displayDepth } %}
     </div>
 </div>

@@ -18,6 +18,8 @@
 
         <field name="ancestors" column="ancestors" type="string" length="1024" nullable="true" />
 
+        <field name="depth" column="depth" type="integer" />
+
         <field name="createdAt" column="createdAt" type="datetime" />
 
     </entity>

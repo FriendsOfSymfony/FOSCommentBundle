@@ -6,3 +6,8 @@ fos_comment_comment_create:
 fos_comment_thread_show_feed:
     pattern:        /{identifier}.xml
     defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
+
+fos_comment_comment_loadmore:
+    pattern:        /load/{commentId}
+    defaults:       { _controller: FOSCommentBundle:Comment:load }
+    requirements:   { _method: "get" }
