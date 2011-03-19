@@ -6,7 +6,7 @@ Features
 
 - Manages trees of comments
 - Can include comment threads in any page
-- Compatible with any persistence backend. Actually Doctrine2 mongodb-odm is implemented.
+- Compatible with any persistence backend. Actually Doctrine2 mongodb-odm and ORM are implemented.
 - Optional integration with FOS\UserBundle
 - Optional integration with `Akismet`_
 
@@ -101,8 +101,7 @@ ORM
 ~~~
 
 The ORM implementation does not provide a concrete Comment class for your use, 
-you must create one. If you wish to have signed comments, your class should
-implement SignedCommentInterface::
+you must create one::
 
     // src/MyProject/MyBundle/Entity/Comment.php
     
@@ -398,11 +397,6 @@ All configuration options are listed below::
             url: http://lichess.org
             api_key: keep_it_secret
 
-.. _See it in action: http://lichess.org/1j21ti43
-.. _Akismet: http://akismet.com
-.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
-.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
-
 Implement a new persistence backend
 ===================================
 
@@ -447,3 +441,8 @@ MongoDB mapping examples:
 
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
+
+.. _See it in action: http://lichess.org/1j21ti43
+.. _Akismet: http://akismet.com
+.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
+.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
