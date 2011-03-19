@@ -40,7 +40,7 @@ class CommentManager extends BaseCommentManager
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
      *
-     * Will query for an addtional level of depth when provided
+     * Will query for an additional level of depth when provided
      * so templates can determine to display a 'load more comments' link.
      *
      * @param  string  $identifier
@@ -72,8 +72,7 @@ class CommentManager extends BaseCommentManager
             ->orderBy('c.ancestors', 'ASC')
             ->setParameter('thread', $thread->getIdentifier());
 
-        if ($depth > 0)
-        {
+        if ($depth > 0) {
             // Queries for an additional level so templates can determine
             // if the final 'depth' layer has children.
             
@@ -104,8 +103,7 @@ class CommentManager extends BaseCommentManager
            
         $comments = $qb->getQuery()->execute();
         
-        if (!$comments)
-        {
+        if (!$comments) {
             return array();
         }
 
