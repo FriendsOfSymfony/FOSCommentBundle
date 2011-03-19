@@ -21,12 +21,27 @@ class CommentController extends ContainerAware
     /**
      * Shows a thread comments tree
      */
-    public function treeAction(ThreadInterface $thread)
+    public function treeAction(ThreadInterface $thread, $displayDepth = null)
     {
-        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread);
+        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $displayDepth);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
-            'nodes' => $nodes
+            'nodes' => $nodes,
+            'displayDepth' => $displayDepth
+        ));
+    }
+    
+    /**
+     * Loads a tree branch of comments
+     */
+    public function loadAction($commentId)
+    {
+        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByCommentId($commentId))
+            throw new NotFoundHttpException('No comment branch found');
+
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:load.html.twig', array(
+            'nodes' => $nodes,
+            'depth' => $nodes[0]['comment']->getDepth()
         ));
     }
 

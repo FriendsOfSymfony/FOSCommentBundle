@@ -23,7 +23,11 @@ interface CommentManagerInterface
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
      *
-     * @param  string $identifier
+     * Will query for an addtional level of depth when provided
+     * so templates can determine to display a 'load more comments' link.
+     *
+     * @param  string  $identifier
+     * @param  integer $depth
      * @return array(
      *     0 => array(
      *         'comment' => CommentInterface,
@@ -42,7 +46,7 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    function findCommentsByThread(ThreadInterface $thread);
+    function findCommentsByThread(ThreadInterface $thread, $depth = null);
 
     /**
      * Adds a comment in a thread

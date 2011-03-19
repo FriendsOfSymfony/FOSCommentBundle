@@ -24,7 +24,7 @@ class ThreadController extends ContainerAware
      *
      * @return Response
      */
-    public function showAction($identifier)
+    public function showAction($identifier, $displayDepth = null)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
         if (!$thread) {
@@ -37,6 +37,7 @@ class ThreadController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
             'thread' => $thread,
+            'displayDepth'  => $displayDepth,
             'form'   => $form
         ));
     }

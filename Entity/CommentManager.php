@@ -40,7 +40,11 @@ class CommentManager extends BaseCommentManager
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
      *
-     * @param  string $identifier
+     * Will query for an addtional level of depth when provided
+     * so templates can determine to display a 'load more comments' link.
+     *
+     * @param  string  $identifier
+     * @param  integer $depth An optional depth limit
      * @return array(
      *     0 => array(
      *         'comment' => CommentInterface,
@@ -59,21 +63,69 @@ class CommentManager extends BaseCommentManager
      *         ...
      *     )
      */
-    public function findCommentsByThread(ThreadInterface $thread)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
-        $comments = $this->repository
+        $qb = $this->repository
             ->createQueryBuilder('c')
             ->join('c.thread', 't')
             ->where('t.identifier = :thread')
             ->orderBy('c.ancestors', 'ASC')
-            ->setParameter('thread', $thread->getIdentifier())
+            ->setParameter('thread', $thread->getIdentifier());
+
+        if ($depth > 0)
+        {
+            // Queries for an additional level so templates can determine
+            // if the final 'depth' layer has children.
+            
+            $qb->andWhere('c.depth <= :depth')
+               ->setParameter('depth', $depth + 1);
+        }
+
+        $comments = $qb
             ->getQuery()
             ->execute();
-            
+
+        return $this->organiseComments($comments);
+    }
+    
+    /**
+     * Returns the requested comment tree branch
+     *
+     * @param integer $commentId 
+     * @return array See findCommentsByThread
+     */
+    public function findCommentsByCommentId($commentId)
+    {
+        $qb = $this->repository->createQueryBuilder('c');
+        $qb->join('c.thread', 't')
+           ->where('LOCATE(:path, CONCAT(\'/\', CONCAT(c.ancestors, \'/\'))) > 0')
+           ->orderBy('c.ancestors', 'ASC')
+           ->setParameter('path', "/{$commentId}/");
+           
+        $comments = $qb->getQuery()->execute();
+        
+        if (!$comments)
+        {
+            return array();
+        }
+
+        $trimParents = current($comments)->getAncestors();
+        return $this->organiseComments($comments, $trimParents);
+    }
+    
+    protected function organiseComments($comments, $trimParents = null)
+    {
         $tree = new Tree();
         foreach($comments as $index => $comment) {
             $path = $tree;
-            foreach ($comment->getAncestors() as $ancestor) {
+            
+            $ancestors = $comment->getAncestors();
+            if (is_array($trimParents))
+            {
+                $ancestors = array_diff($ancestors, $trimParents);
+            }
+            
+            foreach ($ancestors as $ancestor) {
                 $path = $path->traverse($ancestor);
             }
             $path->add($comment);
