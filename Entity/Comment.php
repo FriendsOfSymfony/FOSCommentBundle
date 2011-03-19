@@ -32,7 +32,7 @@ class Comment extends AbstractComment
      *
      * @var integer
      */
-    protected $depth = 1;
+    protected $depth = 0;
 
     /**
      * @return Thread
@@ -66,7 +66,7 @@ class Comment extends AbstractComment
     public function setAncestors(array $ancestors)
     {
         $this->ancestors = implode('/', $ancestors);
-        $this->depth = count($ancestors) + 1;
+        $this->depth = count($ancestors);
     }
     
     /**
