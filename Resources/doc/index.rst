@@ -96,6 +96,53 @@ Or if you prefer XML::
             />
         </fos_comment:class>
     </fos_comment:config>
+    
+ORM
+~~~
+
+The ORM implementation does not provide a concrete Comment class for your use, 
+you must create one. If you wish to have signed comments, your class should
+implement SignedCommentInterface::
+
+    // src/MyProject/MyBundle/Entity/Comment.php
+    
+    namespace MyProject\MyBundle\Entity;
+    use FOS\CommentBundle\Entity\Comment as BaseComment;
+    
+    /**
+     * @orm:Entity
+     */
+    class Comment extends BaseComment
+    {
+        /**
+         * @orm:Id
+         * @orm:Column(type="integer")
+         * @orm:generatedValue(strategy="AUTO")
+         */
+        protected $id;
+    }
+
+Configure your application::
+
+    # app/config/config.yml
+    
+    fos_comment:
+        db_driver: orm
+        class:
+            model:
+                comment: MyProject\MyBundle\Entity\Comment
+
+Or if you prefer XML::
+
+    # app/config/config.xml
+    
+    <fos_comment:config db-driver="orm">
+        <fos_comment:class>
+            <fos_comment:model
+                comment="MyProject\MyBundle\Entity\Comment"
+            />
+        </fos_comment:class>
+    </fos_comment:config>
 
 
 Register routing

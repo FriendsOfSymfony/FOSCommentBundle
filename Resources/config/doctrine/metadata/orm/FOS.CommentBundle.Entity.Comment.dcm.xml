@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="FOS\CommentBundle\Entity\Comment" table="fos_comment_comment">
+    <mapped-superclass name="FOS\CommentBundle\Entity\Comment" table="fos_comment_comment">
 
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
@@ -20,6 +20,6 @@
 
         <field name="createdAt" column="createdAt" type="datetime" />
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>
