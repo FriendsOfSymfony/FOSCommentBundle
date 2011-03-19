@@ -100,7 +100,9 @@ Or if you prefer XML::
 ORM
 ~~~
 
-The ORM implementation does not provide a concrete Comment class for your use, you must create one. If you wish to have signed comments, your class should implement SignedCommentInterface::
+The ORM implementation does not provide a concrete Comment class for your use, 
+you must create one. If you wish to have signed comments, your class should
+implement SignedCommentInterface::
 
     // src/MyProject/MyBundle/Entity/Comment.php
     
