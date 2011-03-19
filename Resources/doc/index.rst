@@ -6,7 +6,7 @@ Features
 
 - Manages trees of comments
 - Can include comment threads in any page
-- Compatible with any persistence backend. Actually Doctrine2 mongodb-odm is implemented.
+- Compatible with any persistence backend. Actually Doctrine2 mongodb-odm and ORM are implemented.
 - Optional integration with FOS\UserBundle
 - Optional integration with `Akismet`_
 
@@ -93,6 +93,52 @@ Or if you prefer XML::
         <fos_comment:class>
             <fos_comment:model
                 comment="FOS\CommentBundle\Document\Comment"
+            />
+        </fos_comment:class>
+    </fos_comment:config>
+    
+ORM
+~~~
+
+The ORM implementation does not provide a concrete Comment class for your use, 
+you must create one::
+
+    // src/MyProject/MyBundle/Entity/Comment.php
+    
+    namespace MyProject\MyBundle\Entity;
+    use FOS\CommentBundle\Entity\Comment as BaseComment;
+    
+    /**
+     * @orm:Entity
+     */
+    class Comment extends BaseComment
+    {
+        /**
+         * @orm:Id
+         * @orm:Column(type="integer")
+         * @orm:generatedValue(strategy="AUTO")
+         */
+        protected $id;
+    }
+
+Configure your application::
+
+    # app/config/config.yml
+    
+    fos_comment:
+        db_driver: orm
+        class:
+            model:
+                comment: MyProject\MyBundle\Entity\Comment
+
+Or if you prefer XML::
+
+    # app/config/config.xml
+    
+    <fos_comment:config db-driver="orm">
+        <fos_comment:class>
+            <fos_comment:model
+                comment="MyProject\MyBundle\Entity\Comment"
             />
         </fos_comment:class>
     </fos_comment:config>
@@ -351,11 +397,6 @@ All configuration options are listed below::
             url: http://lichess.org
             api_key: keep_it_secret
 
-.. _See it in action: http://lichess.org/1j21ti43
-.. _Akismet: http://akismet.com
-.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
-.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
-
 Implement a new persistence backend
 ===================================
 
@@ -400,3 +441,8 @@ MongoDB mapping examples:
 
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
+
+.. _See it in action: http://lichess.org/1j21ti43
+.. _Akismet: http://akismet.com
+.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
+.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js

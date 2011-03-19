@@ -3,6 +3,7 @@
 namespace FOS\CommentBundle\SpamDetection;
 
 use Zend\Service\Akismet\Akismet as ZendAkismet;
+use Zend\Service\Akismet\Exception as AkismetException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
@@ -22,7 +23,11 @@ class AkismetSpamDetection implements SpamDetectionInterface
     {
         $data = array_merge($this->getRequestData(), $this->getCommentData($comment));
 
-        return $this->akismet->isSpam($data);
+        try {
+            return $this->akismet->isSpam($data);
+        } catch (AkismetException $e) {
+            return true;
+        }
     }
 
     protected function getCommentData(CommentInterface $comment)
