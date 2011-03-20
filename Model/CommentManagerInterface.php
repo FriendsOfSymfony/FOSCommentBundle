@@ -54,7 +54,7 @@ interface CommentManagerInterface
      * @param integer $commentId
      * @return array See findCommentsByThread
      */
-    function findCommentsByCommentId($commentId)
+    function findCommentsByCommentId($commentId);
 
     /**
      * Adds a comment in a thread
