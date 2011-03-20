@@ -75,7 +75,7 @@ class CommentManager extends BaseCommentManager
         if ($depth > 0) {
             // Queries for an additional level so templates can determine
             // if the final 'depth' layer has children.
-            
+
             $qb->andWhere('c.depth <= :depth')
                ->setParameter('depth', $depth + 1);
         }
@@ -86,11 +86,11 @@ class CommentManager extends BaseCommentManager
 
         return $this->organiseComments($comments);
     }
-    
+
     /**
      * Returns the requested comment tree branch
      *
-     * @param integer $commentId 
+     * @param integer $commentId
      * @return array See findCommentsByThread
      */
     public function findCommentsByCommentId($commentId)
@@ -100,9 +100,9 @@ class CommentManager extends BaseCommentManager
            ->where('LOCATE(:path, CONCAT(\'/\', CONCAT(c.ancestors, \'/\'))) > 0')
            ->orderBy('c.ancestors', 'ASC')
            ->setParameter('path', "/{$commentId}/");
-           
+
         $comments = $qb->getQuery()->execute();
-        
+
         if (!$comments) {
             return array();
         }
@@ -110,19 +110,18 @@ class CommentManager extends BaseCommentManager
         $trimParents = current($comments)->getAncestors();
         return $this->organiseComments($comments, $trimParents);
     }
-    
+
     protected function organiseComments($comments, $trimParents = null)
     {
         $tree = new Tree();
         foreach($comments as $index => $comment) {
             $path = $tree;
-            
+
             $ancestors = $comment->getAncestors();
-            if (is_array($trimParents))
-            {
+            if (is_array($trimParents)) {
                 $ancestors = array_diff($ancestors, $trimParents);
             }
-            
+
             foreach ($ancestors as $ancestor) {
                 $path = $path->traverse($ancestor);
             }

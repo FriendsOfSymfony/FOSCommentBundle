@@ -16,6 +16,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\Tree;
 use InvalidArgumentException;
 use DateTime;
+use Exception;
 
 class CommentManager extends BaseCommentManager
 {
@@ -59,8 +60,11 @@ class CommentManager extends BaseCommentManager
      *         ...
      *     )
      */
-    public function findCommentsByThread(ThreadInterface $thread)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
+        if (null !== $depth) {
+            throw Exception('Depth not implemented yet');
+        }
         $comments = $this->repository
             ->createQueryBuilder()
             ->field('thread.$id')->equals($thread->getIdentifier())
