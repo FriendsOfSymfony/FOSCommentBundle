@@ -62,27 +62,46 @@ class CommentManager extends BaseCommentManager
      */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
-        if (null !== $depth) {
-            throw Exception('Depth not implemented yet');
-        }
-        $comments = $this->repository
+        $qb = $this->repository
             ->createQueryBuilder()
             ->field('thread.$id')->equals($thread->getIdentifier())
-            ->sort('ancestors', 'ASC')
+            ->sort('ancestors', 'ASC');
+
+        if ($depth > 0) {
+            // Queries for an additional level so templates can determine
+            // if the final 'depth' layer has children.
+
+            $qb->field('thread.$depth')->lessThanOrEq($depth + 1);
+        }
+
+        $comments = $qb
             ->getQuery()
             ->execute();
 
-        $tree = new Tree();
-        foreach($comments as $index => $comment) {
-            $path = $tree;
-            foreach ($comment->getAncestors() as $ancestor) {
-                $path = $path->traverse($ancestor);
-            }
-            $path->add($comment);
-        }
-        $tree = $tree->toArray();
+        return $this->organiseComments($comments);
+    }
 
-        return $tree;
+    /**
+     * Returns the requested comment tree branch
+     *
+     * @param integer $commentId
+     * @return array See findCommentsByThread
+     */
+    public function findCommentsByCommentId($commentId)
+    {
+        $qb = $this->repository
+            ->createQueryBuilder()
+            ->field('thread.$ancestors')->in(array($commentId))
+            ->sort('ancestors', 'ASC');
+
+        $comments = $qb->getQuery()->execute();
+
+        if (!$comments) {
+            return array();
+        }
+
+        $ignoreParents = current($comments)->getAncestors();
+        return $this->organiseComments($comments, $ignoreParents);
     }
 
     /**
