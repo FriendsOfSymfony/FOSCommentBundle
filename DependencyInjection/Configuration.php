@@ -70,8 +70,8 @@ class Configuration
 
                 ->arrayNode('akismet')->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('url')->end()
-                        ->scalarNode('api_key')->end()
+                        ->scalarNode('url')->defaultValue(null)->end()
+                        ->scalarNode('api_key')->defaultValue(null)->end()
                     ->end()
                 ->end()
             ->end()
