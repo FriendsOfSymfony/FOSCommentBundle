@@ -71,7 +71,7 @@ class CommentManager extends BaseCommentManager
             // Queries for an additional level so templates can determine
             // if the final 'depth' layer has children.
 
-            $qb->field('thread.$depth')->lessThanOrEq($depth + 1);
+            $qb->field('depth')->lte($depth + 1);
         }
 
         $comments = $qb
@@ -91,7 +91,7 @@ class CommentManager extends BaseCommentManager
     {
         $qb = $this->repository
             ->createQueryBuilder()
-            ->field('thread.$ancestors')->in(array($commentId))
+            ->field('ancestors')->equals($commentId)
             ->sort('ancestors', 'ASC');
 
         $comments = $qb->getQuery()->execute();
@@ -100,7 +100,7 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
-        $ignoreParents = current($comments)->getAncestors();
+        $ignoreParents = $comments->getSingleResult()->getAncestors();
         return $this->organiseComments($comments, $ignoreParents);
     }
 
