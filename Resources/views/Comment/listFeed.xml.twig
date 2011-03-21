@@ -1,7 +1,9 @@
 {% for node in nodes %}
     <entry>
         <title>By {{ node.comment.authorName }} on {{ node.comment.createdAt|date }}</title>
-        <author>{{ node.comment.authorName }}</author>
+        <author>
+            <name>{{ node.comment.authorName }}</name>
+        </author>
         <updated>{{ node.comment.createdAt|date("c") }}</updated>
         <link rel="alternate">{{ permalink }}#{{ node.comment.id }}</link>
         <summary>{{ node.comment.body }}</summary>
