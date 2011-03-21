@@ -26,13 +26,6 @@ class Comment extends AbstractComment
      * @var string
      */
     protected $ancestors;
-    
-    /**
-     * The depth of this comment in the comment thread.
-     *
-     * @var integer
-     */
-    protected $depth = 0;
 
     /**
      * @return Thread
@@ -67,15 +60,5 @@ class Comment extends AbstractComment
     {
         $this->ancestors = implode('/', $ancestors);
         $this->depth = count($ancestors);
-    }
-    
-    /**
-     * The depth of this comment in the comment tree.
-     *
-     * @return integer
-     */
-    public function getDepth()
-    {
-        return $this->depth;
     }
 }

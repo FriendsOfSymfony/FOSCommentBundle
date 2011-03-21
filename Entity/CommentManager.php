@@ -87,6 +87,7 @@ class CommentManager extends BaseCommentManager
         return $this->organiseComments($comments);
     }
 
+
     /**
      * Returns the requested comment tree branch
      *
@@ -107,29 +108,8 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
-        $trimParents = current($comments)->getAncestors();
-        return $this->organiseComments($comments, $trimParents);
-    }
-
-    protected function organiseComments($comments, $trimParents = null)
-    {
-        $tree = new Tree();
-        foreach($comments as $index => $comment) {
-            $path = $tree;
-
-            $ancestors = $comment->getAncestors();
-            if (is_array($trimParents)) {
-                $ancestors = array_diff($ancestors, $trimParents);
-            }
-
-            foreach ($ancestors as $ancestor) {
-                $path = $path->traverse($ancestor);
-            }
-            $path->add($comment);
-        }
-        $tree = $tree->toArray();
-
-        return $tree;
+        $ignoreParents = current($comments)->getAncestors();
+        return $this->organiseComments($comments, $ignoreParents);
     }
 
     /**

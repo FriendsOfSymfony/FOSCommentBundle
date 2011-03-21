@@ -26,6 +26,13 @@ abstract class Comment implements CommentInterface
     protected $body;
 
     /**
+     * The depth of the comment
+     *
+     * @var integer
+     */
+    protected $depth = 0;
+
+    /**
      * @var DateTime
      */
     protected $createdAt;
@@ -81,5 +88,15 @@ abstract class Comment implements CommentInterface
     public function __toString()
     {
         return 'Comment #'.$this->getId();
+    }
+
+    /**
+     * Returns the depth of the comment.
+     *
+     * @return integer
+     */
+    public function getDepth()
+    {
+        return $this->depth;
     }
 }

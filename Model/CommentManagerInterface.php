@@ -49,6 +49,14 @@ interface CommentManagerInterface
     function findCommentsByThread(ThreadInterface $thread, $depth = null);
 
     /**
+     * Returns the requested comment tree branch
+     *
+     * @param integer $commentId
+     * @return array See findCommentsByThread
+     */
+    function findCommentsByCommentId($commentId);
+
+    /**
      * Adds a comment in a thread
      *
      * @param CommentInterface $comment

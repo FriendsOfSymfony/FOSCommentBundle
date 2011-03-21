@@ -59,5 +59,6 @@ class Comment extends AbstractComment
     public function setAncestors(array $ancestors)
     {
         $this->ancestors = $ancestors;
+        $this->depth = count($ancestors);
     }
 }
