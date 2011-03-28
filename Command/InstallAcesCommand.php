@@ -144,7 +144,7 @@ EOT
         $builder->reset();
         $builder->add('create');
         $builder->add('view');
-        $acl->insertClassAce(new RoleSecurityIdentity('USER'), $builder->get());
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
 
         $provider->updateAcl($acl);
     }
