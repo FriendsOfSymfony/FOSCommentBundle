@@ -45,7 +45,7 @@ class InstallAcesCommand extends BaseCommand
                 new InputOption('flush', null, InputOption::VALUE_NONE, 'Flush existing Acls'),
             ))
             ->setHelp(<<<EOT
-This command should be run once during the installation process of the entire bundle.
+This command should be run once during the installation process of the entire bundle or after enabling Acl for the first time.
 EOT
             );
     }
@@ -73,6 +73,7 @@ EOT
 
         $this->installCommentAces($provider, $output);
         $this->installThreadAces($provider, $output);
+        $this->fixNonexistantAces($provider, $output);
 
         $output->writeln('Global ACEs have been installed.');
     }
@@ -159,4 +160,48 @@ EOT
         $oid = new ObjectIdentity('class', $this->container->get('fos_comment.manager.thread')->getClass());
         $provider->deleteAcl($oid);
     }
+
+    protected function fixNonexistantAces(MutableAclProvider $provider, OutputInterface $output)
+    {
+        $threadAcl = $this->container->get('fos_comment.acl.thread.security');
+        $threadManager = $this->container->get('fos_comment.manager.default.thread');
+
+        $commentAcl = $this->container->get('fos_comment.acl.comment.security');
+        $commentManager = $this->container->get('fos_comment.manager.default.comment');
+
+        $foundThreadAcls = 0;
+        $foundCommentAcls = 0;
+        $createdThreadAcls = 0;
+        $createdCommentAcls = 0;
+
+        foreach ($threadManager->findAllThreads() AS $thread) {
+            $oid = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
+
+            try {
+                $provider->findAcl($oid);
+                $foundThreadAcls++;
+            }
+            catch (AclNotFoundException $e) {
+                $threadAcl->setDefaultAcl($thread);
+                $createdThreadAcls++;
+            }
+
+            foreach ($commentManager->findCommentsByThread($thread) AS $comment) {
+                $comment_oid = new ObjectIdentity($comment->getId(), get_class($comment));
+
+                try {
+                    $provider->findAcl($comment_oid);
+                    $foundCommentAcls++;
+                }
+                catch (AclNotFoundException $e) {
+                    $commentAcl->setDefaultAcl($comment);
+                    $createdCommentAcls++;
+                }
+            }
+        }
+
+        $output->writeln("Found {$foundThreadAcls} Thread Acl Entries, Created {$createdThreadAcls} Thread Acl Entries");
+        $output->writeln("Found {$foundCommentAcls} Comment Acl Entries, Created {$createdCommentAcls} Comment Acl Entries");
+    }
+
 }
