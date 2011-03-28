@@ -7,6 +7,7 @@ Features
 - Manages trees of comments
 - Can include comment threads in any page
 - Compatible with any persistence backend. Actually Doctrine2 mongodb-odm and ORM are implemented.
+- Optional use of Symfony2 Acl to protect comments
 - Optional integration with FOS\UserBundle
 - Optional integration with `Akismet`_
 
@@ -96,18 +97,18 @@ Or if you prefer XML::
             />
         </fos_comment:class>
     </fos_comment:config>
-    
+
 ORM
 ~~~
 
-The ORM implementation does not provide a concrete Comment class for your use, 
+The ORM implementation does not provide a concrete Comment class for your use,
 you must create one::
 
     // src/MyProject/MyBundle/Entity/Comment.php
-    
+
     namespace MyProject\MyBundle\Entity;
     use FOS\CommentBundle\Entity\Comment as BaseComment;
-    
+
     /**
      * @orm:Entity
      */
@@ -124,7 +125,7 @@ you must create one::
 Configure your application::
 
     # app/config/config.yml
-    
+
     fos_comment:
         db_driver: orm
         class:
@@ -134,7 +135,7 @@ Configure your application::
 Or if you prefer XML::
 
     # app/config/config.xml
-    
+
     <fos_comment:config db-driver="orm">
         <fos_comment:class>
             <fos_comment:model
@@ -233,7 +234,7 @@ While there, make it implement SignedCommentInterface::
         }
     }
 
-Then declare your comment class::        
+Then declare your comment class::
 
     # app/config/config.yml
 
@@ -254,8 +255,28 @@ Now tell CommentBundle to use the authenticated FOS User to sign new comments::
         service:
             blamer:
                 comment: fos_comment.blamer.comment.security
-    
+
 And that's it, really.
+
+Enabling use of the Symfony2 Security Component
+===============================
+
+CommentBundle comes bundled with the ability to use Acl to protect components. To
+use this feature, it must be enabled in the configuration::
+
+    # app/config/config.yml
+
+    fos_comment:
+        acl: ~
+
+Populating the Acl component
+--------------------------
+
+When enabling the Acl setting you must run the fos:comment:installAces command to
+make sure that all Comments and Threads have appropriate Acl entries.
+
+This command must also be run if you turn Acl off and re-enable it at a later date
+or change the FQCN of the Comment object.
 
 Notable services
 ================
@@ -282,7 +303,7 @@ CommentBundle provides two implementations:
   This one does nothing. Comments are anonymous.
   It is the default blamer implementation.
 
-- fos_comment.blamer.comment.security 
+- fos_comment.blamer.comment.security
 
   Uses Symfony2 Security token user to sign comments.
   Expects comments implementing SignedCommentInterface.
@@ -347,7 +368,7 @@ CommentBundle ships with two implementations:
   This one does nothing. Comments are never considered as spam.
   It is the default spam_detection implementation.
 
-- fos_comment.spam_detection.comment.akismet 
+- fos_comment.spam_detection.comment.akismet
 
   Uses `Akismet`_ to check comments against spam.
   Requires two configuration values from your app config::
@@ -378,6 +399,7 @@ All configuration options are listed below::
 
     fos_comment:
         db_driver:    mongodb
+        acl: ~
         class:
             model:
                 comment: FOS\CommentBundle\Document\Comment
@@ -406,12 +428,12 @@ Manager
 To provide a new backend implementation:, you must implement these two interfaces:
 
 - Model/ThreadManagerInterface.php
-- Model/CommentManagerInterface.php 
+- Model/CommentManagerInterface.php
 
 MongoDB manager implementation examples:
 
 - Document/ThreadManager.php
-- Document/CommentManager.php 
+- Document/CommentManager.php
 
 Note that the MongoDB manager classes only contain MongoDB specific logic,
 backend agnostic logic lives in the abstract managers.
@@ -422,11 +444,11 @@ Model
 You should also provide concrete models for the interfaces:
 
 - Model/ThreadInterface.php
-- Model/CommentInterface.php 
+- Model/CommentInterface.php
 
 MongoDB model implementation examples:
 
-- Document/Comment.php 
+- Document/Comment.php
 - Document/Thread.php
 
 Note that the MongoDB model classes only contain MongoDB specific logic,
