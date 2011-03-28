@@ -35,4 +35,9 @@ interface CommentInterface
      * @return DateTime
      */
     function getCreatedAt();
+
+    /**
+     * @return ThreadInterface
+     */
+    function getThread();
 }

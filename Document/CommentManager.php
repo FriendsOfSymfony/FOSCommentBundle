@@ -60,6 +60,19 @@ class CommentManager extends BaseCommentManager
      *         ...
      *     )
      */
+    public function findCommentTreeByThread(ThreadInterface $thread, $depth = null)
+    {
+        $comments = $this->findCommentsByThread($thread, $depth);
+        return $this->organiseComments($comments);
+    }
+
+    /**
+     * Returns a flat array of comments of a specific thread.
+     *
+     * @param ThreadInterface $thread
+     * @param integer $depth
+     * @return array of ThreadInterface
+     */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
         $qb = $this->repository
@@ -78,7 +91,7 @@ class CommentManager extends BaseCommentManager
             ->getQuery()
             ->execute();
 
-        return $this->organiseComments($comments);
+        return $comments;
     }
 
     /**
@@ -87,7 +100,7 @@ class CommentManager extends BaseCommentManager
      * @param integer $commentId
      * @return array See findCommentsByThread
      */
-    public function findCommentsByCommentId($commentId)
+    public function findCommentTreeByCommentId($commentId)
     {
         $qb = $this->repository
             ->createQueryBuilder()

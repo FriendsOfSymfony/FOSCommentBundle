@@ -8,16 +8,16 @@
         <parameter key="fos_comment.model.thread.class">FOS\CommentBundle\Entity\Thread</parameter>
         <parameter key="fos_comment.model.comment.class">FOS\CommentBundle\Entity\Comment</parameter>
 
-        <parameter key="fos_comment.manager.thread.class">FOS\CommentBundle\Entity\ThreadManager</parameter>
-        <parameter key="fos_comment.manager.comment.class">FOS\CommentBundle\Entity\CommentManager</parameter>
+        <parameter key="fos_comment.manager.default.thread.class">FOS\CommentBundle\Entity\ThreadManager</parameter>
+        <parameter key="fos_comment.manager.default.comment.class">FOS\CommentBundle\Entity\CommentManager</parameter>
     </parameters>
 
     <services>
-        <service id="fos_comment.manager.thread" class="%fos_comment.manager.thread.class%">
+        <service id="fos_comment.manager.default.thread" class="%fos_comment.manager.default.thread.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
-        <service id="fos_comment.manager.comment" class="%fos_comment.manager.comment.class%">
+        <service id="fos_comment.manager.default.comment" class="%fos_comment.manager.default.comment.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%fos_comment.model.comment.class%</argument>
         </service>

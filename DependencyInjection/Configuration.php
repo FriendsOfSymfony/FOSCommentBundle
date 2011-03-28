@@ -42,6 +42,8 @@ class Configuration
                     ->end()
                 ->end()
 
+                ->scalarNode('acl')->end()
+
                 ->arrayNode('service')->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('form_factory')->addDefaultsIfNotSet()

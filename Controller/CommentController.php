@@ -23,24 +23,23 @@ class CommentController extends ContainerAware
      */
     public function treeAction(ThreadInterface $thread, $displayDepth = null)
     {
-        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $displayDepth);
+        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $displayDepth);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
             'nodes' => $nodes,
             'displayDepth' => $displayDepth
         ));
     }
-    
+
     /**
      * Loads a tree branch of comments
      */
-    public function subtreeAction($commentId)
+    public function loadAction($commentId)
     {
-        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByCommentId($commentId)) {
+        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId))
             throw new NotFoundHttpException('No comment branch found');
-        }
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:load.html.twig', array(
             'nodes' => $nodes,
             'depth' => $nodes[0]['comment']->getDepth()
         ));
@@ -51,7 +50,7 @@ class CommentController extends ContainerAware
      */
     public function listFeedAction(ThreadInterface $thread)
     {
-        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread);
+        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
             'nodes'     => $nodes,

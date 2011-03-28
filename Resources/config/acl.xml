@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="fos_comment.manager.acl.thread.class">FOS\CommentBundle\Acl\AclThreadManager</parameter>
+        <parameter key="fos_comment.manager.acl.comment.class">FOS\CommentBundle\Acl\AclCommentManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="fos_comment.acl.thread.security" class="FOS\CommentBundle\Acl\SecurityThreadAcl" public="false">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%fos_comment.model.thread.class%</argument>
+        </service>
+
+        <service id="fos_comment.manager.acl.thread" class="%fos_comment.manager.acl.thread.class%">
+            <argument type="service" id="fos_comment.manager.default.thread" />
+            <argument type="service" id="fos_comment.acl.thread.security" />
+        </service>
+
+        <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%fos_comment.model.comment.class%</argument>
+        </service>
+
+        <service id="fos_comment.manager.acl.comment" class="%fos_comment.manager.acl.comment.class%">
+            <argument type="service" id="fos_comment.manager.default.comment" />
+            <argument type="service" id="fos_comment.acl.comment.security" />
+            <argument type="service" id="fos_comment.acl.thread.security" />
+        </service>
+    </services>
+
+</container>

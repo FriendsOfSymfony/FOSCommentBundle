@@ -34,6 +34,13 @@ interface ThreadManagerInterface
     function findThreadBy(array $criteria);
 
     /**
+     * Finds all threads.
+     *
+     * @return array of ThreadInterface
+     */
+    function findAllThreads();
+
+    /**
      * Creates an empty comment thread instance
      *
      * @return Thread

@@ -44,6 +44,16 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
+     * Finds all threads.
+     *
+     * @return array of ThreadInterface
+     */
+    public function findAllThreads()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
      * Saves a new thread
      *
      * @param ThreadInterface $thread

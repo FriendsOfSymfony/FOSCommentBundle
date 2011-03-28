@@ -19,6 +19,15 @@ namespace FOS\CommentBundle\Model;
  */
 interface CommentManagerInterface
 {
+    /**
+     * Returns a flat array of comments with the specified thread.
+     *
+     * @param ThreadInterface $thread
+     * @param integer $depth
+     * @return array of CommentInterface
+     */
+    function findCommentsByThread(ThreadInterface $thread, $depth = null);
+
     /*
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
@@ -26,7 +35,7 @@ interface CommentManagerInterface
      * Will query for an additional level of depth when provided
      * so templates can determine to display a 'load more comments' link.
      *
-     * @param  string  $identifier
+     * @param  ThreadInterface $thread
      * @param  integer $depth
      * @return array(
      *     0 => array(
@@ -46,15 +55,14 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    function findCommentsByThread(ThreadInterface $thread, $depth = null);
+    function findCommentTreeByThread(ThreadInterface $thread, $depth = null);
 
     /**
-     * Returns the requested comment tree branch
+     * Returns a partial comment tree based on a specific parent commentId.
      *
      * @param integer $commentId
-     * @return array See findCommentsByThread
      */
-    function findCommentsByCommentId($commentId);
+    function findCommentTreeByCommentId($commentId);
 
     /**
      * Adds a comment in a thread

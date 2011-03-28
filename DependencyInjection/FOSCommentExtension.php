@@ -28,6 +28,18 @@ class FOSCommentExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        if (array_key_exists('acl', $config)) {
+            $loader->load(sprintf('%s.xml', 'acl'));
+
+            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.acl.thread');
+            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.acl.comment');
+        }
+        else
+        {
+            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.default.thread');
+            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.default.comment');
+        }
+
         $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
         $container->setParameter('fos_comment.form.comment.class', $config['class']['form']['comment']);
 

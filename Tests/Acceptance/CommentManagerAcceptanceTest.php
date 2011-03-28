@@ -4,14 +4,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CommentManagerAcceptanceTest extends WebTestCase
 {
-    public function testFindCommentsByThreadIdentifier()
+    public function testFindCommentTreeByThreadIdentifier()
     {
         $container      = $this->createClient()->getContainer();
         $threadManager  = $container->get('fos_comment.manager.thread');
         $commentManager = $container->get('fos_comment.manager.comment');
 
         $thread   = $threadManager->findThreadByIdentifier('homepage');
-        $comments = $commentManager->findCommentsByThread($thread);
+        $comments = $commentManager->findCommentTreeByThread($thread);
 
         /**
          * 2

@@ -31,9 +31,9 @@ class CommentManager extends BaseCommentManager
      */
     public function __construct(EntityManager $em, $class)
     {
-        $this->em         = $em;
-        $this->repository = $em->getRepository($class);
-        $this->class      = $em->getClassMetadata($class)->name;
+        $this->em              = $em;
+        $this->repository      = $em->getRepository($class);
+        $this->class           = $em->getClassMetadata($class)->name;
     }
 
     /*
@@ -63,6 +63,19 @@ class CommentManager extends BaseCommentManager
      *         ...
      *     )
      */
+    public function findCommentTreeByThread(ThreadInterface $thread, $depth = null)
+    {
+        $comments = $this->findCommentsByThread($thread, $depth);
+        return $this->organiseComments($comments);
+    }
+
+    /**
+     * Returns a flat array of comments of a specific thread.
+     *
+     * @param ThreadInterface $thread
+     * @param integer $depth
+     * @return array of ThreadInterface
+     */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
         $qb = $this->repository
@@ -84,17 +97,16 @@ class CommentManager extends BaseCommentManager
             ->getQuery()
             ->execute();
 
-        return $this->organiseComments($comments);
+        return $comments;
     }
-
 
     /**
      * Returns the requested comment tree branch
      *
      * @param integer $commentId
-     * @return array See findCommentsByThread
+     * @return array See findCommentTreeByThread
      */
-    public function findCommentsByCommentId($commentId)
+    public function findCommentTreeByCommentId($commentId)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->join('c.thread', 't')
@@ -104,12 +116,42 @@ class CommentManager extends BaseCommentManager
 
         $comments = $qb->getQuery()->execute();
 
-        if (!$comments) {
+        if (!$comments)
+        {
             return array();
         }
 
-        $ignoreParents = current($comments)->getAncestors();
-        return $this->organiseComments($comments, $ignoreParents);
+        $trimParents = current($comments)->getAncestors();
+        return $this->organiseComments($comments, $trimParents);
+    }
+
+    /**
+     * Organises a flat array of comments into a Tree structure.
+     *
+     * @param array $comments
+     * @param array|null $trimParents
+     * @return array
+     */
+    protected function organiseComments($comments, $trimParents = null)
+    {
+        $tree = new Tree();
+        foreach($comments as $index => $comment) {
+            $path = $tree;
+
+            $ancestors = $comment->getAncestors();
+            if (is_array($trimParents))
+            {
+                $ancestors = array_diff($ancestors, $trimParents);
+            }
+
+            foreach ($ancestors as $ancestor) {
+                $path = $path->traverse($ancestor);
+            }
+            $path->add($comment);
+        }
+        $tree = $tree->toArray();
+
+        return $tree;
     }
 
     /**
@@ -129,6 +171,7 @@ class CommentManager extends BaseCommentManager
         if (null !== $parent) {
             $comment->setAncestors($this->createAncestors($parent));
         }
+
         $thread = $comment->getThread();
         $thread->setNumComments($thread->getNumComments() + 1);
         $thread->setLastCommentAt(new DateTime());
