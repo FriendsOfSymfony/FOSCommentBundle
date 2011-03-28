@@ -34,12 +34,12 @@ class CommentController extends ContainerAware
     /**
      * Loads a tree branch of comments
      */
-    public function loadAction($commentId)
+    public function subtreeAction($commentId)
     {
         if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId))
             throw new NotFoundHttpException('No comment branch found');
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:load.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
             'nodes' => $nodes,
             'depth' => $nodes[0]['comment']->getDepth()
         ));
