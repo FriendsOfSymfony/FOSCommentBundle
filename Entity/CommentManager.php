@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
-use FOS\CommentBundle\Model\Tree;
 use InvalidArgumentException;
 use DateTime;
 
@@ -34,39 +33,6 @@ class CommentManager extends BaseCommentManager
         $this->em              = $em;
         $this->repository      = $em->getRepository($class);
         $this->class           = $em->getClassMetadata($class)->name;
-    }
-
-    /*
-     * Returns all thread comments in a nested array
-     * Will typically be used when it comes to display the comments.
-     *
-     * Will query for an additional level of depth when provided
-     * so templates can determine to display a 'load more comments' link.
-     *
-     * @param  string  $identifier
-     * @param  integer $depth An optional depth limit
-     * @return array(
-     *     0 => array(
-     *         'comment' => CommentInterface,
-     *         'children' => array(
-     *             0 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             ),
-     *             1 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             )
-     *         )
-     *     ),
-     *     1 => array(
-     *         ...
-     *     )
-     */
-    public function findCommentTreeByThread(ThreadInterface $thread, $depth = null)
-    {
-        $comments = $this->findCommentsByThread($thread, $depth);
-        return $this->organiseComments($comments);
     }
 
     /**
@@ -125,35 +91,6 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Organises a flat array of comments into a Tree structure.
-     *
-     * @param array $comments
-     * @param array|null $trimParents
-     * @return array
-     */
-    protected function organiseComments($comments, $trimParents = null)
-    {
-        $tree = new Tree();
-        foreach($comments as $index => $comment) {
-            $path = $tree;
-
-            $ancestors = $comment->getAncestors();
-            if (is_array($trimParents))
-            {
-                $ancestors = array_diff($ancestors, $trimParents);
-            }
-
-            foreach ($ancestors as $ancestor) {
-                $path = $path->traverse($ancestor);
-            }
-            $path->add($comment);
-        }
-        $tree = $tree->toArray();
-
-        return $tree;
-    }
-
-    /**
      * Adds a comment
      *
      * @param CommentInterface $comment
@@ -164,9 +101,11 @@ class CommentManager extends BaseCommentManager
         if (null !== $comment->getId()) {
             throw new InvalidArgumentException('Can not add already saved comment');
         }
+
         if (null === $comment->getThread()) {
             throw new InvalidArgumentException('The comment must have a thread');
         }
+
         if (null !== $parent) {
             $comment->setAncestors($this->createAncestors($parent));
         }
@@ -174,27 +113,10 @@ class CommentManager extends BaseCommentManager
         $thread = $comment->getThread();
         $thread->setNumComments($thread->getNumComments() + 1);
         $thread->setLastCommentAt(new DateTime());
+
+        $this->em->persist($thread);
         $this->em->persist($comment);
         $this->em->flush();
-    }
-
-    /**
-     * Creates the ancestor array for a given parent
-     * Gets the parent ancestors, and adds the parent id.
-     *
-     * @param CommentInterface $parent
-     * @return array
-     * @throw InvalidArgumentException if the parent has no ID
-     */
-    private function createAncestors(CommentInterface $parent)
-    {
-        if (!$parent->getId()) {
-            throw new InvalidArgumentException('The comment parent must have an ID.');
-        }
-        $ancestors = $parent->getAncestors();
-        $ancestors[] = $parent->getId();
-
-        return $ancestors;
     }
 
     /**

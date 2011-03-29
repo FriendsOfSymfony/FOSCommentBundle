@@ -12,8 +12,10 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -31,6 +33,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     private $aclProvider;
     private $securityContext;
     private $threadClass;
+    private $oid;
 
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
@@ -46,7 +49,6 @@ class SecurityThreadAcl implements ThreadAclInterface
         $this->threadClass       = $threadClass;
     }
 
-    protected $oid;
     protected function getOid()
     {
         if (!$this->oid) {
@@ -89,5 +91,39 @@ class SecurityThreadAcl implements ThreadAclInterface
         $objectIdentity = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
         $acl = $this->aclProvider->createAcl($objectIdentity);
         $this->aclProvider->updateAcl($acl);
+    }
+
+    public function installFallbackAcl()
+    {
+        $oid = new ObjectIdentity('class', $this->threadClass);
+
+        try {
+            $acl = $this->aclProvider->createAcl($oid);
+        } catch (AclAlreadyExistsException $exists) {
+            return;
+        }
+
+        $builder = new MaskBuilder();
+
+        $builder->add('iddqd');
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
+
+        $builder->reset();
+        $builder->add('create');
+        $builder->add('view');
+        $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
+
+        $builder->reset();
+        $builder->add('create');
+        $builder->add('view');
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
+
+        $this->aclProvider->updateAcl($acl);
+    }
+
+    public function uninstallFallbackAcl()
+    {
+        $oid = new ObjectIdentity('class', $this->threadClass);
+        $this->aclProvider->deleteAcl($oid);
     }
 }

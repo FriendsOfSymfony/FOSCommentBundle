@@ -18,12 +18,12 @@
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
 
-        <service id="fos_comment.manager.thread.acl" class="%fos_comment.manager.thread.acl.class%">
+        <service id="fos_comment.manager.thread.acl" class="%fos_comment.manager.thread.acl.class%" public="false">
             <argument type="service" id="fos_comment.manager.thread.default" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
-        <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl">
+        <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl" public="false">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
@@ -31,7 +31,7 @@
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
 
-        <service id="fos_comment.manager.comment.acl" class="%fos_comment.manager.comment.acl.class%">
+        <service id="fos_comment.manager.comment.acl" class="%fos_comment.manager.comment.acl.class%" public="false">
             <argument type="service" id="fos_comment.manager.comment.default" />
             <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.acl.thread" />

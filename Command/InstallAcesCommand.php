@@ -11,27 +11,17 @@
 
 namespace FOS\CommentBundle\Command;
 
-use FOS\UserBundle\Model\User;
-use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Bundle\FrameworkBundle\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
-use Symfony\Component\Security\Acl\Model\AclProviderInterface;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  * This command installs global access control entries (ACEs)
  *
  * @author Tim Nagel <tim@nagel.com.au>
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InstallAcesCommand extends BaseCommand
+class InstallAcesCommand extends Command
 {
     /**
      * @see Command
@@ -60,148 +50,19 @@ EOT
             return;
         }
 
-        // TODO: this command should allow different ACL settings to be implemented
-        // EG: Anon can post, user can edit, etc
+        $threadAcl = $this->container->get('fos_comment.acl.thread');
+        $commentAcl = $this->container->get('fos_comment.acl.comment');
 
-        $provider = $this->container->get('security.acl.provider');
-
-        if (!!$input->getOption('flush')) {
+        if ($input->getOption('flush')) {
             $output->writeln('Flushing Global ACEs');
-            $this->deleteCommentAces($provider, $output);
-            $this->deleteThreadAces($provider, $output);
+
+            $threadAcl->uninstallFallbackAcl();
+            $commentAcl->uninstallFallbackAcl();
         }
 
-        $this->installCommentAces($provider, $output);
-        $this->installThreadAces($provider, $output);
-        $this->fixNonexistantAces($provider, $output);
+        $threadAcl->installFallbackAcl();
+        $commentAcl->installFallbackAcl();
 
         $output->writeln('Global ACEs have been installed.');
     }
-
-    /**
-     * Installs the Comment Aces.
-     *
-     * @param AclProviderInterface $provider
-     * @param OutputInterface $output
-     * @return void
-     */
-    protected function installCommentAces(MutableAclProvider $provider, OutputInterface $output)
-    {
-        $oid = new ObjectIdentity('class', $this->container->get('fos_comment.manager.comment')->getClass());
-
-        try {
-            $acl = $provider->createAcl($oid);
-        } catch (AclAlreadyExistsException $exists) {
-            $output->writeln('The Comment Aces are already installed.');
-            return;
-        }
-
-        $builder = new MaskBuilder();
-
-        $builder->add('iddqd');
-        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
-
-        $builder->reset();
-        $builder->add('view');
-        $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
-
-        $builder->reset();
-        $builder->add('create');
-        $builder->add('view');
-        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
-
-        $provider->updateAcl($acl);
-    }
-
-    /**
-     * Installs the Thread Aces.
-     *
-     * @param AclProviderInterface $provider
-     * @param OutputInterface $output
-     * @return void
-     */
-    protected function installThreadAces(MutableAclProvider $provider, OutputInterface $output)
-    {
-        $oid = new ObjectIdentity('class', $this->container->get('fos_comment.manager.thread')->getClass());
-
-        try {
-            $acl = $provider->createAcl($oid);
-        } catch (AclAlreadyExistsException $exists) {
-            $output->writeln('The Thread Aces are already installed.');
-            return;
-        }
-
-        $builder = new MaskBuilder();
-
-        $builder->add('iddqd');
-        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
-
-        $builder->reset();
-        $builder->add('view');
-        $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
-
-        // Note: if a user is able to create a comment they must be able to create a thread.
-        $builder->reset();
-        $builder->add('create');
-        $builder->add('view');
-        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
-
-        $provider->updateAcl($acl);
-    }
-
-    protected function deleteCommentAces(MutableAclProvider $provider, OutputInterface $output)
-    {
-        $oid = new ObjectIdentity('class', $this->container->get('fos_comment.manager.comment')->getClass());
-        $provider->deleteAcl($oid);
-    }
-
-    protected function deleteThreadAces(MutableAclProvider $provider, OutputInterface $output)
-    {
-        $oid = new ObjectIdentity('class', $this->container->get('fos_comment.manager.thread')->getClass());
-        $provider->deleteAcl($oid);
-    }
-
-    protected function fixNonexistantAces(MutableAclProvider $provider, OutputInterface $output)
-    {
-        $threadAcl = $this->container->get('fos_comment.acl.thread');
-        $threadManager = $this->container->get('fos_comment.manager.thread.default');
-
-        $commentAcl = $this->container->get('fos_comment.acl.comment');
-        $commentManager = $this->container->get('fos_comment.manager.comment.default');
-
-        $foundThreadAcls = 0;
-        $foundCommentAcls = 0;
-        $createdThreadAcls = 0;
-        $createdCommentAcls = 0;
-
-        foreach ($threadManager->findAllThreads() AS $thread) {
-            $oid = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
-
-            try {
-                $provider->findAcl($oid);
-                $foundThreadAcls++;
-            }
-            catch (AclNotFoundException $e) {
-                $threadAcl->setDefaultAcl($thread);
-                $createdThreadAcls++;
-            }
-
-            foreach ($commentManager->findCommentsByThread($thread) AS $comment) {
-                $comment_oid = new ObjectIdentity($comment->getId(), get_class($comment));
-
-                try {
-                    $provider->findAcl($comment_oid);
-                    $foundCommentAcls++;
-                }
-                catch (AclNotFoundException $e) {
-                    $commentAcl->setDefaultAcl($comment);
-                    $createdCommentAcls++;
-                }
-            }
-        }
-
-        $output->writeln("Found {$foundThreadAcls} Thread Acl Entries, Created {$createdThreadAcls} Thread Acl Entries");
-        $output->writeln("Found {$foundCommentAcls} Comment Acl Entries, Created {$createdCommentAcls} Comment Acl Entries");
-    }
-
 }

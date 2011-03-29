@@ -13,8 +13,10 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -32,6 +34,7 @@ class SecurityCommentAcl implements CommentAclInterface
     private $aclProvider;
     private $securityContext;
     private $commentClass;
+    private $oid;
 
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
@@ -47,7 +50,6 @@ class SecurityCommentAcl implements CommentAclInterface
         $this->commentClass      = $commentClass;
     }
 
-    protected $oid;
     protected function getOid()
     {
         if (!$this->oid) {
@@ -96,5 +98,39 @@ class SecurityCommentAcl implements CommentAclInterface
         }
 
         $this->aclProvider->updateAcl($acl);
+    }
+
+    public function installFallbackAcl()
+    {
+        $oid = new ObjectIdentity('class', $this->commentClass);
+
+        try {
+            $acl = $this->aclProvider->createAcl($oid);
+        } catch (AclAlreadyExistsException $exists) {
+            return;
+        }
+
+        $builder = new MaskBuilder();
+
+        $builder->add('iddqd');
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
+
+        $builder->reset();
+        $builder->add('create');
+        $builder->add('view');
+        $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
+
+        $builder->reset();
+        $builder->add('create');
+        $builder->add('view');
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
+
+        $this->aclProvider->updateAcl($acl);
+    }
+
+    public function uninstallFallbackAcl()
+    {
+        $oid = new ObjectIdentity('class', $this->commentClass);
+        $this->aclProvider->deleteAcl($oid);
     }
 }

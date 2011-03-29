@@ -37,4 +37,17 @@ interface CommentAclInterface
      * @return void
      */
     function setDefaultAcl(CommentInterface $comment);
+
+    /**
+     * Installs the Default 'fallback' Acl entries for generic access.
+     *
+     * @return void
+     */
+    function installFallbackAcl();
+
+    /**
+     * Removes default Acl entries
+     * @return void
+     */
+    function uninstallFallbackAcl();
 }
