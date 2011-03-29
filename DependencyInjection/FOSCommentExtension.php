@@ -24,20 +24,8 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection') as $basename) {
+        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection', 'acl') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
-        }
-
-        if (array_key_exists('acl', $config)) {
-            $loader->load(sprintf('%s.xml', 'acl'));
-
-            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.thread.acl');
-            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.comment.acl');
-        }
-        else
-        {
-            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.default.thread');
-            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.default.comment');
         }
 
         $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
@@ -51,5 +39,12 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.creator.comment', $config['service']['creator']['comment']);
         $container->setAlias('fos_comment.blamer.comment', $config['service']['blamer']['comment']);
         $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
+
+        $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
+        $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
+
+        $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
+        $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
+
     }
 }

@@ -163,11 +163,11 @@ EOT
 
     protected function fixNonexistantAces(MutableAclProvider $provider, OutputInterface $output)
     {
-        $threadAcl = $this->container->get('fos_comment.acl.thread.security');
-        $threadManager = $this->container->get('fos_comment.manager.default.thread');
+        $threadAcl = $this->container->get('fos_comment.acl.thread');
+        $threadManager = $this->container->get('fos_comment.manager.thread.default');
 
-        $commentAcl = $this->container->get('fos_comment.acl.comment.security');
-        $commentManager = $this->container->get('fos_comment.manager.default.comment');
+        $commentAcl = $this->container->get('fos_comment.acl.comment');
+        $commentManager = $this->container->get('fos_comment.manager.comment.default');
 
         $foundThreadAcls = 0;
         $foundCommentAcls = 0;

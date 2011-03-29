@@ -267,7 +267,18 @@ use this feature, it must be enabled in the configuration::
     # app/config/config.yml
 
     fos_comment:
-        acl: ~
+        service:
+            manager:
+                thread: fos_comment.manager.thread.acl
+                comment: fos_comment.manager.comment.acl
+
+Note: you must enable the Security Acl component::
+
+    # app/config/config.yml
+
+    security:
+        acl:
+            connection: default
 
 Populating the Acl component
 --------------------------
@@ -399,13 +410,18 @@ All configuration options are listed below::
 
     fos_comment:
         db_driver:    mongodb
-        acl: ~
         class:
             model:
                 comment: FOS\CommentBundle\Document\Comment
             form:
                 comment: FOS\CommentBundle\Document\CommentForm
         service:
+            manager:
+                thread: fos_comment.manager.thread.default
+                comment: fos_comment.manager.comment.default
+            acl:
+                thread: fos_comment.acl.thread.security
+                comment: fos_comment.acl.comment.security
             form_factory:
                 comment: foo_bar.form_factory.comment.default
             creator:

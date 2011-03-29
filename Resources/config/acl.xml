@@ -19,8 +19,8 @@
         </service>
 
         <service id="fos_comment.manager.thread.acl" class="%fos_comment.manager.thread.acl.class%">
-            <argument type="service" id="fos_comment.manager.default.thread" />
-            <argument type="service" id="fos_comment.acl.thread.security" />
+            <argument type="service" id="fos_comment.manager.thread.default" />
+            <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
         <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl">
@@ -32,9 +32,9 @@
         </service>
 
         <service id="fos_comment.manager.comment.acl" class="%fos_comment.manager.comment.acl.class%">
-            <argument type="service" id="fos_comment.manager.default.comment" />
-            <argument type="service" id="fos_comment.acl.comment.security" />
-            <argument type="service" id="fos_comment.acl.thread.security" />
+            <argument type="service" id="fos_comment.manager.comment.default" />
+            <argument type="service" id="fos_comment.acl.comment" />
+            <argument type="service" id="fos_comment.acl.thread" />
         </service>
     </services>
 
