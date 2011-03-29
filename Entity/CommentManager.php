@@ -116,8 +116,7 @@ class CommentManager extends BaseCommentManager
 
         $comments = $qb->getQuery()->execute();
 
-        if (!$comments)
-        {
+        if (!$comments) {
             return array();
         }
 
