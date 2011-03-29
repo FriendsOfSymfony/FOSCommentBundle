@@ -31,8 +31,8 @@ class FOSCommentExtension extends Extension
         if (array_key_exists('acl', $config)) {
             $loader->load(sprintf('%s.xml', 'acl'));
 
-            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.acl.thread');
-            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.acl.comment');
+            $container->setAlias('fos_comment.manager.thread', 'fos_comment.manager.thread.acl');
+            $container->setAlias('fos_comment.manager.comment', 'fos_comment.manager.comment.acl');
         }
         else
         {
