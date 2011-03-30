@@ -10,4 +10,3 @@ fos_comment_thread_show_feed:
 fos_comment_comment_loadmore:
     pattern:        /subtree/{commentId}
     defaults:       { _controller: FOSComment:Comment:subtree }
-    requirements:   { _method: "get" }
