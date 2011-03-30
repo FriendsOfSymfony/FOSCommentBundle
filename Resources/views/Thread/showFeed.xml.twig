@@ -3,5 +3,5 @@
     <id>{{ thread.identifier }}</id>
     <link href="{{ thread.permalink }}" rel="alternate" />
     <updated>{{ thread.lastCommentAt|date("c") }}</updated>
-    {% render "FOSCommentBundle:Comment:listFeed" with {"thread": thread} %}
+    {% render "FOSComment:Comment:listFeed" with {"thread": thread} %}
 </feed>
