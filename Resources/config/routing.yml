@@ -9,4 +9,6 @@ fos_comment_thread_show_feed:
 
 fos_comment_comment_loadmore:
     pattern:        /subtree/{commentId}/{sortOrder}
-    defaults:       { _controller: FOSComment:Comment:subtree }
+    defaults:
+        _controller: FOSComment:Comment:subtree
+        sortOrder: "DESC"
