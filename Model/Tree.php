@@ -22,11 +22,16 @@ class Tree
         return $this->children[$id];
     }
 
-    public function toArray()
+    public function toArray($sortOrder = 'DESC')
     {
         $children = array();
         foreach ($this->children as $child) {
-            array_unshift($children, $child->toArray());
+            if ($sortOrder == 'DESC') {
+                array_unshift($children, $child->toArray());
+            }
+            else {
+                $children[] = $child->toArray($sortOrder);
+            }
         }
 
         return $this->comment ? array('comment' => $this->comment, 'children' => $children) : $children;

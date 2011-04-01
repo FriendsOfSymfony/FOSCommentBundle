@@ -26,7 +26,7 @@ interface CommentManagerInterface
      * @param integer $depth
      * @return array of CommentInterface
      */
-    function findCommentsByThread(ThreadInterface $thread, $depth = null);
+    function findCommentsByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null);
 
     /*
      * Returns all thread comments in a nested array
@@ -55,14 +55,14 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    function findCommentTreeByThread(ThreadInterface $thread, $depth = null);
+    function findCommentTreeByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null);
 
     /**
      * Returns a partial comment tree based on a specific parent commentId.
      *
      * @param integer $commentId
      */
-    function findCommentTreeByCommentId($commentId);
+    function findCommentTreeByCommentId($commentId, $sortOrder = 'DESC');
 
     /**
      * Adds a comment in a thread

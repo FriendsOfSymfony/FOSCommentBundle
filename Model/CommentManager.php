@@ -56,11 +56,11 @@ abstract class CommentManager implements CommentManagerInterface
      *         ...
      *     )
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $depth = null)
+    public function findCommentTreeByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null)
     {
-        $comments = $this->findCommentsByThread($thread, $depth);
+        $comments = $this->findCommentsByThread($thread, 'ASC', $depth);
 
-        return $this->organiseComments($comments);
+        return $this->organiseComments($comments, $sortOrder);
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class CommentManager implements CommentManagerInterface
      * @param array $ignoreParents An array of parents to ignore
      * @return array A tree of comments
      */
-    protected function organiseComments($comments, $ignoreParents = null)
+    protected function organiseComments($comments, $sortOrder = 'DESC', $ignoreParents = null)
     {
         $tree = new Tree();
 
@@ -110,7 +110,7 @@ abstract class CommentManager implements CommentManagerInterface
 
             $path->add($comment);
         }
-        $tree = $tree->toArray();
+        $tree = $tree->toArray($sortOrder);
 
         return $tree;
     }

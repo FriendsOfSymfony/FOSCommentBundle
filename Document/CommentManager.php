@@ -39,15 +39,16 @@ class CommentManager extends BaseCommentManager
      * Returns a flat array of comments of a specific thread.
      *
      * @param ThreadInterface $thread
+     * @param string $sortOrder
      * @param integer $depth
      * @return array of ThreadInterface
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
+    public function findCommentsByThread(ThreadInterface $thread, $sortOrder = 'ASC', $depth = null)
     {
         $qb = $this->repository
             ->createQueryBuilder()
             ->field('thread.$id')->equals($thread->getIdentifier())
-            ->sort('ancestors', 'ASC');
+            ->sort('ancestors', $sortOrder);
 
         if ($depth > 0) {
             // Queries for an additional level so templates can determine
@@ -67,9 +68,10 @@ class CommentManager extends BaseCommentManager
      * Returns the requested comment tree branch
      *
      * @param integer $commentId
+     * @param string $sortOrder
      * @return array See findCommentsByThread
      */
-    public function findCommentTreeByCommentId($commentId)
+    public function findCommentTreeByCommentId($commentId, $sortOrder = 'DESC')
     {
         $qb = $this->repository
             ->createQueryBuilder()
@@ -83,7 +85,7 @@ class CommentManager extends BaseCommentManager
         }
 
         $ignoreParents = $comments->getSingleResult()->getAncestors();
-        return $this->organiseComments($comments, $ignoreParents);
+        return $this->organiseComments($comments, $sortOrder, $ignoreParents);
     }
 
     /**
