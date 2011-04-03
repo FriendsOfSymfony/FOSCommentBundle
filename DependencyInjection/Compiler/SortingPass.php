@@ -31,7 +31,7 @@ class SortingPass implements CompilerPassInterface
         }
 
         $sorters = array();
-        foreach ($container->findTaggedServiceIds('fos_comment.sorter') AS $id => $attributes) {
+        foreach ($container->findTaggedServiceIds('fos_comment.sorter') as $id => $attributes) {
             if (!isset($attributes[0]['alias'])) {
                 throw new InvalidArgumentException('The AI must have an alias');
             }
