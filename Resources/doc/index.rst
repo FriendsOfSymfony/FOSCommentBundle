@@ -426,6 +426,11 @@ and be tagged in the DIC as a fos_comment.sorter with a unique alias, which can 
         <tag name="fos_comment.sorter" alias="custom" />
     </service>
 
+Additionally, individual comment threads can have different sorting algorithms by specifying them in the render
+tag::
+
+    {% render "FOSCommentBundle:Thread:show" with {"identifier": "foo", sorter: "custom"} %}
+
 Configuration example:
 ======================
 

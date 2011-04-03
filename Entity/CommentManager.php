@@ -28,15 +28,15 @@ class CommentManager extends BaseCommentManager
      *
      * @param EntityManager           $em
      * @param string                  $class
-     * @param Sorter                  $sorter
+     * @param SortingFactory          $factory
      */
-    public function __construct(EntityManager $em, $class, SortingFactory $sortingFactory)
+    public function __construct(EntityManager $em, $class, SortingFactory $factory)
     {
         $this->em              = $em;
         $this->repository      = $em->getRepository($class);
         $this->class           = $em->getClassMetadata($class)->name;
 
-        $this->setSortingFactory($sortingFactory);
+        $this->setSortingFactory($factory);
     }
 
     /**

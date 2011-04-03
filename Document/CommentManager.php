@@ -28,7 +28,7 @@ class CommentManager extends BaseCommentManager
      *
      * @param DocumentManager         $dm
      * @param string                  $class
-     * @param
+     * @param SortingFactory          $factory
      */
     public function __construct(DocumentManager $dm, $class, SortingFactory $factory)
     {
