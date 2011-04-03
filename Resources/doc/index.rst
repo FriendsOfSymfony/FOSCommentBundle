@@ -7,6 +7,7 @@ Features
 - Manages trees of comments
 - Can include comment threads in any page
 - Compatible with any persistence backend. Actually Doctrine2 mongodb-odm and ORM are implemented.
+- Configurable sorting of the comment tree
 - Optional use of Symfony2 Acl to protect comments
 - Optional integration with FOS\UserBundle
 - Optional integration with `Akismet`_
@@ -401,6 +402,30 @@ You can change the blamer implementation from your app config::
             blamer:
                 comment: bar_comment.my_comment_spam_detection
 
+Comment tree sorting
+--------------
+
+The default sorting algorithm will sort the tree in descending date order (newest first). CommentBundle
+also provides an ascending date order sort.
+
+To change the sorting algorithm, modify your app config::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            sorting:
+                default: date_asc
+
+If you wish to implement a custom sorting algorithm, it must extend FOS\CommentBundle\Sorting\SortingInterface
+and be tagged in the DIC as a fos_comment.sorter with a unique alias, which can be used in the config above::
+
+    # app/config/services.xml
+
+    <service id="application.sorter.custom" class="AppBundle\Sorter\Custom">
+        <tag name="fos_comment.sorter" alias="custom" />
+    </service>
+
 Configuration example:
 ======================
 
@@ -431,6 +456,8 @@ All configuration options are listed below::
                 comment: foo_bar.blamer.comment.noop
             spam_detection:
                 comment: foo_bar.spam_detection.comment.noop
+            sorting:
+                default: date_desc
         akismet:
             url: http://lichess.org
             api_key: keep_it_secret

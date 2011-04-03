@@ -13,6 +13,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Sorting\SortingFactory;
 use DateTime;
 use InvalidArgumentException;
 
@@ -27,12 +28,15 @@ class CommentManager extends BaseCommentManager
      *
      * @param DocumentManager         $dm
      * @param string                  $class
+     * @param
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(DocumentManager $dm, $class, SortingFactory $factory)
     {
         $this->dm         = $dm;
         $this->repository = $dm->getRepository($class);
         $this->class      = $dm->getClassMetadata($class)->name;
+
+        $this->setSortingFactory($factory);
     }
 
     /**
@@ -43,12 +47,12 @@ class CommentManager extends BaseCommentManager
      * @param integer $depth
      * @return array of ThreadInterface
      */
-    public function findCommentsByThread(ThreadInterface $thread, $sortOrder = 'ASC', $depth = null)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
         $qb = $this->repository
             ->createQueryBuilder()
             ->field('thread.$id')->equals($thread->getIdentifier())
-            ->sort('ancestors', $sortOrder);
+            ->sort('ancestors', 'ASC');
 
         if ($depth > 0) {
             // Queries for an additional level so templates can determine
@@ -71,7 +75,7 @@ class CommentManager extends BaseCommentManager
      * @param string $sortOrder
      * @return array See findCommentsByThread
      */
-    public function findCommentTreeByCommentId($commentId, $sortOrder = 'DESC')
+    public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
         $qb = $this->repository
             ->createQueryBuilder()
@@ -85,7 +89,7 @@ class CommentManager extends BaseCommentManager
         }
 
         $ignoreParents = $comments->getSingleResult()->getAncestors();
-        return $this->organiseComments($comments, $sortOrder, $ignoreParents);
+        return $this->organiseComments($comments, $sorter, $ignoreParents);
     }
 
     /**

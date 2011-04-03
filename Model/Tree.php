@@ -2,6 +2,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Sorting\SortingInterface;
+
 class Tree
 {
     private $comment;
@@ -17,21 +19,21 @@ class Tree
         $this->children[$comment->getId()] = new Tree($comment);
     }
 
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
     public function traverse($id)
     {
         return $this->children[$id];
     }
 
-    public function toArray($sortOrder = 'DESC')
+    public function toArray(SortingInterface $sorter)
     {
         $children = array();
-        foreach ($this->children as $child) {
-            if ($sortOrder == 'DESC') {
-                array_unshift($children, $child->toArray());
-            }
-            else {
-                $children[] = $child->toArray($sortOrder);
-            }
+        foreach ($sorter->sort($this->children) AS $child) {
+            $children[] = $child->toArray($sorter);
         }
 
         return $this->comment ? array('comment' => $this->comment, 'children' => $children) : $children;

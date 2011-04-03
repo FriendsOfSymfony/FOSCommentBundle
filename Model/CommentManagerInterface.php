@@ -16,6 +16,7 @@ namespace FOS\CommentBundle\Model;
  * All changes to comments should happen through this interface.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Tim Nagel <tim@nagel.com.au>
  */
 interface CommentManagerInterface
 {
@@ -26,7 +27,7 @@ interface CommentManagerInterface
      * @param integer $depth
      * @return array of CommentInterface
      */
-    function findCommentsByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null);
+    function findCommentsByThread(ThreadInterface $thread, $depth = null);
 
     /*
      * Returns all thread comments in a nested array
@@ -36,6 +37,7 @@ interface CommentManagerInterface
      * so templates can determine to display a 'load more comments' link.
      *
      * @param  ThreadInterface $thread
+     * @param  string $sorter The sorter to use
      * @param  integer $depth
      * @return array(
      *     0 => array(
@@ -55,14 +57,16 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    function findCommentTreeByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null);
+    function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null);
 
     /**
      * Returns a partial comment tree based on a specific parent commentId.
      *
      * @param integer $commentId
+     * @param string $sorter The sorter to use
+     * @return array see findCommentTreeByThread()
      */
-    function findCommentTreeByCommentId($commentId, $sortOrder = 'DESC');
+    function findCommentTreeByCommentId($commentId, $sorter = null);
 
     /**
      * Adds a comment in a thread
@@ -76,7 +80,7 @@ interface CommentManagerInterface
      * Find one comment by its ID
      *
      * @return Comment or null
-     **/
+     */
     function findCommentById($id);
 
     /**

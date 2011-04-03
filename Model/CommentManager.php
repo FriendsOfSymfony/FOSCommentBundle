@@ -10,7 +10,9 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Sorting\SortingFactory;
 use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Abstract Comment Manager implementation which can be used as base class for your
@@ -20,6 +22,37 @@ use InvalidArgumentException;
  */
 abstract class CommentManager implements CommentManagerInterface
 {
+    /**
+     * @var SortingFactory
+     */
+    private $sortingFactory;
+
+    /**
+     * Sets the SortingFactory instance on the Manager.
+     *
+     * @param SortingFactory $factory
+     * @return void
+     */
+    protected function setSortingFactory(SortingFactory $factory)
+    {
+        $this->sortingFactory = $factory;
+    }
+
+    /**
+     * Retrieves the SortingFactory.
+     *
+     * @return SortingFactory
+     * @throws RuntimeException when no sorting factory has been set
+     */
+    protected function getSortingFactory()
+    {
+        if (null === $this->sortingFactory) {
+            throw new RuntimeException('No sorting factory has been set');
+        }
+
+        return $this->sortingFactory;
+    }
+
     /**
      * Returns an empty comment instance
      *
@@ -37,7 +70,9 @@ abstract class CommentManager implements CommentManagerInterface
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
      *
-     * @param  string $identifier
+     * @param ThreadInterface $thread
+     * @param string $sorter
+     * @param integer $depth
      * @return array(
      *     0 => array(
      *         'comment' => CommentInterface,
@@ -56,11 +91,11 @@ abstract class CommentManager implements CommentManagerInterface
      *         ...
      *     )
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sortOrder = 'DESC', $depth = null)
+    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
     {
-        $comments = $this->findCommentsByThread($thread, 'ASC', $depth);
+        $comments = $this->findCommentsByThread($thread, $depth);
 
-        return $this->organiseComments($comments, $sortOrder);
+        return $this->organiseComments($comments, $sorter);
     }
 
     /**
@@ -76,6 +111,7 @@ abstract class CommentManager implements CommentManagerInterface
         if (!$parent->getId()) {
             throw new InvalidArgumentException('The comment parent must have an ID.');
         }
+
         $ancestors = $parent->getAncestors();
         $ancestors[] = $parent->getId();
 
@@ -89,10 +125,11 @@ abstract class CommentManager implements CommentManagerInterface
      * $ignoreParents.
      *
      * @param array $comments An array of comments to organise
-     * @param array $ignoreParents An array of parents to ignore
+     * @param string|null $sorter The sorter to use for sorting the tree
+     * @param array|null $ignoreParents An array of parents to ignore
      * @return array A tree of comments
      */
-    protected function organiseComments($comments, $sortOrder = 'DESC', $ignoreParents = null)
+    protected function organiseComments($comments, $sorter = null, $ignoreParents = null)
     {
         $tree = new Tree();
 
@@ -110,7 +147,8 @@ abstract class CommentManager implements CommentManagerInterface
 
             $path->add($comment);
         }
-        $tree = $tree->toArray($sortOrder);
+
+        $tree = $tree->toArray($this->getSortingFactory()->getSorter($sorter));
 
         return $tree;
     }
