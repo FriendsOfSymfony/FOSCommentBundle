@@ -43,7 +43,10 @@ class DateSorting implements SortingInterface
         $ascending = $this->order == self::ASC;
 
         uasort($tree, function ($a, $b) use ($ascending) {
-            if (!$a = $a->getComment() OR !$b = $b->getComment()) {
+            $a = $a->getComment();
+            $b = $b->getComment();
+
+            if (!$a || !$b) {
                 // We dont have a comment object in one of the comparisons
                 // Not sure if this condition will actually ever occur, but
                 // is this the right way of dealing with it?

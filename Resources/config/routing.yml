@@ -8,7 +8,7 @@ fos_comment_thread_show_feed:
     defaults:       { _controller: FOSComment:Thread:showFeed, _format: xml }
 
 fos_comment_comment_loadmore:
-    pattern:        /subtree/{commentId}/{sortOrder}
+    pattern:        /subtree/{commentId}/{sorter}
     defaults:
         _controller: FOSComment:Comment:subtree
-        sortOrder: "DESC"
+        sorter: null

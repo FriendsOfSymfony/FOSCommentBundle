@@ -31,12 +31,14 @@ class SortingPass implements CompilerPassInterface
         }
 
         $sorters = array();
-        foreach ($container->findTaggedServiceIds('fos_comment.sorter') as $id => $attributes) {
-            if (!isset($attributes[0]['alias'])) {
-                throw new InvalidArgumentException('The AI must have an alias');
-            }
+        foreach ($container->findTaggedServiceIds('fos_comment.sorter') as $id => $tags) {
+            foreach ($tags AS $tag) {
+                if (empty($tag['alias'])) {
+                    throw new InvalidArgumentException('The Sorter must have an alias');
+                }
 
-            $sorters[$attributes[0]['alias']] = new Reference($id);
+                $sorters[$tag['alias']] = new Reference($id);
+            }
         }
 
         $container->getDefinition('fos_comment.sorting_factory')->setArgument(0, $sorters);
