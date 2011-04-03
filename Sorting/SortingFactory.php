@@ -35,7 +35,7 @@ class SortingFactory
      */
     public function __construct(array $sorters, $defaultSorter)
     {
-        foreach($sorters AS $alias => $sorter) {
+        foreach($sorters as $alias => $sorter) {
             if (!$sorter instanceof SortingInterface) {
                 throw new InvalidArgumentException('Sorters must implement SortingInterface');
             }

@@ -25,10 +25,9 @@ class DateSorting implements SortingInterface
 
     public function __construct($order)
     {
-        if ($order == self::ASC OR $order == self::DESC) {
+        if ($order == self::ASC || $order == self::DESC) {
             $this->order = $order;
-        }
-        else {
+        } else {
             $this->order = self::DESC;
         }
     }
@@ -57,8 +56,7 @@ class DateSorting implements SortingInterface
 
             if ($ascending) {
                 return ($a->getCreatedAt() < $b->getCreatedAt()) ? -1 : 1;
-            }
-            else {
+            } else {
                 return ($a->getCreatedAt() < $b->getCreatedAt()) ? 1 : -1;
             }
         });
