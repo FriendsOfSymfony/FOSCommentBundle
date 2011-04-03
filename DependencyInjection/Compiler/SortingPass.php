@@ -32,7 +32,7 @@ class SortingPass implements CompilerPassInterface
 
         $sorters = array();
         foreach ($container->findTaggedServiceIds('fos_comment.sorter') as $id => $tags) {
-            foreach ($tags AS $tag) {
+            foreach ($tags as $tag) {
                 if (empty($tag['alias'])) {
                     throw new InvalidArgumentException('The Sorter must have an alias');
                 }
