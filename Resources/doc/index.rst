@@ -387,7 +387,7 @@ CommentBundle ships with two implementations:
     fos_comment:
         service:
             spam_detection:
-                comment: bar_comment.spam_detection.comment.akismet
+                comment: fos_comment.spam_detection.comment.akismet
         akismet:
             url: http://website.com/
             api_key: keep_it_secret
