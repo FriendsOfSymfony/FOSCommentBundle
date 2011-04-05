@@ -37,9 +37,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
             'comment_content' => $comment->getBody()
         );
 
-        if ($comment instanceof SignedCommentInterface) {
-            $data['comment_author'] = $comment->getAuthorName();
-        }
+        $data['comment_author'] = $comment->getAuthorName();
 
         return $data;
     }
