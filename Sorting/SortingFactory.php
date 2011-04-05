@@ -53,7 +53,7 @@ class SortingFactory
         }
 
         if (!$this->sorters[$alias]) {
-            throw new RuntimeException("Unknown sorting alias {$alias}");
+            throw new RuntimeException(sprintf("Unknown sorting alias '%s'", $alias));
         }
 
         return $this->sorters[$alias];

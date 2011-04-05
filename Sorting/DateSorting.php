@@ -10,6 +10,7 @@
 namespace FOS\CommentBundle\Sorting;
 
 use FOS\CommentBundle\Model\Tree;
+use InvalidArgumentException;
 
 /**
  * Sorts comments by date order.
@@ -28,7 +29,7 @@ class DateSorting implements SortingInterface
         if ($order == self::ASC || $order == self::DESC) {
             $this->order = $order;
         } else {
-            $this->order = self::DESC;
+            throw InvalidArgumentException(sprintf("%s is an invalid sorting order", $order));
         }
     }
 
