@@ -95,6 +95,7 @@ abstract class CommentManager implements CommentManagerInterface
     {
         $comments = $this->findCommentsByThread($thread, $depth);
 
+        $sorter = $this->getSortingFactory()->getSorter($sorter);
         return $this->organiseComments($comments, $sorter);
     }
 
@@ -129,7 +130,7 @@ abstract class CommentManager implements CommentManagerInterface
      * @param array|null $ignoreParents An array of parents to ignore
      * @return array A tree of comments
      */
-    protected function organiseComments($comments, $sorter = null, $ignoreParents = null)
+    protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null)
     {
         $tree = new Tree();
 
@@ -149,7 +150,7 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $tree = $tree->toArray();
-        $tree = $this->getSortingFactory()->getSorter($sorter)->sort($tree);
+        $tree = $sorter->sort($tree);
 
         return $tree;
     }

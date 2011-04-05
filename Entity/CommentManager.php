@@ -43,7 +43,6 @@ class CommentManager extends BaseCommentManager
      * Returns a flat array of comments of a specific thread.
      *
      * @param ThreadInterface $thread
-     * @param string $sorter
      * @param integer $depth
      * @return array of ThreadInterface
      */
@@ -75,7 +74,7 @@ class CommentManager extends BaseCommentManager
      * Returns the requested comment tree branch
      *
      * @param integer $commentId
-     * @param string $sortOrder
+     * @param string $sorter
      * @return array See findCommentTreeByThread
      */
     public function findCommentTreeByCommentId($commentId, $sorter = null)
@@ -91,6 +90,8 @@ class CommentManager extends BaseCommentManager
         if (!$comments) {
             return array();
         }
+
+        $sorter = $this->getSortingFactory()->getSorter($sorter);
 
         $trimParents = current($comments)->getAncestors();
         return $this->organiseComments($comments, $sorter, $trimParents);
