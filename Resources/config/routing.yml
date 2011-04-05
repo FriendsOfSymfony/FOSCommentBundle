@@ -1,12 +1,13 @@
 fos_comment_comment_create:
     pattern:        /new
-    defaults:       { _controller: FOSComment:Comment:create }
+    defaults:       { _controller: FOSCommentBundle:Comment:create }
     requirements:   { _method: "post" }
 
 fos_comment_thread_show_feed:
     pattern:        /{identifier}.xml
-    defaults:       { _controller: FOSComment:Thread:showFeed, _format: xml }
+    defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
 
 fos_comment_comment_loadmore:
     pattern:        /subtree/{commentId}
-    defaults:       { _controller: FOSComment:Comment:subtree }
+    defaults:       { _controller: FOSCommentBundle:Comment:subtree }
+

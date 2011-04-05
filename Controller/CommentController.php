@@ -25,7 +25,7 @@ class CommentController extends ContainerAware
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $displayDepth);
 
-        return $this->container->get('templating')->renderResponse('FOSComment:Comment:tree.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
             'nodes' => $nodes,
             'displayDepth' => $displayDepth
         ));
@@ -39,7 +39,7 @@ class CommentController extends ContainerAware
         if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId))
             throw new NotFoundHttpException('No comment branch found');
 
-        return $this->container->get('templating')->renderResponse('FOSComment:Comment:subtree.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
             'nodes' => $nodes,
             'depth' => $nodes[0]['comment']->getDepth()
         ));
@@ -52,7 +52,7 @@ class CommentController extends ContainerAware
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
-        return $this->container->get('templating')->renderResponse('FOSComment:Comment:listFeed.xml.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
             'nodes'     => $nodes,
             'permalink' => $thread->getPermalink()
         ));
@@ -76,7 +76,7 @@ class CommentController extends ContainerAware
 
     protected function onCreateSuccess(CommentForm $form)
     {
-        return $this->container->get('http_kernel')->forward('FOSComment:Thread:show', array(
+        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
             'identifier' => $form->getData()->getThread()->getIdentifier()
         ));
     }

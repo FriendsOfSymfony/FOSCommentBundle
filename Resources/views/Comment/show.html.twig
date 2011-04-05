@@ -9,6 +9,6 @@
         <button data-id="{{ comment.id }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
     </div>
     <div class="fos_comment_comment_replies">
-        {% include "FOSComment:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth + 1, "displayDepth": displayDepth } %}
+        {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth + 1, "displayDepth": displayDepth } %}
     </div>
 </div>
