@@ -148,7 +148,8 @@ abstract class CommentManager implements CommentManagerInterface
             $path->add($comment);
         }
 
-        $tree = $tree->toArray($this->getSortingFactory()->getSorter($sorter));
+        $tree = $tree->toArray();
+        $tree = $this->getSortingFactory()->getSorter($sorter)->sort($tree);
 
         return $tree;
     }

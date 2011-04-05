@@ -41,27 +41,23 @@ class DateSorting implements SortingInterface
      */
     public function sort(array $tree)
     {
-        $ascending = $this->order == self::ASC;
+        $ascending = ($this->order == self::ASC);
+
+        foreach ($tree AS &$branch) {
+            if (count($branch['children'])) {
+                $branch['children'] = $this->sort($branch['children']);
+            }
+        }
 
         uasort($tree, function ($a, $b) use ($ascending) {
-            $a = $a->getComment();
-            $b = $b->getComment();
-
-            if (!$a || !$b) {
-                // We dont have a comment object in one of the comparisons
-                // Not sure if this condition will actually ever occur, but
-                // is this the right way of dealing with it?
-                return 0;
-            }
-
-            if ($a->getCreatedAt() == $b->getCreatedAt()) {
+            if ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) {
                 return 0;
             }
 
             if ($ascending) {
-                return ($a->getCreatedAt() < $b->getCreatedAt()) ? -1 : 1;
+                return ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) ? -1 : 1;
             } else {
-                return ($a->getCreatedAt() < $b->getCreatedAt()) ? 1 : -1;
+                return ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) ? 1 : -1;
             }
         });
 
