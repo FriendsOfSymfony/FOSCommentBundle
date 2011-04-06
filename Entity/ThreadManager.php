@@ -15,7 +15,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
 
 class ThreadManager extends BaseThreadManager
 {
-    protected $dm;
+    protected $em;
     protected $repository;
     protected $class;
 
