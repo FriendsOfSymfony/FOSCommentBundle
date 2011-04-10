@@ -9,7 +9,7 @@
 
 namespace FOS\CommentBundle\Entity;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
@@ -18,7 +18,7 @@ use FOS\UserBundle\Model\UserInterface;
 
 class VoteManager extends BaseVoteManager
 {
-    protected $em;
+    protected $dm;
     protected $repository;
     protected $class;
 
@@ -28,11 +28,11 @@ class VoteManager extends BaseVoteManager
      * @param EntityManager     $em
      * @param string            $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(DocumentManager $dm, $class)
     {
-        $this->em         = $em;
-        $this->repository = $em->getRepository($class);
-        $this->class      = $em->getClassMetadata($class)->name;
+        $this->em         = $dm;
+        $this->repository = $dm->getRepository($class);
+        $this->class      = $dm->getClassMetadata($class)->name;
     }
 
     /**
@@ -47,9 +47,9 @@ class VoteManager extends BaseVoteManager
         $vote->setComment($comment);
         $comment->setScore($comment->getScore() + $vote->getValue());
 
-        $this->em->persist($comment);
-        $this->em->persist($vote);
-        $this->em->flush();
+        $this->dm->persist($comment);
+        $this->dm->persist($vote);
+        $this->dm->flush();
     }
 
     /**
@@ -68,10 +68,9 @@ class VoteManager extends BaseVoteManager
      */
     public function findVotesByComment(CommentInterface $comment)
     {
-        $qb = $this->repository->createQueryBuilder('v');
-        $qb->join('v.Comment', 'c');
-        $qb->andWhere('c.id = :commentId');
-        $qb->setParameter('commentId', $comment->getId());
+        $qb = $this->repository->createQueryBuilder();
+        $qb->field('comment.$id')->equals($comment->getId());
+        $qb->sort('createdAt', 'ASC');
 
         $votes = $qb->getQuery()->execute();
         return $votes;
