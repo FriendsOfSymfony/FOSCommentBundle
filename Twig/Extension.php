@@ -11,6 +11,11 @@ namespace FOS\CommentBundle\Twig;
 
 use FOS\CommentBundle\Model\VotableCommentInterface;
 
+/**
+ * Extends Twig to provide some helper functions for the CommentBundle.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class Extension extends \Twig_Extension
 {
     public function getTests()
