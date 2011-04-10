@@ -11,6 +11,7 @@
 namespace FOS\CommentBundle\Model;
 
 use FOS\CommentBundle\Sorting\SortingFactory;
+use FOS\CommentBundle\Sorting\SortingInterface;
 use InvalidArgumentException;
 use RuntimeException;
 
