@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="fos_comment.manager.thread.acl.class">FOS\CommentBundle\Acl\AclThreadManager</parameter>
         <parameter key="fos_comment.manager.comment.acl.class">FOS\CommentBundle\Acl\AclCommentManager</parameter>
+        <parameter key="fos_comment.manager.vote.acl.class">FOS\CommentBundle\Acl\AclVoteManager</parameter>
     </parameters>
 
     <services>
@@ -36,6 +37,18 @@
             <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
-    </services>
 
+        <service id="fos_comment.acl.vote.security" class="FOS\CommentBundle\Acl\SecurityVoteAcl" public="false">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%fos_comment.model.vote.class%</argument>
+        </service>
+
+        <service id="fos_comment.manager.vote.acl" class="%fos_comment.manager.vote.acl.class%" public="false">
+            <argument type="service" id="fos_comment.manager.vote.default" />
+            <argument type="service" id="fos_comment.acl.vote" />
+        </service>
+    </services>
 </container>

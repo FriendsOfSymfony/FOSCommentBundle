@@ -8,5 +8,5 @@
         <link rel="alternate">{{ permalink }}#{{ node.comment.id }}</link>
         <summary>{{ node.comment.body }}</summary>
     </entry>
-    {% include "FOSComment:Comment:listFeed.xml.twig" with {"nodes": node.children, "permalink": permalink} %}
+    {% include "FOSCommentBundle:Comment:listFeed.xml.twig" with {"nodes": node.children, "permalink": permalink} %}
 {% endfor %}

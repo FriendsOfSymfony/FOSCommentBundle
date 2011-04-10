@@ -11,7 +11,7 @@ namespace FOS\CommentBundle\Entity;
 
 use FOS\CommentBundle\Model\Comment as AbstractComment;
 
-class Comment extends AbstractComment
+abstract class Comment extends AbstractComment
 {
     /**
      * Thread of this comment

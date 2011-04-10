@@ -15,6 +15,11 @@
             <argument type="service" id="fos_comment.blamer.comment" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
         </service>
+        <service id="fos_comment.creator.vote.default" class="FOS\CommentBundle\Creator\DefaultVoteCreator" public="false">
+            <argument type="service" id="fos_comment.manager.vote" />
+            <argument type="service" id="fos_comment.blamer.vote" />
+            <argument type="service" id="validator" />
+        </service>
     </services>
 
 </container>

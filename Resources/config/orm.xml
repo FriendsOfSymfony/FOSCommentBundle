@@ -7,9 +7,11 @@
     <parameters>
         <parameter key="fos_comment.model.thread.class">FOS\CommentBundle\Entity\Thread</parameter>
         <parameter key="fos_comment.model.comment.class">FOS\CommentBundle\Entity\Comment</parameter>
+        <parameter key="fos_comment.model.vote.class">FOS\CommentBundle\Entity\Vote</parameter>
 
         <parameter key="fos_comment.manager.thread.default.class">FOS\CommentBundle\Entity\ThreadManager</parameter>
         <parameter key="fos_comment.manager.comment.default.class">FOS\CommentBundle\Entity\CommentManager</parameter>
+        <parameter key="fos_comment.manager.vote.default.class">FOS\CommentBundle\Entity\VoteManager</parameter>
     </parameters>
 
     <services>
@@ -20,6 +22,10 @@
         <service id="fos_comment.manager.comment.default" class="%fos_comment.manager.comment.default.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%fos_comment.model.comment.class%</argument>
+        </service>
+        <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.vote.default.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%fos_comment.model.vote.class%</argument>
         </service>
     </services>
 

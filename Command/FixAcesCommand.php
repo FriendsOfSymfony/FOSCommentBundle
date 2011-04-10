@@ -50,16 +50,23 @@ EOT
             return;
         }
 
+        $provider = $this->container->get('security.acl.provider');
+
         $threadAcl = $this->container->get('fos_comment.acl.thread');
         $threadManager = $this->container->get('fos_comment.manager.thread.default');
 
         $commentAcl = $this->container->get('fos_comment.acl.comment');
         $commentManager = $this->container->get('fos_comment.manager.comment.default');
 
+        $voteAcl = $this->container->get('fos_comment.acl.vote');
+        $voteManager = $this->container->get('fos_comment.manager.vote.default');
+
         $foundThreadAcls = 0;
         $foundCommentAcls = 0;
+        $foundVoteAcls = 0;
         $createdThreadAcls = 0;
         $createdCommentAcls = 0;
+        $createdVoteAcls = 0;
 
         foreach ($threadManager->findAllThreads() AS $thread) {
             $oid = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
@@ -84,10 +91,24 @@ EOT
                     $commentAcl->setDefaultAcl($comment);
                     $createdCommentAcls++;
                 }
+
+                foreach ($voteManager->findVotesByComment($comment) AS $vote) {
+                    $vote_oid = new ObjectIdentity($vote->getId(), get_class($vote));
+
+                    try {
+                        $provider->findAcl($vote_oid);
+                        $foundVoteAcls++;
+                    }
+                    catch (AclNotFoundException $e) {
+                        $voteAcl->setDefaultAcl($vote);
+                        $createdVoteAcls++;
+                    }
+                }
             }
         }
 
         $output->writeln("Found {$foundThreadAcls} Thread Acl Entries, Created {$createdThreadAcls} Thread Acl Entries");
         $output->writeln("Found {$foundCommentAcls} Comment Acl Entries, Created {$createdCommentAcls} Comment Acl Entries");
+        $output->writeln("Found {$foundVoteAcls} Vote Acl Entries, Created {$createdVoteAcls} Vote Acl Entries");
     }
 }

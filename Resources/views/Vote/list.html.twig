@@ -1,0 +1,5 @@
+<ul class="fos_comment_comment_votes">
+    {% for vote in votes %}
+    <li>Vote on {{ vote.createdAt|date }} for {{ vote.value }}</li>
+    {% endfor %}
+</ul>
