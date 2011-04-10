@@ -1,7 +1,7 @@
 <div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
     <div class="fos_comment_comment_metas">
         By {{ comment.authorName }} - {{ comment.createdAt|date }}
-        {% if comment is fos_votable %}
+        {% if comment is fos_comment_votable %}
         <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">Vote Up</button>
         <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">Vote Down</button>
         <div class="fos_comment_comment_score">{{ comment.score }}</div>

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * (c) Tim Nagel <tim@nagel.com.au>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Creator;
 
 use FOS\CommentBundle\Blamer\VoteBlamerInterface;
@@ -13,6 +20,13 @@ class DefaultVoteCreator implements VoteCreatorInterface
     protected $voteBlamer;
     protected $voteManager;
 
+    /**
+     * Constructor.
+     *
+     * @param VoteManagerInterface $voteManager
+     * @param VoteBlamerInterface $voteBlamer
+     * @param Validator $validator
+     */
     public function __construct(VoteManagerInterface $voteManager, VoteBlamerInterface $voteBlamer, Validator $validator)
     {
         $this->validator = $validator;
@@ -20,6 +34,16 @@ class DefaultVoteCreator implements VoteCreatorInterface
         $this->voteManager = $voteManager;
     }
 
+    /**
+     * Validates that a vote is suitable for persisting and persists
+     * the Vote.
+     *
+     * TODO: rate-limiting addition of votes
+     *
+     * @param VoteInterface $vote
+     * @param VotableCommentInterface $comment
+     * @return bool
+     */
     public function create(VoteInterface $vote, VotableCommentInterface $comment)
     {
         $this->voteBlamer->blame($vote);

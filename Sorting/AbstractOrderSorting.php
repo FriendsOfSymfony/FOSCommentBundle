@@ -36,6 +36,13 @@ abstract class AbstractOrderSorting implements SortingInterface
     /**
      * Sorts an array of Tree elements.
      *
+     * The array should be in the format of:
+     *
+     *    array(
+     *        'comment' => CommentInterface $comment,
+     *        'children' => array ( .. )
+     *    )
+     *
      * @param array $tree
      * @return array
      */
@@ -54,6 +61,13 @@ abstract class AbstractOrderSorting implements SortingInterface
         return $tree;
     }
 
+    /**
+     * Compares two arrays from the Comment Tree.
+     *
+     * @param array $a
+     * @param array $b
+     * @return -1|0|1 As expected for uasort()
+     */
     public function doSort($a, $b)
     {
         if ($this->order == self::ASC) {
@@ -63,5 +77,12 @@ abstract class AbstractOrderSorting implements SortingInterface
         }
     }
 
+    /**
+     * Compares 2 comments. Implement this to create custom sorting options.
+     *
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     * @return -1|0|1 As expected for uasort()
+     */
     abstract protected function compare(CommentInterface $a, CommentInterface $b);
 }

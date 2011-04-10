@@ -49,6 +49,11 @@ class SecurityVoteAcl implements VoteAclInterface
         $this->voteClass         = $voteClass;
     }
 
+    /**
+     * Creates the Class ObjectIdentity instance
+     *
+     * @return ObjectIdentity
+     */
     protected function getOid()
     {
         if (!$this->oid) {
@@ -58,6 +63,15 @@ class SecurityVoteAcl implements VoteAclInterface
         return $this->oid;
     }
 
+    /**
+     * Checks if the Security token is allowed to create a new Vote.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @return void
+     */
     public function canCreate()
     {
         if (!$this->securityContext->isGranted('CREATE', $this->getOid())) {
@@ -65,6 +79,15 @@ class SecurityVoteAcl implements VoteAclInterface
         }
     }
 
+    /**
+     * Checks if the Security token is allowed to delete a specific Vote.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @return void
+     */
     public function canDelete(VoteInterface $vote)
     {
         if (!$this->securityContext->isGranted('DELETE', $vote)) {
@@ -72,6 +95,12 @@ class SecurityVoteAcl implements VoteAclInterface
         }
     }
 
+    /**
+     * Sets the default object Acl entry for the supplied Vote.
+     *
+     * @param VoteInterface $vote
+     * @return void
+     */
     public function setDefaultAcl(VoteInterface $vote)
     {
         $objectIdentity = new ObjectIdentity($vote->getId(), get_class($vote));
@@ -79,6 +108,13 @@ class SecurityVoteAcl implements VoteAclInterface
         $this->aclProvider->updateAcl($acl);
     }
 
+    /**
+     * Installs default Acl entries for the Vote class.
+     *
+     * This needs to be re-run whenever the Vote class changes or is subclassed.
+     *
+     * @return void
+     */
     public function installFallbackAcl()
     {
         $oid = new ObjectIdentity('class', $this->voteClass);
@@ -107,6 +143,14 @@ class SecurityVoteAcl implements VoteAclInterface
         $this->aclProvider->updateAcl($acl);
     }
 
+    /**
+     * Removes fallback Acl entries for the vote Class.
+     *
+     * This should be run when uninstalling the CommentBundle, or when
+     * the Acl entries end up corrupted.
+     *
+     * @return void
+     */
     public function uninstallFallbackAcl()
     {
         $oid = new ObjectIdentity('class', $this->voteClass);

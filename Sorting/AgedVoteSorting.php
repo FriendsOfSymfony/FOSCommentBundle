@@ -10,19 +10,28 @@
 namespace FOS\CommentBundle\Sorting;
 
 use FOS\CommentBundle\Model\CommentInterface;
-use InvalidArgumentException;
 
 /**
- * Sorts comments by vote order.
+ * Sorts comments by aged vote order.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 class AgedVoteSorting extends AbstractOrderSorting
 {
+    /**
+     * Compares the comments score divided by the number of days since the 1970.
+     *
+     * The end result is a comment that is newer with tje same votes will be ranked
+     * higher.
+     *
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     * @return -1|0|1 As expected for uasort()
+     */
     protected function compare(CommentInterface $a, CommentInterface $b)
     {
-        $aScore = $a->getScore() * ($a->getCreatedAt()->getTimestamp() / 60 / 60 / 24);
-        $bScore = $b->getScore() * ($b->getCreatedAt()->getTimestamp() / 60 / 60 / 24);
+        $aScore = $a->getScore() / ($a->getCreatedAt()->getTimestamp() / 60 / 60 / 24);
+        $bScore = $b->getScore() / ($b->getCreatedAt()->getTimestamp() / 60 / 60 / 24);
 
         if ($aScore == $bScore) {
             return 0;

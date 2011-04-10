@@ -16,10 +16,16 @@ class Extension extends \Twig_Extension
     public function getTests()
     {
         return array(
-            'fos_votable'        => new \Twig_Test_Method($this, 'isVotable'),
+            'fos_comment_votable'        => new \Twig_Test_Method($this, 'isVotable'),
         );
     }
 
+    /**
+     * Checks if the comment is an instance of a VotableCommentInterface.
+     *
+     * @param mixed The value to check for VotableCommentInterface
+     * @return bool If $value implements VotableCommentInterface
+     */
     public function isVotable($value)
     {
         if (!is_object($value)) {

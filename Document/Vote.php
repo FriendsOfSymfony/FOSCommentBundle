@@ -41,7 +41,6 @@ abstract class Vote extends BaseVote
      * @param VotableCommentInterface $comment
      * @return void
      */
-
     public function setComment(VotableCommentInterface $comment)
     {
         $this->comment = $comment;

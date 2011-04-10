@@ -21,7 +21,7 @@ interface SignedCommentInterface extends CommentInterface
      *
      * @param UserInterface $user
      */
-    function setAuthor($author);
+    function setAuthor(UserInterface $author);
 
     /**
      * Gets the author of the Comment

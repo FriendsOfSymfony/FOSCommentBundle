@@ -191,7 +191,7 @@ Override the comment class
 --------------------------
 
 Create your own Comment class to add the relation to the User model.
-While there, make it implement SignedCommentInterface::
+While there, make it implement SignedCommentInterface and VotableCommentInterface::
 
     // src/Bar/CommentBundle/Document/Comment.php
 
@@ -201,12 +201,13 @@ While there, make it implement SignedCommentInterface::
 
     use FOS\CommentBundle\Document\Comment as BaseComment;
     use FOS\CommentBundle\Model\SignedCommentInterface;
+    use FOS\CommentBundle\Model\VotableCommentInterface;
     use Bar\UserBundle\Document\User;
 
     /**
      * @mongodb:Document()
      */
-    class Comment extends BaseComment implements SignedCommentInterface
+    class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
     {
         /**
          * Author of the comment
@@ -231,6 +232,34 @@ While there, make it implement SignedCommentInterface::
         public function getAuthorName()
         {
             return $this->getAuthor()->getUsername();
+        }
+
+        /**
+         * Comment voting score.
+         *
+         * @mongodb:Field(type="int")
+         * @var integer
+         */
+        protected $score;
+
+        /**
+         * Sets the current comment score.
+         *
+         * @param integer $score
+         */
+        public function setScore($score)
+        {
+            $this->score = intval($score);
+        }
+
+        /**
+         * Gets the current comment score.
+         *
+         * @return integer
+         */
+        public function getScore()
+        {
+            return $this->score;
         }
     }
 
@@ -271,6 +300,7 @@ use this feature, it must be enabled in the configuration::
             manager:
                 thread: fos_comment.manager.thread.acl
                 comment: fos_comment.manager.comment.acl
+                vote: fos_comment.manager.vote.acl
 
 Note: you must enable the Security Acl component::
 
@@ -413,22 +443,27 @@ All configuration options are listed below::
         class:
             model:
                 comment: FOS\CommentBundle\Document\Comment
+                vote: FOS\CommentBundle\Document\Vote
             form:
                 comment: FOS\CommentBundle\Document\CommentForm
         service:
             manager:
                 thread: fos_comment.manager.thread.default
                 comment: fos_comment.manager.comment.default
+                vote: fos_comment.manager.vote.default
             acl:
                 thread: fos_comment.acl.thread.security
                 comment: fos_comment.acl.comment.security
+                vote: fos_comment.acl.vote.security
             form_factory:
                 comment: foo_bar.form_factory.comment.default
             creator:
                 comment: foo_bar.creator.comment.default
                 thread: foo_bar.creator.thread.default
+                vote: fos_comment.creator.vote.default
             blamer:
                 comment: foo_bar.blamer.comment.noop
+                vote: fos_comment.creator.vote.noop
             spam_detection:
                 comment: foo_bar.spam_detection.comment.noop
         akismet:
@@ -441,15 +476,17 @@ Implement a new persistence backend
 Manager
 -------
 
-To provide a new backend implementation:, you must implement these two interfaces:
+To provide a new backend implementation:, you must implement these three interfaces:
 
 - Model/ThreadManagerInterface.php
 - Model/CommentManagerInterface.php
+- Model/VoteManagerInterface.php
 
 MongoDB manager implementation examples:
 
 - Document/ThreadManager.php
 - Document/CommentManager.php
+- Document/VoteManager.php
 
 Note that the MongoDB manager classes only contain MongoDB specific logic,
 backend agnostic logic lives in the abstract managers.
@@ -461,11 +498,13 @@ You should also provide concrete models for the interfaces:
 
 - Model/ThreadInterface.php
 - Model/CommentInterface.php
+- Model/VoteInterface.php
 
 MongoDB model implementation examples:
 
 - Document/Comment.php
 - Document/Thread.php
+- Document/Vote.php
 
 Note that the MongoDB model classes only contain MongoDB specific logic,
 backend agnostic logic lives in the abstract models.
@@ -479,6 +518,7 @@ MongoDB mapping examples:
 
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
 - src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Vote.dcm.xml
 
 .. _See it in action: http://lichess.org/1j21ti43
 .. _Akismet: http://akismet.com

@@ -8,10 +8,10 @@ use FOS\CommentBundle\Model\VoteInterface;
 interface VoteCreatorInterface
 {
     /**
-     * Creates and saves a vote against a specific comment
+     * Validates and saves a Vote against a specific comment
      *
      * @param VoteInterface $vote
-     * @return bool if the vote was created successfully
+     * @return bool if the Vote was created successfully
      */
     function create(VoteInterface $vote, VotableCommentInterface $comment);
 }

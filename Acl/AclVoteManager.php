@@ -9,7 +9,7 @@
 
 namespace FOS\CommentBundle\Acl;
 
-USE FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 

@@ -13,6 +13,8 @@ use FOS\UserBundle\Model\UserInterface;
 
 /**
  * A signed vote is bound to a FOS\UserBundle User model.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
  */
 interface SignedVoteInterface extends VoteInterface
 {
@@ -21,7 +23,7 @@ interface SignedVoteInterface extends VoteInterface
      *
      * @param UserInterface $user
      */
-    function setVoter($voter);
+    function setVoter(UserInterface $voter);
 
     /**
      * Gets the owner of the vote

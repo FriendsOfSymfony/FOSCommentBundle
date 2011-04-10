@@ -10,7 +10,9 @@
 namespace FOS\CommentBundle\Model;
 
 /**
- * A signed comment is bound to a FOS\UserBundle User model.
+ * A comment that may be voted on.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
  */
 interface VotableCommentInterface extends CommentInterface
 {

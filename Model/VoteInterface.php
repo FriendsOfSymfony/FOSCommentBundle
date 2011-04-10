@@ -9,8 +9,11 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\UserBundle\Model\UserInterface;
-
+/**
+ * Methods a vote should implement.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 interface VoteInterface
 {
     const VOTE_UP = 1;

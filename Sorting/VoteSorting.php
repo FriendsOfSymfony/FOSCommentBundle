@@ -10,7 +10,6 @@
 namespace FOS\CommentBundle\Sorting;
 
 use FOS\CommentBundle\Model\CommentInterface;
-use InvalidArgumentException;
 
 /**
  * Sorts comments by vote order.
@@ -19,6 +18,13 @@ use InvalidArgumentException;
  */
 class VoteSorting extends AbstractOrderSorting
 {
+    /**
+     * Compares the comments score.
+     *
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     * @return -1|0|1 As expected for uasort()
+     */
     protected function compare(CommentInterface $a, CommentInterface $b)
     {
         if ($a->getScore() == $b->getScore()) {

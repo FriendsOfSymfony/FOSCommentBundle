@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * (c) Tim Nagel <tim@nagel.com.au>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Blamer;
 
 use FOS\CommentBundle\Model\VoteInterface;
@@ -11,6 +18,12 @@ use FOS\CommentBundle\Model\VoteInterface;
  */
 class NoopVoteBlamer implements VoteBlamerInterface
 {
+    /**
+     * Nothing to see here.
+     *
+     * @param VoteInterface $vote
+     * @return void
+     */
     public function blame(VoteInterface $vote)
     {
         // Do nothing.
