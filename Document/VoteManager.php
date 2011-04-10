@@ -25,7 +25,7 @@ class VoteManager extends BaseVoteManager
     /**
      * Constructor.
      *
-     * @param EntityManager     $em
+     * @param DocumentManager   $dm
      * @param string            $class
      */
     public function __construct(DocumentManager $dm, $class)
