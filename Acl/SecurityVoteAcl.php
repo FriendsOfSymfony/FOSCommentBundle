@@ -9,6 +9,7 @@
 
 namespace FOS\CommentBundle\Acl;
 
+use FOS\CommentBundle\Model\SignedVoteInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
@@ -105,6 +106,12 @@ class SecurityVoteAcl implements VoteAclInterface
     {
         $objectIdentity = new ObjectIdentity($vote->getId(), get_class($vote));
         $acl = $this->aclProvider->createAcl($objectIdentity);
+
+        if ($vote instanceof SignedVoteInterface) {
+            $securityIdentity = UserSecurityIdentity::fromAccount($vote->getVoter());
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+        }
+
         $this->aclProvider->updateAcl($acl);
     }
 
