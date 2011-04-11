@@ -22,9 +22,35 @@ use FOS\CommentBundle\Model\CommentInterface;
  */
 interface CommentAclInterface
 {
+    /**
+     * Checks if the user should be able to create a comment.
+     *
+     * @throws Exception
+     */
     function canCreate();
+
+    /**
+     * Checks if the user should be able to view a comment.
+     *
+     * @throws Exception
+     * @param CommentInterface $comment
+     */
     function canView(CommentInterface $comment);
+
+    /**
+     * Checks if the user should be able to edit a comment.
+     *
+     * @throws Exception
+     * @param CommentInterface $comment
+     */
     function canEdit(CommentInterface $comment);
+
+    /**
+     * Checks if the user should be able to delete a comment.
+     *
+     * @throws Exception
+     * @param CommentInterface $comment
+     */
     function canDelete(CommentInterface $comment);
 
     /**

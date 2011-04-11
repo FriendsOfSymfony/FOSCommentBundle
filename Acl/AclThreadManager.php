@@ -12,6 +12,12 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
 
+/**
+ * Wraps a real implementation of ThreadManagerInterface and
+ * performs Acl checks with the configured Thread Acl service.
+ *
+ * @author Tim Nagel <tim@nagel.com.au
+ */
 class AclThreadManager implements ThreadManagerInterface
 {
     /**
@@ -29,7 +35,10 @@ class AclThreadManager implements ThreadManagerInterface
     private $threadAcl;
 
     /**
-     * {@inheritDoc}
+     * Constructor.
+     *
+     * @param ThreadManagerInterface $threadManager The concrete ThreadManager service
+     * @param ThreadAclInterface $threadAcl The Thread Acl service
      */
     public function __construct(ThreadManagerInterface $threadManager, ThreadAclInterface $threadAcl)
     {

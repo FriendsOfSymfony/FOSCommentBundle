@@ -13,6 +13,12 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\CommentManagerInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 
+/**
+ * Wraps a real implementation of CommentManagerInterface and
+ * performs Acl checks with the configured Comment Acl service.
+ *
+ * @author Tim Nagel <tim@nagel.com.au
+ */
 class AclCommentManager implements CommentManagerInterface
 {
     /**
@@ -37,7 +43,11 @@ class AclCommentManager implements CommentManagerInterface
     private $threadAcl;
 
     /**
-     * {@inheritDoc}
+     * Constructor.
+     *
+     * @param CommentManagerInterface $commentManager The concrete CommentManager service
+     * @param CommentAclInterface $commentAcl The Comment Acl service
+     * @param ThreadAclInterface $threadAcl The Thread Acl service
      */
     public function __construct(CommentManagerInterface $commentManager, CommentAclInterface $commentAcl, ThreadAclInterface $threadAcl)
     {
@@ -129,9 +139,12 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
+     * Iterates over a comment tree array and makes sure all comments
+     * have appropriate view permissions.
+     *
+     * @throws AccessDeniedException
      * @param  array $comments A comment tree
      * @return void
-     * @throws AccessDeniedException
      */
     protected function authorizeViewCommentTree($comments)
     {

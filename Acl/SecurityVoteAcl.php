@@ -17,6 +17,7 @@ use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
+use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -29,13 +30,57 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class SecurityVoteAcl implements VoteAclInterface
 {
+    /**
+     * Used to retrieve ObjectIdentity instances for objects.
+     *
+     * @var ObjectIdentityRetrievalStrategy
+     */
     private $objectRetrieval;
+
+    /**
+     * Used to retrieve UserSecurityIdentity instances for users.
+     *
+     * @var SecurityIdentityRetrievalStrategy
+     */
     private $securityRetrieval;
+
+    /**
+     * The AclProvider.
+     *
+     * @var MutableAclProviderInterface
+     */
     private $aclProvider;
+
+    /**
+     * The current Security Context.
+     *
+     * @var SecurityContextInterface
+     */
     private $securityContext;
+
+    /**
+     * The FQCN string of the Vote object.
+     *
+     * @var string
+     */
     private $voteClass;
+
+    /**
+     * The Class OID for the Vote object.
+     *
+     * @var ObjectIdentity
+     */
     private $oid;
 
+    /**
+     * Constructor.
+     *
+     * @param SecurityContextInterface $securityContext
+     * @param ObjectIdentityRetrievalStrategy $objectRetrieval
+     * @param SecurityIdentityRetrievalStrategy $securityRetrieval
+     * @param MutableAclProviderInterface $aclProvider
+     * @param string $voteClass
+     */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
                                 SecurityIdentityRetrievalStrategy $securityRetrieval,
@@ -48,20 +93,7 @@ class SecurityVoteAcl implements VoteAclInterface
         $this->aclProvider       = $aclProvider;
         $this->securityContext   = $securityContext;
         $this->voteClass         = $voteClass;
-    }
-
-    /**
-     * Creates the Class ObjectIdentity instance
-     *
-     * @return ObjectIdentity
-     */
-    protected function getOid()
-    {
-        if (!$this->oid) {
-            $this->oid = new ObjectIdentity('class', $this->voteClass);
-        }
-
-        return $this->oid;
+        $this->oid               = new ObjectIdentity('class', $this->voteClass);
     }
 
     /**
@@ -75,7 +107,7 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function canCreate()
     {
-        if (!$this->securityContext->isGranted('CREATE', $this->getOid())) {
+        if (!$this->securityContext->isGranted('CREATE', $this->oid)) {
             throw new AccessDeniedException();
         }
     }
@@ -116,7 +148,7 @@ class SecurityVoteAcl implements VoteAclInterface
     }
 
     /**
-     * Installs default Acl entries for the Vote class.
+     * Installs default Ace entries for the Vote class.
      *
      * This needs to be re-run whenever the Vote class changes or is subclassed.
      *
@@ -124,16 +156,29 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function installFallbackAcl()
     {
-        $oid = new ObjectIdentity('class', $this->voteClass);
-
         try {
-            $acl = $this->aclProvider->createAcl($oid);
+            $acl = $this->aclProvider->createAcl($this->oid);
         } catch (AclAlreadyExistsException $exists) {
             return;
         }
 
-        $builder = new MaskBuilder();
+        $this->doInstallFallbackAcl($acl, new MaskBuilder());
+        $this->aclProvider->updateAcl($acl);
+    }
 
+    /**
+     * Installs the default Class Ace entries into the provided $acl object.
+     *
+     * Override this method in a subclass to change what permissions are defined.
+     * Once this method has been overridden you need to run the
+     * `fos_comment:installAces --flush` command
+     *
+     * @param AclInterface $acl
+     * @param MaskBuilder $builder
+     * @return void
+     */
+    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
+    {
         $builder->add('iddqd');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
 
@@ -146,21 +191,18 @@ class SecurityVoteAcl implements VoteAclInterface
         $builder->add('create');
         $builder->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
-
-        $this->aclProvider->updateAcl($acl);
     }
 
     /**
-     * Removes fallback Acl entries for the vote Class.
+     * Removes fallback Acl entries for the Vote class.
      *
      * This should be run when uninstalling the CommentBundle, or when
-     * the Acl entries end up corrupted.
+     * the Class Acl entry end up corrupted.
      *
      * @return void
      */
     public function uninstallFallbackAcl()
     {
-        $oid = new ObjectIdentity('class', $this->voteClass);
-        $this->aclProvider->deleteAcl($oid);
+        $this->aclProvider->deleteAcl($this->oid);
     }
 }

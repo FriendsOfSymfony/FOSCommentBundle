@@ -23,14 +23,14 @@ use FOS\CommentBundle\Model\VoteInterface;
 interface VoteAclInterface
 {
     /**
-     * Checks if the user should be allowed to create a vote
+     * Checks if the user should be allowed to create a vote.
      *
      * @throws Exception
      */
     function canCreate();
 
     /**
-     * Checks if the user should be able to delete a vote
+     * Checks if the user should be able to delete a vote.
      *
      * @throws Exception
      */

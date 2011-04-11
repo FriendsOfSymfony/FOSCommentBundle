@@ -17,6 +17,7 @@ use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
+use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -29,13 +30,57 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class SecurityCommentAcl implements CommentAclInterface
 {
+    /**
+     * Used to retrieve ObjectIdentity instances for objects.
+     *
+     * @var ObjectIdentityRetrievalStrategy
+     */
     private $objectRetrieval;
+
+    /**
+     * Used to retrieve UserSecurityIdentity instances for users.
+     *
+     * @var SecurityIdentityRetrievalStrategy
+     */
     private $securityRetrieval;
+
+    /**
+     * The AclProvider.
+     *
+     * @var MutableAclProviderInterface
+     */
     private $aclProvider;
+
+    /**
+     * The current Security Context.
+     *
+     * @var SecurityContextInterface
+     */
     private $securityContext;
+
+    /**
+     * The FQCN of the Comment object.
+     *
+     * @var string
+     */
     private $commentClass;
+
+    /**
+     * The Class OID for the Comment object.
+     *
+     * @var ObjectIdentity
+     */
     private $oid;
 
+    /**
+     * Constructor.
+     *
+     * @param SecurityContextInterface $securityContext
+     * @param ObjectIdentityRetrievalStrategy $objectRetrieval
+     * @param SecurityIdentityRetrievalStrategy $securityRetrieval
+     * @param MutableAclProviderInterface $aclProvider
+     * @param string $commentClass
+     */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
                                 SecurityIdentityRetrievalStrategy $securityRetrieval,
@@ -48,24 +93,35 @@ class SecurityCommentAcl implements CommentAclInterface
         $this->aclProvider       = $aclProvider;
         $this->securityContext   = $securityContext;
         $this->commentClass      = $commentClass;
+        $this->oid               = new ObjectIdentity('class', $this->commentClass);
     }
 
-    protected function getOid()
-    {
-        if (!$this->oid) {
-            $this->oid = new ObjectIdentity('class', $this->commentClass);
-        }
-
-        return $this->oid;
-    }
-
+    /**
+     * Checks if the Security token is allowed to create a new Comment.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @return void
+     */
     public function canCreate()
     {
-        if (!$this->securityContext->isGranted('CREATE', $this->getOid())) {
+        if (!$this->securityContext->isGranted('CREATE', $this->oid)) {
             throw new AccessDeniedException();
         }
     }
 
+    /**
+     * Checks if the Security token is allowed to view the specified Comment.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @param CommentInterface $comment
+     * @return void
+     */
     public function canView(CommentInterface $comment)
     {
         if (!$this->securityContext->isGranted('VIEW', $comment)) {
@@ -73,6 +129,16 @@ class SecurityCommentAcl implements CommentAclInterface
         }
     }
 
+    /**
+     * Checks if the Security token is allowed to edit the specified Comment.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @param CommentInterface $comment
+     * @return void
+     */
     public function canEdit(CommentInterface $comment)
     {
         if (!$this->securityContext->isGranted('EDIT', $comment)) {
@@ -80,6 +146,16 @@ class SecurityCommentAcl implements CommentAclInterface
         }
     }
 
+    /**
+     * Checks if the Security token is allowed to delete the specified Comment.
+     *
+     * The exception thrown by this method should be handled by the
+     * Symfony2 Security component.
+     *
+     * @throws AccessDeniedException when not allowed.
+     * @param CommentInterface $comment
+     * @return void
+     */
     public function canDelete(CommentInterface $comment)
     {
         if (!$this->securityContext->isGranted('DELETE', $comment)) {
@@ -87,6 +163,12 @@ class SecurityCommentAcl implements CommentAclInterface
         }
     }
 
+    /**
+     * Sets the default object Acl entry for the supplied Comment.
+     *
+     * @param CommentInterface $comment
+     * @return void
+     */
     public function setDefaultAcl(CommentInterface $comment)
     {
         $objectIdentity   = $this->objectRetrieval->getObjectIdentity($comment);
@@ -100,6 +182,13 @@ class SecurityCommentAcl implements CommentAclInterface
         $this->aclProvider->updateAcl($acl);
     }
 
+    /**
+     * Installs default Acl entries for the Comment class.
+     *
+     * This needs to be re-run whenever the Comment class changes or is subclassed.
+     *
+     * @return void
+     */
     public function installFallbackAcl()
     {
         $oid = new ObjectIdentity('class', $this->commentClass);
@@ -110,8 +199,23 @@ class SecurityCommentAcl implements CommentAclInterface
             return;
         }
 
-        $builder = new MaskBuilder();
+        $this->doInstallFallbackAcl($acl, new MaskBuilder());
+        $this->aclProvider->updateAcl($acl);
+    }
 
+    /**
+     * Installs the default Class Ace entries into the provided $acl object.
+     *
+     * Override this method in a subclass to change what permissions are defined.
+     * Once this method has been overridden you need to run the
+     * `fos_comment:installAces --flush` command
+     *
+     * @param AclInterface $acl
+     * @param MaskBuilder $builder
+     * @return void
+     */
+    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
+    {
         $builder->add('iddqd');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
 
@@ -124,10 +228,16 @@ class SecurityCommentAcl implements CommentAclInterface
         $builder->add('create');
         $builder->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
-
-        $this->aclProvider->updateAcl($acl);
     }
 
+    /**
+     * Removes fallback Acl entries for the Comment class.
+     *
+     * This should be run when uninstalling the CommentBundle, or when
+     * the Class Acl entry end up corrupted.
+     *
+     * @return void
+     */
     public function uninstallFallbackAcl()
     {
         $oid = new ObjectIdentity('class', $this->commentClass);

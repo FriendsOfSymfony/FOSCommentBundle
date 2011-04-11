@@ -13,6 +13,12 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 
+/**
+ * Wraps a real implementation of VoteManagerInterface and
+ * performs Acl checks with the configured Vote Acl service.
+ *
+ * @author Tim Nagel <tim@nagel.com.au
+ */
 class AclVoteManager implements VoteManagerInterface
 {
     /**

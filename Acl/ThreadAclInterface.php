@@ -22,18 +22,44 @@ use FOS\CommentBundle\Model\ThreadInterface;
  */
 interface ThreadAclInterface
 {
+    /**
+     * Checks if the user should be allowed to create a thread.
+     *
+     * @throws Exception
+     */
     function canCreate();
+
+    /**
+     * Checks if the user should be allowed to view a thread.
+     *
+     * @throws Exception
+     * @param ThreadInterface $thread
+     */
     function canView(ThreadInterface $thread);
+
+    /**
+     * Checks if the user should be allowed to edit a thread.
+     *
+     * @throws Exception
+     * @param ThreadInterface $thread
+     */
     function canEdit(ThreadInterface $thread);
+
+    /**
+     * Checks if the user should be allowed to delete a thread.
+     *
+     * @throws Exception
+     * @param ThreadInterface $thread
+     */
     function canDelete(ThreadInterface $thread);
 
     /**
-     * Sets the default Acl permissions on a comment.
+     * Sets the default Acl permissions on a thread.
      *
      * Note: this does not remove any existing Acl and should only
-     * be called on new CommentInterface instances.
+     * be called on new ThreadInterface instances.
      *
-     * @param CommentInterface $comment
+     * @param ThreadInterface $thread
      * @return void
      */
     function setDefaultAcl(ThreadInterface $thread);
@@ -46,7 +72,8 @@ interface ThreadAclInterface
     function installFallbackAcl();
 
     /**
-     * Removes default Acl entries
+     * Removes default Acl entries.
+     *
      * @return void
      */
     function uninstallFallbackAcl();
