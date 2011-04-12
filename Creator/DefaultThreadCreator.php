@@ -1,11 +1,21 @@
 <?php
 
+/**
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Creator;
 
 use FOS\CommentBundle\Model\ThreadInterface;
-use Symfony\Component\HttpFoundation\Request;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Responsible for the c
+ */
 class DefaultThreadCreator implements ThreadCreatorInterface
 {
     protected $request;

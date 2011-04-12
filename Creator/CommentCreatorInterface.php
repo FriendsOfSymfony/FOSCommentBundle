@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Creator;
 
 use FOS\CommentBundle\Model\CommentInterface;
 
+/**
+ * Responsible for primary creation and persistence of a Comment object.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 interface CommentCreatorInterface
 {
     /**

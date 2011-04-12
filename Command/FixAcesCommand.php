@@ -36,6 +36,10 @@ class FixAcesCommand extends Command
             ->setHelp(<<<EOT
 This command will fix all Ace entries for existing objects. This command only needs to
 be run when there are Objects that do not have Ace entries.
+
+This will generally only happen when the CommentBundle has been used without acl for
+a period of time or if comments have been added to the database without using proper
+services for persisting them.
 EOT
             );
     }

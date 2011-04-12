@@ -1,10 +1,22 @@
 <?php
 
+/**
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Creator;
 
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 
+/**
+ * Responsible for creation and persistence of Votes.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 interface VoteCreatorInterface
 {
     /**

@@ -15,6 +15,11 @@ use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 use Symfony\Component\Validator\Validator;
 
+/**
+ * Manages the creation and persistence of Vote objects.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class DefaultVoteCreator implements VoteCreatorInterface
 {
     protected $voteBlamer;

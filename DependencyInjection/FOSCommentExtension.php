@@ -1,15 +1,35 @@
 <?php
 
+/**
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Configures the DI container for CommentBundle.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 class FOSCommentExtension extends Extension
 {
+    /**
+     * Loads and processes configuration to configure the Container.
+     *
+     * @throws \InvalidArgumentException
+     * @param array $configs
+     * @param ContainerBuilder $container
+     * @return void
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $processor = new Processor();
