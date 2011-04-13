@@ -7,7 +7,7 @@
     {% if thread.numComments > 0 %}
         <h3>Showing {{ thread.numComments }} comments</h3>
         <div class="fos_comment_thread_comments">
-            {% render "FOSComment:Comment:tree" with {"thread": thread, "displayDepth": displayDepth } %}
+            {% render "FOSComment:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth } %}
         </div>
     {% endif %}
 

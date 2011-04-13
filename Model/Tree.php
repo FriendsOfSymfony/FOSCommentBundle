@@ -25,8 +25,8 @@ class Tree
     public function toArray()
     {
         $children = array();
-        foreach ($this->children as $child) {
-            array_unshift($children, $child->toArray());
+        foreach ($this->children AS $child) {
+            $children[] = $child->toArray();
         }
 
         return $this->comment ? array('comment' => $this->comment, 'children' => $children) : $children;

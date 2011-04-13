@@ -1,9 +1,9 @@
 {% if displayDepth|default(0) > 0 and displayDepth < depth|default(0) %}
 <div class="fos_comment_comment_loadmore">
-    <button data-url="{{ path("fos_comment_comment_loadmore", {"commentId": node.comment.id}) }}" class="fos_comment_comment_loadmore_load">Load More Replies</button>
+    <button data-url="{{ path("fos_comment_comment_loadmore", {"commentId": node.comment.id, "sorter": sorter}) }}" class="fos_comment_comment_loadmore_load">Load More Replies</button>
 </div>
 {% else %}
 {% for node in nodes %}
-    {% include "FOSComment:Comment:show.html.twig" with { "comment": node.comment, "children": node.children, "depth": depth|default(0), "displayDepth": displayDepth|default(0) } %}
+    {% include "FOSComment:Comment:show.html.twig" with { "comment": node.comment, "children": node.children, "depth": depth|default(0), "displayDepth": displayDepth|default(0), "sorter": sorter } %}
 {% endfor %}
 {% endif %}

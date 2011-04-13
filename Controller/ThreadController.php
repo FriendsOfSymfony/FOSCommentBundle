@@ -24,7 +24,7 @@ class ThreadController extends ContainerAware
      *
      * @return Response
      */
-    public function showAction($identifier, $displayDepth = null)
+    public function showAction($identifier, $sorter = null, $displayDepth = null)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
         if (!$thread) {
@@ -35,8 +35,12 @@ class ThreadController extends ContainerAware
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
+        $availableSorters = $this->container->get('fos_comment.sorting_factory')->getAvailableSorters();
+
         return $this->container->get('templating')->renderResponse('FOSComment:Thread:show.html.twig', array(
             'thread' => $thread,
+            'sorter' => $sorter,
+            'availableSorters' => $availableSorters,
             'displayDepth'  => $displayDepth,
             'form'   => $form
         ));
