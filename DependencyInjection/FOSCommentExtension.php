@@ -24,7 +24,7 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection', 'acl', 'twig') as $basename) {
+        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection', 'acl', 'twig', 'sorting') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -38,6 +38,8 @@ class FOSCommentExtension extends Extension
 
         $container->setParameter('fos_comment.akismet.url', $config['akismet']['url']);
         $container->setParameter('fos_comment.akismet.api_key', $config['akismet']['api_key']);
+
+        $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
         $container->setAlias('fos_comment.creator.thread', $config['service']['creator']['thread']);

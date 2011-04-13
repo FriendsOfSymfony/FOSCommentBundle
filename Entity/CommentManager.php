@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Sorting\SortingFactory;
 use InvalidArgumentException;
 use DateTime;
 
@@ -27,12 +28,15 @@ class CommentManager extends BaseCommentManager
      *
      * @param EntityManager           $em
      * @param string                  $class
+     * @param SortingFactory          $factory
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EntityManager $em, $class, SortingFactory $factory)
     {
         $this->em              = $em;
         $this->repository      = $em->getRepository($class);
         $this->class           = $em->getClassMetadata($class)->name;
+
+        $this->setSortingFactory($factory);
     }
 
     /**
@@ -70,9 +74,10 @@ class CommentManager extends BaseCommentManager
      * Returns the requested comment tree branch
      *
      * @param integer $commentId
+     * @param string $sorter
      * @return array See findCommentTreeByThread
      */
-    public function findCommentTreeByCommentId($commentId)
+    public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->join('c.thread', 't')
@@ -86,8 +91,10 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
+        $sorter = $this->getSortingFactory()->getSorter($sorter);
+
         $trimParents = current($comments)->getAncestors();
-        return $this->organiseComments($comments, $trimParents);
+        return $this->organiseComments($comments, $sorter, $trimParents);
     }
 
     /**

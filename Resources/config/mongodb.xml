@@ -22,6 +22,7 @@
         <service id="fos_comment.manager.comment.default" class="%fos_comment.manager.comment.default.class%">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <argument>%fos_comment.model.comment.class%</argument>
+            <argument type="service" id="fos_comment.sorting_factory" />
         </service>
         <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.comment.default.class%">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />

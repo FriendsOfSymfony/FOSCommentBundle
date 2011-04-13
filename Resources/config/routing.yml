@@ -8,8 +8,10 @@ fos_comment_thread_show_feed:
     defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
 
 fos_comment_comment_loadmore:
-    pattern:        /subtree/{commentId}
-    defaults:       { _controller: FOSCommentBundle:Comment:subtree }
+    pattern:        /subtree/{commentId}/{sorter}
+    defaults:
+        _controller: FOSCommentBundle:Comment:subtree
+        sorter: null
 
 fos_comment_vote_add_up:
     pattern:        /vote/{commentId}/up

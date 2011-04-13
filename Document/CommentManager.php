@@ -13,6 +13,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Sorting\SortingFactory;
 use DateTime;
 use InvalidArgumentException;
 
@@ -27,12 +28,15 @@ class CommentManager extends BaseCommentManager
      *
      * @param DocumentManager         $dm
      * @param string                  $class
+     * @param SortingFactory          $factory
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(DocumentManager $dm, $class, SortingFactory $factory)
     {
         $this->dm         = $dm;
         $this->repository = $dm->getRepository($class);
         $this->class      = $dm->getClassMetadata($class)->name;
+
+        $this->setSortingFactory($factory);
     }
 
     /**
@@ -67,9 +71,10 @@ class CommentManager extends BaseCommentManager
      * Returns the requested comment tree branch
      *
      * @param integer $commentId
+     * @param string $sorter
      * @return array See findCommentsByThread
      */
-    public function findCommentTreeByCommentId($commentId)
+    public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
         $qb = $this->repository
             ->createQueryBuilder()
@@ -82,8 +87,10 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
+        $sorter = $this->getSortingFactory()->getSorter($sorter);
+
         $ignoreParents = $comments->getSingleResult()->getAncestors();
-        return $this->organiseComments($comments, $ignoreParents);
+        return $this->organiseComments($comments, $sorter, $ignoreParents);
     }
 
     /**
