@@ -1,3 +1,14 @@
+{#
+
+ This file is part of the FOS\CommentBundle.
+
+ (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
 {% if displayDepth|default(0) > 0 and displayDepth < depth|default(0) %}
 <div class="fos_comment_comment_loadmore">
     <button data-url="{{ path("fos_comment_comment_loadmore", {"commentId": node.comment.id, "sorter": sorter}) }}" class="fos_comment_comment_loadmore_load">Load More Replies</button>
