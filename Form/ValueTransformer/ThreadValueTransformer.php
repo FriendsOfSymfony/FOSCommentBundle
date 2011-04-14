@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * This file is part of the FOS\CommentBundle.
+ *
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace FOS\CommentBundle\Form\ValueTransformer;
 
-use Symfony\Component\Form\ValueTransformer\ValueTransformerInterface;
-use Symfony\Component\Form\Configurable;
-
+use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
+use Symfony\Component\Form\Configurable;
+use Symfony\Component\Form\ValueTransformer\ValueTransformerInterface;
 
 /**
  * Transforms between a thread object and an identifier string
@@ -21,6 +30,11 @@ class ThreadValueTransformer extends Configurable implements ValueTransformerInt
      */
     protected $manager = null;
 
+    /**
+     * Constructor.
+     *
+     * @param ThreadManagerInterface $threadManager
+     */
     public function __construct(ThreadManagerInterface $threadManager)
     {
         $this->manager = $threadManager;
@@ -38,9 +52,19 @@ class ThreadValueTransformer extends Configurable implements ValueTransformerInt
             return null;
         }
 
+        if (!$thread instanceof ThreadInterface) {
+            return null;
+        }
+
         return $thread->getIdentifier();
     }
 
+    /**
+     * Transforms an id into a ThreadInterface, if one exists
+     *
+     * @param mixed $identifier
+     * @return ThreadInterface
+     */
     public function reverseTransform($identifier)
     {
         return $this->manager->findThreadByIdentifier($identifier);
