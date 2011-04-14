@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -11,6 +13,13 @@ namespace FOS\CommentBundle\Entity;
 
 use FOS\CommentBundle\Model\Comment as AbstractComment;
 
+/**
+ * Default ORM implementation of CommentInterface.
+ *
+ * Must be extended and properly mapped by the end developer.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 abstract class Comment extends AbstractComment
 {
     /**

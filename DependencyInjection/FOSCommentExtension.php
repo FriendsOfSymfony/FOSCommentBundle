@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -25,7 +27,7 @@ class FOSCommentExtension extends Extension
     /**
      * Loads and processes configuration to configure the Container.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @param array $configs
      * @param ContainerBuilder $container
      * @return void

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled

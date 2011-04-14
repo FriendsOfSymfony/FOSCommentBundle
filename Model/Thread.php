@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -13,6 +15,8 @@ use DateTime;
 
 /**
  * Storage agnostic comment thread object
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 abstract class Thread implements ThreadInterface
 {

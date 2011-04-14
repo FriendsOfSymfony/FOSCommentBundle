@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -9,6 +11,13 @@
 
 namespace FOS\CommentBundle\Model;
 
+/**
+ * CommentInterface.
+ *
+ * Any comment to be used by FOS\CommentBundle must implement this interface.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 interface CommentInterface
 {
     /**

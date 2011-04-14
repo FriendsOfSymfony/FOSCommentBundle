@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -16,10 +18,26 @@ use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
 use FOS\UserBundle\Model\UserInterface;
 
+/**
+ * Default ODM VoteManager.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class VoteManager extends BaseVoteManager
 {
+    /**
+     * @var DocumentManager
+     */
     protected $dm;
+
+    /**
+     * @var DocumentRepository
+     */
     protected $repository;
+
+    /**
+     * @var string
+     */
     protected $class;
 
     /**

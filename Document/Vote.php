@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -14,7 +16,9 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\UserBundle\Model\UserInterface;
 
 /**
- * Vote
+ * Default ODM implementation of VoteInterface.
+ *
+ * Must be extended and properly mapped by the developer.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */

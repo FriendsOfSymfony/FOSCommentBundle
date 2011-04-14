@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -17,10 +19,26 @@ use FOS\CommentBundle\Sorting\SortingFactory;
 use DateTime;
 use InvalidArgumentException;
 
+/**
+ * Default ODM CommentManager.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 class CommentManager extends BaseCommentManager
 {
+    /**
+     * @var DocumentManager
+     */
     protected $dm;
+
+    /**
+     * @var DocumentRepository
+     */
     protected $repository;
+
+    /**
+     * @var string
+     */
     protected $class;
 
     /**

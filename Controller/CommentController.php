@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -19,10 +21,21 @@ use FOS\CommentBundle\Model\CommentInterface;
 
 use FOS\CommentBundle\Form\CommentForm;
 
+/**
+ * Groups all comment related actions into the controller.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class CommentController extends ContainerAware
 {
     /**
-     * Shows a thread comments tree
+     * Shows a thread comments tree.
+     *
+     * @param ThreadInterface $thread
+     * @param string $sorter
+     * @param integer $displayDepth
+     * @return Response
      */
     public function treeAction(ThreadInterface $thread, $sorter = null, $displayDepth = null)
     {
@@ -36,7 +49,11 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Loads a tree branch of comments
+     * Loads a tree branch of comments.
+     *
+     * @param integer $commentId
+     * @param string $sorter
+     * @return Response
      */
     public function subtreeAction($commentId, $sorter = null)
     {
@@ -51,7 +68,10 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Shows a thread comments list
+     * Shows a thread comments list.
+     *
+     * @param ThreadInterface $thread
+     * @return Response
      */
     public function listFeedAction(ThreadInterface $thread)
     {
@@ -64,7 +84,9 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Submit a comment form
+     * Submit a comment form.
+     *
+     * @return Response
      */
     public function createAction()
     {
@@ -79,6 +101,12 @@ class CommentController extends ContainerAware
         return $this->onCreateError($form);
     }
 
+    /**
+     * Forwards the action to the thread view on a successful form submission.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
     protected function onCreateSuccess(CommentForm $form)
     {
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
@@ -86,6 +114,12 @@ class CommentController extends ContainerAware
         ));
     }
 
+    /**
+     * Returns a 400 response when the form submission fails.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
     protected function onCreateError(CommentForm $form)
     {
         return new Response("", 400);

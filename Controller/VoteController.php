@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -38,8 +40,8 @@ class VoteController extends ContainerAware
      *              value: 1
      *
      * @throws NotFoundHttpException when comment is not found
-     * @param  $commentId The comment id
-     * @param  $value The value of the comment
+     * @param mixed $commentId The comment id
+     * @param integer $value The value of the comment
      * @return Response JSON encoded replacement score for the comment
      */
     public function addAction($commentId, $value)

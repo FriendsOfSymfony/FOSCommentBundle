@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Henrik Bjorn
  *
@@ -12,6 +14,8 @@ namespace FOS\CommentBundle\Model;
 
 /*
  * Binds a comment tree to anything, using a unique, arbitrary identifier
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 interface ThreadInterface
 {

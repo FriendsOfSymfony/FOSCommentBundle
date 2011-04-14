@@ -1,7 +1,12 @@
 <?php
 
 /**
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * This file is part of the FOS\CommentBundle.
+ *
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace FOS\CommentBundle\Controller;
@@ -19,9 +24,14 @@ class ThreadController extends ContainerAware
     /**
      * Show a thread, its comments and the comment form if available
      * There is no routing for this action, call it from a template:
-     * {% render "FOSComment:Thread:show" with {"identifier": "something_unique"} %}
-     * If the thread for the identifier does not exist, it will be created
      *
+     *    {% render "FOSComment:Thread:show" with {"identifier": "something_unique"} %}
+     *
+     * If the thread for the identifier does not exist, it will be created.
+     *
+     * @param mixed $identifier
+     * @param string $sorter
+     * @param integer $displayDepth
      * @return Response
      */
     public function showAction($identifier, $sorter = null, $displayDepth = null)
@@ -47,10 +57,11 @@ class ThreadController extends ContainerAware
     }
 
     /**
-     * Show an xml feed for a thread
+     * Show an xml feed for a thread.
      *
+     * @param mixed $identifier
      * @return Response
-     **/
+     */
     public function showFeedAction($identifier)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
@@ -63,6 +74,12 @@ class ThreadController extends ContainerAware
         ));
     }
 
+    /**
+     * Creates a comment that belongs to the provided Thread.
+     *
+     * @param ThreadInterface $thread
+     * @return CommentInterface
+     */
     protected function createComment(ThreadInterface $thread)
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment();

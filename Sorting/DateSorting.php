@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -9,6 +11,7 @@
 
 namespace FOS\CommentBundle\Sorting;
 
+use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\Tree;
 use InvalidArgumentException;
 
@@ -17,50 +20,21 @@ use InvalidArgumentException;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class DateSorting implements SortingInterface
+class DateSorting extends AbstractOrderSorting
 {
-    const ASC = 'ASC';
-    const DESC = 'DESC';
-
-    private $order;
-
-    public function __construct($order)
-    {
-        if ($order == self::ASC || $order == self::DESC) {
-            $this->order = $order;
-        } else {
-            throw InvalidArgumentException(sprintf("%s is an invalid sorting order", $order));
-        }
-    }
-
     /**
-     * Sorts an array of Tree elements.
+     * Compares the comments creation date.
      *
-     * @param array $tree
-     * @return array
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     * @return -1|0|1 As expected for uasort()
      */
-    public function sort(array $tree)
+    protected function compare(CommentInterface $a, CommentInterface $b)
     {
-        $ascending = ($this->order == self::ASC);
-
-        foreach ($tree AS &$branch) {
-            if (count($branch['children'])) {
-                $branch['children'] = $this->sort($branch['children']);
-            }
+        if ($a->getCreatedAt() == $b->getCreatedAt()) {
+            return 0;
         }
 
-        uasort($tree, function ($a, $b) use ($ascending) {
-            if ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) {
-                return 0;
-            }
-
-            if ($ascending) {
-                return ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) ? -1 : 1;
-            } else {
-                return ($a['comment']->getCreatedAt() < $b['comment']->getCreatedAt()) ? 1 : -1;
-            }
-        });
-
-        return $tree;
+        return $a->getCreatedAt() < $b->getCreatedAt() ? -1 : 1;
     }
 }

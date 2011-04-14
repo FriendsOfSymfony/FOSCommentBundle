@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -69,7 +71,7 @@ interface CommentManagerInterface
     function findCommentTreeByCommentId($commentId, $sorter = null);
 
     /**
-     * Adds a comment in a thread
+     * Adds a comment in a thread.
      *
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
@@ -77,21 +79,21 @@ interface CommentManagerInterface
     function addComment(CommentInterface $comment, CommentInterface $parent = null);
 
     /**
-     * Find one comment by its ID
+     * Find one comment by its ID.
      *
      * @return Comment or null
      */
     function findCommentById($id);
 
     /**
-     * Creates an empty comment instance
+     * Creates an empty comment instance.
      *
      * @return Comment
      */
     function createComment();
 
     /**
-     * Returns the comment fully qualified class name
+     * Returns the comment fully qualified class name.
      *
      * @return string
      */

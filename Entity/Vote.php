@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -9,12 +11,14 @@
 
 namespace FOS\CommentBundle\Entity;
 
-use FOS\CommentBundle\Model\Vote as BaseVote;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Model\Vote as BaseVote;
 use FOS\UserBundle\Model\UserInterface;
 
 /**
- * Vote
+ * Default ORM implementation of VoteInterface.
+ *
+ * This class must be extended and properly mapped by the developer.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */

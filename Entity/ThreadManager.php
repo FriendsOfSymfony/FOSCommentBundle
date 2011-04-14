@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -10,13 +12,29 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 
+/**
+ * Default ORM ThreadManager.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class ThreadManager extends BaseThreadManager
 {
+    /**
+     * @var EntityManager
+     */
     protected $em;
+
+    /**
+     * @var EntityRepository
+     */
     protected $repository;
+
+    /**
+     * @var string
+     */
     protected $class;
 
     /**

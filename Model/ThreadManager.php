@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -10,7 +12,7 @@
 namespace FOS\CommentBundle\Model;
 
 /**
- * Abstract Comment thread Manager implementation which can be used as base class for your
+ * Abstract Thread Manager implementation which can be used as base class for your
  * concrete manager.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>

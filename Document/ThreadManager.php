@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -10,13 +12,29 @@
 namespace FOS\CommentBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 
+/**
+ * Default ODM ThreadManager.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 class ThreadManager extends BaseThreadManager
 {
+    /**
+     * @var DocumentManager
+     */
     protected $dm;
+
+    /**
+     * @var DocumentRepository
+     */
     protected $repository;
+
+    /**
+     * @var string
+     */
     protected $class;
 
     /**

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -17,14 +19,14 @@ namespace FOS\CommentBundle\Model;
 interface VotableCommentInterface extends CommentInterface
 {
     /**
-     * Sets the score of the comment
+     * Sets the score of the comment.
      *
      * @param integer $score
      */
     function setScore($score);
 
     /**
-     * Returns the current score of the comment
+     * Returns the current score of the comment.
      *
      * @return integer
      */

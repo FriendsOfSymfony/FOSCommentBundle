@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Tim Nagel <tim@nagel.com.au>
  *
  * This source file is subject to the MIT license that is bundled
@@ -14,6 +16,8 @@ use RuntimeException;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
  */
 abstract class Vote implements VoteInterface
 {

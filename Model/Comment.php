@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This file is part of the FOS\CommentBundle.
+ *
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -13,9 +15,16 @@ use DateTime;
 
 /**
  * Storage agnostic comment object
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 abstract class Comment implements CommentInterface
 {
+    /**
+     * Comment id
+     *
+     * @var mixed
+     */
     protected $id;
 
     /**
