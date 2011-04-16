@@ -35,7 +35,7 @@
         </service>
         <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.comment.default.class%">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument>%fos_comment.model.vote.class%</argument>"
+            <argument>%fos_comment.model.vote.class%</argument>
         </service>
     </services>
 
