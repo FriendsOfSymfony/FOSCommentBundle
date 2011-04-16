@@ -60,8 +60,8 @@ interface VoteManagerInterface
     /**
      * Finds all votes for a comment.
      *
-     * @param CommentInterface $comment
+     * @param VotableCommentInterface $comment
      * @return array of VoteInterface
      */
-    function findVotesByComment(CommentInterface $comment);
+    function findVotesByComment(VotableCommentInterface $comment);
 }

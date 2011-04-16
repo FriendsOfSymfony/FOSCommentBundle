@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Acl;
 
-use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 
@@ -65,7 +65,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findVotesByComment(CommentInterface $comment)
+    public function findVotesByComment(VotableCommentInterface $comment)
     {
         return $this->findVotesByComment($comment);
     }
@@ -73,7 +73,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function addVote(VoteInterface $vote, CommentInterface $comment)
+    public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
     {
         $this->voteAcl->canCreate();
 
