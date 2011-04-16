@@ -41,7 +41,7 @@ class Configuration
                         ->arrayNode('model')->isRequired()
                             ->children()
                                 ->scalarNode('comment')->isRequired()->end()
-                                ->scalarNode('vote')->isRequired()->end()
+                                ->scalarNode('vote')->end()
                             ->end()
                         ->end()
                         ->arrayNode('form')->addDefaultsIfNotSet()
