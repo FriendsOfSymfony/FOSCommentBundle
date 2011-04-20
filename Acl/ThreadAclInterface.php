@@ -17,9 +17,6 @@ use FOS\CommentBundle\Model\ThreadInterface;
  * Used for checking if the ACL system will allow specific actions
  * to occur.
  *
- * Each function should throw an exception to be handled by the
- * Security system.
- *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 interface ThreadAclInterface
@@ -27,31 +24,31 @@ interface ThreadAclInterface
     /**
      * Checks if the user should be allowed to create a thread.
      *
-     * @throws Exception
+     * @return boolean
      */
     function canCreate();
 
     /**
      * Checks if the user should be allowed to view a thread.
      *
-     * @throws Exception
      * @param ThreadInterface $thread
+     * @return boolean
      */
     function canView(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to edit a thread.
      *
-     * @throws Exception
      * @param ThreadInterface $thread
+     * @return boolean
      */
     function canEdit(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to delete a thread.
      *
-     * @throws Exception
      * @param ThreadInterface $thread
+     * @return boolean
      */
     function canDelete(ThreadInterface $thread);
 

@@ -16,13 +16,11 @@ use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -38,13 +36,6 @@ class SecurityCommentAcl implements CommentAclInterface
      * @var ObjectIdentityRetrievalStrategy
      */
     private $objectRetrieval;
-
-    /**
-     * Used to retrieve UserSecurityIdentity instances for users.
-     *
-     * @var SecurityIdentityRetrievalStrategy
-     */
-    private $securityRetrieval;
 
     /**
      * The AclProvider.
@@ -85,13 +76,11 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
-                                SecurityIdentityRetrievalStrategy $securityRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $commentClass
     )
     {
         $this->objectRetrieval   = $objectRetrieval;
-        $this->securityRetrieval = $securityRetrieval;
         $this->aclProvider       = $aclProvider;
         $this->securityContext   = $securityContext;
         $this->commentClass      = $commentClass;
@@ -101,68 +90,44 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to create a new Comment.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
-     * @return void
+     * @return boolean
      */
     public function canCreate()
     {
-        if (!$this->securityContext->isGranted('CREATE', $this->oid)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('CREATE', $this->oid);
     }
 
     /**
      * Checks if the Security token is allowed to view the specified Comment.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param CommentInterface $comment
-     * @return void
+     * @return boolean
      */
     public function canView(CommentInterface $comment)
     {
-        if (!$this->securityContext->isGranted('VIEW', $comment)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('VIEW', $comment);
     }
 
     /**
      * Checks if the Security token is allowed to edit the specified Comment.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param CommentInterface $comment
-     * @return void
+     * @return boolean
      */
     public function canEdit(CommentInterface $comment)
     {
-        if (!$this->securityContext->isGranted('EDIT', $comment)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('EDIT', $comment);
     }
 
     /**
      * Checks if the Security token is allowed to delete the specified Comment.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param CommentInterface $comment
-     * @return void
+     * @return boolean
      */
     public function canDelete(CommentInterface $comment)
     {
-        if (!$this->securityContext->isGranted('DELETE', $comment)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('DELETE', $comment);
     }
 
     /**
@@ -173,7 +138,7 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function setDefaultAcl(CommentInterface $comment)
     {
-        $objectIdentity   = $this->objectRetrieval->getObjectIdentity($comment);
+        $objectIdentity = $this->objectRetrieval->getObjectIdentity($comment);
         $acl = $this->aclProvider->createAcl($objectIdentity);
 
         if ($comment instanceof SignedCommentInterface) {

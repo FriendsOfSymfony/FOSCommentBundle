@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Wraps a real implementation of VoteManagerInterface and
@@ -38,12 +39,20 @@ class AclVoteManager implements VoteManagerInterface
     private $voteAcl;
 
     /**
+     * The Comment Acl for querying Acls.
+     *
+     * @var CommentAclInterface
+     */
+    private $commentAcl;
+
+    /**
      * {@inheritDoc}
      */
-    public function __construct(VoteManagerInterface $voteManager, VoteAclInterface $voteAcl)
+    public function __construct(VoteManagerInterface $voteManager, VoteAclInterface $voteAcl, CommentAclInterface $commentAcl)
     {
         $this->realManager = $voteManager;
-        $this->voteAcl   = $voteAcl;
+        $this->voteAcl = $voteAcl;
+        $this->commentAcl = $commentAcl;
     }
 
     /**
@@ -51,7 +60,13 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVoteById($id)
     {
-        return $this->findVoteById($id);
+        $vote = $this->findVoteById($id);
+
+        if (!$this->voteAcl->canView($vote)) {
+            throw new AccessDeniedException();
+        }
+
+        return $vote;
     }
 
     /**
@@ -59,7 +74,13 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVoteBy(array $criteria)
     {
-        return $this->findVoteBy($criteria);
+        $vote = $this->findVoteBy($criteria);
+
+        if (!$this->voteAcl->canView($vote)) {
+            throw new AccessDeniedException();
+        }
+
+        return $vote;
     }
 
     /**
@@ -67,7 +88,15 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {
-        return $this->findVotesByComment($comment);
+        $votes = $this->findVotesByComment($comment);
+
+        foreach ($votes as $vote) {
+            if (!$this->voteAcl->canView($vote)) {
+                throw new AccessDeniedException();
+            }
+        }
+
+        return $votes;
     }
 
     /**
@@ -75,7 +104,9 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
     {
-        $this->voteAcl->canCreate();
+        if (!$this->voteAcl->canCreate() || !$this->commentAcl->canView($comment)) {
+            throw new AccessDeniedException();
+        }
 
         return $this->addVote($vote, $comment);
     }

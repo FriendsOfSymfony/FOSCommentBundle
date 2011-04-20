@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\CommentManagerInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Wraps a real implementation of CommentManagerInterface and
@@ -66,7 +67,10 @@ class AclCommentManager implements CommentManagerInterface
     public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
     {
         $comments = $this->realManager->findCommentTreeByThread($thread, $sorter, $depth);
-        $this->authorizeViewCommentTree($comments);
+
+        if (!$this->authorizeViewCommentTree($comments)) {
+            throw new AccessDeniedException();
+        }
 
         return $comments;
     }
@@ -77,8 +81,11 @@ class AclCommentManager implements CommentManagerInterface
     public function findCommentsByThread(ThreadInterface $thread, $depth = null)
     {
         $comments = $this->realManager->findCommentsByThread($thread, $depth);
+
         foreach ($comments AS $comment) {
-            $this->commentAcl->canView($comment);
+            if (!$this->commentAcl->canView($comment)) {
+                throw new AccessDeniedException();
+            }
         }
 
         return $comments;
@@ -90,7 +97,10 @@ class AclCommentManager implements CommentManagerInterface
     public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
         $comments = $this->realManager->findCommentTreeByCommentId($commentId, $sorter);
-        $this->authorizeViewCommentTree($comments);
+
+        if (!$this->authorizeViewCommentTree($comments)) {
+            throw new AccessDeniedException();
+        }
 
         return $comments;
     }
@@ -100,11 +110,11 @@ class AclCommentManager implements CommentManagerInterface
      */
     public function addComment(CommentInterface $comment, CommentInterface $parent = null)
     {
-        $this->threadAcl->canView($comment->getThread());
-        if (null !== $parent) {
-            $this->commentAcl->canView($parent);
+        if (!$this->threadAcl->canView($comment->getThread()) ||
+            !(null !== $parent && $this->commentAcl->canView($parent)) ||
+            !$this->commentAcl->canCreate()) {
+            throw new AccessDeniedException();
         }
-        $this->commentAcl->canCreate();
 
         $this->realManager->addComment($comment, $parent);
         $this->commentAcl->setDefaultAcl($comment);
@@ -117,8 +127,8 @@ class AclCommentManager implements CommentManagerInterface
     {
         $comment = $this->realManager->findCommentById($id);
 
-        if (null !== $comment) {
-            $this->commentAcl->canView($comment);
+        if (null !== $comment && !$this->commentAcl->canView($comment)) {
+            throw new AccessDeniedException();
         }
 
         return $comment;
@@ -144,21 +154,22 @@ class AclCommentManager implements CommentManagerInterface
      * Iterates over a comment tree array and makes sure all comments
      * have appropriate view permissions.
      *
-     * @throws AccessDeniedException
      * @param  array $comments A comment tree
-     * @return void
+     * @return boolean
      */
     protected function authorizeViewCommentTree($comments)
     {
         if (!is_array($comments)) {
-            return;
+            return true;
         }
 
         foreach ($comments AS $comment) {
-            $this->commentAcl->canView($comment['comment']);
+            if (!$this->commentAcl->canView($comment['comment'])) {
+                return false;
+            }
 
             if (is_array($comment['children'])) {
-                $this->authorizeViewCommentTree($comment['children']);
+                return $this->authorizeViewCommentTree($comment['children']);
             }
         }
     }

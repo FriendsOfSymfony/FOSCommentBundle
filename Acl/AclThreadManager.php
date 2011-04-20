@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Wraps a real implementation of ThreadManagerInterface and
@@ -55,8 +56,8 @@ class AclThreadManager implements ThreadManagerInterface
     {
         $thread = $this->realManager->findThreadByIdentifier($identifier);
 
-        if (null !== $thread) {
-            $this->threadAcl->canView($thread);
+        if (null !== $thread && !$this->threadAcl->canView($thread)) {
+            throw new AccessDeniedException();
         }
 
         return $thread;
@@ -69,8 +70,8 @@ class AclThreadManager implements ThreadManagerInterface
     {
         $thread = $this->realManager->findThreadBy($criteria);
 
-        if (null !== $thread) {
-            $this->threadAcl->canView($thread);
+        if (null !== $thread && !$this->threadAcl->canView($thread)) {
+            throw new AccessDeniedException();
         }
 
         return $thread;
@@ -82,8 +83,11 @@ class AclThreadManager implements ThreadManagerInterface
     public function findAllThreads()
     {
         $threads = $this->realManager->findAllThreads();
+
         foreach ($threads AS $thread) {
-            $this->threadAcl->canView($thread);
+            if (!$this->threadAcl->canView($thread)) {
+                throw new AccessDeniedException();
+            }
         }
 
         return $threads;

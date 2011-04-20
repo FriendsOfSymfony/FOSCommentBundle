@@ -17,9 +17,6 @@ use FOS\CommentBundle\Model\VoteInterface;
  * Used for checking if the ACL system will allow specific actions
  * to occur.
  *
- * Each function should throw an exception to be handled by the
- * Security system.
- *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 interface VoteAclInterface
@@ -27,14 +24,31 @@ interface VoteAclInterface
     /**
      * Checks if the user should be allowed to create a vote.
      *
-     * @throws Exception
+     * @return boolean
      */
     function canCreate();
 
     /**
-     * Checks if the user should be able to delete a vote.
+     * Checks if the user should be allowed to view a vote.
      *
-     * @throws Exception
+     * @param VoteInterface $vote
+     * @return boolean
+     */
+    function canView(VoteInterface $vote);
+
+    /**
+     * Checks if the user should be allowed to edit a vote.
+     *
+     * @param VoteInterface $vote
+     * @return boolean
+     */
+    function canEdit(VoteInterface $vote);
+
+    /**
+     * Checks if the user should be allowed to delete a vote.
+     *
+     * @param VoteInterface $vote
+     * @return boolean
      */
     function canDelete(VoteInterface $vote);
 

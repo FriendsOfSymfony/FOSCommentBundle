@@ -17,9 +17,6 @@ use FOS\CommentBundle\Model\CommentInterface;
  * Used for checking if the ACL system will allow specific actions
  * to occur.
  *
- * Each function should throw an exception to be handled by the
- * Security system.
- *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 interface CommentAclInterface
@@ -27,31 +24,31 @@ interface CommentAclInterface
     /**
      * Checks if the user should be able to create a comment.
      *
-     * @throws Exception
+     * @return boolean
      */
     function canCreate();
 
     /**
      * Checks if the user should be able to view a comment.
      *
-     * @throws Exception
      * @param CommentInterface $comment
+     * @return boolean
      */
     function canView(CommentInterface $comment);
 
     /**
      * Checks if the user should be able to edit a comment.
      *
-     * @throws Exception
      * @param CommentInterface $comment
+     * @return boolean
      */
     function canEdit(CommentInterface $comment);
 
     /**
      * Checks if the user should be able to delete a comment.
      *
-     * @throws Exception
      * @param CommentInterface $comment
+     * @return boolean
      */
     function canDelete(CommentInterface $comment);
 

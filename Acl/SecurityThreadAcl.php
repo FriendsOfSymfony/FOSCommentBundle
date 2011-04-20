@@ -15,13 +15,11 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -37,13 +35,6 @@ class SecurityThreadAcl implements ThreadAclInterface
      * @var ObjectIdentityRetrievalStrategy
      */
     private $objectRetrieval;
-
-    /**
-     * Used to retrieve UserSecurityIdentity instances for users.
-     *
-     * @var SecurityIdentityRetrievalStrategy
-     */
-    private $securityRetrieval;
 
     /**
      * The AclProvider.
@@ -78,91 +69,63 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @param SecurityContextInterface $securityContext
      * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param SecurityIdentityRetrievalStrategy $securityRetrieval
      * @param MutableAclProviderInterface $aclProvider
      * @param string $threadClass
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategy $objectRetrieval,
-                                SecurityIdentityRetrievalStrategy $securityRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $threadClass
     )
     {
         $this->objectRetrieval   = $objectRetrieval;
-        $this->securityRetrieval = $securityRetrieval;
         $this->aclProvider       = $aclProvider;
         $this->securityContext   = $securityContext;
         $this->threadClass       = $threadClass;
         $this->oid               = new ObjectIdentity('class', $this->threadClass);
     }
 
-
     /**
      * Checks if the Security token is allowed to create a new Thread.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
-     * @return void
+     * @return boolean
      */
     public function canCreate()
     {
-        if (!$this->securityContext->isGranted('CREATE', $this->getOid())) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('CREATE', $this->oid);
     }
 
     /**
-     * Checks if the Security token is allowed to view the supplied Thread.
+     * Checks if the Security token is allowed to view the specified Thread.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param ThreadInterface $thread
-     * @return void
+     * @return boolean
      */
     public function canView(ThreadInterface $thread)
     {
-        if (!$this->securityContext->isGranted('VIEW', $thread)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('VIEW', $thread);
     }
 
     /**
-     * Checks if the Security token is allowed to edit the supplied Thread.
+     * Checks if the Security token is allowed to edit the specified Thread.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param ThreadInterface $thread
-     * @return void
+     * @return boolean
      */
     public function canEdit(ThreadInterface $thread)
     {
-        if (!$this->securityContext->isGranted('EDIT', $thread)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('EDIT', $thread);
     }
 
     /**
-     * Checks if the Security token is allowed to delete the supplied Thread.
+     * Checks if the Security token is allowed to delete the specified Thread.
      *
-     * The exception thrown by this method should be handled by the
-     * Symfony2 Security component.
-     *
-     * @throws AccessDeniedException when not allowed.
      * @param ThreadInterface $thread
-     * @return void
+     * @return boolean
      */
     public function canDelete(ThreadInterface $thread)
     {
-        if (!$this->securityContext->isGranted('DELETE', $thread)) {
-            throw new AccessDeniedException();
-        }
+        return $this->securityContext->isGranted('DELETE', $thread);
     }
 
     /**
@@ -173,8 +136,14 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function setDefaultAcl(ThreadInterface $thread)
     {
-        $objectIdentity = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
+        $objectIdentity = $this->objectRetrieval->getObjectIdentity($thread);
         $acl = $this->aclProvider->createAcl($objectIdentity);
+
+        if ($thread instanceof SignedThreadInterface) {
+            $securityIdentity = UserSecurityIdentity::fromAccount($thread->getAuthor());
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+        }
+
         $this->aclProvider->updateAcl($acl);
     }
 
@@ -187,8 +156,10 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function installFallbackAcl()
     {
+        $oid = new ObjectIdentity('class', $this->threadClass);
+
         try {
-            $acl = $this->aclProvider->createAcl($this->oid);
+            $acl = $this->aclProvider->createAcl($oid);
         } catch (AclAlreadyExistsException $exists) {
             return;
         }
@@ -202,7 +173,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * Override this method in a subclass to change what permissions are defined.
      * Once this method has been overridden you need to run the
-     * `fos_comment:installAces --flush` command
+     * `fos_thread:installAces --flush` command
      *
      * @param AclInterface $acl
      * @param MaskBuilder $builder
@@ -227,13 +198,14 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Removes fallback Acl entries for the Thread class.
      *
-     * This should be run when uninstalling the CommentBundle, or when
+     * This should be run when uninstalling the ThreadBundle, or when
      * the Class Acl entry end up corrupted.
      *
      * @return void
      */
     public function uninstallFallbackAcl()
     {
-        $this->aclProvider->deleteAcl($this->oid);
+        $oid = new ObjectIdentity('class', $this->threadClass);
+        $this->aclProvider->deleteAcl($oid);
     }
 }

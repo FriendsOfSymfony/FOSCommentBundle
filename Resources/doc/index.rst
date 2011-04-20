@@ -320,6 +320,24 @@ make sure that all Comments and Threads have appropriate Acl entries.
 This command must also be run if you turn Acl off and re-enable it at a later date
 or change the FQCN of the Comment object.
 
+Role based Acl security
+--------------------------
+
+CommentBundle also provides the ability to configure permissions based on the roles
+a specific user has. See the configuration example below for how to customise the
+default roles used for permissions.
+
+To configure Role based security override the Acl services::
+
+    # app/config/config.yml
+
+    fos_comment:
+        service:
+            acl:
+                thread: fos_comment.acl.thread.roles
+                comment: fos_comment.acl.comment.roles
+                vote: fos_comment.acl.vote.roles
+
 Notable services
 ================
 
@@ -476,6 +494,23 @@ All configuration options are listed below::
                 vote: FOS\CommentBundle\Document\Vote
             form:
                 comment: FOS\CommentBundle\Document\CommentForm
+        acl:
+            roles: # optional configuration for the Role Acl providers.
+                comment:
+                    create: IS_AUTHENTICATED_ANONYMOUSLY
+                    view: IS_AUTHENTICATED_ANONYMOUSLY
+                    edit: ROLE_ADMIN
+                    delete: ROLE_ADMIN
+                thread:
+                    create: IS_AUTHENTICATED_ANONYMOUSLY
+                    view: IS_AUTHENTICATED_ANONYMOUSLY
+                    edit: ROLE_ADMIN
+                    delete: ROLE_ADMIN
+                vote:
+                    create: IS_AUTHENTICATED_ANONYMOUSLY
+                    view: IS_AUTHENTICATED_ANONYMOUSLY
+                    edit: ROLE_ADMIN
+                    delete: ROLE_ADMIN
         service:
             manager:
                 thread: fos_comment.manager.thread.default
