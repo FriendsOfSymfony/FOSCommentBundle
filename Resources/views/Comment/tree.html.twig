@@ -16,6 +16,5 @@
 {% else %}
 {% for node in nodes %}
     {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node.comment, "children": node.children, "depth": depth|default(0), "displayDepth": displayDepth|default(0), "sorter": sorter } %}
->>>>>>> master
 {% endfor %}
 {% endif %}
