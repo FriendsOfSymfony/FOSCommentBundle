@@ -62,9 +62,9 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.akismet.api_key', $config['akismet']['api_key']);
 
         foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
-            $container->getDefinition('fos_comment.acl.comment.roles')->setArgument($index, $config['acl']['roles']['comment'][$perm]);
-            $container->getDefinition('fos_comment.acl.thread.roles')->setArgument($index, $config['acl']['roles']['thread'][$perm]);
-            $container->getDefinition('fos_comment.acl.vote.roles')->setArgument($index, $config['acl']['roles']['vote'][$perm]);
+            $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl']['roles']['comment'][$perm]);
+            $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl']['roles']['thread'][$perm]);
+            $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl']['roles']['vote'][$perm]);
         }
 
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);

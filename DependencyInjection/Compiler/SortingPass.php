@@ -43,6 +43,6 @@ class SortingPass implements CompilerPassInterface
             }
         }
 
-        $container->getDefinition('fos_comment.sorting_factory')->setArgument(0, $sorters);
+        $container->getDefinition('fos_comment.sorting_factory')->replaceArgument(0, $sorters);
     }
 }
