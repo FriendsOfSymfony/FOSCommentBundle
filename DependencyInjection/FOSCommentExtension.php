@@ -46,8 +46,12 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection', 'acl', 'twig', 'sorting') as $basename) {
+        foreach (array('value_transformer', 'blamer', 'form', 'creator', 'spam_detection', 'twig', 'sorting') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
+        }
+        // only load acl services if acl is enabled for the project
+        if ($container->hasDefinition('security.acl.object_identity_retrieval_strategy')) {
+            $this->loadAcl($container, $config);
         }
 
         $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
@@ -60,12 +64,6 @@ class FOSCommentExtension extends Extension
 
         $container->setParameter('fos_comment.akismet.url', $config['akismet']['url']);
         $container->setParameter('fos_comment.akismet.api_key', $config['akismet']['api_key']);
-
-        foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
-            $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl']['roles']['comment'][$perm]);
-            $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl']['roles']['thread'][$perm]);
-            $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl']['roles']['vote'][$perm]);
-        }
 
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
@@ -80,6 +78,18 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+    }
+
+    protected function loadAcl(ContainerBuilder $container, array $config)
+    {
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('acl.xml');
+
+        foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
+            $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl']['roles']['comment'][$perm]);
+            $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl']['roles']['thread'][$perm]);
+            $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl']['roles']['vote'][$perm]);
+        }
 
         $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
         $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
