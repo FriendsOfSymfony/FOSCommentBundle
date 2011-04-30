@@ -15,7 +15,6 @@ use FOS\CommentBundle\Blamer\CommentBlamerInterface;
 use FOS\CommentBundle\Model\CommentManagerInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\SpamDetection\SpamDetectionInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Responsible for primary creation and persistance of a Comment object.
@@ -24,11 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DefaultCommentCreator implements CommentCreatorInterface
 {
-    /**
-     * @var Request
-     */
-    protected $request;
-
     /**
      * @var CommentManagerInterface
      */
@@ -47,14 +41,12 @@ class DefaultCommentCreator implements CommentCreatorInterface
     /**
      * Constructor.
      *
-     * @param Request $request
      * @param CommentManagerInterface $commentManager
      * @param CommentBlamerInterface $commentBlamer
      * @param SpamDetectionInterface $spamDetection
      */
-    public function __construct(Request $request, CommentManagerInterface $commentManager, CommentBlamerInterface $commentBlamer, SpamDetectionInterface $spamDetection)
+    public function __construct(CommentManagerInterface $commentManager, CommentBlamerInterface $commentBlamer, SpamDetectionInterface $spamDetection)
     {
-        $this->request        = $request;
         $this->commentManager = $commentManager;
         $this->commentBlamer  = $commentBlamer;
         $this->spamDetection  = $spamDetection;
@@ -63,15 +55,13 @@ class DefaultCommentCreator implements CommentCreatorInterface
     /**
      * {@inheritDoc}
      */
-    public function create(CommentInterface $comment)
+    public function create(CommentInterface $comment, CommentInterface $parent = null)
     {
         $this->commentBlamer->blame($comment);
 
         if ($this->spamDetection->isSpam($comment)) {
             return false;
         }
-
-        $parent = $this->commentManager->findCommentById($this->request->request->get('reply_to'));
 
         $this->commentManager->addComment($comment, $parent);
 

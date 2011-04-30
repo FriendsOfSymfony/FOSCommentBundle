@@ -19,7 +19,6 @@
             <argument type="service" id="fos_comment.manager.thread" />
         </service>
         <service id="fos_comment.creator.comment.default" class="FOS\CommentBundle\Creator\DefaultCommentCreator" public="false" scope="request">
-            <argument type="service" id="request" />
             <argument type="service" id="fos_comment.manager.comment" />
             <argument type="service" id="fos_comment.blamer.comment" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
@@ -30,5 +29,4 @@
             <argument type="service" id="validator" />
         </service>
     </services>
-
 </container>

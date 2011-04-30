@@ -11,15 +11,13 @@
 
 namespace FOS\CommentBundle\Controller;
 
+use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\CommentInterface;
-
-use FOS\CommentBundle\Form\CommentForm;
 
 /**
  * Groups all comment related actions into the controller.
@@ -86,16 +84,38 @@ class CommentController extends ContainerAware
     /**
      * Submit a comment form.
      *
+     * @param mixed Thread Identifier
      * @return Response
      */
-    public function createAction()
+    public function createAction($threadIdentifier)
     {
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
-        $form->bind($this->container->get('request'), $comment);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($threadIdentifier);
+        if (!$thread) {
+            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadIdentifier));
+        }
 
-        if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment)) {
-            return $this->onCreateSuccess($form);
+        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
+        $comment->setThread($thread);
+
+        if ($replyToId = $this->container->get('request')->request->get('reply_to')) {
+            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($replyToId);
+            if (!$parent) {
+                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $replyToId));
+            }
+        } else {
+            $parent = null;
+        }
+
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form->setData($comment);
+
+        $request = $this->container->get('request');
+        if ('POST' == $request->getMethod()) {
+            $form->bindRequest($request);
+
+            if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment, $parent)) {
+                return $this->onCreateSuccess($form);
+            }
         }
 
         return $this->onCreateError($form);
@@ -107,7 +127,7 @@ class CommentController extends ContainerAware
      * @param CommentForm $form
      * @return Response
      */
-    protected function onCreateSuccess(CommentForm $form)
+    protected function onCreateSuccess(Form $form)
     {
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
             'identifier' => $form->getData()->getThread()->getIdentifier()
@@ -120,8 +140,8 @@ class CommentController extends ContainerAware
      * @param CommentForm $form
      * @return Response
      */
-    protected function onCreateError(CommentForm $form)
+    protected function onCreateError(Form $form)
     {
-        return new Response("", 400);
+        return new Response('An Error occurred with form submission', 400);
     }
 }
