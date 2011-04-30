@@ -137,9 +137,9 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function createComment()
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
-        return $this->realManager->createComment();
+        return $this->realManager->createComment($thread, $parent);
     }
 
     /**
