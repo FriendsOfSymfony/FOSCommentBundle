@@ -76,7 +76,7 @@ interface CommentManagerInterface
      * @param CommentInterface $comment
      * @param CommentInterface $parent Only used when replying to a specific CommentInterface
      */
-    function addComment(CommentInterface $comment, CommentInterface $parent = null);
+    function addComment(CommentInterface $comment);
 
     /**
      * Find one comment by its ID.
@@ -90,7 +90,7 @@ interface CommentManagerInterface
      *
      * @return Comment
      */
-    function createComment();
+    function createComment(ThreadInterface $thread, CommentInterface $comment = null);
 
     /**
      * Returns the comment fully qualified class name.

@@ -55,7 +55,7 @@ class DefaultCommentCreator implements CommentCreatorInterface
     /**
      * {@inheritDoc}
      */
-    public function create(CommentInterface $comment, CommentInterface $parent = null)
+    public function create(CommentInterface $comment)
     {
         $this->commentBlamer->blame($comment);
 
@@ -63,7 +63,7 @@ class DefaultCommentCreator implements CommentCreatorInterface
             return false;
         }
 
-        $this->commentManager->addComment($comment, $parent);
+        $this->commentManager->addComment($comment);
 
         return true;
     }

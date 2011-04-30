@@ -87,24 +87,24 @@ class CommentController extends ContainerAware
      * @param mixed Thread Identifier
      * @return Response
      */
-    public function createAction($threadIdentifier)
+    public function createAction($threadIdentifier, $parentId = null)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($threadIdentifier);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadIdentifier));
         }
 
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $comment->setThread($thread);
-
-        if ($replyToId = $this->container->get('request')->request->get('reply_to')) {
-            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($replyToId);
+        if (null !== $parentId) {
+            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
+            
             if (!$parent) {
-                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $replyToId));
+                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
             }
         } else {
             $parent = null;
         }
+
+        $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread, $parent);
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
@@ -113,7 +113,7 @@ class CommentController extends ContainerAware
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
 
-            if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment, $parent)) {
+            if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment)) {
                 return $this->onCreateSuccess($form);
             }
         }

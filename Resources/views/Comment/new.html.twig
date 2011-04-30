@@ -17,7 +17,7 @@
     {% endif %}
 {% endblock %}
 
-<form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadIdentifier": thread.identifier}) }}" method="POST">
+<form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadIdentifier": thread.identifier }) }}" method="POST">
 
     {% block fos_comment_form_fields %}
         {{ form_errors(form) }}
