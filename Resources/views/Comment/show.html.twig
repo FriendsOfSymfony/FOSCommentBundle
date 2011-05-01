@@ -22,7 +22,7 @@
         {{ comment.body }}
     </div>
     <div class="fos_comment_comment_reply">
-        <button data-id="{{ comment.id }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
+        <button data-url="{{ path('fos_comment_comment_create', {"threadIdentifier": comment.thread.identifier, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
     </div>
     <div class="fos_comment_comment_replies">
         {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}

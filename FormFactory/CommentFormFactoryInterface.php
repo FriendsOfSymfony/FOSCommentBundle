@@ -11,14 +11,19 @@
 
 namespace FOS\CommentBundle\FormFactory;
 
-use FOS\CommentBundle\Form\CommentForm;
+use Symfony\Component\Form\Form;
 
+/**
+ * Comment form creator
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 interface CommentFormFactoryInterface
 {
     /**
      * Creates a comment form
      *
-     * @return CommentForm
+     * @return Form
      */
     public function createForm();
 }

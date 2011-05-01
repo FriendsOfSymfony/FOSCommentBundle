@@ -60,10 +60,16 @@ abstract class CommentManager implements CommentManagerInterface
      *
      * @return Comment
      */
-    public function createComment()
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
         $class = $this->getClass();
         $comment = new $class;
+
+        $comment->setThread($thread);
+
+        if (null !== $parent) {
+            $comment->setParent($parent);
+        }
 
         return $comment;
     }
@@ -99,26 +105,6 @@ abstract class CommentManager implements CommentManagerInterface
 
         $sorter = $this->getSortingFactory()->getSorter($sorter);
         return $this->organiseComments($comments, $sorter);
-    }
-
-    /**
-     * Creates the ancestor array for a given parent
-     * Gets the parent ancestors, and adds the parent id.
-     *
-     * @param CommentInterface $parent
-     * @return array
-     * @throw InvalidArgumentException if the parent has no ID
-     */
-    protected function createAncestors(CommentInterface $parent)
-    {
-        if (!$parent->getId()) {
-            throw new InvalidArgumentException('The comment parent must have an ID.');
-        }
-
-        $ancestors = $parent->getAncestors();
-        $ancestors[] = $parent->getId();
-
-        return $ancestors;
     }
 
     /**
