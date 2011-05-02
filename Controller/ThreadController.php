@@ -11,14 +11,17 @@
 
 namespace FOS\CommentBundle\Controller;
 
+use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Form\CommentForm;
-use Symfony\Component\Form\HiddenField;
-
+/**
+ * Groups all thread related actions into the controller.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class ThreadController extends ContainerAware
 {
     /**
@@ -41,7 +44,7 @@ class ThreadController extends ContainerAware
             $thread = $this->container->get('fos_comment.creator.thread')->create($identifier);
         }
 
-        $comment = $this->createComment($thread);
+        $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
@@ -52,7 +55,7 @@ class ThreadController extends ContainerAware
             'sorter' => $sorter,
             'availableSorters' => $availableSorters,
             'displayDepth'  => $displayDepth,
-            'form'   => $form
+            'form'   => $form->createView()
         ));
     }
 
@@ -72,19 +75,5 @@ class ThreadController extends ContainerAware
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(
             'thread' => $thread
         ));
-    }
-
-    /**
-     * Creates a comment that belongs to the provided Thread.
-     *
-     * @param ThreadInterface $thread
-     * @return CommentInterface
-     */
-    protected function createComment(ThreadInterface $thread)
-    {
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment();
-        $comment->setThread($thread);
-
-        return $comment;
     }
 }

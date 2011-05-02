@@ -8,8 +8,10 @@
 #
 
 fos_comment_comment_create:
-    pattern:        /new
-    defaults:       { _controller: FOSCommentBundle:Comment:create }
+    pattern:         /new/{threadIdentifier}/{parentId}
+    defaults:
+        _controller: FOSCommentBundle:Comment:create
+        parentId:     null
     requirements:   { _method: "post" }
 
 fos_comment_thread_show_feed:

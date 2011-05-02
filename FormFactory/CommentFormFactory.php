@@ -12,31 +12,26 @@
 namespace FOS\CommentBundle\FormFactory;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormContext;
-use Symfony\Component\Form\HiddenField;
+use Symfony\Component\Form\FormFactory;
 use FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer;
 
 /**
  * CommentForm factory class.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Tim Nagel <tim@nagel.com.au>
  */
 class CommentFormFactory implements CommentFormFactoryInterface
 {
     /**
-     * @var FormContext
+     * @var FormFactory
      */
-    protected $formContext;
-
-    /**
-     * @var ThreadValueTransformer
-     */
-    protected $threadValueTransformer;
+    protected $formFactory;
 
     /**
      * @var string
      */
-    protected $class;
+    protected $type;
 
     /**
      * @var string
@@ -47,15 +42,13 @@ class CommentFormFactory implements CommentFormFactoryInterface
      * Constructor.
      *
      * @param FormContext $formContext
-     * @param ThreadValueTransformer $threadValueTransformer
-     * @param string $class
+     * @param string $type
      * @param string $name
      */
-    public function __construct(FormContext $formContext, ThreadValueTransformer $threadValueTransformer, $class, $name)
+    public function __construct(FormFactory $formFactory, $type, $name)
     {
-        $this->formContext            = $formContext;
-        $this->threadValueTransformer = $threadValueTransformer;
-        $this->class                  = $class;
+        $this->formFactory            = $formFactory;
+        $this->type                   = $type;
         $this->name                   = $name;
     }
 
@@ -66,10 +59,8 @@ class CommentFormFactory implements CommentFormFactoryInterface
      */
     public function createForm()
     {
-        $class = $this->class;
-        $form = $class::create($this->formContext, $this->name);
-        $form->add(new HiddenField('thread', array('value_transformer' => $this->threadValueTransformer)));
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name);
 
-        return $form;
+        return $builder->getForm();
     }
 }

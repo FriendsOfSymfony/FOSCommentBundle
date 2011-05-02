@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Model;
 
 use DateTime;
+use InvalidArgumentException;
 
 /**
  * Storage agnostic comment object
@@ -26,6 +27,13 @@ abstract class Comment implements CommentInterface
      * @var mixed
      */
     protected $id;
+
+    /**
+     * Parent comment id
+     *
+     * @var CommentInterface
+     */
+    protected $parent;
 
     /**
      * Comment text
@@ -107,5 +115,24 @@ abstract class Comment implements CommentInterface
     public function getDepth()
     {
         return $this->depth;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent(CommentInterface $parent)
+    {
+        $this->parent = $parent;
+
+        if (!$parent->getId()) {
+            throw new InvalidArgumentException('Parent comment must be persisted.');
+        }
+
+        $ancestors = $parent->getAncestors();
+        $ancestors[] = $parent->getId();
+
+        $this->setAncestors($ancestors);
     }
 }
