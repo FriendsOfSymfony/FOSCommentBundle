@@ -14,7 +14,7 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
@@ -33,7 +33,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Used to retrieve ObjectIdentity instances for objects.
      *
-     * @var ObjectIdentityRetrievalStrategy
+     * @var ObjectIdentityRetrievalStrategyInterface
      */
     private $objectRetrieval;
 
@@ -69,13 +69,12 @@ class SecurityCommentAcl implements CommentAclInterface
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param SecurityIdentityRetrievalStrategy $securityRetrieval
+     * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
      * @param MutableAclProviderInterface $aclProvider
      * @param string $commentClass
      */
     public function __construct(SecurityContextInterface $securityContext,
-                                ObjectIdentityRetrievalStrategy $objectRetrieval,
+                                ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $commentClass
     )
