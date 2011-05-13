@@ -14,12 +14,12 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
+use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -74,7 +74,7 @@ class SecurityVoteAcl implements VoteAclInterface
      * @param string $voteClass
      */
     public function __construct(SecurityContextInterface $securityContext,
-                                ObjectIdentityRetrievalStrategy $objectRetrieval,
+                                ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $voteClass
     )
