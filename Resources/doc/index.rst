@@ -156,7 +156,7 @@ In YAML::
     # app/config/routing.yml
 
     fos_comment:
-        resource: @FOSCommentBundle/Resources/config/routing.yml
+        resource: "@FOSCommentBundle/Resources/config/routing.yml"
 
 Or if you prefer XML::
 
