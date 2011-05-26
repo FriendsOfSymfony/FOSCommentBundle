@@ -20,7 +20,7 @@ Add CommentBundle to your src/ dir
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git src/FOS/CommentBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git vendor/bundles/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
@@ -108,17 +108,19 @@ you must create one::
     // src/MyProject/MyBundle/Entity/Comment.php
 
     namespace MyProject\MyBundle\Entity;
+
+    use Doctrine\ORM\Mapping as ORM;
     use FOS\CommentBundle\Entity\Comment as BaseComment;
 
     /**
-     * @orm:Entity
+     * @ORM\Entity
      */
     class Comment extends BaseComment
     {
         /**
-         * @orm:Id
-         * @orm:Column(type="integer")
-         * @orm:generatedValue(strategy="AUTO")
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
     }
@@ -583,9 +585,9 @@ You may also need to define mappings.
 
 MongoDB mapping examples:
 
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Vote.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/Thread.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/Comment.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/Vote.dcm.xml
 
 .. _See it in action: http://lichess.org/1j21ti43
 .. _Akismet: http://akismet.com
