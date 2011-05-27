@@ -20,7 +20,7 @@ Add CommentBundle to your src/ dir
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git src/FOS/CommentBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git vendor/bundles/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
@@ -30,7 +30,7 @@ Add the FOS namespace to your autoloader
     // app/autoload.php
 
     $loader->registerNamespaces(array(
-        'FOS' => __DIR__.'/../src',
+        'FOS' => __DIR__.'/../vendor/bundles',
         // your other namespaces
     );
 
@@ -108,17 +108,19 @@ you must create one::
     // src/MyProject/MyBundle/Entity/Comment.php
 
     namespace MyProject\MyBundle\Entity;
+
+    use Doctrine\ORM\Mapping as ORM;
     use FOS\CommentBundle\Entity\Comment as BaseComment;
 
     /**
-     * @orm:Entity
+     * @ORM\Entity
      */
     class Comment extends BaseComment
     {
         /**
-         * @orm:Id
-         * @orm:Column(type="integer")
-         * @orm:generatedValue(strategy="AUTO")
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
     }
