@@ -39,18 +39,18 @@ class ThreadController extends ContainerAware
      */
     public function showAction($identifier, $sorter = null, $displayDepth = null)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
+        $thread = $this->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
         if (!$thread) {
-            $thread = $this->container->get('fos_comment.creator.thread')->create($identifier);
+            $thread = $this->get('fos_comment.creator.thread')->create($identifier);
         }
 
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $comment = $this->get('fos_comment.manager.comment')->createComment($thread);
+        $form = $this->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
-        $availableSorters = $this->container->get('fos_comment.sorting_factory')->getAvailableSorters();
+        $availableSorters = $this->get('fos_comment.sorting_factory')->getAvailableSorters();
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
+        return $this->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
             'thread' => $thread,
             'sorter' => $sorter,
             'availableSorters' => $availableSorters,
@@ -67,12 +67,12 @@ class ThreadController extends ContainerAware
      */
     public function showFeedAction($identifier)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
+        $thread = $this->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(
+        return $this->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(
             'thread' => $thread
         ));
     }

@@ -46,13 +46,13 @@ class VoteController extends ContainerAware
      */
     public function addAction($commentId, $value)
     {
-        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+        $comment = $this->get('fos_comment.manager.comment')->findCommentById($commentId);
         if (!$comment) {
             throw new NotFoundHttpException('Comment not found');
         }
 
         $vote = $this->createVote($value);
-        if ($this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
+        if ($this->get('fos_comment.creator.vote')->create($vote, $comment)) {
             return new Response(json_encode(array('score' => $comment->getScore())));
         }
 
@@ -68,14 +68,14 @@ class VoteController extends ContainerAware
      */
     public function listAction($commentId)
     {
-        $comment = $this->container->get('fos_comment.manager.comment')->findByCommentId($commentId);
+        $comment = $this->get('fos_comment.manager.comment')->findByCommentId($commentId);
         if (!$comment) {
             throw new NotFoundHttpException('Comment not found');
         }
 
-        $votes = $this->container->get('fos_comment.manager.vote')->findVotesByComment($comment);
+        $votes = $this->get('fos_comment.manager.vote')->findVotesByComment($comment);
 
-        return $this->container->get('templating')->renderResponse('FOSComment:Vote:list.html.twig', array(
+        return $this->get('templating')->renderResponse('FOSComment:Vote:list.html.twig', array(
             'comment' => $comment,
             'votes' => $votes,
         ));
@@ -89,7 +89,7 @@ class VoteController extends ContainerAware
      */
     public function createVote($value)
     {
-        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+        $vote = $this->get('fos_comment.manager.vote')->createVote();
         $vote->setValue($value);
 
         return $vote;

@@ -37,9 +37,9 @@ class CommentController extends ContainerAware
      */
     public function treeAction(ThreadInterface $thread, $sorter = null, $displayDepth = null)
     {
-        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
+        $nodes = $this->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
+        return $this->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
             'nodes' => $nodes,
             'displayDepth' => $displayDepth,
             'sorter' => $sorter,
@@ -55,10 +55,10 @@ class CommentController extends ContainerAware
      */
     public function subtreeAction($commentId, $sorter = null)
     {
-        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId, $sorter))
+        if (!$nodes = $this->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId, $sorter))
             throw new NotFoundHttpException('No comment branch found');
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
+        return $this->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
             'nodes' => $nodes,
             'depth' => $nodes[0]['comment']->getDepth(),
             'sorter' => $sorter,
@@ -73,9 +73,9 @@ class CommentController extends ContainerAware
      */
     public function listFeedAction(ThreadInterface $thread)
     {
-        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        $nodes = $this->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
+        return $this->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
             'nodes'     => $nodes,
             'permalink' => $thread->getPermalink()
         ));
@@ -89,13 +89,13 @@ class CommentController extends ContainerAware
      */
     public function createAction($threadIdentifier, $parentId = null)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($threadIdentifier);
+        $thread = $this->get('fos_comment.manager.thread')->findThreadByIdentifier($threadIdentifier);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadIdentifier));
         }
 
         if (null !== $parentId) {
-            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
+            $parent = $this->get('fos_comment.manager.comment')->findCommentById($parentId);
             
             if (!$parent) {
                 throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
@@ -104,16 +104,16 @@ class CommentController extends ContainerAware
             $parent = null;
         }
 
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread, $parent);
+        $comment = $this->get('fos_comment.manager.comment')->createComment($thread, $parent);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form = $this->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
-        $request = $this->container->get('request');
+        $request = $this->get('request');
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
 
-            if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment)) {
+            if ($form->isValid() && $this->get('fos_comment.creator.comment')->create($comment)) {
                 return $this->onCreateSuccess($form);
             }
         }
@@ -129,7 +129,7 @@ class CommentController extends ContainerAware
      */
     protected function onCreateSuccess(Form $form)
     {
-        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
+        return $this->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
             'identifier' => $form->getData()->getThread()->getIdentifier()
         ));
     }
