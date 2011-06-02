@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This file is part of the FOS\CommentBundle.
+ * This file is part of the FOSCommentBundle package.
  *
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -96,7 +96,7 @@ class CommentController extends ContainerAware
 
         if (null !== $parentId) {
             $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
-            
+
             if (!$parent) {
                 throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
             }

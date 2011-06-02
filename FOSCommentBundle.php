@@ -1,7 +1,9 @@
 <?php
 
 /**
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
