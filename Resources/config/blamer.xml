@@ -22,7 +22,7 @@
 
         <service id="fos_comment.blamer.vote.noop" class="FOS\CommentBundle\Blamer\NoopVoteBlamer" public="false" />
 
-        <service id="fos_Comment.blamer.vote.security" class="FOS\CommentBundle\Blamer\SecurityVoteBlamer" public="false">
+        <service id="fos_comment.blamer.vote.security" class="FOS\CommentBundle\Blamer\SecurityVoteBlamer" public="false">
             <argument type="service" id="security.context" />
         </service>
     </services>
