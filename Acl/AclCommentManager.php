@@ -172,5 +172,7 @@ class AclCommentManager implements CommentManagerInterface
                 return $this->authorizeViewCommentTree($comment['children']);
             }
         }
+
+        return true;
     }
 }
