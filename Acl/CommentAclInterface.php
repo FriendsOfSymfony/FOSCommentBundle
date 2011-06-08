@@ -37,6 +37,15 @@ interface CommentAclInterface
     function canView(CommentInterface $comment);
 
     /**
+     * Checks if the user can reply to the supplied 'parent' comment
+     * or if not supplied, just the ability to reply.
+     *
+     * @param CommentInterface $comment
+     * @return boolean
+     */
+    function canReply(CommentInterface $parent = null);
+
+    /**
      * Checks if the user should be able to edit a comment.
      *
      * @param CommentInterface $comment

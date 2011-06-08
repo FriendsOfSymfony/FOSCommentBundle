@@ -110,9 +110,11 @@ class AclCommentManager implements CommentManagerInterface
      */
     public function addComment(CommentInterface $comment, CommentInterface $parent = null)
     {
-        if (!$this->threadAcl->canView($comment->getThread()) ||
-            !(null !== $parent && $this->commentAcl->canView($parent)) ||
-            !$this->commentAcl->canCreate()) {
+        if (!$this->threadAcl->canView($comment->getThread())) {
+            throw new AccessDeniedException();
+        }
+
+        if (!$this->commentAcl->canReply($parent)) {
             throw new AccessDeniedException();
         }
 

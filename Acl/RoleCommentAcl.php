@@ -123,6 +123,21 @@ class RoleCommentAcl implements CommentAclInterface
     }
 
     /**
+     * Checks if the Security token is allowed to reply to a parent comment.
+     *
+     * @param CommentInterface|null $parent
+     * @return boolean
+     */
+    public function canReply(CommentInterface $parent = null)
+    {
+        if (null !== $parent) {
+            return $this->canCreate() && $this->canView($parent);
+        }
+
+        return $this->canCreate();
+    }
+
+    /**
      * Checks if the Security token has an appropriate role to edit the supplied Comment.
      *
      * @param CommentInterface $comment
