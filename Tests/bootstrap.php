@@ -1,18 +1,16 @@
 <?php
 
-require_once $_SERVER['SYMFONY'].'/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+/**
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
-
-$loader = new UniversalClassLoader();
-$loader->registerNamespace('Symfony', $_SERVER['SYMFONY']);
-$loader->register();
-
-spl_autoload_register(function($class)
-{
-    if (0 === strpos($class, 'FOS\\CommentBundle\\')) {
-        $path = implode('/', array_slice(explode('\\', $class), 2)).'.php';
-        require_once __DIR__.'/../'.$path;
-        return true;
-    }
-});
+if (file_exists($file = __DIR__.'/autoload.php')) {
+    require_once $file;
+} elseif (file_exists($file = __DIR__.'/autoload.php.dist')) {
+    require_once $file;
+}
