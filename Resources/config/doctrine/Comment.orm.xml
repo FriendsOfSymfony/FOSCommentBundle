@@ -16,10 +16,6 @@
 
     <mapped-superclass name="FOS\CommentBundle\Entity\Comment">
 
-        <id name="id" column="id" type="integer">
-            <generator strategy="AUTO" />
-        </id>
-
         <field name="body" column="body" type="string" />
 
         <many-to-one field="thread" target-entity="FOS\CommentBundle\Entity\Thread">
