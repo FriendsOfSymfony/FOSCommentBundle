@@ -24,49 +24,55 @@ use FOS\CommentBundle\SpamDetection\SpamDetectionInterface;
  */
 class DefaultCommentCreatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreate()
+    protected $comment;
+    protected $manager;
+    protected $blamer;
+    protected $spam;
+
+    public function setUp()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $manager = $this->getMock('FOS\CommentBundle\Model\CommentManagerInterface');
-        $manager->expects($this->once())
-            ->method('addComment')
-            ->with($comment)
-            ->will($this->returnValue($comment));
-
-        $blamer = $this->getMock('FOS\CommentBundle\Blamer\CommentBlamerInterface');
-        $blamer->expects($this->once())
-            ->method('blame')
-            ->with($comment);
-
-        $spam = $this->getMock('FOS\CommentBundle\SpamDetection\SpamDetectionInterface');
-        $spam->expects($this->once())
-            ->method('isSpam')
-            ->with($comment)
-            ->will($this->returnValue(false));
-
-        $creator = new \FOS\CommentBundle\Creator\DefaultCommentCreator($manager, $blamer, $spam);
-        $this->assertTrue($creator->create($comment));
+        $this->comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $this->manager = $this->getMock('FOS\CommentBundle\Model\CommentManagerInterface');
+        $this->blamer = $this->getMock('FOS\CommentBundle\Blamer\CommentBlamerInterface');
+        $this->spam = $this->getMock('FOS\CommentBundle\SpamDetection\SpamDetectionInterface');
     }
 
+    /**
+     * @covers DefaultCommentCreator::create
+     */
+    public function testCreate()
+    {
+        $this->manager->expects($this->once())
+            ->method('addComment')
+            ->with($this->comment);
+
+        $this->blamer->expects($this->once())
+            ->method('blame')
+            ->with($this->comment);
+
+        $this->spam->expects($this->once())
+            ->method('isSpam')
+            ->with($this->comment)
+            ->will($this->returnValue(false));
+
+        $creator = new \FOS\CommentBundle\Creator\DefaultCommentCreator($this->manager, $this->blamer, $this->spam);
+        $this->assertTrue($creator->create($this->comment));
+    }
+
+    /**
+     * @covers DefaultCommentCreator::create
+     */
     public function testCreateCommentIsSpam()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $manager = $this->getMock('FOS\CommentBundle\Model\CommentManagerInterface');
-        $manager->expects($this->never())
+        $this->manager->expects($this->never())
             ->method('addComment');
 
-        $blamer = $this->getMock('FOS\CommentBundle\Blamer\CommentBlamerInterface');
-        $blamer->expects($this->once())
-            ->method('blame')
-            ->with($comment);
-
-        $spam = $this->getMock('FOS\CommentBundle\SpamDetection\SpamDetectionInterface');
-        $spam->expects($this->once())
+        $this->spam->expects($this->once())
             ->method('isSpam')
-            ->with($comment)
+            ->with($this->comment)
             ->will($this->returnValue(true));
 
-        $creator = new \FOS\CommentBundle\Creator\DefaultCommentCreator($manager, $blamer, $spam);
-        $this->assertFalse($creator->create($comment));
+        $creator = new \FOS\CommentBundle\Creator\DefaultCommentCreator($this->manager, $this->blamer, $this->spam);
+        $this->assertFalse($creator->create($this->comment));
     }
 }
