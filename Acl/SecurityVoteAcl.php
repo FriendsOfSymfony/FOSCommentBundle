@@ -183,7 +183,7 @@ class SecurityVoteAcl implements VoteAclInterface
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
     {
         $builder->add('iddqd');
-        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPERADMIN'), $builder->get());
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());
 
         $builder->reset();
         $builder->add('create');
