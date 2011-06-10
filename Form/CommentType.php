@@ -13,8 +13,6 @@ namespace FOS\CommentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
-use Symfony\Bridge\Doctrine\Form\DataTransformer\EntityToIdTransformer;
 
 class CommentType extends AbstractType
 {
@@ -23,7 +21,6 @@ class CommentType extends AbstractType
      *
      * @param FormBuilder $builder
      * @param array $options
-     * @return void
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
