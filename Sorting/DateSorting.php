@@ -31,7 +31,7 @@ class DateSorting extends AbstractOrderSorting
      */
     protected function compare(CommentInterface $a, CommentInterface $b)
     {
-        if ($a->getCreatedAt() == $b->getCreatedAt()) {
+        if ($a->getCreatedAt() === $b->getCreatedAt()) {
             return 0;
         }
 

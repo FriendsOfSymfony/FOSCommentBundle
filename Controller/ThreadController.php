@@ -55,7 +55,8 @@ class ThreadController extends ContainerAware
             'sorter' => $sorter,
             'availableSorters' => $availableSorters,
             'displayDepth'  => $displayDepth,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'comment' => $comment
         ));
     }
 

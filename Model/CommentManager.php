@@ -102,8 +102,8 @@ abstract class CommentManager implements CommentManagerInterface
     public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
     {
         $comments = $this->findCommentsByThread($thread, $depth);
-
         $sorter = $this->getSortingFactory()->getSorter($sorter);
+
         return $this->organiseComments($comments, $sorter);
     }
 

@@ -102,6 +102,15 @@ abstract class Comment implements CommentInterface
         return $this->createdAt;
     }
 
+    /**
+     * Sets the creation date
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function __toString()
     {
         return 'Comment #'.$this->getId();

@@ -14,10 +14,10 @@ namespace FOS\CommentBundle\Controller;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Form\Form;
 
 /**
  * Groups all comment related actions into the controller.
@@ -142,6 +142,6 @@ class CommentController extends ContainerAware
      */
     protected function onCreateError(Form $form)
     {
-        return new Response('An Error occurred with form submission', 400);
+        return new Response('An error occurred with form submission', 400);
     }
 }
