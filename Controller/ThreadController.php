@@ -28,7 +28,7 @@ class ThreadController extends ContainerAware
      * Show a thread, its comments and the comment form if available
      * There is no routing for this action, call it from a template:
      *
-     *    {% render "FOSComment:Thread:show" with {"identifier": "something_unique"} %}
+     *    {% render "FOSCommentBundle:Thread:show" with {"identifier": "something_unique"} %}
      *
      * If the thread for the identifier does not exist, it will be created.
      *

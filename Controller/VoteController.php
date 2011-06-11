@@ -75,7 +75,7 @@ class VoteController extends ContainerAware
 
         $votes = $this->container->get('fos_comment.manager.vote')->findVotesByComment($comment);
 
-        return $this->container->get('templating')->renderResponse('FOSComment:Vote:list.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Vote:list.html.twig', array(
             'comment' => $comment,
             'votes' => $votes,
         ));
