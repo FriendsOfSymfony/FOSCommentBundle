@@ -13,11 +13,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fos_comment.form.comment.name">fos_comment</parameter>
-        <parameter key="fos_comment.form.comment.type">fos_comment.comment</parameter>
-    </parameters>
-
     <services>
         <service id="fos_comment.form_type.comment.default" class="FOS\CommentBundle\Form\CommentType">
             <tag name="form.type" alias="fos_comment.comment" />

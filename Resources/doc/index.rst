@@ -494,8 +494,10 @@ All configuration options are listed below::
             model:
                 comment: FOS\CommentBundle\Document\Comment
                 vote: FOS\CommentBundle\Document\Vote
-            form_type:
-                comment: FOS\CommentBundle\Document\CommentFormType
+        form:
+            comment:
+                name: fos_comment_comment
+                type: fos_comment.comment
         acl:
             roles: # optional configuration for the Role Acl providers.
                 comment:

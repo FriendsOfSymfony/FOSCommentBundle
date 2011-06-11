@@ -61,7 +61,8 @@ class FOSCommentExtension extends Extension
             $container->setParameter('fos_comment.model.vote.class', $config['class']['model']['vote']);
         }
 
-        $container->setParameter('fos_comment.form_type.comment.class', $config['class']['form_type']['comment']);
+        $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
+        $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
 
         $container->setParameter('fos_comment.akismet.url', $config['akismet']['url']);
         $container->setParameter('fos_comment.akismet.api_key', $config['akismet']['api_key']);
