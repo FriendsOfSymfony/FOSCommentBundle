@@ -58,7 +58,7 @@ abstract class AbstractOrderSorting implements SortingInterface
             }
         }
 
-        uasort($tree, array($this, 'doSort'));
+        usort($tree, array($this, 'doSort'));
 
         return $tree;
     }
