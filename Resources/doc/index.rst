@@ -74,8 +74,31 @@ Minimal configuration
 At a minimum, your configuration must define your DB driver ("orm" or "mongodb")
 and a Comment class.
 
-ODM
+MongoDB
 ~~~
+
+The MongoDB implementation does not provide a concrete Comment class for your use,
+you must create one::
+
+    // src/MyProject/MyBundle/Document/Comment.php
+
+    namespace MyProject\MyBundle\Document;
+
+    use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+    use FOS\CommentBundle\Document\Comment as BaseComment;
+
+    /**
+     * @MongoDB\Document
+     */
+    class Comment extends BaseComment
+    {
+        /**
+         * @MongoDB\Id
+         */
+        protected $id;
+    }
+
+Configure your application::
 
 In YAML::
 
@@ -85,7 +108,7 @@ In YAML::
         db_driver: mongodb
         class:
             model:
-                comment: FOS\CommentBundle\Document\Comment
+                comment: MyProject\MyBundle\Document\Comment
 
 Or if you prefer XML::
 
@@ -94,7 +117,7 @@ Or if you prefer XML::
     <fos_comment:config db-driver="mongodb">
         <fos_comment:class>
             <fos_comment:model
-                comment="FOS\CommentBundle\Document\Comment"
+                comment="MyProject\MyBundle\Document\Comment"
             />
         </fos_comment:class>
     </fos_comment:config>

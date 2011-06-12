@@ -14,7 +14,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="FOS\CommentBundle\Document\Comment" collection="fos_comment_comment">
+    <mapped-superclass name="FOS\CommentBundle\Document\Comment" collection="fos_comment_comment">
 
         <field name="body" fieldName="body" type="string" />
 
@@ -28,6 +28,6 @@
 
         <field name="createdAt" fieldName="createdAt" type="date" />
 
-    </document>
+    </mapped-superclass>
 
 </doctrine-mongo-mapping>
