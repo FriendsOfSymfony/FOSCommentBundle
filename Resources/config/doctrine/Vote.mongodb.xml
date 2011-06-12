@@ -20,7 +20,7 @@
 
         <reference-one field="comment" target-document="FOS\CommentBundle\Document\Comment" />
 
-        <field name="createdAt" fieldName="lastCommentAt" type="date" />
+        <field name="createdAt" fieldName="createdAt" type="date" />
 
         <field name="value" fieldName="value" type="int" />
 
