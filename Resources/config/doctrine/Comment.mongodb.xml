@@ -16,8 +16,6 @@
 
     <document name="FOS\CommentBundle\Document\Comment" collection="fos_comment_comment">
 
-        <field name="id" id="true" />
-
         <field name="body" fieldName="body" type="string" />
 
         <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
