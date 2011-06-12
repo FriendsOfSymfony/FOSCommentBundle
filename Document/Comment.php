@@ -18,7 +18,7 @@ use FOS\CommentBundle\Model\Comment as AbstractComment;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class Comment extends AbstractComment
+abstract class Comment extends AbstractComment
 {
     /**
      * Thread of this comment

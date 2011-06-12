@@ -20,8 +20,6 @@
 
         <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
 
-        <reference-one field="parent" target-document="FOS\CommentBundle\Document\Comment" />
-
         <field name="ancestors" fieldName="ancestors" type="collection" />
 
         <field name="depth" fieldName="depth" type="int" />
