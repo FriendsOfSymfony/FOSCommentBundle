@@ -91,24 +91,13 @@ class RoleCommentAcl implements CommentAclInterface
     }
 
     /**
-     * Used to check if the security context has a token. Avoids
-     * needing to catch the exception thrown by isGranted.
-     *
-     * @return bool
-     */
-    protected function hasToken()
-    {
-        return $this->securityContext->getToken() !== null;
-    }
-
-    /**
      * Checks if the Security token has an appropriate role to create a new Comment.
      *
      * @return boolean
      */
     public function canCreate()
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->createRole);
+        return $this->securityContext->isGranted($this->createRole);
     }
 
     /**
@@ -119,7 +108,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canView(CommentInterface $comment)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->viewRole);
+        return $this->securityContext->isGranted($this->viewRole);
     }
 
     /**
@@ -145,7 +134,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canEdit(CommentInterface $comment)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->editRole);
+        return $this->securityContext->isGranted($this->editRole);
     }
 
     /**
@@ -156,7 +145,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canDelete(CommentInterface $comment)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->deleteRole);
+        return $this->securityContext->isGranted($this->deleteRole);
     }
 
     /**

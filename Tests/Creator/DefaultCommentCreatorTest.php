@@ -38,7 +38,7 @@ class DefaultCommentCreatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers DefaultCommentCreator::create
+     * @ covers DefaultCommentCreator::create
      */
     public function testCreate()
     {
@@ -60,7 +60,7 @@ class DefaultCommentCreatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers DefaultCommentCreator::create
+     * @ covers DefaultCommentCreator::create
      */
     public function testCreateCommentIsSpam()
     {

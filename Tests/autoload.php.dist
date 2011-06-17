@@ -24,4 +24,9 @@ $loader->registerNamespaces(array(
     'Doctrine\\MongodB'      => $vendorDir.'/doctrine-mongodb/lib',
     'Doctrine'               => $vendorDir.'/doctrine/lib',
 ));
+$loader->registerPrefixes(array(
+    'Twig_Extensions_' => $vendorDir.'/twig-extensions/lib',
+    'Twig_'            => $vendorDir.'/twig/lib',
+));
+
 $loader->register();

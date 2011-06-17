@@ -60,7 +60,7 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVoteById($id)
     {
-        $vote = $this->findVoteById($id);
+        $vote = $this->realManager->findVoteById($id);
 
         if (!$this->voteAcl->canView($vote)) {
             throw new AccessDeniedException();
@@ -74,7 +74,7 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVoteBy(array $criteria)
     {
-        $vote = $this->findVoteBy($criteria);
+        $vote = $this->realManager->findVoteBy($criteria);
 
         if (!$this->voteAcl->canView($vote)) {
             throw new AccessDeniedException();
@@ -88,7 +88,7 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {
-        $votes = $this->findVotesByComment($comment);
+        $votes = $this->realManager->findVotesByComment($comment);
 
         foreach ($votes as $vote) {
             if (!$this->voteAcl->canView($vote)) {
@@ -104,11 +104,15 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
     {
-        if (!$this->voteAcl->canCreate() || !$this->commentAcl->canView($comment)) {
+        if (!$this->voteAcl->canCreate()) {
             throw new AccessDeniedException();
         }
 
-        return $this->addVote($vote, $comment);
+        if (!$this->commentAcl->canView($comment)) {
+            throw new AccessDeniedException();
+        }
+
+        return $this->realManager->addVote($vote, $comment);
     }
 
     /**
@@ -116,11 +120,8 @@ class AclVoteManager implements VoteManagerInterface
      */
     public function createVote()
     {
-        $this->voteAcl->canCreate();
-
-        return $this->createVote();
+        return $this->realManager->createVote();
     }
-
 
     /**
      * {@inheritDoc}

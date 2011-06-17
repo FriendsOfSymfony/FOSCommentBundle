@@ -70,8 +70,28 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($return));
     }
 
+    public function testFindCommentTreeByThreadNestedResult()
+    {
+        $this->result = array(
+            array('comment' => $this->comment, 'children' => array(
+                array('comment' => $this->comment, 'children' => array()),
+                array('comment' => $this->comment, 'children' => array())
+            ))
+        );
+
+        $this->realManager->expects($this->once())
+             ->method('findCommentTreeByThread')
+             ->with($this->equalTo($this->thread),
+                   $this->equalTo($this->sorting_strategy),
+                   $this->equalTo($this->depth))
+             ->will($this->returnValue($this->result));
+        $this->configureCommentSecurity('canView', true);
+        $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
+
+        $manager->findCommentTreeByThread($this->thread, $this->sorting_strategy, $this->depth);
+    }
+
     /**
-     * @covers AclCommentManager::findCommentTreeByThread
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindCommentTreeByThread()
@@ -90,7 +110,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager::findCommentsByThread
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindCommentsByThread()
@@ -108,7 +127,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager::findCommentById
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindCommentById()
@@ -128,7 +146,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager:findCommentTreeByCommentId
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindCommentTreeByCommentId()
@@ -155,12 +172,12 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager::addComment
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testAddCommentNoReplyPermission()
     {
         $this->addCommentSetup();
+        $this->configureThreadSecurity('canView', true);
         $this->configureCommentSecurity('canReply', false);
 
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
@@ -168,7 +185,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager::addComment
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testAddCommentNoThreadViewPermission()
@@ -181,7 +197,7 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers AclCommentManager::addComment
+     * @ covers AclCommentManager::addComment
      */
     public function testAddComment()
     {
@@ -195,5 +211,4 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
         $manager->addComment($this->comment, $this->parent);
     }
-
 }

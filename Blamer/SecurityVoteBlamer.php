@@ -53,7 +53,7 @@ class SecurityVoteBlamer implements VoteBlamerInterface
             throw new InvalidArgumentException('The vote must implement SignedVoteInterface');
         }
 
-        if (!$this->securityContext->getToken()) {
+        if (null === $this->securityContext->getToken()) {
             throw new RuntimeException('You must configure a firewall for this route');
         }
 
