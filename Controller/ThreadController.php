@@ -47,16 +47,19 @@ class ThreadController extends ContainerAware
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
+        $replyForm = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form->setData($comment);
 
         $availableSorters = $this->container->get('fos_comment.sorting_factory')->getAvailableSorters();
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
-            'thread' => $thread,
-            'sorter' => $sorter,
+            'thread'           => $thread,
+            'sorter'           => $sorter,
             'availableSorters' => $availableSorters,
-            'displayDepth'  => $displayDepth,
-            'form'   => $form->createView(),
-            'comment' => $comment
+            'displayDepth'     => $displayDepth,
+            'form'             => $form->createView(),
+            'replyForm'        => $replyForm->createView(),
+            'comment'          => $comment
         ));
     }
 
