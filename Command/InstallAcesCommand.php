@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class InstallAcesCommand extends Command
+class InstallAcesCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -49,14 +49,14 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!$this->container->has('security.acl.provider')) {
+        if (!$this->getContainer()->has('security.acl.provider')) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
             return;
         }
 
-        $threadAcl = $this->container->get('fos_comment.acl.thread');
-        $commentAcl = $this->container->get('fos_comment.acl.comment');
-        $voteAcl = $this->container->get('fos_comment.acl.vote');
+        $threadAcl = $this->getContainer()->get('fos_comment.acl.thread');
+        $commentAcl = $this->getContainer()->get('fos_comment.acl.comment');
+        $voteAcl = $this->getContainer()->get('fos_comment.acl.vote');
 
         if ($input->getOption('flush')) {
             $output->writeln('Flushing Global ACEs');

@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class FixAcesCommand extends Command
+class FixAcesCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -49,21 +49,21 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!$this->container->has('security.acl.provider')) {
+        if (!$this->getContainer()->has('security.acl.provider')) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
             return;
         }
 
-        $provider = $this->container->get('security.acl.provider');
+        $provider = $this->getContainer()->get('security.acl.provider');
 
-        $threadAcl = $this->container->get('fos_comment.acl.thread');
-        $threadManager = $this->container->get('fos_comment.manager.thread.default');
+        $threadAcl = $this->getContainer()->get('fos_comment.acl.thread');
+        $threadManager = $this->getContainer()->get('fos_comment.manager.thread.default');
 
-        $commentAcl = $this->container->get('fos_comment.acl.comment');
-        $commentManager = $this->container->get('fos_comment.manager.comment.default');
+        $commentAcl = $this->getContainer()->get('fos_comment.acl.comment');
+        $commentManager = $this->getContainer()->get('fos_comment.manager.comment.default');
 
-        $voteAcl = $this->container->get('fos_comment.acl.vote');
-        $voteManager = $this->container->get('fos_comment.manager.vote.default');
+        $voteAcl = $this->getContainer()->get('fos_comment.acl.vote');
+        $voteManager = $this->getContainer()->get('fos_comment.manager.vote.default');
 
         $foundThreadAcls = 0;
         $foundCommentAcls = 0;
