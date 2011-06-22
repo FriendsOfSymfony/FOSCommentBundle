@@ -48,7 +48,7 @@ class ThreadController extends ContainerAware
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
         $replyForm = $this->container->get('fos_comment.form_factory.comment')->createForm();
-        $form->setData($comment);
+        $replyForm->setData($comment);
 
         $availableSorters = $this->container->get('fos_comment.sorting_factory')->getAvailableSorters();
 
