@@ -11,14 +11,14 @@
 
 namespace FOS\CommentBundle\Tests\Blamer;
 
-use \FOS\CommentBundle\Blamer\SecurityCommentBlamer;
+use \FOS\CommentBundle\Blamer\SecurityVoteBlamer;
 
 /**
- * Tests the functionality provided by Blamer\SecurityCommentBlamer.
+ * Tests the functionality provided by Blamer\SecurityVoteBlamer.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
+class SecurityVoteBlamerTest extends \PHPUnit_Framework_TestCase
 {
     protected $securityContext;
 
@@ -30,12 +30,12 @@ class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testBlameAnonymousComment()
+    public function testBlameAnonymousVote()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
 
-        $blamer = new SecurityCommentBlamer($this->securityContext);
-        $blamer->blame($comment);
+        $blamer = new SecurityVoteBlamer($this->securityContext);
+        $blamer->blame($vote);
     }
 
     public function testBlameSignedCommentLoggedIn()
@@ -46,9 +46,9 @@ class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
 
-        $comment = $this->getMock('FOS\CommentBundle\Model\SignedCommentInterface');
-        $comment->expects($this->once())
-            ->method('setAuthor')
+        $vote = $this->getMock('FOS\CommentBundle\Model\SignedVoteInterface');
+        $vote->expects($this->once())
+            ->method('setVoter')
             ->with($user);
 
         $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
@@ -65,15 +65,15 @@ class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
             ->with('IS_AUTHENTICATED_REMEMBERED')
             ->will($this->returnValue(true));
 
-        $blamer = new SecurityCommentBlamer($this->securityContext);
-        $blamer->blame($comment);
+        $blamer = new SecurityVoteBlamer($this->securityContext);
+        $blamer->blame($vote);
     }
 
     public function testBlameSignedCommentLoggedOut()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\SignedCommentInterface');
-        $comment->expects($this->never())
-            ->method('setAuthor');
+        $vote = $this->getMock('FOS\CommentBundle\Model\SignedVoteInterface');
+        $vote->expects($this->never())
+            ->method('setVoter');
 
         $this->securityContext->expects($this->once())
             ->method('getToken')
@@ -84,8 +84,8 @@ class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
             ->with('IS_AUTHENTICATED_REMEMBERED')
             ->will($this->returnValue(false));
 
-        $blamer = new SecurityCommentBlamer($this->securityContext);
-        $blamer->blame($comment);
+        $blamer = new SecurityVoteBlamer($this->securityContext);
+        $blamer->blame($vote);
     }
 
     /**
@@ -93,15 +93,15 @@ class SecurityCommentBlamerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoFirewallBlameFailure()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\SignedCommentInterface');
-        $comment->expects($this->never())
-            ->method('setAuthor');
+        $vote = $this->getMock('FOS\CommentBundle\Model\SignedVoteInterface');
+        $vote->expects($this->never())
+            ->method('setVoter');
 
         $this->securityContext->expects($this->once())
             ->method('getToken')
             ->will($this->returnValue(null));
 
-        $blamer = new SecurityCommentBlamer($this->securityContext);
-        $blamer->blame($comment);
+        $blamer = new SecurityVoteBlamer($this->securityContext);
+        $blamer->blame($vote);
     }
 }
