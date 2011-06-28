@@ -131,6 +131,25 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager->findAllThreads();
     }
 
+    public function testFindAllThreadsCanView()
+    {
+        $this->result = array($this->thread);
+
+        $this->realManager->expects($this->once())
+            ->method('findAllThreads')
+            ->will($this->returnValue($this->result));
+
+        $this->threadSecurity->expects($this->once())
+            ->method('canView')
+            ->with($this->thread)
+            ->will($this->returnValue(true));
+
+        $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
+        $result = $manager->findAllThreads();
+
+        $this->assertEquals($this->result, $result);
+    }
+
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
@@ -145,5 +164,45 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $manager->addThread($this->thread);
+    }
+
+    public function testAddThreadCanCreate()
+    {
+        $this->threadSecurity->expects($this->once())
+                ->method('canCreate')
+                ->will($this->returnValue(true));
+
+        $this->realManager->expects($this->once())
+                ->method('addThread')
+                ->with($this->thread);
+
+        $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
+        $manager->addThread($this->thread);
+    }
+
+    public function testCreateThread()
+    {
+        $this->realManager->expects($this->once())
+            ->method('createThread')
+            ->will($this->returnValue($this->thread));
+
+        $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
+        $result = $manager->createThread();
+
+        $this->assertEquals($this->thread, $result);
+    }
+
+    public function testGetClass()
+    {
+        $this->result = 'Test\\Class';
+
+        $this->realManager->expects($this->once())
+            ->method('getClass')
+            ->will($this->returnValue($this->result));
+
+        $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
+        $result = $manager->getClass();
+
+        $this->assertEquals($this->result, $result);
     }
 }

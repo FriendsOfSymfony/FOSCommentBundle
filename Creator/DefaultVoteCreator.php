@@ -15,7 +15,7 @@ use FOS\CommentBundle\Blamer\VoteBlamerInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
-use Symfony\Component\Validator\Validator;
+use Symfony\Component\Validator\ValidatorInterface;
 
 /**
  * Manages the creation and persistence of Vote objects.
@@ -34,7 +34,7 @@ class DefaultVoteCreator implements VoteCreatorInterface
      * @param VoteBlamerInterface $voteBlamer
      * @param Validator $validator
      */
-    public function __construct(VoteManagerInterface $voteManager, VoteBlamerInterface $voteBlamer, Validator $validator)
+    public function __construct(VoteManagerInterface $voteManager, VoteBlamerInterface $voteBlamer, ValidatorInterface $validator)
     {
         $this->validator = $validator;
         $this->voteBlamer = $voteBlamer;
