@@ -64,9 +64,6 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
         $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
 
-        $container->setParameter('fos_comment.akismet.url', $config['akismet']['url']);
-        $container->setParameter('fos_comment.akismet.api_key', $config['akismet']['api_key']);
-
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);

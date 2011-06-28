@@ -135,12 +135,6 @@ class Configuration
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('akismet')->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('url')->defaultValue(null)->end()
-                        ->scalarNode('api_key')->defaultValue(null)->end()
-                    ->end()
-                ->end()
             ->end()
         ->end();
 

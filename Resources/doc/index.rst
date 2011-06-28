@@ -456,24 +456,12 @@ CommentBundle ships with two implementations:
 - fos_comment.spam_detection.comment.akismet
 
   Uses `Akismet`_ to check comments against spam.
-  Requires two configuration values from your app config::
+  You must install `AkismetBundle`_ and set the spam_detection service in your configuration::
 
     fos_comment:
         service:
             spam_detection:
                 comment: fos_comment.spam_detection.comment.akismet
-        akismet:
-            url: http://website.com/
-            api_key: keep_it_secret
-
-You can change the blamer implementation from your app config::
-
-    # app/config/config.yml
-
-    fos_comment:
-        service:
-            blamer:
-                comment: bar_comment.my_comment_spam_detection
 
 Comment tree sorting
 --------------
@@ -616,5 +604,6 @@ MongoDB mapping examples:
 
 .. _See it in action: http://lichess.org/1j21ti43
 .. _Akismet: http://akismet.com
+.. _AkismetBundle: http://github.com/ornicar/AkismetBundle
 .. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
 .. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js

@@ -18,13 +18,7 @@
         <service id="fos_comment.spam_detection.comment.noop" class="FOS\CommentBundle\SpamDetection\NoopSpamDetection" public="false" />
 
         <service id="fos_comment.spam_detection.comment.akismet" class="FOS\CommentBundle\SpamDetection\AkismetSpamDetection" scope="request" public="false">
-            <argument type="service" id="request" />
-            <argument type="service" id="fos_comment.zend_akismet" />
-        </service>
-
-        <service id="fos_comment.zend_akismet" class="Zend\Service\Akismet\Akismet" public="false">
-            <argument>%fos_comment.akismet.api_key%</argument>
-            <argument>%fos_comment.akismet.url%</argument>
+            <argument type="service" id="ornicar_akismet" />
         </service>
 
     </services>

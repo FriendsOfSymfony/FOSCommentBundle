@@ -13,9 +13,7 @@ namespace FOS\CommentBundle\SpamDetection;
 
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Zend\Service\Akismet\Akismet as ZendAkismet;
-use Zend\Service\Akismet\Exception as AkismetException;
+use Ornicar\AkismetBundle\Akismet\AkismetInterface;
 
 /**
  * Detects spam by querying the Akismet service.
@@ -25,24 +23,15 @@ use Zend\Service\Akismet\Exception as AkismetException;
 class AkismetSpamDetection implements SpamDetectionInterface
 {
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @var Akismet
+     * @var AkismetInterface
      */
     protected $akismet;
 
     /**
-     * Constructor.
-     *
-     * @param Request $request
-     * @param Akismet $akismet
+     * @param AkismetInterface $akismet
      */
-    public function __construct(Request $request, ZendAkismet $akismet)
+    public function __construct(AkismetInterface $akismet)
     {
-        $this->request = $request;
         $this->akismet = $akismet;
     }
 
@@ -54,13 +43,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
      */
     public function isSpam(CommentInterface $comment)
     {
-        $data = array_merge($this->getRequestData(), $this->getCommentData($comment));
-
-        try {
-            return $this->akismet->isSpam($data);
-        } catch (AkismetException $e) {
-            return true;
-        }
+        return $this->akismet->isSpam($this->getCommentData($comment));
     }
 
     /**
@@ -79,20 +62,5 @@ class AkismetSpamDetection implements SpamDetectionInterface
         $data['comment_author'] = $comment->getAuthorName();
 
         return $data;
-    }
-
-    /**
-     * Compiles a list of information to assist Akismet in detecting spam.
-     *
-     * @return array
-     */
-    protected function getRequestData()
-    {
-        return array(
-            'permalink'  => $this->request->getUri(),
-            'user_ip'    => $this->request->getClientIp(),
-            'user_agent' => $this->request->server->get('HTTP_USER_AGENT'),
-            'referrer'   => $this->request->server->get('HTTP_REFERER'),
-        );
     }
 }
