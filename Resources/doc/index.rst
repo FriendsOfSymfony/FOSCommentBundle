@@ -20,7 +20,7 @@ Add CommentBundle to your src/ dir
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/CommentBundle.git vendor/bundles/FOS/CommentBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/FOSCommentBundle.git vendor/bundles/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
