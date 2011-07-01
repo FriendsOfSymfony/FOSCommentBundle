@@ -70,6 +70,15 @@ interface ThreadInterface
     function setNumComments($numComments);
 
     /**
+     * Increments the number of comments by the supplied
+     * value.
+     *
+     * @param integer $by The number of comments to increment by
+     * @return integer The new comment total
+     */
+    function incrementNumComments($by);
+
+    /**
      * Denormalized date of the last comment
      * @return DateTime
      */
