@@ -18,6 +18,7 @@ $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'                => array($vendorDir.'/symfony/src', $vendorDir.'/bundles'),
     'FOS'                    => $vendorDir.'/bundles',
+    'Ornicar'                => $vendorDir.'/bundles',
     'Doctrine\\Common'       => $vendorDir.'/doctrine-common/lib',
     'Doctrine\\DBAL'         => $vendorDir.'/doctrine-dbal/lib',
     'Doctrine\\ODM\\MongodB' => $vendorDir.'/doctrine-mongodb-odm/lib',
