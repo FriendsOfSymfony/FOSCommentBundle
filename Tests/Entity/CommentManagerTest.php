@@ -63,26 +63,6 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
         $commentManager = new CommentManager($this->em, $this->class, $this->sortingFactory);
         $commentManager->findCommentById($identifier);
     }
-/*
-public function addComment(CommentInterface $comment)
-    {
-        if (null !== $comment->getId()) {
-            throw new InvalidArgumentException('Can not add already saved comment');
-        }
-
-        if (null === $comment->getThread()) {
-            throw new InvalidArgumentException('The comment must have a thread');
-        }
-
-        $thread = $comment->getThread();
-        $thread->incrementNumComments(1);
-        $thread->setLastCommentAt(new DateTime());
-
-        $this->em->persist($thread);
-        $this->em->persist($comment);
-        $this->em->flush();
-    }
- */
 
     /**
      * @expectedException InvalidArgumentException
@@ -128,23 +108,39 @@ public function addComment(CommentInterface $comment)
             ->method('getThread')
             ->will($this->returnValue($thread));
 
-        /* These methods dont appear to work:
-            Expectation failed for method name is equal to <string:persist> when invoked at sequence index 0.
-            Mocked method does not exist.
-
-        $this->em->expects($this->at(0))
-            ->method('persist')
-            ->with($this->equalTo($thread));
-
-        $this->em->expects($this->at(1))
-            ->method('persist')
-            ->with($this->equalTo($comment));
-        */
+        // TODO: Not sure how to set the assertion that this method
+        // will be called twice with different parameters.
+        $this->em->expects($this->exactly(2))
+            ->method('persist');
 
         $this->em->expects($this->once())
             ->method('flush');
 
         $commentManager = new CommentManager($this->em, $this->class, $this->sortingFactory);
         $commentManager->addComment($comment);
+    }
+
+    public function testGetClass()
+    {
+        $commentManager = new CommentManager($this->em, $this->class, $this->sortingFactory);
+
+        $this->assertEquals($this->class, $commentManager->getClass());
+    }
+
+    public function testCreateComment()
+    {
+        $thread = $this->getMock('FOS\CommentBundle\Entity\Thread');
+        $parent = $this->getMock('FOS\CommentBundle\Entity\Comment');
+
+        $parent->expects($this->any())
+            ->method('getId')
+            ->will($this->returnValue(1));
+
+        $manager = new CommentManager($this->em, $this->class, $this->sortingFactory);
+        $result = $manager->createComment($thread, $parent);
+
+        $this->assertInstanceOf('FOS\CommentBundle\Model\CommentInterface', $result);
+        $this->assertEquals($thread, $result->getThread());
+        $this->assertEquals($parent, $result->getParent());
     }
 }
