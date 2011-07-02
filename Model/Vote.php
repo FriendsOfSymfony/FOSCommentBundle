@@ -12,7 +12,7 @@
 namespace FOS\CommentBundle\Model;
 
 use DateTime;
-use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
@@ -77,7 +77,7 @@ abstract class Vote implements VoteInterface
         $value = intval($value);
 
         if (!$value) {
-            throw new RuntimeException('A vote cannot have a 0 value');
+            throw new InvalidArgumentException('A vote cannot have a 0 value');
         }
 
         $this->value = intval($value);
