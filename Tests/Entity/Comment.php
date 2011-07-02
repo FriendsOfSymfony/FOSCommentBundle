@@ -9,8 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-if (file_exists($file = __DIR__.'/autoload.php')) {
-    require_once $file;
-} elseif (file_exists($file = __DIR__.'/autoload.php.dist')) {
-    require_once $file;
+namespace FOS\CommentBundle\Tests\Entity;
+
+use FOS\CommentBundle\Entity\Comment as BaseComment;
+
+class Comment extends BaseComment
+{
+
 }

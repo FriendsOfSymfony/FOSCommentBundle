@@ -63,7 +63,7 @@ class VoteManager extends BaseVoteManager
     public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
     {
         $vote->setComment($comment);
-        $comment->setScore($comment->getScore() + $vote->getValue());
+        $comment->incrementScore($vote->getvalue());
 
         $this->em->persist($comment);
         $this->em->persist($vote);

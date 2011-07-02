@@ -91,24 +91,13 @@ class RoleThreadAcl implements ThreadAclInterface
     }
 
     /**
-     * Used to check if the security context has a token. Avoids
-     * needing to catch the exception thrown by isGranted.
-     *
-     * @return bool
-     */
-    protected function hasToken()
-    {
-        return $this->securityContext->getToken() !== null;
-    }
-
-    /**
      * Checks if the Security token has an appropriate role to create a new Thread.
      *
      * @return boolean
      */
     public function canCreate()
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->createRole);
+        return $this->securityContext->isGranted($this->createRole);
     }
 
     /**
@@ -119,7 +108,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canView(ThreadInterface $thread)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->viewRole);
+        return $this->securityContext->isGranted($this->viewRole);
     }
 
     /**
@@ -130,7 +119,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canEdit(ThreadInterface $thread)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->editRole);
+        return $this->securityContext->isGranted($this->editRole);
     }
 
     /**
@@ -141,7 +130,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canDelete(ThreadInterface $thread)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->deleteRole);
+        return $this->securityContext->isGranted($this->deleteRole);
     }
 
     /**

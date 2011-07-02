@@ -106,7 +106,9 @@ class AclThreadManager implements ThreadManagerInterface
      */
     public function addThread(ThreadInterface $thread)
     {
-        $this->threadAcl->canCreate();
+        if (!$this->threadAcl->canCreate()) {
+            throw new AccessDeniedException();
+        }
 
         $this->realManager->addThread($thread);
     }

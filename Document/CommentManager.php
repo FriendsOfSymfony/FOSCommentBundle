@@ -127,7 +127,7 @@ class CommentManager extends BaseCommentManager
         }
 
         $thread = $comment->getThread();
-        $thread->setNumComments($thread->getNumComments() + 1);
+        $thread->incrementNumComments(1);
         $thread->setLastCommentAt(new DateTime());
 
         $this->dm->persist($thread);
