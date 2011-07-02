@@ -112,7 +112,7 @@ class AclVoteManager implements VoteManagerInterface
             throw new AccessDeniedException();
         }
 
-        return $this->realManager->addVote($vote, $comment);
+        $this->realManager->addVote($vote, $comment);
     }
 
     /**

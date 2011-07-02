@@ -11,32 +11,25 @@
 
 namespace FOS\CommentBundle\Tests\Acl;
 
-use FOS\CommentBundle\Acl\RoleCommentAcl;
+use FOS\CommentBundle\Acl\RoleThreadAcl;
 
 /**
  * Tests the functionality provided by Acl\AclVoteManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class RoleCommentAclTest extends AbstractRoleAcl
+class RoleThreadAclTest extends AbstractRoleAcl
 {
     public function setup()
     {
-        parent::setUp();
+        parent::setup();
 
-        $this->roleAcl = new RoleCommentAcl($this->securityContext,
+        $this->roleAcl = new RoleThreadAcl($this->securityContext,
             $this->createRole,
             $this->viewRole,
             $this->editRole,
             $this->deleteRole,
             '');
-        $this->passObject = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-    }
-
-    public function getRoles()
-    {
-        return array_merge(parent::getRoles(), array(
-            array('reply')
-        ));
+        $this->passObject = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
     }
 }
