@@ -91,24 +91,13 @@ class RoleVoteAcl implements VoteAclInterface
     }
 
     /**
-     * Used to check if the security context has a token. Avoids
-     * needing to catch the exception thrown by isGranted.
-     *
-     * @return bool
-     */
-    protected function hasToken()
-    {
-        return $this->securityContext->getToken() !== null;
-    }
-
-    /**
      * Checks if the Security token has an appropriate role to create a new Vote.
      *
      * @return boolean
      */
     public function canCreate()
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->createRole);
+        return $this->securityContext->isGranted($this->createRole);
     }
 
     /**
@@ -119,7 +108,7 @@ class RoleVoteAcl implements VoteAclInterface
      */
     public function canView(VoteInterface $vote)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->viewRole);
+        return $this->securityContext->isGranted($this->viewRole);
     }
 
     /**
@@ -130,7 +119,7 @@ class RoleVoteAcl implements VoteAclInterface
      */
     public function canEdit(VoteInterface $vote)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->editRole);
+        return $this->securityContext->isGranted($this->editRole);
     }
 
     /**
@@ -141,7 +130,7 @@ class RoleVoteAcl implements VoteAclInterface
      */
     public function canDelete(VoteInterface $vote)
     {
-        return $this->hasToken() && $this->securityContext->isGranted($this->deleteRole);
+        return $this->securityContext->isGranted($this->deleteRole);
     }
 
     /**

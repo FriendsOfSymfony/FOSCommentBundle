@@ -13,7 +13,7 @@ namespace FOS\CommentBundle\Blamer;
 
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use FOS\CommentBundle\Model\VoteInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -25,16 +25,16 @@ use RuntimeException;
 class SecurityVoteBlamer implements VoteBlamerInterface
 {
     /**
-     * @var SecurityContext
+     * @var SecurityContextInterface
      */
     protected $securityContext;
 
     /**
      * Constructor.
      *
-     * @param SecurityContext $securityContext
+     * @param SecurityContextInterface $securityContext
      */
-    public function __construct(SecurityContext $securityContext)
+    public function __construct(SecurityContextInterface $securityContext)
     {
         $this->securityContext = $securityContext;
     }
@@ -53,7 +53,7 @@ class SecurityVoteBlamer implements VoteBlamerInterface
             throw new InvalidArgumentException('The vote must implement SignedVoteInterface');
         }
 
-        if (!$this->securityContext->getToken()) {
+        if (null === $this->securityContext->getToken()) {
             throw new RuntimeException('You must configure a firewall for this route');
         }
 
