@@ -15,7 +15,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\CommentManagerInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Wraps a real implementation of CommentManagerInterface and
@@ -160,12 +160,8 @@ class AclCommentManager implements CommentManagerInterface
      * @param array $comments A comment tree
      * @return boolean
      */
-    protected function authorizeViewCommentTree($comments)
+    protected function authorizeViewCommentTree(array $comments)
     {
-        if (!is_array($comments)) {
-            throw new InvalidArgumentException(sprintf("Expected an array, got %s", gettype($comments)));
-        }
-
         foreach ($comments AS $comment) {
             if (!$this->commentAcl->canView($comment['comment'])) {
                 return false;

@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Tests\Blamer;
 
-use \FOS\CommentBundle\Blamer\NoopCommentBlamer;
+use FOS\CommentBundle\Blamer\NoopCommentBlamer;
 
 /**
  * Tests the functionality provided by Blamer\NoopCommentBlamer.

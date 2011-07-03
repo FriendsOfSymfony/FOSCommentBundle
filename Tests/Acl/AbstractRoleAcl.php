@@ -51,9 +51,7 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
             ->method('isGranted')
             ->will($this->returnValue(true));
 
-        $method = sprintf("can%s", ucfirst($role));
-        $result = $this->roleAcl->$method($this->passObject);
-
+        $result = $this->roleAcl->{"can{$role}"}($this->passObject);
         $this->assertTrue($result);
     }
 
@@ -66,9 +64,7 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
             ->method('isGranted')
             ->will($this->returnValue(false));
 
-        $method = sprintf("can%s", ucfirst($role));
-        $result = $this->roleAcl->$method($this->passObject);
-
+        $result = $this->roleAcl->{"can{$role}"}($this->passObject);
         $this->assertFalse($result);
     }
 }

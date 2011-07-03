@@ -26,7 +26,6 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     protected $realManager;
     protected $voteSecurity;
     protected $commentSecurity;
-    protected $result;
     protected $vote;
 
     public function setUp()
@@ -35,7 +34,6 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $this->voteSecurity = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
         $this->commentSecurity = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
         $this->vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
-        $this->result = null;
     }
 
     /**
@@ -44,12 +42,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteById()
     {
         $id = 1;
-        $this->result = $this->vote;
+        $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
             ->method('findVoteById')
             ->with($id)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -63,12 +61,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteByIdAllowed()
     {
         $id = 1;
-        $this->result = $this->vote;
+        $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
             ->method('findVoteById')
             ->with($id)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -78,7 +76,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVoteById($id);
 
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -87,12 +85,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteBy()
     {
         $conditions = array('id' => 1);
-        $this->result = $this->vote;
+        $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
             ->method('findVoteBy')
             ->with($conditions)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -106,12 +104,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteByAllowed()
     {
         $conditions = array('id' => 1);
-        $this->result = $this->vote;
+        $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
             ->method('findVoteBy')
             ->with($conditions)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -121,7 +119,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVoteBy($conditions);
 
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -130,12 +128,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVotesByComment()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
-        $this->result = array($this->vote);
+        $expectedResult = array($this->vote);
 
         $this->realManager->expects($this->once())
             ->method('findVotesByComment')
             ->with($comment)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -149,12 +147,12 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVotesByCommentAllowed()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
-        $this->result = array($this->vote);
+        $expectedResult = array($this->vote);
 
         $this->realManager->expects($this->once())
             ->method('findVotesByComment')
             ->with($comment)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->voteSecurity->expects($this->once())
             ->method('canView')
@@ -164,7 +162,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVotesByComment($comment);
 
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**

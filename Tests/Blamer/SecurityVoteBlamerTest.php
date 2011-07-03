@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Tests\Blamer;
 
-use \FOS\CommentBundle\Blamer\SecurityVoteBlamer;
+use FOS\CommentBundle\Blamer\SecurityVoteBlamer;
 
 /**
  * Tests the functionality provided by Blamer\SecurityVoteBlamer.

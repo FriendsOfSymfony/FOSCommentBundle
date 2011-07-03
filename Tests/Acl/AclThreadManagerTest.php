@@ -26,14 +26,12 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     protected $realManager;
     protected $threadSecurity;
     protected $thread;
-    protected $result;
 
     public function setUp()
     {
         $this->realManager = $this->getMock('FOS\CommentBundle\Model\ThreadManagerInterface');
         $this->threadSecurity = $this->getMock('FOS\CommentBundle\Acl\ThreadAclInterface');
         $this->thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
-        $this->result = null;
     }
 
     /**
@@ -78,12 +76,12 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindThreadBy()
     {
         $conditions = array('identifier' => 123);
-        $this->result = $this->thread;
+        $expectedResult = $this->thread;
 
         $this->realManager->expects($this->once())
             ->method('findThreadBy')
             ->with($conditions)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->threadSecurity->expects($this->once())
             ->method('canView')
@@ -97,12 +95,12 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindThreadByNoResult()
     {
         $conditions = array('identifier' => 123);
-        $this->result = null;
+        $expectedResult = null;
 
         $this->realManager->expects($this->once())
             ->method('findThreadBy')
             ->with($conditions)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->threadSecurity->expects($this->never())
             ->method('canView');
@@ -116,11 +114,11 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindAllThreads()
     {
-        $this->result = array($this->thread);
+        $expectedResult = array($this->thread);
 
         $this->realManager->expects($this->once())
             ->method('findAllThreads')
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->threadSecurity->expects($this->once())
             ->method('canView')
@@ -133,11 +131,11 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindAllThreadsCanView()
     {
-        $this->result = array($this->thread);
+        $expectedResult = array($this->thread);
 
         $this->realManager->expects($this->once())
             ->method('findAllThreads')
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->threadSecurity->expects($this->once())
             ->method('canView')
@@ -147,7 +145,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->findAllThreads();
 
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -194,15 +192,15 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetClass()
     {
-        $this->result = 'Test\\Class';
+        $expectedResult = 'Test\\Class';
 
         $this->realManager->expects($this->once())
             ->method('getClass')
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->getClass();
 
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 }

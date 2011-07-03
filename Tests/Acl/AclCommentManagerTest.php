@@ -31,8 +31,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
     protected $comment;
     protected $sorting_strategy;
     protected $depth;
-    protected $result;
-    protected $commentId;
     protected $parent;
 
     public function setUp()
@@ -44,8 +42,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
         $this->comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
         $this->sorting_strategy = 'date_asc';
         $this->depth = 0;
-        $this->result = array();
-        $this->commentId = null;
         $this->parent = null;
     }
 
@@ -72,7 +68,7 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindCommentTreeByThreadNestedResult()
     {
-        $this->result = array(
+        $expectedResult = array(
             array('comment' => $this->comment, 'children' => array(
                 array('comment' => $this->comment, 'children' => array()),
                 array('comment' => $this->comment, 'children' => array())
@@ -84,12 +80,12 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
              ->with($this->equalTo($this->thread),
                    $this->equalTo($this->sorting_strategy),
                    $this->equalTo($this->depth))
-             ->will($this->returnValue($this->result));
+             ->will($this->returnValue($expectedResult));
         $this->configureCommentSecurity('canView', true);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
         $result = $manager->findCommentTreeByThread($this->thread, $this->sorting_strategy, $this->depth);
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -97,13 +93,13 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindCommentTreeByThread()
     {
-        $this->result = array(array('comment' => $this->comment, 'children' => array()));
+        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
         $this->realManager->expects($this->once())
              ->method('findCommentTreeByThread')
              ->with($this->equalTo($this->thread),
                    $this->equalTo($this->sorting_strategy),
                    $this->equalTo($this->depth))
-             ->will($this->returnValue($this->result));
+             ->will($this->returnValue($expectedResult));
         $this->configureCommentSecurity('canView', false);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
@@ -112,17 +108,17 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindCommentsByThreadCanView()
     {
-        $this->result = array($this->comment);
+        $expectedResult = array($this->comment);
         $this->realManager->expects($this->once())
             ->method('findCommentsByThread')
             ->with($this->thread,
                    $this->depth)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
         $this->configureCommentSecurity('canView', true);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
         $result = $manager->findCommentsByThread($this->thread, $this->depth);
-        $this->assertEquals($this->result, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -130,12 +126,12 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindCommentsByThread()
     {
-        $this->result = array($this->comment);
+        $expectedResult = array($this->comment);
         $this->realManager->expects($this->once())
             ->method('findCommentsByThread')
             ->with($this->thread,
                    $this->depth)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
         $this->configureCommentSecurity('canView', false);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
@@ -147,35 +143,35 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindCommentById()
     {
-        $this->commentId = 123;
-        $this->result = $this->comment;
+        $commentId = 123;
+        $expectedResult = $this->comment;
 
         $this->realManager->expects($this->once())
             ->method('findCommentById')
-            ->with($this->commentId)
-            ->will($this->returnValue($this->result));
+            ->with($commentId)
+            ->will($this->returnValue($expectedResult));
 
         $this->configureCommentSecurity('canView', false);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
-        $manager->findCommentById($this->commentId);
+        $manager->findCommentById($commentId);
     }
 
     public function testFindCommentByIdCanView()
     {
-        $this->commentId = 123;
-        $this->result = $this->comment;
+        $commentId = 123;
+        $expectedResult = $this->comment;
 
         $this->realManager->expects($this->once())
             ->method('findCommentById')
-            ->with($this->commentId)
-            ->will($this->returnValue($this->result));
+            ->with($commentId)
+            ->will($this->returnValue($expectedResult));
 
         $this->configureCommentSecurity('canView', true);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
-        $result = $manager->findCommentById($this->commentId);
-        $this->assertEquals($this->result, $result);
+        $result = $manager->findCommentById($commentId);
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
@@ -183,37 +179,37 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindCommentTreeByCommentId()
     {
-        $this->commentId = 123;
-        $this->result = array(array('comment' => $this->comment, 'children' => array()));
+        $commentId = 123;
+        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
 
         $this->realManager->expects($this->once())
             ->method('findCommentTreeByCommentId')
-            ->with($this->commentId,
+            ->with($commentId,
                    $this->sorting_strategy)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->configureCommentSecurity('canView', false);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
-        $manager->findCommentTreeByCommentId($this->commentId, $this->sorting_strategy);
+        $manager->findCommentTreeByCommentId($commentId, $this->sorting_strategy);
     }
 
     public function testFindCommentTreeByCommentIdCanView()
     {
-        $this->commentId = 123;
-        $this->result = array(array('comment' => $this->comment, 'children' => array()));
+        $commentId = 123;
+        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
 
         $this->realManager->expects($this->once())
             ->method('findCommentTreeByCommentId')
-            ->with($this->commentId,
+            ->with($commentId,
                    $this->sorting_strategy)
-            ->will($this->returnValue($this->result));
+            ->will($this->returnValue($expectedResult));
 
         $this->configureCommentSecurity('canView', true);
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
 
-        $result = $manager->findCommentTreeByCommentId($this->commentId, $this->sorting_strategy);
-        $this->assertEquals($this->result, $result);
+        $result = $manager->findCommentTreeByCommentId($commentId, $this->sorting_strategy);
+        $this->assertEquals($expectedResult, $result);
     }
 
     protected function addCommentSetup()
@@ -262,16 +258,16 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateComment()
     {
-        $parent = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $this->parent = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
 
         $this->realManager->expects($this->once())
             ->method('createComment')
             ->with($this->thread,
-                   $parent)
+                   $this->parent)
             ->will($this->returnValue($this->comment));
 
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
-        $return = $manager->createComment($this->thread, $parent);
+        $return = $manager->createComment($this->thread, $this->parent);
 
         $this->assertEquals($this->comment, $return);
     }
