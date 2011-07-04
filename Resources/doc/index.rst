@@ -363,6 +363,29 @@ To configure Role based security override the Acl services::
                 comment: fos_comment.acl.comment.roles
                 vote: fos_comment.acl.vote.roles
 
+To change the roles required for specific actions, modify the acl_roles configuration
+key::
+
+    # app/config/config.yml
+
+    fos_comment:
+        acl_roles:
+            comment:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
+            thread:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
+            vote:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
+
 Notable services
 ================
 
@@ -501,31 +524,31 @@ All configuration options are listed below::
 
     fos_comment:
         db_driver:    mongodb
-        class:
-            model:
-                comment: FOS\CommentBundle\Document\Comment
-                vote: FOS\CommentBundle\Document\Vote
         form:
             comment:
                 name: fos_comment_comment
                 type: fos_comment.comment
-        acl:
-            roles: # optional configuration for the Role Acl providers.
-                comment:
-                    create: IS_AUTHENTICATED_ANONYMOUSLY
-                    view: IS_AUTHENTICATED_ANONYMOUSLY
-                    edit: ROLE_ADMIN
-                    delete: ROLE_ADMIN
-                thread:
-                    create: IS_AUTHENTICATED_ANONYMOUSLY
-                    view: IS_AUTHENTICATED_ANONYMOUSLY
-                    edit: ROLE_ADMIN
-                    delete: ROLE_ADMIN
-                vote:
-                    create: IS_AUTHENTICATED_ANONYMOUSLY
-                    view: IS_AUTHENTICATED_ANONYMOUSLY
-                    edit: ROLE_ADMIN
-                    delete: ROLE_ADMIN
+        class:
+            model:
+                comment: FOS\CommentBundle\Document\Comment
+                vote: FOS\CommentBundle\Document\Vote
+        acl: ~ # Enables Acl
+        acl_roles: # optional configuration for the Role Acl providers.
+            comment:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
+            thread:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
+            vote:
+                create: IS_AUTHENTICATED_ANONYMOUSLY
+                view: IS_AUTHENTICATED_ANONYMOUSLY
+                edit: ROLE_ADMIN
+                delete: ROLE_ADMIN
         service:
             manager:
                 thread: fos_comment.manager.thread.default
