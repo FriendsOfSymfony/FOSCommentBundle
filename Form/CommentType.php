@@ -27,7 +27,8 @@ class CommentType extends AbstractType
         $builder->add('body', 'textarea');
     }
 
-    public function getName() {
-        return "comment";
+    public function getName()
+    {
+        return "fos_comment_comment";
     }
 }
