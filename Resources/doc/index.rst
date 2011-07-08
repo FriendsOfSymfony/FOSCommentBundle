@@ -15,8 +15,24 @@ Features
 Installation
 ============
 
-Add CommentBundle to your src/ dir
+Add CommentBundle to your /vendor/bundles/ dir
 -------------------------------------
+
+Using the vendors script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add the following lines in your ``deps`` file::
+
+    [FOSCommentBundle]
+        git=git://github.com/FriendsOfSymfony/FOSCommentBundle.git
+        target=bundles/FOS/CommentBundle
+
+Run the vendors script::
+
+    ./bin/vendors install
+
+Using git submodules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
