@@ -332,12 +332,22 @@ And that's it, really.
 Enabling use of the Symfony2 Security Component
 ===============================
 
-CommentBundle comes bundled with the ability to use Acl to protect components. To
-use this feature, it must be enabled in the configuration::
+CommentBundle comes bundled with the ability to different security features provided
+by Symfony2.
+
+Using Symfony2's Built in Acl system
+-------------------------------
+
+To use the built in Acl system, it must first be initialised with the Symfony2 console.:
+
+    app/console init:acl
+
+Additionally, your configuration needs to be modified::
 
     # app/config/config.yml
 
     fos_comment:
+        acl: true
         service:
             manager:
                 thread: fos_comment.manager.thread.acl
@@ -346,20 +356,21 @@ use this feature, it must be enabled in the configuration::
 
 Note: you must enable the Security Acl component::
 
-    # app/config/config.yml
+    # app/config/security.yml
 
     security:
         acl:
             connection: default
 
-Populating the Acl component
---------------------------
+Finally, you must populate the Acl system with entries that may not be there yet
+by running::
 
-When enabling the Acl setting you must run the fos:comment:installAces command to
-make sure that all Comments and Threads have appropriate Acl entries.
+    app/console fos:comment:installAces
 
-This command must also be run if you turn Acl off and re-enable it at a later date
-or change the FQCN of the Comment object.
+This will make sure that the Acl entries in the database are correct. This comment
+must be run whenever any configuration for security changes in FOSCommentBundle,
+including enabling the security features or changing the FQCN of your extended
+FOSCommentBundle objects.
 
 Role based Acl security
 --------------------------
@@ -373,6 +384,7 @@ To configure Role based security override the Acl services::
     # app/config/config.yml
 
     fos_comment:
+        acl: true
         service:
             acl:
                 thread: fos_comment.acl.thread.roles
