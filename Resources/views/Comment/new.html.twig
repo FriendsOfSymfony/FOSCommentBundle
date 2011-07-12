@@ -11,9 +11,9 @@
 
 {% block fos_comment_form_title %}
     {% if first %}
-        <h3>Be the first to comment</h3>
+        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
     {% else %}
-        <h3>Add New Comment</h3>
+        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
     {% endif %}
 {% endblock %}
 
@@ -27,7 +27,7 @@
 
     <div class="fos_comment_submit">
         {% block fos_comment_form_submit %}
-            <input type="submit" value="Post" />
+            <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />
         {% endblock %}
     </div>
 

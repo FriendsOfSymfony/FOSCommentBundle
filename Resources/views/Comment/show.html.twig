@@ -11,10 +11,10 @@
 
 <div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
     <div class="fos_comment_comment_metas">
-        By {{ comment.authorName }} - {{ comment.createdAt|date }}
+        {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
         {% if comment is fos_comment_votable %}
-        <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">Vote Up</button>
-        <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">Vote Down</button>
+        <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
+        <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
         <div class="fos_comment_comment_score">{{ comment.score }}</div>
         {% endif %}
     </div>
@@ -22,7 +22,7 @@
         {{ comment.body }}
     </div>
     <div class="fos_comment_comment_reply">
-        <button data-url="{{ path('fos_comment_comment_create', {"threadIdentifier": comment.thread.identifier, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">Reply</button>
+        <button data-url="{{ path('fos_comment_comment_create', {"threadIdentifier": comment.thread.identifier, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
     </div>
     <div class="fos_comment_comment_replies">
         {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
