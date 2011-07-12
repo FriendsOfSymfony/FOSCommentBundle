@@ -1,0 +1,18 @@
+fos_comment_comment_new_headline_first:       Schreiben Sie den ersten Kommentar
+fos_comment_comment_new_headline:             Schreiben Sie Ihren Kommentar
+fos_comment_comment_new_submit:               senden
+
+fos_comment_comment_reply_reply_to:           Antworten auf
+fos_comment_comment_reply_cancel:             Abbrechen
+
+fos_comment_comment_show_by:                  von
+fos_comment_comment_show_voteup:              hochwählen
+fos_comment_comment_show_votedown:            runterwählen
+fos_comment_comment_show_reply:               Anworten
+
+fos_comment_comment_tree_load_more:           Lade weitere Antworten
+
+Showing %num% comment|Showing %num% comments:                      Zeige %num% Kommentar|Zeige %num% Kommentare
+
+fos_comment_vote_list_voteon:                 Vote am
+fos_comment_vote_list_for:                    für

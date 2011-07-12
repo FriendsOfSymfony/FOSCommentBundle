@@ -12,10 +12,10 @@
 #}
 
 {% block fos_comment_form_title %}
-    <h3>Replying to <span class="fos_comment_reply_name_placeholder"></span></h3>
+    <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %} <span class="fos_comment_reply_name_placeholder"></span></h3>
 {% endblock %}
 
 {% block fos_comment_form_submit %}
-    <input type="button" value="Cancel" class="fos_comment_reply_cancel" />
+    <input type="button" value="fos_comment_comment_reply_cancel" class="fos_comment_reply_cancel" />
     {{ parent() }}
 {% endblock %}

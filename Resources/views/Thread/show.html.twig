@@ -16,7 +16,11 @@
     <a href="{{ path("fos_comment_thread_show_feed", {"identifier": thread.identifier}) }}">RSS feed</a>
 
     {% if thread.numComments > 0 %}
-        <h3>Showing {{ thread.numComments }} comments</h3>
+        <h3>
+            {% transchoice thread.numComments with {'%num%': thread.numComments} from "FOSCommentBundle" %}
+                Showing %num% comment|Showing %num% comments
+            {% endtranschoice %}
+        </h3>
         <div class="fos_comment_thread_comments">
             {% render "FOSCommentBundle:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth } %}
         </div>
