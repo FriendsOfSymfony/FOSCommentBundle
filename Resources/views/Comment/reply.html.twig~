@@ -16,6 +16,6 @@
 {% endblock %}
 
 {% block fos_comment_form_submit %}
-    <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_reply_cancel" />
+    <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %} " class="fos_comment_reply_cancel" />
     {{ parent() }}
 {% endblock %}
