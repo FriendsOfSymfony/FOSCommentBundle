@@ -216,6 +216,10 @@ The first time the page is rendered, the "foo" thread is created.
 
 You can use any string as the identifier.
 
+To render a list of comments with a flat strategy, use the following::
+
+    {% render "FOSCommentBundle:Thread:showFlat" with {"identifier": "foo"} %}
+
 Style it
 --------
 

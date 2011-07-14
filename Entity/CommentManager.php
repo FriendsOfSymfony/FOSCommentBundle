@@ -64,7 +64,7 @@ class CommentManager extends BaseCommentManager
      * @param integer $depth
      * @return array of ThreadInterface
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
     {
         $qb = $this->repository
             ->createQueryBuilder('c')
@@ -84,6 +84,11 @@ class CommentManager extends BaseCommentManager
         $comments = $qb
             ->getQuery()
             ->execute();
+
+        if (null !== $sorterAlias) {
+            $sorter = $this->getSortingFactory()->getSorter($sorterAlias);
+            $comments = $sorter->sortFlat($comments);
+        }
 
         return $comments;
     }
