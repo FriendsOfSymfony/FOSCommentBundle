@@ -55,12 +55,30 @@ class CommentController extends ContainerAware
      */
     public function subtreeAction($commentId, $sorter = null)
     {
-        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId, $sorter))
+        if (!$nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByCommentId($commentId, $sorter)) {
             throw new NotFoundHttpException('No comment branch found');
+        }
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
             'nodes' => $nodes,
             'depth' => $nodes[0]['comment']->getDepth(),
+            'sorter' => $sorter,
+        ));
+    }
+
+    /**
+     * Displays a flat thread comment tree.
+     *
+     * @param ThreadInterface $thread
+     * @param string $sorter
+     * @return Response
+     */
+    public function flatAction(ThreadInterface $thread, $sorter = null)
+    {
+        $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, null, $sorter);
+
+        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:flat.html.twig', array(
+            'nodes' => $nodes,
             'sorter' => $sorter,
         ));
     }
