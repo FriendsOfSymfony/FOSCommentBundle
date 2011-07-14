@@ -10,5 +10,5 @@
 #}
 
 {% for node in nodes %}
-    {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node.comment } %}
+    {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node } %}
 {% endfor %}
