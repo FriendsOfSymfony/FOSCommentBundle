@@ -13,7 +13,7 @@
 
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": newCommentForm, "first": 0 == thread.numComments, "thread": thread} %}
 
-    <a href="{{ path("fos_comment_thread_show_feed", {"identifier": thread.identifier}) }}">RSS feed</a>
+    <a href="{{ path("fos_comment_thread_show_feed", {"identifier": thread.identifier}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>
 
     {% if thread.numComments > 0 %}
         <h3>
@@ -22,7 +22,7 @@
             {% endtranschoice %}
         </h3>
         <div class="fos_comment_thread_comments">
-            {% render "FOSCommentBundle:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth } %}
+            {% render "FOSCommentBundle:Comment:flat" with {"thread": thread, "sorter": sorter} %}
         </div>
     {% endif %}
 

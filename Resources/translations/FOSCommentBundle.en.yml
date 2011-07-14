@@ -13,3 +13,5 @@ fos_comment_comment_show_reply:               Reply
 fos_comment_comment_tree_load_more:           Load More Replies
 
 Showing %num% comment|Showing %num% comments: Showing %num% comment|Showing %num% comments
+
+fos_comment_rss_feed:                         RSS Feed

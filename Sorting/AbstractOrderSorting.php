@@ -31,7 +31,7 @@ abstract class AbstractOrderSorting implements SortingInterface
         if ($order == self::ASC || $order == self::DESC) {
             $this->order = $order;
         } else {
-            throw InvalidArgumentException(sprintf("%s is an invalid sorting order", $order));
+            throw new InvalidArgumentException(sprintf("%s is an invalid sorting order", $order));
         }
     }
 
@@ -50,8 +50,6 @@ abstract class AbstractOrderSorting implements SortingInterface
      */
     public function sort(array $tree)
     {
-        $ascending = ($this->order == self::ASC);
-
         foreach ($tree AS &$branch) {
             if (count($branch['children'])) {
                 $branch['children'] = $this->sort($branch['children']);
@@ -68,7 +66,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @param array $a
      * @param array $b
-     * @return -1|0|1 As expected for uasort()
+     * @return -1|0|1 As expected for usort()
      */
     public function doSort($a, $b)
     {
@@ -80,11 +78,40 @@ abstract class AbstractOrderSorting implements SortingInterface
     }
 
     /**
-     * Compares 2 comments. Implement this to create custom sorting options.
+     * Sorts a flat array of comments.
+     *
+     * @param array $comments
+     * @return array
+     */
+    public function sortFlat(array $comments)
+    {
+        usort($comments, array($this, 'doFlatSort'));
+
+        return $comments;
+    }
+
+    /**
+     * Compares two comments from a flat array.
      *
      * @param CommentInterface $a
      * @param CommentInterface $b
      * @return -1|0|1 As expected for uasort()
+     */
+    public function doFlatSort($a, $b)
+    {
+        if ($this->order == self::ASC) {
+            return $this->compare($a, $b);
+        } else {
+            return $this->compare($b, $a);
+        }
+    }
+
+    /**
+     * Compares 2 comments. Implement this to create custom sorting options.
+     *
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     * @return -1|0|1 As expected for usort()
      */
     abstract protected function compare(CommentInterface $a, CommentInterface $b);
 }

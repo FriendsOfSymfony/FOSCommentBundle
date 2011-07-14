@@ -25,11 +25,15 @@ interface CommentManagerInterface
     /**
      * Returns a flat array of comments with the specified thread.
      *
+     * The sorter parameter should be left alone if you are sorting in the
+     * tree methods.
+     *
      * @param ThreadInterface $thread
      * @param integer $depth
+     * @param string $sorterAlias
      * @return array of CommentInterface
      */
-    function findCommentsByThread(ThreadInterface $thread, $depth = null);
+    function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null);
 
     /*
      * Returns all thread comments in a nested array
