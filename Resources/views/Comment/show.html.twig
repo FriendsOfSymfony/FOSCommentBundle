@@ -9,7 +9,11 @@
 
 #}
 
-<div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth|default(0) }}" id="{{ comment.id }}">
+{% set depth = depth|default(0) %}
+{% set children = children|default([]) %}
+{% set displayDepth = displayDepth|default(0) %}
+
+<div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
     <div class="fos_comment_comment_metas">
         {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
         {% if comment is fos_comment_votable %}
@@ -25,6 +29,6 @@
         <button data-url="{{ path('fos_comment_comment_create', {"threadIdentifier": comment.thread.identifier, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
     </div>
     <div class="fos_comment_comment_replies">
-        {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children|default([]), "depth": depth|default(0) + 1, "displayDepth": displayDepth|default(0), "sorter": sorter } %}
+        {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children, "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
     </div>
 </div>
