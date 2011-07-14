@@ -229,6 +229,9 @@ based on assets created for `lichess`_.
 They have been included in the Resources/assets directory. The javascript component
 requires the installation of jQuery which must be done separately to this.
 
+Note: While the example javascript code requires jQuery this bundle does not depend on
+it. You are able to rewrite the code using any javascript framework.
+
 To use them in your templates with Assetic, place the following in your base template::
 
     <!-- CSS -->
