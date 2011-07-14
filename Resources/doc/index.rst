@@ -223,9 +223,29 @@ To render a list of comments with a flat strategy, use the following::
 Style it
 --------
 
-Nested comments require CSS and JS to be usable.
-Such assets are not provided in this bundle,
-but you can take inspiration from these ones: `CSS`_ `JS`_
+This bundle supplies some basic CSS and JS assets that will make it usable. They're
+based on assets created for `lichess`_.
+
+They have been included in the Resources/assets directory. The javascript component
+requires the installation of jQuery which must be done separately to this.
+
+Note: While the example javascript code requires jQuery this bundle does not depend on
+it. You are able to rewrite the code using any javascript framework.
+
+To use them in your templates with Assetic, place the following in your base template::
+
+    <!-- CSS -->
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+
+    <!-- Javascript -->
+    {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+The assets provided by this bundle are not intended for production use. You should
+modify them to meet your own style and functionality requirements.
 
 Integration with FOS\UserBundle
 ===============================
@@ -660,5 +680,4 @@ MongoDB mapping examples:
 .. _See it in action: http://lichess.org/1j21ti43
 .. _Akismet: http://akismet.com
 .. _AkismetBundle: http://github.com/ornicar/AkismetBundle
-.. _CSS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/css/comment.css
-.. _JS: https://github.com/ornicar/lichess/blob/master/src/Application/CommentBundle/Resources/public/js/form.js
+.. _lichess: http://lichess.org
