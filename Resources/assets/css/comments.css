@@ -1,0 +1,106 @@
+/**
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+div.fos_comment_thread_show {
+    margin-top: 2em;
+    padding: 1em 20px;
+    width: 472px;
+    background: #f0f0f0;
+    box-shadow: 0 0 7px #bbb;
+    -moz-box-shadow: 0 0 7px #bbb;
+    -webkit-box-shadow: 0 0 7px #bbb;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+div.fos_comment_thread_show h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: #a0a0a0;
+}
+div.fos_comment_comment_show {
+    color: #555;
+}
+div.fos_comment_comment_metas {
+    margin: 1.5em 0 0.5em 0;
+    padding: 1em 20px;
+    background: #e6e6e6;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+div.fos_comment_comment_body {
+    line-height: 1.5em;
+}
+div.fos_comment_comment_replies {
+    margin-left: 2em;
+}
+div.fos_comment_comment_reply {
+    text-align: right;
+}
+div.fos_comment_comment_reply.replying {
+    text-align: left;
+    margin-top: 1em;
+    padding: 1em 20px;
+    background: #d6d6d6;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+button.fos_comment_comment_reply_show_form {
+    padding: 2px 5px;
+    font-size: 0.8em;
+}
+div.fos_comment_comment_reply.replying button.fos_comment_comment_reply_show_form {
+    display: none;
+}
+div.fos_comment_thread_comments {
+    margin-bottom: 1.5em;
+}
+div.fos_comment_reply_prototype {
+    display: none;
+}
+div.fos_comment_thread_show > form.fos_comment_comment_form {
+    margin-bottom: 1em;
+}
+form.fos_comment_comment_form.processing {
+    opacity: 0.5;
+}
+form.fos_comment_comment_form label.author_name {
+    margin-top: 3px;
+    float:left;
+}
+form.fos_comment_comment_form label.author_name input {
+    padding: 2px 5px;
+}
+form.fos_comment_comment_form textarea {
+    width: 98%;
+    height: 6em;
+    padding: 1%;
+}
+form.fos_comment_comment_form.error textarea {
+    border-color: red;
+}
+div.fos_comment_submit {
+    text-align: right;
+}
+div.fos_comment_submit input {
+    font-size: 1.2em;
+    padding: 3px 12px;
+    margin-top: 3px;
+}
+a.fos_comment_thread_feed {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: right;
+}
