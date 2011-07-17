@@ -112,7 +112,7 @@ class CommentController extends ContainerAware
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadIdentifier));
         }
 
-        if (null !== $parentId) {
+        if (!empty($parentId)) {
             $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
 
             if (!$parent) {
