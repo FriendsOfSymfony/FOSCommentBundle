@@ -1,0 +1,17 @@
+fos_comment_comment_new_headline_first:       Soyez le premier à commenter
+fos_comment_comment_new_headline:             Ajouter un commentaire
+fos_comment_comment_new_submit:               Poster
+
+fos_comment_comment_reply_reply_to:           Répondre à
+fos_comment_comment_reply_cancel:             Annuler
+
+fos_comment_comment_show_by:                  Par
+fos_comment_comment_show_voteup:              "J'aime"
+fos_comment_comment_show_votedown:            "Je n'aime pas"
+fos_comment_comment_show_reply:               Répondre
+
+fos_comment_comment_tree_load_more:           Afficher plus de réponses
+
+Showing %num% comment|Showing %num% comments: Afficher %num% commentaire|Afficher %num% commentaires
+
+fos_comment_rss_feed:                         Flux RSS
