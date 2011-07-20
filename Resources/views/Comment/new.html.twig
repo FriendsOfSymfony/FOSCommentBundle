@@ -23,6 +23,7 @@
         {{ form_errors(form) }}
         {{ form_widget(form.body) }}
         {{ form_widget(form._token) }}
+        <input type="hidden" name="maxDepth" value="{{ maxDepth }}">
     {% endblock %}
 
     <div class="fos_comment_submit">

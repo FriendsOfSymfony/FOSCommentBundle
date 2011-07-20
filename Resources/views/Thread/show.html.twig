@@ -22,7 +22,7 @@
             {% endtranschoice %}
         </h3>
         <div class="fos_comment_thread_comments">
-            {% render "FOSCommentBundle:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth } %}
+            {% render "FOSCommentBundle:Comment:tree" with {"thread": thread, "sorter": sorter, "displayDepth": displayDepth, "maxDepth": maxDepth } %}
         </div>
     {% endif %}
 
