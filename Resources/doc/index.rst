@@ -90,6 +90,9 @@ Minimal configuration
 At a minimum, your configuration must define your DB driver ("orm" or "mongodb")
 and a Comment class.
 
+We recommend that any entity that is created or used for CommentBundle uses the
+DEFERRED_EXPLICIT change tracking policy.
+
 MongoDB
 ~~~
 
@@ -105,6 +108,7 @@ you must create one::
 
     /**
      * @MongoDB\Document
+     * @MongoDB\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
      */
     class Comment extends BaseComment
     {
@@ -153,6 +157,7 @@ you must create one::
 
     /**
      * @ORM\Entity
+     * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
      */
     class Comment extends BaseComment
     {
@@ -271,14 +276,15 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
     use Bar\UserBundle\Document\User;
 
     /**
-     * @mongodb:Document()
+     * @MongoDB\Document
+     * @MongoDB\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
      */
     class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
     {
         /**
          * Author of the comment
          *
-         * @mongodb:ReferenceOne(targetDocument="Bar\UserBundle\Document\User")
+         * @MongoDB\ReferenceOne(targetDocument="Bar\UserBundle\Document\User")
          * @var User
          */
         protected $author;
@@ -303,7 +309,7 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
         /**
          * Comment voting score.
          *
-         * @mongodb:Field(type="int")
+         * @MongoDB\Field(type="int")
          * @var integer
          */
         protected $score;
@@ -356,7 +362,7 @@ And that's it, really.
 Enabling use of the Symfony2 Security Component
 ===============================
 
-CommentBundle comes bundled with the ability to different security features provided
+CommentBundle comes bundled with the ability to use different security features provided
 by Symfony2.
 
 Using Symfony2's Built in Acl system

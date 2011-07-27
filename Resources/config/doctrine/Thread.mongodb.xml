@@ -14,7 +14,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="FOS\CommentBundle\Document\Thread" collection="fos_comment_thread" customId="true">
+    <document name="FOS\CommentBundle\Document\Thread" collection="fos_comment_thread" customId="true" change-tracking-policy="DEFERRED_EXPLICIT">
 
         <field name="identifier" type="string" id="true" strategy="NONE" />
 
