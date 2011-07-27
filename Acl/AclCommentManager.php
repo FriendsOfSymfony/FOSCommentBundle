@@ -79,9 +79,9 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = nul, $sorterAlias = null)
     {
-        $comments = $this->realManager->findCommentsByThread($thread, $depth);
+        $comments = $this->realManager->findCommentsByThread($thread, $depth, $sorterAlias);
 
         foreach ($comments AS $comment) {
             if (!$this->commentAcl->canView($comment)) {
