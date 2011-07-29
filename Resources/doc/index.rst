@@ -679,9 +679,9 @@ You may also need to define mappings.
 
 MongoDB mapping examples:
 
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Thread.dcm.xml
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Comment.dcm.xml
-- src/FOS/CommentBundle/Resources/config/doctrine/metadata/mongodb/FOS.CommentBundle.Document.Vote.dcm.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/Thread.mongodb.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/Comment.mongodb.xml
+- src/FOS/CommentBundle/Resources/config/doctrine/Vote.mongodb.xml
 
 .. _See it in action: http://lichess.org/1j21ti43
 .. _Akismet: http://akismet.com
