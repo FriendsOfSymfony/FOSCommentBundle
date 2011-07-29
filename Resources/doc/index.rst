@@ -88,7 +88,7 @@ Minimal configuration
 ---------------------
 
 At a minimum, your configuration must define your DB driver ("orm" or "mongodb")
-and a Comment class.
+and the Comment and Thread classes.
 
 We recommend that any entity that is created or used for CommentBundle uses the
 DEFERRED_EXPLICIT change tracking policy.
@@ -116,6 +116,49 @@ you must create one::
          * @MongoDB\Id
          */
         protected $id;
+
+        /**
+         * Thread of this comment
+         *
+         * @var Thread
+         * @MongoDB\ReferenceOne(targetDocument="MyProject\MyBundle\Document\Thread")
+         */
+        protected $thread;
+
+        /**
+         * @return Thread
+         */
+        public function getThread()
+        {
+            return $this->thread;
+        }
+
+        /**
+         * @param Thread $thread
+         * @return null
+         */
+        public function setThread(Thread $thread)
+        {
+            $this->thread = $thread;
+        }
+    }
+
+Additionally, create the Thread object::
+
+    // src/MyProject/MyBundle/Document/Thread.php
+
+    namespace MyProject\MyBundle\Document;
+
+    use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+    use FOS\CommentBundle\Document\Thread as BaseThread;
+
+    /**
+     * @MongoDB\Document
+     * @MongoDB\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+     */
+    class Thread extends BaseThread
+    {
+
     }
 
 Configure your application::
@@ -129,6 +172,7 @@ In YAML::
         class:
             model:
                 comment: MyProject\MyBundle\Document\Comment
+                thread: MyProject\MyBundle\Document\Thread
 
 Or if you prefer XML::
 
@@ -138,6 +182,7 @@ Or if you prefer XML::
         <fos_comment:class>
             <fos_comment:model
                 comment="MyProject\MyBundle\Document\Comment"
+                thread="MyProject\MyBundle\Document\Thread"
             />
         </fos_comment:class>
     </fos_comment:config>
@@ -167,6 +212,49 @@ you must create one::
          * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
+
+        /**
+         * Thread of this comment
+         *
+         * @var Thread
+         * @ORM\ManyToOne(targetEntity="MyProject\MyBundle\Entity\Thread")
+         */
+        protected $thread;
+
+        /**
+         * @return Thread
+         */
+        public function getThread()
+        {
+            return $this->thread;
+        }
+
+        /**
+         * @param Thread $thread
+         * @return null
+         */
+        public function setThread(Thread $thread)
+        {
+            $this->thread = $thread;
+        }
+    }
+
+And the Thread::
+
+    // src/MyProject/MyBundle/Entity/Thread.php
+
+    namespace MyProject\MyBundle\Entity;
+
+    use Doctrine\ORM\Mapping as ORM;
+    use FOS\CommentBundle\Entity\Thread as BaseThread;
+
+    /**
+     * @ORM\Entity
+     * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+     */
+    class Thread extends BaseThread
+    {
+
     }
 
 Configure your application::
@@ -178,6 +266,7 @@ Configure your application::
         class:
             model:
                 comment: MyProject\MyBundle\Entity\Comment
+                thread: MyProject\MyBundle\Entity\Thread
 
 Or if you prefer XML::
 
@@ -187,6 +276,7 @@ Or if you prefer XML::
         <fos_comment:class>
             <fos_comment:model
                 comment="MyProject\MyBundle\Entity\Comment"
+                thread="MyProject\MyBundle\Entity\Thread"
             />
         </fos_comment:class>
     </fos_comment:config>

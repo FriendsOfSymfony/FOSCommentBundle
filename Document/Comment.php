@@ -21,35 +21,11 @@ use FOS\CommentBundle\Model\Comment as AbstractComment;
 abstract class Comment extends AbstractComment
 {
     /**
-     * Thread of this comment
-     *
-     * @var Thread
-     */
-    protected $thread;
-
-    /**
      * All ancestors of the comment
      *
      * @var array
      */
     protected $ancestors = array();
-
-    /**
-     * @return Thread
-     */
-    public function getThread()
-    {
-        return $this->thread;
-    }
-
-    /**
-     * @param  Thread
-     * @return null
-     */
-    public function setThread(Thread $thread)
-    {
-        $this->thread = $thread;
-    }
 
     /**
      * @return array
