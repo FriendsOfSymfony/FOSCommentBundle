@@ -14,7 +14,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.twig.extension" class="FOS\CommentBundle\Twig\Extension" public="false">
+        <service id="fos_comment.twig.comment_extension" class="FOS\CommentBundle\Twig\CommentExtension" public="false">
+            <argument type="service" id="fos_comment.acl.comment" on-invalid="null" />
             <tag name="twig.extension" />
         </service>
     </services>

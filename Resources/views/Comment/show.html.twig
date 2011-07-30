@@ -25,9 +25,11 @@
     <div class="fos_comment_comment_body">
         {{ comment.body }}
     </div>
+    {% if fos_comment_can_comment(comment) %}
     <div class="fos_comment_comment_reply">
         <button data-url="{{ path('fos_comment_comment_create', {"threadId": comment.thread.id, "parentId": comment.id}) }}" data-name="{{ comment.authorName }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
     </div>
+    {% endif %}
     <div class="fos_comment_comment_replies">
         {% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": children, "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
     </div>

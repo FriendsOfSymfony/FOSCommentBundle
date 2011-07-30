@@ -11,6 +11,8 @@
 
 namespace FOS\CommentBundle\Twig;
 
+use FOS\CommentBundle\Acl\CommentAclInterface;
+use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 
 /**
@@ -18,8 +20,15 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class Extension extends \Twig_Extension
+class CommentExtension extends \Twig_Extension
 {
+    protected $commentAcl;
+
+    public function __construct(CommentAclInterface $commentAcl = null)
+    {
+        $this->commentAcl = $commentAcl;
+    }
+
     public function getTests()
     {
         return array(
@@ -40,6 +49,34 @@ class Extension extends \Twig_Extension
         }
 
         return ($value instanceof VotableCommentInterface);
+    }
+
+    public function getFunctions()
+    {
+        return array(
+            'fos_comment_can_comment' => new \Twig_Function_Method($this, 'canComment'),
+        );
+    }
+
+    /*
+     * Checks if the current user is able to comment. Checks if they
+     * can create root comments if no $comment is provided, otherwise
+     * checks if they can reply to a given comment if supplied.
+     *
+     * @param CommentInterface|null $comment
+     * @return bool If the user is able to comment
+     */
+    public function canComment(CommentInterface $comment = null)
+    {
+        if (null === $this->commentAcl) {
+            return true;
+        }
+
+        if (null === $comment) {
+            return $this->commentAcl->canCreate();
+        }
+
+        return $this->commentAcl->canReply($comment);
     }
 
     /**

@@ -11,7 +11,9 @@
 
 <div class="fos_comment_thread_show">
 
+    {% if fos_comment_can_comment() %}
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": newCommentForm, "first": 0 == thread.numComments, "thread": thread} %}
+    {% endif %}
 
     <a href="{{ path("fos_comment_thread_show_feed", {"id": thread.id}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>
 
@@ -26,7 +28,11 @@
         </div>
     {% endif %}
 
+    {% if fos_comment_can_comment() %}
     <div class="fos_comment_reply_prototype">
         {% include "FOSCommentBundle:Comment:reply.html.twig" with {"form": replyForm} %}
     </div>
+    {% else %}
+        <p><a href="{{ path('fos_user_security_login') }}">Login</a> to comment</p>
+    {% endif %}
 </div>

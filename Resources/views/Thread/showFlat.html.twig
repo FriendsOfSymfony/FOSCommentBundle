@@ -26,7 +26,9 @@
         </div>
     {% endif %}
 
+    {% if fos_comment_can_comment() %}
     <div class="fos_comment_reply_prototype">
         {% include "FOSCommentBundle:Comment:reply.html.twig" with {"form": replyForm} %}
     </div>
+    {% endif %}
 </div>
