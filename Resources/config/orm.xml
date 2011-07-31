@@ -24,17 +24,21 @@
     </parameters>
 
     <services>
+        <service id="fos_comment.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%fos_comment.model_manager_name%</argument>
+        </service>
+
         <service id="fos_comment.manager.thread.default" class="%fos_comment.manager.thread.default.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
         <service id="fos_comment.manager.comment.default" class="%fos_comment.manager.comment.default.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.comment.class%</argument>
             <argument type="service" id="fos_comment.sorting_factory" />
         </service>
         <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.vote.default.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.vote.class%</argument>
         </service>
     </services>

@@ -35,6 +35,7 @@ class Configuration
             ->children()
 
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
 
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()

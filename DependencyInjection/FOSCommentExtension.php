@@ -61,6 +61,8 @@ class FOSCommentExtension extends Extension
             $container->setParameter('fos_comment.model.vote.class', $config['class']['model']['vote']);
         }
 
+        $container->setParameter('fos_comment.model_manager_name', $config['model_manager_name']);
+
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
         $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
 
