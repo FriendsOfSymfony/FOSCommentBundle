@@ -53,6 +53,7 @@ class Configuration
                         ->arrayNode('model')->isRequired()
                             ->children()
                                 ->scalarNode('comment')->isRequired()->end()
+                                ->scalarNode('thread')->isRequired()->end()
                                 ->scalarNode('vote')->end()
                             ->end()
                         ->end()

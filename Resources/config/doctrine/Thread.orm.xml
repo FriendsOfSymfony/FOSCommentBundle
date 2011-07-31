@@ -14,7 +14,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="FOS\CommentBundle\Entity\Thread" table="fos_comment_thread" change-tracking-policy="DEFERRED_EXPLICIT">
+    <mapped-superclass name="FOS\CommentBundle\Entity\Thread">
 
         <id name="identifier" type="string" column="identifier" />
 
@@ -26,6 +26,6 @@
 
         <field name="lastCommentAt" column="lastCommentAt" type="datetime" nullable="true" />
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

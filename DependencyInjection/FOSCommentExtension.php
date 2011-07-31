@@ -56,6 +56,7 @@ class FOSCommentExtension extends Extension
         }
 
         $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
+        $container->setParameter('fos_comment.model.thread.class', $config['class']['model']['thread']);
 
         if (array_key_exists('vote', $config['class']['model'])) {
             $container->setParameter('fos_comment.model.vote.class', $config['class']['model']['vote']);
