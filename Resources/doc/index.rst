@@ -360,6 +360,7 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
 
     namespace Bar\CommentBundle\Document;
 
+    use Symfony\Component\Security\Core\User\UserInterface;
     use FOS\CommentBundle\Document\Comment as BaseComment;
     use FOS\CommentBundle\Model\SignedCommentInterface;
     use FOS\CommentBundle\Model\VotableCommentInterface;
@@ -382,7 +383,7 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
         /**
          * @param User
          */
-        public function setAuthor($author)
+        public function setAuthor(UserInterface $author)
         {
             $this->author = $author;
         }
@@ -412,6 +413,20 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
         public function setScore($score)
         {
             $this->score = intval($score);
+        }
+
+        /**
+         * Increments the comment score by the provided
+         * value.
+         *
+         * @param integer value
+         * @return integer The new comment score
+         */
+        public function incrementScore($by = 1)
+        {
+            $score = $this->getScore() + intval($by);
+            $this->setScore($score);
+            return $score;
         }
 
         /**
