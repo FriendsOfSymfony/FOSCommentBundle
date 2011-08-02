@@ -18,8 +18,6 @@
 
         <field name="body" fieldName="body" type="string" />
 
-        <reference-one field="thread" target-document="FOS\CommentBundle\Document\Thread" />
-
         <field name="ancestors" fieldName="ancestors" type="collection" />
 
         <field name="depth" fieldName="depth" type="int" />
