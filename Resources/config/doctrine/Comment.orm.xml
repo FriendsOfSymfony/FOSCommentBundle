@@ -18,7 +18,7 @@
 
         <field name="body" column="body" type="string" />
 
-        <field name="ancestors" column="ancestors" type="string" length="1024" nullable="true" />
+        <field name="ancestors" column="ancestors" type="string" length="1024" nullable="false" />
 
         <field name="depth" column="depth" type="integer" />
 
