@@ -305,7 +305,7 @@ Enable comments on a page
 
 It is as easy as it can get. In any template, add the following::
 
-    {% render "FOSCommentBundle:Thread:show" with {"identifier": "foo"} %}
+    {% render "FOSCommentBundle:Thread:show" with {"id": "foo"} %}
 
 The first time the page is rendered, the "foo" thread is created.
 
@@ -313,7 +313,7 @@ You can use any string as the identifier.
 
 To render a list of comments with a flat strategy, use the following::
 
-    {% render "FOSCommentBundle:Thread:showFlat" with {"identifier": "foo"} %}
+    {% render "FOSCommentBundle:Thread:showFlat" with {"id": "foo"} %}
 
 Style it
 --------
@@ -676,7 +676,7 @@ and be tagged in the DIC as a fos_comment.sorter with a unique alias, which can 
 Additionally, individual comment threads can have different sorting algorithms by specifying them in the render
 tag::
 
-    {% render "FOSCommentBundle:Thread:show" with {"identifier": "foo", sorter: "custom"} %}
+    {% render "FOSCommentBundle:Thread:show" with {"id": "foo", sorter: "custom"} %}
 
 Configuration example:
 ======================

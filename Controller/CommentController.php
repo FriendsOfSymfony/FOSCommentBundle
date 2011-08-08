@@ -102,14 +102,15 @@ class CommentController extends ContainerAware
     /**
      * Submit a comment form.
      *
-     * @param mixed Thread Identifier
+     * @param mixed $threadId Thread id
+     * @param mixed $parentId Comment id
      * @return Response
      */
-    public function createAction($threadIdentifier, $parentId = null)
+    public function createAction($threadId, $parentId = null)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($threadIdentifier);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($threadId);
         if (!$thread) {
-            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadIdentifier));
+            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadId));
         }
 
         if (!empty($parentId)) {
@@ -148,7 +149,7 @@ class CommentController extends ContainerAware
     protected function onCreateSuccess(Form $form)
     {
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
-            'identifier' => $form->getData()->getThread()->getIdentifier()
+            'id' => $form->getData()->getThread()->getId()
         ));
     }
 

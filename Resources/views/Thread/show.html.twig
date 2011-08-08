@@ -13,7 +13,7 @@
 
     {% include "FOSCommentBundle:Comment:new.html.twig" with {"form": newCommentForm, "first": 0 == thread.numComments, "thread": thread} %}
 
-    <a href="{{ path("fos_comment_thread_show_feed", {"identifier": thread.identifier}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>
+    <a href="{{ path("fos_comment_thread_show_feed", {"id": thread.id}) }}">{% trans from 'FOSCommentBundle' %}fos_comment_rss_feed{% endtrans %}</a>
 
     {% if thread.numComments > 0 %}
         <h3>

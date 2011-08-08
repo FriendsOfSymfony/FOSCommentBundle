@@ -16,7 +16,7 @@
 
     <mapped-superclass name="FOS\CommentBundle\Document\Thread" collection="fos_comment_thread" customId="true">
 
-        <field name="identifier" type="string" id="true" strategy="NONE" />
+        <field name="id" type="string" id="true" strategy="NONE" />
 
         <field name="permalink" type="string" />
 

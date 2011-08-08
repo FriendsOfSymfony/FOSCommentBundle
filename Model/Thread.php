@@ -21,12 +21,12 @@ use DateTime;
 abstract class Thread implements ThreadInterface
 {
     /**
-     * Identifier, a unique string that binds the comments together in a thread (tree).
+     * Id, a unique string that binds the comments together in a thread (tree).
      * It can be a url or really anything unique.
      *
      * @var string
      */
-    protected $identifier;
+    protected $id;
 
     /**
      * Tells if new comments can be added in this thread
@@ -59,18 +59,18 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getId()
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     /**
      * @param  string
      * @return null
      */
-    public function setIdentifier($identifier)
+    public function setId($id)
     {
-        $this->identifier = $identifier;
+        $this->id = $id;
     }
 
     /**
@@ -158,6 +158,6 @@ abstract class Thread implements ThreadInterface
 
     public function __toString()
     {
-        return 'Comment thread #'.$this->getIdentifier();
+        return 'Comment thread #'.$this->getId();
     }
 }

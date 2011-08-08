@@ -16,7 +16,7 @@
 
     <mapped-superclass name="FOS\CommentBundle\Entity\Thread">
 
-        <id name="identifier" type="string" column="identifier" />
+        <id name="id" type="string" column="id" />
 
         <field name="permalink" column="permalink" type="string" />
 

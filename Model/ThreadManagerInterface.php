@@ -22,10 +22,10 @@ namespace FOS\CommentBundle\Model;
 interface ThreadManagerInterface
 {
     /**
-     * @param string $identifier
+     * @param string $id
      * @return ThreadInterface
      */
-    function findThreadByIdentifier($identifier);
+    function findThreadById($id);
 
     /**
      * Finds one comment thread by the given criteria

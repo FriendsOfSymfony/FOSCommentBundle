@@ -84,7 +84,7 @@ class Tree
     public function toArray()
     {
         $children = array();
-        foreach ($this->children AS $child) {
+        foreach ($this->children as $child) {
             $children[] = $child->toArray();
         }
 
