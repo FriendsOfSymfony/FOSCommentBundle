@@ -21,10 +21,10 @@ use FOS\CommentBundle\Model\ThreadInterface;
 interface ThreadCreatorInterface
 {
     /**
-     * Creates a new thread with this identifier
+     * Creates a new thread with this id
      *
-     * @param string $identifier
+     * @param string $id
      * @return ThreadInterface
      */
-    function create($identifier);
+    function create($id);
 }

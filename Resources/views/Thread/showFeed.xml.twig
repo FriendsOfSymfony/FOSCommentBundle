@@ -10,8 +10,8 @@
 #}
 
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>{{ thread.identifier }}</title>
-    <id>{{ thread.identifier }}</id>
+    <title>{{ thread.id }}</title>
+    <id>{{ thread.id }}</id>
     <link href="{{ thread.permalink }}" rel="alternate" />
     <updated>{{ thread.lastCommentAt|date("c") }}</updated>
     {% render "FOSCommentBundle:Comment:listFeed" with {"thread": thread} %}

@@ -54,14 +54,14 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindCommentById()
     {
-        $identifier = 'id';
+        $commentId = 'id';
 
         $this->repository->expects($this->once())
             ->method('find')
-            ->with($identifier);
+            ->with($commentId);
 
         $commentManager = new CommentManager($this->em, $this->class, $this->sortingFactory);
-        $commentManager->findCommentById($identifier);
+        $commentManager->findCommentById($commentId);
     }
 
     /**

@@ -72,8 +72,8 @@ EOT
         $createdCommentAcls = 0;
         $createdVoteAcls = 0;
 
-        foreach ($threadManager->findAllThreads() AS $thread) {
-            $oid = new ObjectIdentity($thread->getIdentifier(), get_class($thread));
+        foreach ($threadManager->findAllThreads() as $thread) {
+            $oid = new ObjectIdentity($thread->getId(), get_class($thread));
 
             try {
                 $provider->findAcl($oid);
@@ -84,7 +84,7 @@ EOT
                 $createdThreadAcls++;
             }
 
-            foreach ($commentManager->findCommentsByThread($thread) AS $comment) {
+            foreach ($commentManager->findCommentsByThread($thread) as $comment) {
                 $comment_oid = new ObjectIdentity($comment->getId(), get_class($comment));
 
                 try {
@@ -96,7 +96,7 @@ EOT
                     $createdCommentAcls++;
                 }
 
-                foreach ($voteManager->findVotesByComment($comment) AS $vote) {
+                foreach ($voteManager->findVotesByComment($comment) as $vote) {
                     $vote_oid = new ObjectIdentity($vote->getId(), get_class($vote));
 
                     try {

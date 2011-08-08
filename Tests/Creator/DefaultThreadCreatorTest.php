@@ -35,18 +35,18 @@ class DefaultThreadCreatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $identifier = 'hello';
+        $id = 'hello';
 
         $this->threadManager->expects($this->once())
             ->method('createThread')
             ->will($this->returnValue($this->thread));
 
         $this->thread->expects($this->once())
-            ->method('setIdentifier')
-            ->with($identifier);
+            ->method('setId')
+            ->with($id);
 
         $creator = new DefaultThreadCreator($this->request, $this->threadManager);
-        $creator->create($identifier);
+        $creator->create($id);
     }
 
 }

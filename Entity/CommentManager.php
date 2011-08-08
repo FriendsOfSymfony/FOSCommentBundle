@@ -69,9 +69,9 @@ class CommentManager extends BaseCommentManager
         $qb = $this->repository
                 ->createQueryBuilder('c')
                 ->join('c.thread', 't')
-                ->where('t.identifier = :thread')
+                ->where('t.id = :thread')
                 ->orderBy('c.ancestors', 'ASC')
-                ->setParameter('thread', $thread->getIdentifier());
+                ->setParameter('thread', $thread->getId());
 
         if ($depth > 0) {
             // Queries for an additional level so templates can determine

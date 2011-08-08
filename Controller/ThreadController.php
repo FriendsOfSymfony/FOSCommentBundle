@@ -25,18 +25,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ThreadController extends ContainerAware
 {
     /**
-     * Gets the thread specified by the identifier, and if it does
+     * Gets the thread specified by id, and if it does
      * not exist, creates a new one.
      *
-     * @param string $identifier
+     * @param string $id
      * @return ThreadInterface
      */
-    protected function getThread($identifier)
+    protected function getThread($id)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
 
         if (!$thread) {
-            $thread = $this->container->get('fos_comment.creator.thread')->create($identifier);
+            $thread = $this->container->get('fos_comment.creator.thread')->create($id);
         }
 
         return $thread;
@@ -62,24 +62,24 @@ class ThreadController extends ContainerAware
      * Show a thread, its comments and the comment form if available
      * There is no routing for this action, call it from a template:
      *
-     *    {% render "FOSCommentBundle:Thread:show" with {"identifier": "something_unique"} %}
+     *    {% render "FOSCommentBundle:Thread:show" with {"id": "something_unique"} %}
      *
-     * If the thread for the identifier does not exist, it will be created.
+     * If the thread for the id does not exist, it will be created.
      *
      * Available options to pass to this action are:
-     *    identifier:   The identifier of the thread.
+     *    id:           The id of the thread.
      *    sorter:       The alias of the sorter to use, or null
      *                  for the default sorter.
      *    displayDepth: The depth of comments to display.
      *
-     * @param mixed $identifier
+     * @param mixed $id
      * @param string $sorter
      * @param integer $displayDepth
      * @return Response
      */
-    public function showAction($identifier, $sorter = null, $displayDepth = null)
+    public function showAction($id, $sorter = null, $displayDepth = null)
     {
-        $thread = $this->getThread($identifier);
+        $thread = $this->getThread($id);
         $newCommentForm = $this->getCommentForm($thread);
         $replyForm = $this->getCommentForm($thread);
 
@@ -96,22 +96,21 @@ class ThreadController extends ContainerAware
      * Show a thread, its comments and the comment form in a flat manner if available
      * There is no routing for this action, call it from a template:
      *
-     *    {% render "FOSCommentBundle:Thread:show" with {"identifier": "something_unique"} %}
+     *    {% render "FOSCommentBundle:Thread:show" with {"id": "something_unique"} %}
      *
-     * If the thread for the identifier does not exist, it will be created.
+     * If the thread for the id does not exist, it will be created.
      *
      * Available options to pass to this action are:
-     *    identifier:   The identifier of the thread.
-     *    sorter:       The alias of the sorter to use, or null
-     *                  for the default sorter.
+     *    id:      The id of the thread.
+     *    sorter:  The alias of the sorter to use, or null for the default sorter.
      *
-     * @param mixed $identifier
+     * @param mixed $id
      * @param string $sorter
      * @return Response
      */
-    public function showFlatAction($identifier, $sorter = null)
+    public function showFlatAction($id, $sorter = null)
     {
-        $thread = $this->getThread($identifier);
+        $thread = $this->getThread($id);
         $newCommentForm = $this->getCommentForm($thread);
         $replyForm = $this->getCommentForm($thread);
 
@@ -126,14 +125,14 @@ class ThreadController extends ContainerAware
     /**
      * Show an xml feed for a thread.
      *
-     * @param mixed $identifier
+     * @param mixed $id
      * @return Response
      */
-    public function showFeedAction($identifier)
+    public function showFeedAction($id)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadByIdentifier($identifier);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         if (!$thread) {
-            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $identifier));
+            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $id));
         }
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(

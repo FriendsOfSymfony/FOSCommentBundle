@@ -20,12 +20,12 @@ namespace FOS\CommentBundle\Model;
 abstract class ThreadManager implements ThreadManagerInterface
 {
     /**
-     * @param string $identifier
+     * @param string $id
      * @return ThreadInterface
      */
-    public function findThreadByIdentifier($identifier)
+    public function findThreadById($id)
     {
-        return $this->findThreadBy(array('identifier' => $identifier));
+        return $this->findThreadBy(array('id' => $id));
     }
 
     /**
