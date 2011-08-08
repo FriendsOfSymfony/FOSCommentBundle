@@ -83,7 +83,7 @@ class AclCommentManager implements CommentManagerInterface
     {
         $comments = $this->realManager->findCommentsByThread($thread, $depth, $sorterAlias);
 
-        foreach ($comments AS $comment) {
+        foreach ($comments as $comment) {
             if (!$this->commentAcl->canView($comment)) {
                 throw new AccessDeniedException();
             }
@@ -162,7 +162,7 @@ class AclCommentManager implements CommentManagerInterface
      */
     protected function authorizeViewCommentTree(array $comments)
     {
-        foreach ($comments AS $comment) {
+        foreach ($comments as $comment) {
             if (!$this->commentAcl->canView($comment['comment'])) {
                 return false;
             }

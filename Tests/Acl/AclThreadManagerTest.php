@@ -37,12 +37,12 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    public function testFindThreadByIdentifier()
+    public function testFindThreadById()
     {
-        $threadIdentifier = 'hello';
+        $threadId = 'hello';
         $this->realManager->expects($this->once())
-            ->method('findThreadByIdentifier')
-            ->with($threadIdentifier)
+            ->method('findThreadById')
+            ->with($threadId)
             ->will($this->returnValue($this->thread));
 
         $this->threadSecurity->expects($this->once())
@@ -51,22 +51,22 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
 
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
-        $manager->findThreadByIdentifier($threadIdentifier);
+        $manager->findThreadById($threadId);
     }
 
-    public function testFindThreadByIdentifierNotFound()
+    public function testFindThreadByIdNotFound()
     {
-        $threadIdentifier = 'hello';
+        $threadId = 'hello';
         $this->realManager->expects($this->once())
-            ->method('findThreadByIdentifier')
-            ->with($threadIdentifier)
+            ->method('findThreadById')
+            ->with($threadId)
             ->will($this->returnValue(null));
 
         $this->threadSecurity->expects($this->never())
             ->method('canView');
 
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
-        $this->assertNull($manager->findThreadByIdentifier($threadIdentifier));
+        $this->assertNull($manager->findThreadById($threadId));
     }
 
     // findThreadBy - permission denied, can result in null, what to do about invalid criteria
@@ -75,7 +75,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindThreadBy()
     {
-        $conditions = array('identifier' => 123);
+        $conditions = array('id' => 123);
         $expectedResult = $this->thread;
 
         $this->realManager->expects($this->once())
@@ -94,7 +94,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindThreadByNoResult()
     {
-        $conditions = array('identifier' => 123);
+        $conditions = array('id' => 123);
         $expectedResult = null;
 
         $this->realManager->expects($this->once())

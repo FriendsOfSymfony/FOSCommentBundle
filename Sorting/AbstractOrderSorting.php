@@ -50,7 +50,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      */
     public function sort(array $tree)
     {
-        foreach ($tree AS &$branch) {
+        foreach ($tree as &$branch) {
             if (count($branch['children'])) {
                 $branch['children'] = $this->sort($branch['children']);
             }

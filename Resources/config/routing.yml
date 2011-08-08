@@ -8,14 +8,14 @@
 #
 
 fos_comment_comment_create:
-    pattern:         /new/{threadIdentifier}/{parentId}
+    pattern:         /new/{threadId}/{parentId}
     defaults:
         _controller: FOSCommentBundle:Comment:create
-        parentId:     null
-    requirements:   { _method: "post" }
+        parentId:    null
+    requirements:    { _method: "post" }
 
 fos_comment_thread_show_feed:
-    pattern:        /{identifier}.xml
+    pattern:        /{id}.xml
     defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
 
 fos_comment_comment_loadmore:

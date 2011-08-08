@@ -73,7 +73,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindThreadBy()
     {
         $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
-        $criteria = array('identifier' => 'hello');
+        $criteria = array('id' => 'hello');
 
         $this->repository->expects($this->once())
                 ->method('findOneBy')
@@ -101,18 +101,18 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($threads, $result);
     }
 
-    public function testFindThreadByIdentifier()
+    public function testFindThreadById()
     {
-        $identifier = 'hello';
+        $threadId = 'hello';
         $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
-            ->with(array('identifier' => $identifier))
+            ->with(array('id' => $threadId))
             ->will($this->returnValue($thread));
 
         $manager = new ThreadManager($this->em, $this->class);
-        $result = $manager->findThreadByIdentifier($identifier);
+        $result = $manager->findThreadById($threadId);
 
         $this->assertEquals($thread, $result);
     }

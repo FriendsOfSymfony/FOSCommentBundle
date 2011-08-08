@@ -45,15 +45,15 @@ class DefaultThreadCreator implements ThreadCreatorInterface
     }
 
     /**
-     * Creates and persists a thread with the specified identifier.
+     * Creates and persists a thread with the specified id.
      *
-     * @param mixed $identifier
+     * @param mixed $id
      * @return ThreadInterface
      */
-    public function create($identifier)
+    public function create($id)
     {
         $thread = $this->threadManager->createThread();
-        $thread->setIdentifier($identifier);
+        $thread->setId($id);
         $thread->setPermalink($this->request->getUri());
         $this->threadManager->addThread($thread);
 

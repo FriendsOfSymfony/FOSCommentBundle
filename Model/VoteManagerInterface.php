@@ -50,7 +50,7 @@ interface VoteManagerInterface
     function findVoteBy(array $criteria);
 
     /**
-     * Finds a vote by identifier.
+     * Finds a vote by id.
      *
      * @param  $id
      * @return VoteInterface

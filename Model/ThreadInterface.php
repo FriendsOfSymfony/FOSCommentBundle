@@ -12,24 +12,24 @@
 namespace FOS\CommentBundle\Model;
 
 /*
- * Binds a comment tree to anything, using a unique, arbitrary identifier
+ * Binds a comment tree to anything, using a unique, arbitrary id
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 interface ThreadInterface
 {
     /**
-     * Identifier, a unique string that binds the comments together in a thread (tree).
+     * Id, a unique string that binds the comments together in a thread (tree).
      * It can be a url or really anything unique.
      *
      * @return string
      */
-    function getIdentifier();
+    function getId();
 
     /**
      * @param string
      */
-    function setIdentifier($identifier);
+    function setId($id);
 
     /**
      * Url of the page where the thread lives
