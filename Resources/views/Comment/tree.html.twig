@@ -18,6 +18,6 @@
 </div>
 {% else %}
 {% for node in nodes %}
-    {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node.comment, "children": node.children, "depth": depth, "displayDepth": displayDepth, "sorter": sorter } %}
+    {% include "FOSCommentBundle:Comment:show.html.twig" with { "comment": node.comment, "children": node.children, "depth": depth, "displayDepth": displayDepth, "maxDepth": maxDepth, "sorter": sorter } %}
 {% endfor %}
 {% endif %}

@@ -33,15 +33,17 @@ class CommentController extends ContainerAware
      * @param ThreadInterface $thread
      * @param string $sorter
      * @param integer $displayDepth
+     * @param integer $maxDepth
      * @return Response
      */
-    public function treeAction(ThreadInterface $thread, $sorter = null, $displayDepth = null)
+    public function treeAction(ThreadInterface $thread, $sorter = null, $displayDepth = null, $maxDepth = null)
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
             'nodes' => $nodes,
             'displayDepth' => $displayDepth,
+            'maxDepth' => $maxDepth,
             'sorter' => $sorter,
         ));
     }
@@ -147,8 +149,10 @@ class CommentController extends ContainerAware
      */
     protected function onCreateSuccess(Form $form)
     {
+        $request = $this->container->get('request');
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
-            'identifier' => $form->getData()->getThread()->getIdentifier()
+            'identifier' => $form->getData()->getThread()->getIdentifier(),
+            'maxDepth' => $request->request->get('maxDepth')
         ));
     }
 

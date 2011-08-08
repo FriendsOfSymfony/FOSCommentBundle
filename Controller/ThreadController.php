@@ -71,13 +71,15 @@ class ThreadController extends ContainerAware
      *    sorter:       The alias of the sorter to use, or null
      *                  for the default sorter.
      *    displayDepth: The depth of comments to display.
+     *    maxDepth:     The maximum depth of comments allowed in this thread (default: 0 = unlimited).
      *
      * @param mixed $identifier
      * @param string $sorter
      * @param integer $displayDepth
+     * @param integer $maxDepth
      * @return Response
      */
-    public function showAction($identifier, $sorter = null, $displayDepth = null)
+    public function showAction($identifier, $sorter = null, $displayDepth = null, $maxDepth = null)
     {
         $thread = $this->getThread($identifier);
         $newCommentForm = $this->getCommentForm($thread);
@@ -87,6 +89,7 @@ class ThreadController extends ContainerAware
             'thread'           => $thread,
             'sorter'           => $sorter,
             'displayDepth'     => $displayDepth,
+            'maxDepth'         => $maxDepth,
             'newCommentForm'   => $newCommentForm->createView(),
             'replyForm'        => $replyForm->createView(),
         ));
