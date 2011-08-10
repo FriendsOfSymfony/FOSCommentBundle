@@ -20,11 +20,11 @@
 
         <field name="permalink" column="permalink" type="string" />
 
-        <field name="isCommentable" column="isCommentable" type="boolean" />
+        <field name="isCommentable" column="is_commentable" type="boolean" />
 
-        <field name="numComments" column="numComments" type="integer" />
+        <field name="numComments" column="num_comments" type="integer" />
 
-        <field name="lastCommentAt" column="lastCommentAt" type="datetime" nullable="true" />
+        <field name="lastCommentAt" column="last_comment_at" type="datetime" nullable="true" />
 
     </mapped-superclass>
 
