@@ -1,3 +1,7 @@
+2011-08-10
+
+* ORM: Column names like ``createdAt`` have been changed to underscore delimited format ``created_at``. Schema update and cache clearance is required for migration.
+
 2011-08-08
 
 * Thread property ``identifier`` has been renamed to ``id``

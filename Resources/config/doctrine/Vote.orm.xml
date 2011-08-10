@@ -16,7 +16,7 @@
 
     <mapped-superclass name="FOS\CommentBundle\Entity\Vote">
 
-        <field name="createdAt" column="createdAt" type="datetime" />
+        <field name="createdAt" column="created_at" type="datetime" />
 
         <field name="value" column="value" type="integer" />
 

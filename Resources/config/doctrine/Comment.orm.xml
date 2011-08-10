@@ -22,7 +22,7 @@
 
         <field name="depth" column="depth" type="integer" />
 
-        <field name="createdAt" column="createdAt" type="datetime" />
+        <field name="createdAt" column="created_at" type="datetime" />
 
     </mapped-superclass>
 
