@@ -2,7 +2,7 @@ fos_comment_comment_new_headline_first:       Оставьте первый ко
 fos_comment_comment_new_headline:             Добавить новый комментарий
 fos_comment_comment_new_submit:               Ответить
 
-fos_comment_comment_reply_reply_to:           Отвечаем на
+fos_comment_comment_reply_reply_to:           Ответ на
 fos_comment_comment_reply_cancel:             Отмена
 
 fos_comment_comment_show_by:                  Комментарий от
@@ -12,4 +12,6 @@ fos_comment_comment_show_reply:               Ответить
 
 fos_comment_comment_tree_load_more:           Показать остальные ответы
 
-Showing %num% comment|Showing %num% comments: Показать %num% comment|Показываем %num% комментариев(й)
+Showing %num% comment|Showing %num% comments: Показан %num% комментарий|Показано %num% комментария|Показано %num% комментариев
+
+fos_comment_rss_feed:                         RSS
