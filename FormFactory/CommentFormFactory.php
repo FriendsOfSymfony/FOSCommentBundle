@@ -23,20 +23,23 @@ use FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer;
  */
 class CommentFormFactory implements CommentFormFactoryInterface
 {
+    const FORM_CREATE = 1;
+    const FORM_REPLY  = 2;
+
     /**
      * @var FormFactory
      */
     protected $formFactory;
 
     /**
-     * @var string
+     * @var array Holds type and name of comment creation form
      */
-    protected $type;
+    protected $createForm;
 
     /**
-     * @var string
+     * @var array Holds type and name of comment reply form
      */
-    protected $name;
+    protected $replyForm;
 
     /**
      * Constructor.
@@ -45,11 +48,11 @@ class CommentFormFactory implements CommentFormFactoryInterface
      * @param string $type
      * @param string $name
      */
-    public function __construct(FormFactory $formFactory, $type, $name)
+    public function __construct(FormFactory $formFactory, array $createForm, array $replyForm)
     {
-        $this->formFactory            = $formFactory;
-        $this->type                   = $type;
-        $this->name                   = $name;
+        $this->formFactory = $formFactory;
+        $this->createForm  = $createForm;
+        $this->replyForm   = $replyForm;
     }
 
     /**
@@ -57,9 +60,13 @@ class CommentFormFactory implements CommentFormFactoryInterface
      *
      * @return Form
      */
-    public function createForm()
+    public function createForm($type)
     {
-        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name);
+        if (self::FORM_CREATE === $type) {
+            $builder = $this->formFactory->createNamedBuilder($this->createForm['type'], $this->createForm['name']);
+        } else {
+            $builder = $this->formFactory->createNamedBuilder($this->replyForm['type'], $this->replyForm['name']);
+        }
 
         return $builder->getForm();
     }

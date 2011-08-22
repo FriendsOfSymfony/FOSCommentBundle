@@ -14,7 +14,7 @@ namespace FOS\CommentBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class CommentType extends AbstractType
+abstract class AbstractCommentType extends AbstractType
 {
     /**
      * Configures a Comment form.
@@ -29,6 +29,7 @@ class CommentType extends AbstractType
 
     public function getName()
     {
-        return "fos_comment_comment";
+        preg_match('/\\\\(\w+)CommentType$/i', get_class($this), $matches);
+        return 'fos_comment_comment_' . strtolower($matches[1]);
     }
 }

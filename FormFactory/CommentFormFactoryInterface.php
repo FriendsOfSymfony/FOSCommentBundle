@@ -25,5 +25,5 @@ interface CommentFormFactoryInterface
      *
      * @return Form
      */
-    public function createForm();
+    public function createForm($type);
 }

@@ -30,6 +30,7 @@ $('button.fos_comment_comment_reply_show_form').live('click', function() {
     var $button = $(this);
     var $container = $button.parent().addClass('replying');
     var $reply = $('div.fos_comment_reply_prototype').clone()
+        .find('*').removeAttr('id')
         .removeClass('fos_comment_reply_prototype')
         .find('.fos_comment_reply_name_placeholder').text($button.attr('data-name')).end()
         .find('.fos_comment_comment_form').attr('action', $button.attr('data-url')).end()

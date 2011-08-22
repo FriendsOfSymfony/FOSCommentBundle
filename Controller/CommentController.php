@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Controller;
 
+use FOS\CommentBundle\FormFactory\CommentFormFactory;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -100,32 +101,44 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Submit a comment form.
+     * Submit root comment form.
      *
-     * @param mixed $threadId Thread id
-     * @param mixed $parentId Comment id
+     * @param string $threadId Thread id
      * @return Response
      */
-    public function createAction($threadId, $parentId = null)
+    public function createAction($threadId)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(CommentFormFactory::FORM_CREATE);
+        return $this->addComment($form, $threadId);
+    }
+
+    /**
+     * Submit comment reply form.
+     *
+     * @param string $threadId Thread id
+     * @param int    $parentId Comment id
+     * @return Response
+     */
+    public function replyAction($threadId, $parentId)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(CommentFormFactory::FORM_REPLY);
+        $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
+
+        if (!$parent) {
+            throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
+        }
+        return $this->addComment($form, $threadId, $parent);
+    }
+
+    protected function addComment(Form $form, $threadId, CommentInterface $parent = null)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($threadId);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadId));
         }
 
-        if (!empty($parentId)) {
-            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
-
-            if (!$parent) {
-                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
-            }
-        } else {
-            $parent = null;
-        }
-
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread, $parent);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
         $request = $this->container->get('request');

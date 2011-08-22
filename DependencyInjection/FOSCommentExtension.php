@@ -64,8 +64,10 @@ class FOSCommentExtension extends Extension
 
         $container->setParameter('fos_comment.model_manager_name', $config['model_manager_name']);
 
-        $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
-        $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
+        $container->setParameter('fos_comment.form.comment.create.type', $config['form']['comment']['create']['type']);
+        $container->setParameter('fos_comment.form.comment.create.name', $config['form']['comment']['create']['name']);
+        $container->setParameter('fos_comment.form.comment.reply.type', $config['form']['comment']['reply']['type']);
+        $container->setParameter('fos_comment.form.comment.reply.name', $config['form']['comment']['reply']['name']);
 
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 

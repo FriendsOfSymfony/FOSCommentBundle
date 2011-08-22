@@ -11,7 +11,8 @@
 
 namespace FOS\CommentBundle\Controller;
 
-use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\FormFactory\CommentFormFactory,
+    FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -48,11 +49,11 @@ class ThreadController extends ContainerAware
      * @param ThreadInterface $thread
      * @return Form
      */
-    protected function getCommentForm(ThreadInterface $thread)
+    protected function getCommentForm(ThreadInterface $thread, $type)
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm($type);
         $form->setData($comment);
 
         return $form;
@@ -80,8 +81,8 @@ class ThreadController extends ContainerAware
     public function showAction($id, $sorter = null, $displayDepth = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        $newCommentForm = $this->getCommentForm($thread, CommentFormFactory::FORM_CREATE);
+        $replyForm = $this->getCommentForm($thread, CommentFormFactory::FORM_REPLY);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
             'thread'           => $thread,
@@ -111,8 +112,8 @@ class ThreadController extends ContainerAware
     public function showFlatAction($id, $sorter = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        $newCommentForm = $this->getCommentForm($thread, CommentFormFactory::FORM_CREATE);
+        $replyForm = $this->getCommentForm($thread, CommentFormFactory::FORM_REPLY);
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFlat.html.twig', array(
             'thread'           => $thread,
