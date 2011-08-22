@@ -254,7 +254,13 @@ And the Thread::
      */
     class Thread extends BaseThread
     {
-
+        /**
+         * @var string $id
+         *
+         * @ORM\Id
+         * @ORM\Column(type="string")
+         */
+        protected $id;
     }
 
 Configure your application::
