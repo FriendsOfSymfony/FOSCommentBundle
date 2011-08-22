@@ -109,6 +109,7 @@ class CommentController extends ContainerAware
     public function createAction($threadId)
     {
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm(CommentFormFactory::FORM_CREATE);
+
         return $this->addComment($form, $threadId);
     }
 
@@ -127,6 +128,7 @@ class CommentController extends ContainerAware
         if (!$parent) {
             throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
         }
+
         return $this->addComment($form, $threadId, $parent);
     }
 

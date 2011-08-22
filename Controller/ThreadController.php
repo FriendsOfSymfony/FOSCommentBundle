@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\Controller;
 
-use FOS\CommentBundle\FormFactory\CommentFormFactory,
-    FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\FormFactory\CommentFormFactory;
+use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
