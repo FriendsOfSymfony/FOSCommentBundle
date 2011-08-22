@@ -62,12 +62,15 @@ class VoteManager extends BaseVoteManager
      */
     public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
     {
-        $vote->setComment($comment);
-        $comment->setScore($comment->getScore() + $vote->getValue());
+        $vote->setComment($comment);        
 
         $this->em->persist($comment);
-        $this->em->persist($vote);
-        $this->em->flush();
+        $this->em->persist($vote);                
+        if(!$this->repository->findBy(array('comment'=>$comment->getId(),'voter'=>$vote->getVoter()->getId())))
+        {
+            $comment->incrementScore($vote->getvalue());
+            $this->em->flush();
+        }
     }
 
     /**
