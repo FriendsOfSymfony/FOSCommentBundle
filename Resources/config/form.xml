@@ -14,24 +14,15 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.form_type.comment.create" class="FOS\CommentBundle\Form\CreateCommentType">
-            <tag name="form.type" alias="fos_comment.comment" />
-        </service>
-
-        <service id="fos_comment.form_type.comment.reply" class="FOS\CommentBundle\Form\ReplyCommentType">
+        <service id="fos_comment.form_type.comment.default" class="FOS\CommentBundle\Form\CommentType">
             <tag name="form.type" alias="fos_comment.comment" />
         </service>
 
         <service id="fos_comment.form_factory.comment.default" class="FOS\CommentBundle\FormFactory\CommentFormFactory" public="false">
             <argument type="service" id="form.factory" />
-            <argument type="collection">
-                <argument key="name">%fos_comment.form.comment.create.name%</argument>
-                <argument key="type">%fos_comment.form.comment.create.type%</argument>
-            </argument>
-            <argument type="collection">
-                <argument key="name">%fos_comment.form.comment.reply.name%</argument>
-                <argument key="type">%fos_comment.form.comment.reply.type%</argument>
-            </argument>
+            <argument>%fos_comment.form.comment.type%</argument>
+            <argument>%fos_comment.form.comment.name.create%</argument>
+            <argument>%fos_comment.form.comment.name.reply%</argument>
         </service>
     </services>
 

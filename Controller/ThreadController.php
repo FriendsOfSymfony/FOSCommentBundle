@@ -53,7 +53,8 @@ class ThreadController extends ContainerAware
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm($type);
+        $createForm = 'create' . ucfirst(strtolower($type)) . 'Form';
+        $form = $this->container->get('fos_comment.form_factory.comment')->$createForm();
         $form->setData($comment);
 
         return $form;
@@ -81,8 +82,8 @@ class ThreadController extends ContainerAware
     public function showAction($id, $sorter = null, $displayDepth = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread, CommentFormFactory::FORM_CREATE);
-        $replyForm = $this->getCommentForm($thread, CommentFormFactory::FORM_REPLY);
+        $newCommentForm = $this->getCommentForm($thread, 'create');
+        $replyForm = $this->getCommentForm($thread, 'reply');
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
             'thread'           => $thread,
@@ -112,8 +113,8 @@ class ThreadController extends ContainerAware
     public function showFlatAction($id, $sorter = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread, CommentFormFactory::FORM_CREATE);
-        $replyForm = $this->getCommentForm($thread, CommentFormFactory::FORM_REPLY);
+        $newCommentForm = $this->getCommentForm($thread, 'create');
+        $replyForm = $this->getCommentForm($thread, 'reply');
 
         return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFlat.html.twig', array(
             'thread'           => $thread,

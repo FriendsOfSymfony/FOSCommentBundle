@@ -108,7 +108,7 @@ class CommentController extends ContainerAware
      */
     public function createAction($threadId)
     {
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(CommentFormFactory::FORM_CREATE);
+        $form = $this->container->get('fos_comment.form_factory.comment')->createCreateForm();
 
         return $this->addComment($form, $threadId);
     }
@@ -122,7 +122,7 @@ class CommentController extends ContainerAware
      */
     public function replyAction($threadId, $parentId)
     {
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(CommentFormFactory::FORM_REPLY);
+        $form = $this->container->get('fos_comment.form_factory.comment')->createReplyForm();
         $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
 
         if (!$parent) {

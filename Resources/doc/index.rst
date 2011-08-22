@@ -695,12 +695,9 @@ All configuration options are listed below::
         db_driver:    mongodb
         form:
             comment:
-                create:
-                    name: fos_comment_comment_create
-                    type: fos_comment.comment
-                reply:
-                    name: fos_comment_comment_reply
-                    type: fos_comment.comment
+                type: fos_comment.comment
+                create_name: fos_comment_comment_create
+                reply_name: fos_comment_comment_reply
         class:
             model:
                 comment: FOS\CommentBundle\Document\Comment

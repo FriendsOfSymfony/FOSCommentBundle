@@ -23,50 +23,58 @@ use FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer;
  */
 class CommentFormFactory implements CommentFormFactoryInterface
 {
-    const FORM_CREATE = 1;
-    const FORM_REPLY  = 2;
-
     /**
      * @var FormFactory
      */
     protected $formFactory;
 
     /**
-     * @var array Holds type and name of comment creation form
+     * @var string
      */
-    protected $createForm;
+    protected $type;
 
     /**
-     * @var array Holds type and name of comment reply form
+     * @var string
      */
-    protected $replyForm;
+    protected $createName;
+
+    /**
+     * @var string
+     */
+    protected $replyName;
 
     /**
      * Constructor.
      *
-     * @param FormContext $formContext
+     * @param FormFactory $formFactory
      * @param string $type
-     * @param string $name
+     * @param string $createName
+     * @param string $replyName
      */
-    public function __construct(FormFactory $formFactory, array $createForm, array $replyForm)
+    public function __construct(FormFactory $formFactory, $type, $createName, $replyName)
     {
         $this->formFactory = $formFactory;
-        $this->createForm  = $createForm;
-        $this->replyForm   = $replyForm;
+        $this->type = $type;
+        $this->createName = $createName;
+        $this->replyName = $replyName;
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return Form
+     * {@inheritDoc}
      */
-    public function createForm($type)
+    public function createCreateForm()
     {
-        if (self::FORM_CREATE === $type) {
-            $builder = $this->formFactory->createNamedBuilder($this->createForm['type'], $this->createForm['name']);
-        } else {
-            $builder = $this->formFactory->createNamedBuilder($this->replyForm['type'], $this->replyForm['name']);
-        }
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->createName);
+
+        return $builder->getForm();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createReplyForm()
+    {
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->replyName);
 
         return $builder->getForm();
     }
