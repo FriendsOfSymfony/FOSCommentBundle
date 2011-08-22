@@ -23,14 +23,14 @@ interface CommentFormFactoryInterface
     /**
      * Creates a new master comment form.
      *
-     * @return Form
+     * @return FormInterface
      */
     public function createCreateForm();
 
     /**
      * Creates a new child comment form.
      *
-     * @return Form
+     * @return FormInterface
      */
     public function createReplyForm();
 }
