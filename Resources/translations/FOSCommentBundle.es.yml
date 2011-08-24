@@ -1,0 +1,17 @@
+fos_comment_comment_new_headline_first:       Se el primero en comentar
+fos_comment_comment_new_headline:             Dejar un comentario
+fos_comment_comment_new_submit:               Enviar comentario
+
+fos_comment_comment_reply_reply_to:           Responder a
+fos_comment_comment_reply_cancel:             Cancelar
+
+fos_comment_comment_show_by:                  Por
+fos_comment_comment_show_voteup:              Me gusta
+fos_comment_comment_show_votedown:            No me gusta
+fos_comment_comment_show_reply:               Responder
+
+fos_comment_comment_tree_load_more:           Cargar más respuestas
+
+Showing %num% comment|Showing %num% comments: Se muestra %num% comentario|Se muestran %num% comentarios
+
+fos_comment_rss_feed:                         Feed RSS
