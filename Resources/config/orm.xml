@@ -21,6 +21,8 @@
         <parameter key="fos_comment.manager.thread.default.class">FOS\CommentBundle\Entity\ThreadManager</parameter>
         <parameter key="fos_comment.manager.comment.default.class">FOS\CommentBundle\Entity\CommentManager</parameter>
         <parameter key="fos_comment.manager.vote.default.class">FOS\CommentBundle\Entity\VoteManager</parameter>
+        
+        <parameter key="fos_comment.validator.unique_combination.default.class">FOS\CommentBundle\Validator\UniqueCombinationORMValidator</parameter>
     </parameters>
 
     <services>
@@ -40,6 +42,12 @@
         <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.vote.default.class%">
             <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.vote.class%</argument>
+        </service>
+        
+        <service id="fos_comment.validator.unique_combination.default" class="%fos_comment.validator.unique_combination.default.class%">
+            <argument type="service" id="fos_comment.entity_manager" />
+            <argument>%fos_comment.model.vote.class%</argument>
+            <tag name="validator.constraint_validator" alias="unique_combination"></tag>
         </service>
     </services>
 
