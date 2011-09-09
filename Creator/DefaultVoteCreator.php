@@ -54,8 +54,8 @@ class DefaultVoteCreator implements VoteCreatorInterface
     public function create(VoteInterface $vote, VotableCommentInterface $comment)
     {
         $this->voteBlamer->blame($vote);
-
-        if (!$this->validator->validate($vote)) {
+        
+        if (count($this->validator->validate($vote))) {
             return false;
         }
 
