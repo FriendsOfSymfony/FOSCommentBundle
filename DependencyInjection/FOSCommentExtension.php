@@ -80,6 +80,8 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+        
+        $container->setAlias('fos_comment.validator.unique_combination', $config['service']['validator']['unique_combination']);
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)
