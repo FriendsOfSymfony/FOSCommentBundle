@@ -27,6 +27,13 @@ class Extension extends \Twig_Extension
         );
     }
 
+    public function getFunctions()
+    {
+        return array(
+            'fos_comment_create_slug'   => new \Twig_Function_Method($this, 'createSlug'),
+        );
+    }
+
     /**
      * Checks if the comment is an instance of a VotableCommentInterface.
      *
@@ -40,6 +47,17 @@ class Extension extends \Twig_Extension
         }
 
         return ($value instanceof VotableCommentInterface);
+    }
+
+    public function createSlug($value)
+    {
+        if (is_string($value)) {
+            return $value;
+        } else if (!is_object($value) || !method_exists($value, 'getId') || null === $value->getId()) {
+            return null;
+        }
+
+        return sprintf('%s-%d', get_class($value), $value->getId());
     }
 
     /**
