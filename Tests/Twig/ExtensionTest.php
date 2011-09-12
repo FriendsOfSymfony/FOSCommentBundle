@@ -42,4 +42,43 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $votableComment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
         $this->assertTrue($this->extension->isVotable($votableComment));
     }
+
+    public function testEntitySlugString()
+    {
+        $this->assertEquals('NonEntity', $this->extension->createSlug('NonEntity'));
+    }
+    
+    public function testEntityNonObject()
+    {
+        $this->assertNull($this->extension->createSlug(array('foo')));
+    }
+
+    public function testEntitySlugNoIdMethod()
+    {
+        $this->assertNull($this->extension->createSlug(new \StdClass()));
+    }
+
+    public function testEntitySlugNotPersisted()
+    {
+        $obj = new EntitySlugTestObject();
+        $this->assertNull($this->extension->createSlug($obj));
+    }
+
+    public function testEntitySlugValid()
+    {
+        $obj = new EntitySlugTestObject();
+        $obj->id = 5;
+
+        $this->assertEquals('FOS\CommentBundle\Tests\Twig\EntitySlugTestObject-5', $this->extension->createSlug($obj));
+    }
+}
+
+class EntitySlugTestObject
+{
+    public $id = null;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
