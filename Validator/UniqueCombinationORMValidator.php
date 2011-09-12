@@ -26,9 +26,14 @@ class UniqueCombinationORMValidator extends ConstraintValidator
             return false;
         }
         
+        $properties = (array)$value;
         $whereClause = array();
         reset($constraint->properties);
         foreach ($constraint->properties as $property) {
+            if (!in_array($property, $properties) && !method_exists($value, "get$property") && !method_exists($value, "is$property")) {
+                throw new \InvalidArgumentException(sprintf('$value does not contain either a public property "%1$s", a "get%2$s()" method or an "is%2$s()" method',
+                    $property, ucfirst($property)));
+            }
             $whereClause[] = sprintf('v.%1$s = :%1$s', $property);
         }
         $whereClause = implode(' AND ', $whereClause);
@@ -38,7 +43,15 @@ class UniqueCombinationORMValidator extends ConstraintValidator
         
         reset($constraint->properties);
         foreach ($constraint->properties as $property) {
-            $query->setParameter($property, $value->{"get$property"}());
+            $paramValue = null;
+            if (method_exists($value, "get$property")) {
+                $paramValue = $value->{"get$property"}();
+            } else if (method_exists($value, "is$property")) {
+                $paramValue = $value->{"is$property"}();
+            } else {
+                $paramValue = $value->$property;
+            }
+            $query->setParameter($property, $paramValue);
         }
         
         $count = (int)$query->getSingleScalarResult();
