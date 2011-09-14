@@ -113,6 +113,7 @@ class AclVoteManager implements VoteManagerInterface
         }
 
         $this->realManager->addVote($vote, $comment);
+        $this->voteAcl->setDefaultAcl($vote);
     }
 
     /**

@@ -111,6 +111,7 @@ class AclThreadManager implements ThreadManagerInterface
         }
 
         $this->realManager->addThread($thread);
+        $this->threadAcl->setDefaultAcl($thread);
     }
 
     /**
