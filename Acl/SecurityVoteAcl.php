@@ -186,7 +186,6 @@ class SecurityVoteAcl implements VoteAclInterface
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());
 
         $builder->reset();
-        $builder->add('create');
         $builder->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
 
