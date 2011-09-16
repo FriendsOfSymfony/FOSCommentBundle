@@ -22,6 +22,7 @@ use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Implements ACL checking using the Symfony2 Security component
@@ -154,6 +155,10 @@ class SecurityCommentAcl implements CommentAclInterface
     {
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($comment);
         $acl = $this->aclProvider->createAcl($objectIdentity);
+
+        if (!$comment->getAuthor() instanceof UserInterface) {
+            return;
+        }
 
         if ($comment instanceof SignedCommentInterface) {
             $securityIdentity = UserSecurityIdentity::fromAccount($comment->getAuthor());
