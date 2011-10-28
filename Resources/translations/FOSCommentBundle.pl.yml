@@ -12,6 +12,6 @@ fos_comment_comment_show_reply:               Odpowiedz
 
 fos_comment_comment_tree_load_more:           Załaduj więcej odpowiedzi 
 
-Showing %num% comment|Showing %num% comments: Pokazuje %num% komentarz|Pokazuje %num% komentarzy
+Showing %num% comment|Showing %num% comments: Pokazuje %num% komentarz|Pokazuje %num% komentarze|Pokazuje %num% komentarzy
 
 fos_comment_rss_feed:                         RSS Feed
