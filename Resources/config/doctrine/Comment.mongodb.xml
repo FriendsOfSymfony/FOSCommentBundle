@@ -16,7 +16,7 @@
 
     <mapped-superclass name="FOS\CommentBundle\Document\Comment" collection="fos_comment_comment">
 
-        <field name="body" fieldName="body" type="string" />
+        <field name="body" fieldName="body" type="text" />
 
         <field name="ancestors" fieldName="ancestors" type="collection" />
 
