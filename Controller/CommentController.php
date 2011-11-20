@@ -39,11 +39,14 @@ class CommentController extends ContainerAware
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:tree.html.twig', array(
-            'nodes' => $nodes,
-            'displayDepth' => $displayDepth,
-            'sorter' => $sorter,
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Comment:tree.html.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'nodes' => $nodes,
+                'displayDepth' => $displayDepth,
+                'sorter' => $sorter,
+            )
+        );
     }
 
     /**
@@ -59,11 +62,14 @@ class CommentController extends ContainerAware
             throw new NotFoundHttpException('No comment branch found');
         }
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:subtree.html.twig', array(
-            'nodes' => $nodes,
-            'depth' => $nodes[0]['comment']->getDepth(),
-            'sorter' => $sorter,
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Comment:subtree.html.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'nodes' => $nodes,
+                'depth' => $nodes[0]['comment']->getDepth(),
+                'sorter' => $sorter,
+            )
+        );
     }
 
     /**
@@ -77,10 +83,13 @@ class CommentController extends ContainerAware
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, null, $sorter);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:flat.html.twig', array(
-            'nodes' => $nodes,
-            'sorter' => $sorter,
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Comment:flat.html.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'nodes' => $nodes,
+                'sorter' => $sorter,
+            )
+        );
     }
 
     /**
@@ -93,10 +102,13 @@ class CommentController extends ContainerAware
     {
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Comment:listFeed.xml.twig', array(
-            'nodes'     => $nodes,
-            'permalink' => $thread->getPermalink()
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Comment:listFeed.xml.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'nodes'     => $nodes,
+                'permalink' => $thread->getPermalink()
+            )
+        );
     }
 
     /**
