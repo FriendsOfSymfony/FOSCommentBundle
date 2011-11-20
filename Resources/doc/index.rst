@@ -24,7 +24,7 @@ Using the vendors script
 Add the following lines in your ``deps`` file::
 
     [FOSCommentBundle]
-        git=git://github.com/FriendsOfSymfony/FOSCommentBundle.git
+        git=https://github.com/FriendsOfSymfony/FOSCommentBundle.git
         target=bundles/FOS/CommentBundle
 
 Run the vendors script::
@@ -36,7 +36,7 @@ Using git submodules
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/FOSCommentBundle.git vendor/bundles/FOS/CommentBundle
+    $ git submodule add https://FriendsOfSymfony/FOSCommentBundle.git vendor/bundles/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
@@ -65,24 +65,6 @@ Add CommentBundle to your application kernel
             // ...
         );
     }
-
-Configure your project
-----------------------
-
-You have to include the CommentBundle in your Doctrine mapping configuration,
-along with the bundle containing your custom Comment class::
-
-    # app/config/config.yml
-
-    doctrine_mongo_db:
-        document_managers:
-            default:
-                mappings:
-                    FOSCommentBundle: ~
-                    # your other bundles
-
-The above example assumes a MongoDB configuration, but the `mappings` configuration
-block would be the same for ORM.
 
 Minimal configuration
 ---------------------
@@ -400,6 +382,10 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
          */
         public function getAuthorName()
         {
+            if (null === $this->getAuthor()) {
+                return 'Anonymous';
+            }
+
             return $this->getAuthor()->getUsername();
         }
 
@@ -409,7 +395,7 @@ While there, make it implement SignedCommentInterface and VotableCommentInterfac
          * @MongoDB\Field(type="int")
          * @var integer
          */
-        protected $score;
+        protected $score = 0;
 
         /**
          * Sets the current comment score.
