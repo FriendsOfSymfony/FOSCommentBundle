@@ -140,8 +140,9 @@ class SecurityVoteAcl implements VoteAclInterface
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($vote);
         $acl = $this->aclProvider->createAcl($objectIdentity);
 
-        if ($vote instanceof SignedVoteInterface) {
-            $securityIdentity = UserSecurityIdentity::fromAccount($vote->getAuthor());
+        if ($vote instanceof SignedVoteInterface &&
+            null !== $vote->getVoter()) {
+            $securityIdentity = UserSecurityIdentity::fromAccount($vote->getVoter());
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
         }
 

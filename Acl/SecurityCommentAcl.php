@@ -155,7 +155,8 @@ class SecurityCommentAcl implements CommentAclInterface
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($comment);
         $acl = $this->aclProvider->createAcl($objectIdentity);
 
-        if ($comment instanceof SignedCommentInterface) {
+        if ($comment instanceof SignedCommentInterface &&
+            null !== $comment->getAuthor()) {
             $securityIdentity = UserSecurityIdentity::fromAccount($comment->getAuthor());
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
         }
