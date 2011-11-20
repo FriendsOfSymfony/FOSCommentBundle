@@ -139,11 +139,6 @@ class SecurityThreadAcl implements ThreadAclInterface
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($thread);
         $acl = $this->aclProvider->createAcl($objectIdentity);
 
-        if ($thread instanceof SignedThreadInterface) {
-            $securityIdentity = UserSecurityIdentity::fromAccount($thread->getAuthor());
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-        }
-
         $this->aclProvider->updateAcl($acl);
     }
 
