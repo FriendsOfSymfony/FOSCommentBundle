@@ -55,6 +55,8 @@ class FOSCommentExtension extends Extension
             $this->loadAcl($container, $config);
         }
 
+        $container->setParameter('fos_comment.template.engine', $config['template']['engine']);
+
         $container->setParameter('fos_comment.model.comment.class', $config['class']['model']['comment']);
         $container->setParameter('fos_comment.model.thread.class', $config['class']['model']['thread']);
 

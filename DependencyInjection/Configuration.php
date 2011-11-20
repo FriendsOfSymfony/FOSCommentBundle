@@ -91,6 +91,13 @@ class Configuration
                     ->end()
                 ->end()
 
+                ->arrayNode('template')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('engine')->defaultValue('twig')->end()
+                    ->end()
+                ->end()
+
                 ->arrayNode('service')->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('manager')->addDefaultsIfNotSet()

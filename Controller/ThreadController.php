@@ -83,13 +83,16 @@ class ThreadController extends ContainerAware
         $newCommentForm = $this->getCommentForm($thread);
         $replyForm = $this->getCommentForm($thread);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:show.html.twig', array(
-            'thread'           => $thread,
-            'sorter'           => $sorter,
-            'displayDepth'     => $displayDepth,
-            'newCommentForm'   => $newCommentForm->createView(),
-            'replyForm'        => $replyForm->createView(),
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Thread:show.html.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'thread'           => $thread,
+                'sorter'           => $sorter,
+                'displayDepth'     => $displayDepth,
+                'newCommentForm'   => $newCommentForm->createView(),
+                'replyForm'        => $replyForm->createView(),
+            )
+        );
     }
 
     /**
@@ -114,12 +117,15 @@ class ThreadController extends ContainerAware
         $newCommentForm = $this->getCommentForm($thread);
         $replyForm = $this->getCommentForm($thread);
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFlat.html.twig', array(
-            'thread'           => $thread,
-            'sorter'           => $sorter,
-            'newCommentForm'   => $newCommentForm->createView(),
-            'replyForm'        => $replyForm->createView(),
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Thread:showFlat.html.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'thread'           => $thread,
+                'sorter'           => $sorter,
+                'newCommentForm'   => $newCommentForm->createView(),
+                'replyForm'        => $replyForm->createView(),
+            )
+        );
     }
 
     /**
@@ -135,8 +141,11 @@ class ThreadController extends ContainerAware
             throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $id));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSCommentBundle:Thread:showFeed.xml.twig', array(
-            'thread' => $thread
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSCommentBundle:Thread:showFeed.xml.'.$this->container->getParameter('fos_comment.template.engine'),
+            array(
+                'thread' => $thread
+            )
+        );
     }
 }
