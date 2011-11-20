@@ -141,7 +141,7 @@ class SecurityVoteAcl implements VoteAclInterface
         $acl = $this->aclProvider->createAcl($objectIdentity);
 
         if ($vote instanceof SignedVoteInterface) {
-            $securityIdentity = UserSecurityIdentity::fromAccount($vote->getAuthor());
+            $securityIdentity = UserSecurityIdentity::fromAccount($vote->getVoter());
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
         }
 
@@ -186,7 +186,6 @@ class SecurityVoteAcl implements VoteAclInterface
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());
 
         $builder->reset();
-        $builder->add('create');
         $builder->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
 
