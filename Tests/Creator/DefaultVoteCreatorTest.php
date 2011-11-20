@@ -39,7 +39,7 @@ class DefaultVoteCreatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->expects($this->once())
             ->method('validate')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(array('error' => 'Has an error')));
 
         $creator = new DefaultVoteCreator($this->voteManager, $this->voteBlamer, $this->validator);
         $result = $creator->create($this->vote, $this->comment);
@@ -55,13 +55,13 @@ class DefaultVoteCreatorTest extends \PHPUnit_Framework_TestCase
 
         $this->validator->expects($this->once())
             ->method('validate')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue(array()));
 
         $this->voteManager->expects($this->once())
             ->method('addVote')
             ->with($this->vote, $this->comment);
 
-        $creator = new Defaultvotecreator($this->voteManager, $this->voteBlamer, $this->validator);
+        $creator = new DefaultVoteCreator($this->voteManager, $this->voteBlamer, $this->validator);
         $result = $creator->create($this->vote, $this->comment);
 
         $this->assertTrue($result);

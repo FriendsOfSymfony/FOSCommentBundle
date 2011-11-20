@@ -11,20 +11,20 @@
 
 namespace FOS\CommentBundle\Tests\Twig;
 
-use FOS\CommentBundle\Twig\Extension;
+use FOS\CommentBundle\Twig\CommentExtension;
 
 /**
  * Tests the functionality provided by Twig\Extension.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class ExtensionTest extends \PHPUnit_Framework_TestCase
+class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $extension;
 
     public function setUp()
     {
-        $this->extension = new Extension();
+        $this->extension = new CommentExtension();
     }
 
     public function testIsVotableNonObject()
