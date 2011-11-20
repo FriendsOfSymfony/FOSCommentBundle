@@ -68,7 +68,7 @@ class VoteController extends ContainerAware
      */
     public function listAction($commentId)
     {
-        $comment = $this->container->get('fos_comment.manager.comment')->findByCommentId($commentId);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
         if (!$comment) {
             throw new NotFoundHttpException('Comment not found');
         }
