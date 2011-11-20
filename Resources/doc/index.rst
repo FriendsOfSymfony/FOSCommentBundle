@@ -36,7 +36,7 @@ Using git submodules
 
 ::
 
-    $ git submodule add https://FriendsOfSymfony/FOSCommentBundle.git vendor/bundles/FOS/CommentBundle
+    $ git submodule add https://github.com/FriendsOfSymfony/FOSCommentBundle.git vendor/bundles/FOS/CommentBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
