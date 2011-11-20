@@ -66,6 +66,16 @@ class FOSCommentExtension extends Extension
 
         $container->setParameter('fos_comment.model_manager_name', $config['model_manager_name']);
 
+        // handle the MongoDB document manager name in a specific way as it does not have a registry to make it easy
+        // TODO: change it if https://github.com/symfony/DoctrineMongoDBBundle/pull/31 is merged
+        if ('mongodb' === $config['db_driver']) {
+            if (null === $config['model_manager_name']) {
+                $container->setAlias(new Alias('fos_comment.document_manager', false), 'doctrine.odm.mongodb.document_manager');
+            } else {
+                $container->setAlias(new Alias('fos_comment.document_manager', false), sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']));
+            }
+        }
+
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
         $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
 
