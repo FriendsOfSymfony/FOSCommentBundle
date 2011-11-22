@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -70,9 +71,9 @@ class FOSCommentExtension extends Extension
         // TODO: change it if https://github.com/symfony/DoctrineMongoDBBundle/pull/31 is merged
         if ('mongodb' === $config['db_driver']) {
             if (null === $config['model_manager_name']) {
-                $container->setAlias(new Alias('fos_comment.document_manager', false), 'doctrine.odm.mongodb.document_manager');
+                $container->setAlias('fos_comment.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
             } else {
-                $container->setAlias(new Alias('fos_comment.document_manager', false), sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']));
+                $container->setAlias('fos_comment.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false));
             }
         }
 
