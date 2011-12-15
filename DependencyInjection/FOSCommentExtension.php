@@ -80,9 +80,13 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
         $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
 
+        $container->setParameter('fos_comment.form.thread.type', $config['form']['thread']['type']);
+        $container->setParameter('fos_comment.form.thread.name', $config['form']['thread']['name']);
+
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
+        $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
 
         if (isset($config['service']['spam_detection'])) {
             $loader->load('spam_detection.xml');
