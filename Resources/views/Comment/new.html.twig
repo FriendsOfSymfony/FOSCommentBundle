@@ -9,6 +9,12 @@
 
 #}
 
+{# todo: come up with a way to reuse this template without this nasty routing "hack" #}
+{% if fos_comment_create_action_path is not defined %}
+    {% set fos_comment_create_action_path = path("fos_comment_comment_create", {"threadId": thread.id }) %}
+{% endif %}
+
+
 {% block fos_comment_form_title %}
     {% if first %}
         <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
@@ -17,7 +23,7 @@
     {% endif %}
 {% endblock %}
 
-<form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
+<form class="fos_comment_comment_form" action="{{ fos_comment_create_action_path }}" method="POST">
 
     {% block fos_comment_form_fields %}
         {{ form_errors(form) }}
