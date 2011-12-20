@@ -1,0 +1,25 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+{% set depth = depth|default(0) %}
+
+{% if depth == 0 %}
+    {% render "FOSCommentBundle:Rest/Thread:newThreadComments" with {"id": thread.id} %}
+<ul id="fos_comment_box">
+{% endif %}
+
+{% for commentinfo in comments %}
+    {% include "FOSCommentBundle:Thread:rest/comment.html.twig" with { "comment": commentinfo.comment, "depth": depth } %}
+    {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": commentinfo.children, "depth": depth + 1, "displayDepth": displayDepth, "sorter": sorter } %}
+{% endfor %}
+
+{% if depth == 0 %}
+</ul>
+{% endif %}
