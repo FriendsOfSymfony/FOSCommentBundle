@@ -1,6 +1,8 @@
 <?php
 namespace FOS\CommentBundle\Controller\Rest;
 
+use FOS\CommentBundle\Model\ThreadInterface;
+
 use FOS\RestBundle\View\View;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
@@ -93,8 +95,7 @@ class ThreadController extends Controller
     protected function onCreateThreadSuccess(Form $form)
     {
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Rest/Thread:getThread', array(
-            'id' => $form->getData()->getId(),
-            '_format' => 'json' // todo: change this when other formats are implemented
+            'id' => $form->getData()->getId()
         ));
     }
 
@@ -121,7 +122,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Get the comments of a thread.
+     * Get the comments of a thread. Creates a new thread if none exists.
      *
      * @todo Add support page/pagesize/sorting/tree-depth parameters
      *
@@ -130,16 +131,55 @@ class ThreadController extends Controller
      */
     public function getThreadCommentsAction($id)
     {
+        $displayDepth = $this->getRequest()->query->get('displayDepth');
+        $sorter = $this->getRequest()->query->get('sorter');
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
-        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+
+        // We're now sure it is no duplicate id, so create the thread
+        if (null === $thread) {
+            $thread = $this->container->get('fos_comment.manager.thread')
+                ->createThreadFromQuery($id, $this->get('request')->query);
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->addThread($thread);
+        }
+
+        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
 
         $view = View::create()
           ->setStatusCode(200)
-          ->setData(array('comments' => $comments));
+          ->setData(array('comments' => $comments, 'displayDepth' => $displayDepth, 'sorter' => 'date', 'thread' => $thread))
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'comments'));
+
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
 
+    /**
+     * Get a comment of a thread.
+     *
+     * @param string $id
+     * @return View
+     */
+    public function getThreadCommentAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array('comment' => $comment, 'thread' => $thread))
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'comment'));
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
 
     /**
      * Presents the form to use to create a new Comment for a Thread.
@@ -156,6 +196,8 @@ class ThreadController extends Controller
 
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
 
+        $parentId = $this->checkThreadContainsComment($thread, $this->getRequest()->query->get('parentId'));
+
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
@@ -166,6 +208,7 @@ class ThreadController extends Controller
               'first' => 0 === $thread->getNumComments(),
               'thread' => $thread,
               'fos_comment_create_action_path' => $this->get('router')->generate('fos_comment_post_thread_comments', array('id' => $id)),
+              'parentId' => $parentId,
               )
           )
           ->setTemplate(new TemplateReference('FOSCommentBundle', 'Comment', 'new'));
@@ -174,9 +217,32 @@ class ThreadController extends Controller
     }
 
     /**
+     * Checks if a comment belongs to a thread.
+     *
+     * @param ThreadInterface $thread
+     * @param mixed $commentId Id of the comment.
+     * @return void
+     */
+    private function checkThreadContainsComment(ThreadInterface $thread, $commentId)
+    {
+        if(null !== $commentId) {
+            $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+            if (!$comment) {
+                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $commentId));
+            }
+
+            if($comment->getThread() !== $thread) {
+                throw new NotFoundHttpException('Parent comment is not a comment of the given thread.');
+            }
+        }
+
+        return $commentId;
+    }
+
+    /**
      * Creates a new Comment for the Thread from the submitted data.
      *
-     * @todo Add support for comment parent (in form)
+     * @todo Add support for comment parent (in form?)
      *
      * @param string $id
      * @return Response
@@ -202,16 +268,16 @@ class ThreadController extends Controller
     }
 
     /**
-     * Forwards the action to the thread view on a successful form submission.
+     * Forwards the action to the comment view on a successful form submission.
      *
      * @param CommentForm $form
      * @return Response
      */
     protected function onCreateCommentSuccess(Form $form)
     {
-        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Rest/Thread:getThreadComments', array(
+        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Rest/Thread:getThreadComment', array(
             'id' => $form->getData()->getThread()->getId(),
-            '_format' => 'json' // todo: change this when other formats are implemented
+            'commentId' => $form->getData()->getId(),
         ));
     }
 
