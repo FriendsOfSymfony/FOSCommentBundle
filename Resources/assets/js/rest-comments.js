@@ -37,6 +37,25 @@ var FOS_COMMENT = {
     easyXDM: easyXDM.noConflict('FOS_COMMENT'),
 
     /**
+     * Shorcut request method.
+     *
+     * @param string method The request method to use.
+     * @param string url The url of the page to request.
+     * @param object data The data parameters.
+     * @param function callback Optional callback function to use.
+     */
+    request: function(method, url, data, callback) {
+        // todo: is there a better way to do this?
+        if('undefined' === typeof callback) {
+            callback = function(r){};
+        }
+        FOS_COMMENT.xhr.request({
+                url: url,
+                method: method,
+                data: data,
+        }, callback);
+    },
+    /**
      * Shorcut post method.
      *
      * @param string url The url of the page to post.
@@ -44,15 +63,18 @@ var FOS_COMMENT = {
      * @param function callback Optional callback function to use.
      */
     post: function(url, data, callback) {
-        // todo: is there a better way to do this?
-        if('undefined' === typeof callback) {
-            callback = function(r){};
-        }
-        FOS_COMMENT.xhr.request({
-                url: url,
-                method: 'POST',
-                data: data,
-        }, callback);
+        this.request('POST', url, data, callback);
+    },
+
+    /**
+     * Shorcut get method.
+     *
+     * @param string url The url of the page to get.
+     * @param object data The query data.
+     * @param function callback Optional callback function to use.
+     */
+    get: function(url, data, callback) {
+        this.request('GET', url, data, callback);
     },
 
     /**
@@ -66,15 +88,13 @@ var FOS_COMMENT = {
             permalink = window.location.href;
         }
 
-        FOS_COMMENT.xhr.request({
-                // todo: fix hardcoded links
-                url: '/app_dev.php/api/threads/'+encodeURIComponent(identifier)+'/comments',
-                method: 'GET',
-                data: {permalink: encodeURIComponent(permalink)},
-
-        }, function(response) {
+        FOS_COMMENT.get(
+            '/app_dev.php/api/threads/'+encodeURIComponent(identifier)+'/comments',
+            {permalink: encodeURIComponent(permalink)},
+            function(response) {
                 $('#fos_comment_thread').html(response.data);
-        });
+            }
+        );
     },
 
     /**
@@ -83,18 +103,53 @@ var FOS_COMMENT = {
     init: function() {
         $('form.fos_comment_comment_form').live('submit',
             function(e) {
+                var that = $(this);
+                var data = that.data();
+
                 FOS_COMMENT.post(
-                    $(this).data('action'),
+                    data.action,
                     FOS_COMMENT.serializeObject(this),
                     function(response) {
-                        $('#fos_comment_box').prepend(response.data);
-                        $('form.fos_comment_comment_form')[0].reset();
+                        FOS_COMMENT.appendComment(response.data, that);
                     }
                 );
 
                 e.preventDefault();
             }
         );
+
+        $('.fos_comment_comment_reply_show_form').live('click',
+            function(e) {
+                var data = $(this).data();
+                var that = this;
+
+                FOS_COMMENT.get(
+                    data.url,
+                    {parentId: data.parentId},
+                    function(response) {
+                        $(that).after(response.data);
+                    }
+                );
+            }
+        );
+    },
+
+    appendComment: function(commentHtml, form) {
+        var data = form.data();
+
+        if('' != data.parent) {
+            form.after(commentHtml);
+
+            // one up for form holder, then again one up
+            form.parent().parent().after(commentHtml);
+
+            // Remove the form
+            form.parent().remove();
+        }
+        else {
+            form.after(commentHtml);
+            form[0].reset();
+        }
     },
 
     /**
