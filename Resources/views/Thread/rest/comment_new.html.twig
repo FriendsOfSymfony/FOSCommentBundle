@@ -1,0 +1,40 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+<div class="fos_comment_comment_form_holder">
+    {% block fos_comment_form_title %}
+        {% if first %}
+            <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
+        {% else %}
+            {% if parent %}
+                <h3>Reply to {{ parent.authorName }}.</h3>
+            {% else %}
+                <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+
+    <form class="fos_comment_comment_form" action="{{ fos_comment_create_action_path }}" data-action="{{ fos_comment_create_action_path }}" data-parent="{{ parent.id|default() }}" method="POST">
+
+        {% block fos_comment_form_fields %}
+            {{ form_errors(form) }}
+            {{ form_widget(form.body) }}
+            {{ form_widget(form._token) }}
+        {% endblock %}
+
+        <div class="fos_comment_submit">
+            {% block fos_comment_form_submit %}
+                <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />
+            {% endblock %}
+        </div>
+
+    </form>
+</div>
