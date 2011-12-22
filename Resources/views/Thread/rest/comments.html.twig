@@ -11,7 +11,9 @@
 {% set depth = depth|default(0) %}
 
 {% if depth == 0 %}
-    {% render "FOSCommentBundle:Rest/Thread:newThreadComments" with {"id": thread.id} %}
+    {% if fos_comment_can_comment() %}
+        {% render "FOSCommentBundle:Rest/Thread:newThreadComments" with {"id": thread.id} %}
+    {% endif %}
 {% endif %}
 
 {% for commentinfo in comments %}

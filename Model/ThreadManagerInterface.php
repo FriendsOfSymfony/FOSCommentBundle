@@ -11,6 +11,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
+
 /**
  * Interface to be implemented by comment thread managers. This adds an additional level
  * of abstraction between your application, and the actual repository.
@@ -49,6 +51,16 @@ interface ThreadManagerInterface
      * @return Thread
      */
     function createThread($id = null);
+
+    /**
+     * Creates a thread from the request parameters.
+     *
+     * @param string $id The id for the thread.
+     * @param ParameterBag $query The query parameters.
+     *
+     * @return ThreadInterface
+     */
+    function createThreadFromQuery($id, ParameterBag $query);
 
     /**
      * Saves a thread
