@@ -1,0 +1,17 @@
+fos_comment_comment_new_headline_first:       Bodi prvi in komentiraj
+fos_comment_comment_new_headline:             Dodaj nov komentar
+fos_comment_comment_new_submit:               Objavi
+
+fos_comment_comment_reply_reply_to:           Odgovor za
+fos_comment_comment_reply_cancel:             Prekliči
+
+fos_comment_comment_show_by:                  Od
+fos_comment_comment_show_voteup:              Glasuj za
+fos_comment_comment_show_votedown:            Glasuj proti
+fos_comment_comment_show_reply:               Odgovori
+
+fos_comment_comment_tree_load_more:           Naloži več odgovorov
+
+Showing %num% comment|Showing %num% comments: Prikazan %num% komentar|Prikazana %num% komentarja|Prikazani %num% komentarji|Prikazanih %num% komentarjev
+
+fos_comment_rss_feed:                         RSS Feed
