@@ -84,21 +84,10 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * Checks if the value is an appropriate one.
-     *
-     * @param mixed $value
-     *
-     * @return boolean True, if the integer representation of the value is not null or 0.
-     */
-    protected function checkValue($value)
-    {
-        return null !== $value && intval($value);
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function isVoteValid(ExecutionContext $context) {
+    public function isVoteValid(ExecutionContext $context)
+    {
         if (!$this->checkValue($this->value)) {
             $propertyPath = $context->getPropertyPath() . '.value';
             $context->setPropertyPath($propertyPath);
@@ -109,5 +98,17 @@ abstract class Vote implements VoteInterface
     public function __toString()
     {
         return 'Vote #'.$this->getId();
+    }
+
+    /**
+     * Checks if the value is an appropriate one.
+     *
+     * @param mixed $value
+     *
+     * @return boolean True, if the integer representation of the value is not null or 0.
+     */
+    protected function checkValue($value)
+    {
+        return null !== $value && intval($value);
     }
 }
