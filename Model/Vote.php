@@ -14,6 +14,8 @@ namespace FOS\CommentBundle\Model;
 use DateTime;
 use InvalidArgumentException;
 
+use Symfony\Component\Validator\ExecutionContext;
+
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
  *
@@ -74,15 +76,35 @@ abstract class Vote implements VoteInterface
      */
     public function setValue($value)
     {
-        $value = intval($value);
-
-        if (!$value) {
+        if (!$this->checkValue($value)) {
             throw new InvalidArgumentException('A vote cannot have a 0 value');
         }
 
         $this->value = intval($value);
     }
 
+    /**
+     * Checks if the value is an appropriate one.
+     *
+     * @param mixed $value
+     *
+     * @return boolean True, if the integer representation of the value is not null or 0.
+     */
+    protected function checkValue($value)
+    {
+        return null !== $value && intval($value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isVoteValid(ExecutionContext $context) {
+        if (!$this->checkValue($this->value)) {
+            $propertyPath = $context->getPropertyPath() . '.value';
+            $context->setPropertyPath($propertyPath);
+            $context->addViolation('A vote cannot have a 0 value', array(), null);
+        }
+    }
 
     public function __toString()
     {
