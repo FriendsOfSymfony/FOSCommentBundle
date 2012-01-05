@@ -8,9 +8,9 @@
     <div class="fos_comment_comment_metas">
         {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
         {% if comment is fos_comment_votable %}
-        <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
-        <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
-        <div class="fos_comment_comment_score">{{ comment.score }}</div>
+        <button data-url="{{ path("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
+        <button data-url="{{ path("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
+        <div class="fos_comment_comment_score" id="fos_comment_score_{{ comment.id }}">{{ comment.score }}</div>
         {% endif %}
     </div>
     <div class="fos_comment_comment_body">

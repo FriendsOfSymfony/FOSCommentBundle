@@ -134,6 +134,32 @@
                     );
                 }
             );
+
+            $('.fos_comment_comment_vote').live('click',
+                function(e) {
+                    var data = $(this).data();
+                    var that = this;
+
+                    // Get the form
+                    FOS_COMMENT.get(
+                        data.url,
+                        {},
+                        function(response) {
+                            // Post it
+                            var form = $(response.data).children('form');
+                            var data = $(form).data();
+
+                            FOS_COMMENT.post(
+                                data.action,
+                                FOS_COMMENT.serializeObject(form),
+                                function(response) {
+                                    $('#' + data.scoreHolder).html(response.data);
+                                }
+                            );
+                        }
+                    );
+                }
+            );
         },
 
         appendComment: function(commentHtml, form) {
