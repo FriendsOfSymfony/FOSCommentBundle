@@ -33,6 +33,17 @@
             <argument>%fos_comment.form.thread.type%</argument>
             <argument>%fos_comment.form.thread.name%</argument>
         </service>
+
+        <service id="fos_comment.form_type.vote.default" class="FOS\CommentBundle\Form\VoteType">
+            <tag name="form.type" alias="fos_comment.vote" />
+        </service>
+
+        <service id="fos_comment.form_factory.vote.default" class="FOS\CommentBundle\FormFactory\VoteFormFactory" public="false">
+            <argument type="service" id="form.factory" />
+            <argument>%fos_comment.form.vote.type%</argument>
+            <argument>%fos_comment.form.vote.name%</argument>
+        </service>
+
     </services>
 
 </container>

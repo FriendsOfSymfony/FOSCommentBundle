@@ -160,6 +160,7 @@ class ThreadController extends Controller
      * Get a comment of a thread.
      *
      * @param string $id
+     * @param mixed $commentId
      * @return View
      */
     public function getThreadCommentAction($id, $commentId)
@@ -185,7 +186,7 @@ class ThreadController extends Controller
     /**
      * Presents the form to use to create a new Comment for a Thread.
      *
-     * @param string id
+     * @param string $id
      * @return View
      */
     public function newThreadCommentsAction($id)
@@ -292,6 +293,117 @@ class ThreadController extends Controller
      * @return Response
      */
     protected function onCreateCommentError(Form $form)
+    {
+        $view = View::create()
+          ->setStatusCode(400)
+          ->setData(array(
+              'form' => $form,
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'form_errors'));
+
+        return $view;
+    }
+
+    /**
+     * Presents the form to use to create a new Vote for a Comment.
+     *
+     * @param string id
+     * @param mixed $commentId Id of the comment.
+     * @return View
+     */
+    public function newThreadCommentVotesAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+        $vote->setValue($this->getRequest()->query->get('value', 1));
+
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form->setData($vote);
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'id' => $id,
+              'commentId' => $commentId,
+              'form' => $form->createView()
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'vote_new'));
+
+        return $view;
+    }
+
+    /**
+     * Creates a new Vote for the Comment from the submitted data.
+     *
+     * @param string $id
+     * @param mixed $commentId Id of the comment.
+     * @return Response
+     */
+    public function postThreadCommentVotesAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form->setData($vote);
+
+        $form->bindRequest($this->container->get('request'));
+
+        if ($form->isValid() && $this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
+            return $this->onCreateVoteSuccess($form);
+        }
+
+        return $this->onCreateVoteError($form);
+    }
+
+    /**
+     * Action executed when a vote was succesfully created.
+     *
+     * @todo Think about what to show. For now the new score of the comment.
+     *
+     * @param VoteForm $form
+     * @return Response
+     */
+    protected function onCreateVoteSuccess(Form $form)
+    {
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'commentScore' => $form->getData()->getComment()->getScore(),
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'vote_create_success'));
+
+        return $view;
+    }
+
+    /**
+     * Returns a 400 response when the form submission fails.
+     *
+     * @param VoteForm $form
+     * @return Response
+     */
+    protected function onCreateVoteError(Form $form)
     {
         $view = View::create()
           ->setStatusCode(400)

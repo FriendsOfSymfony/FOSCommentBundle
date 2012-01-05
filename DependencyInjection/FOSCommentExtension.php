@@ -83,10 +83,14 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.thread.type', $config['form']['thread']['type']);
         $container->setParameter('fos_comment.form.thread.name', $config['form']['thread']['name']);
 
+        $container->setParameter('fos_comment.form.vote.type', $config['form']['vote']['type']);
+        $container->setParameter('fos_comment.form.vote.name', $config['form']['vote']['name']);
+
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
         $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
+        $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
         $container->setAlias('fos_comment.creator.thread', $config['service']['creator']['thread']);
         $container->setAlias('fos_comment.creator.comment', $config['service']['creator']['comment']);
         $container->setAlias('fos_comment.creator.vote', $config['service']['creator']['vote']);
