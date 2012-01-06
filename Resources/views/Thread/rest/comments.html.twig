@@ -9,6 +9,7 @@
 
 #}
 {% set depth = depth|default(0) %}
+{% set view = view|default('tree') %}
 
 {% if depth == 0 %}
     {% if fos_comment_can_comment() %}
@@ -17,5 +18,5 @@
 {% endif %}
 
 {% for commentinfo in comments %}
-    {% include "FOSCommentBundle:Thread:rest/comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth } %}
+    {% include "FOSCommentBundle:Thread:rest/comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
 {% endfor %}
