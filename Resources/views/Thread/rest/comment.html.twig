@@ -1,10 +1,6 @@
-{% if depth is defined%}
-    {% set fos_comment_comment_depth_class = ' fos_comment_comment_depth_' ~  depth %}
-{% else %}
-    {% set fos_comment_comment_depth_class = '' %}
-{% endif%}
+{% set view = view|default('tree') %}
 
-<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show{{ fos_comment_comment_depth_class }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
     <div class="fos_comment_comment_metas">
         {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
         {% if comment is fos_comment_votable %}
@@ -23,8 +19,11 @@
             <button data-url="{{ path('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
         </div>
     {% endif %}
-    {% if children is defined %}
+    {% if view is not sameas('flat') and children is defined %}
         {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id } %}
     {% endif %}
     </div>
+    {% if view is sameas('flat') and children is defined %}
+        {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id } %}
+    {% endif %}
 </div>

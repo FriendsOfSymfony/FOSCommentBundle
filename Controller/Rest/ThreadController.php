@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Bundle\FrameworkBundle\Templating\TemplateReference,
     Symfony\Component\Form\Form,
     Symfony\Component\HttpFoundation\Response,
+    Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -127,10 +128,11 @@ class ThreadController extends Controller
      *
      * @todo Add support page/pagesize/sorting/tree-depth parameters
      *
+     * @param Request $request
      * @param string $id
      * @return View
      */
-    public function getThreadCommentsAction($id)
+    public function getThreadCommentsAction($id, Request $request)
     {
         $displayDepth = $this->getRequest()->query->get('displayDepth');
         $sorter = $this->getRequest()->query->get('sorter');
@@ -149,9 +151,15 @@ class ThreadController extends Controller
 
         $view = View::create()
           ->setStatusCode(200)
-          ->setData(array('comments' => $comments, 'displayDepth' => $displayDepth, 'sorter' => 'date', 'thread' => $thread))
+          ->setData(array(
+              'comments' => $comments,
+              'displayDepth' => $displayDepth,
+              'sorter' => 'date',
+              'thread' => $thread,
+              'view' => $request->query->get('view', 'tree'),
+              )
+          )
           ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'comments'));
-
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
