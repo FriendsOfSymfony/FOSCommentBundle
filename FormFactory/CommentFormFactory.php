@@ -11,9 +11,7 @@
 
 namespace FOS\CommentBundle\FormFactory;
 
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
-use FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer;
 
 /**
  * CommentForm factory class.
@@ -36,30 +34,45 @@ class CommentFormFactory implements CommentFormFactoryInterface
     /**
      * @var string
      */
-    protected $name;
+    protected $createName;
+
+    /**
+     * @var string
+     */
+    protected $replyName;
 
     /**
      * Constructor.
      *
-     * @param FormContext $formContext
+     * @param FormFactory $formFactory
      * @param string $type
-     * @param string $name
+     * @param string $createName
+     * @param string $replyName
      */
-    public function __construct(FormFactory $formFactory, $type, $name)
+    public function __construct(FormFactory $formFactory, $type, $createName, $replyName)
     {
-        $this->formFactory            = $formFactory;
-        $this->type                   = $type;
-        $this->name                   = $name;
+        $this->formFactory = $formFactory;
+        $this->type = $type;
+        $this->createName = $createName;
+        $this->replyName = $replyName;
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return Form
+     * {@inheritDoc}
      */
-    public function createForm()
+    public function createCreateForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name);
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->createName);
+
+        return $builder->getForm();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createReplyForm()
+    {
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->replyName);
 
         return $builder->getForm();
     }

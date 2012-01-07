@@ -21,7 +21,8 @@
         <service id="fos_comment.form_factory.comment.default" class="FOS\CommentBundle\FormFactory\CommentFormFactory" public="false">
             <argument type="service" id="form.factory" />
             <argument>%fos_comment.form.comment.type%</argument>
-            <argument>%fos_comment.form.comment.name%</argument>
+            <argument>%fos_comment.form.comment.name.create%</argument>
+            <argument>%fos_comment.form.comment.name.reply%</argument>
         </service>
     </services>
 

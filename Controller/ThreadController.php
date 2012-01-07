@@ -11,8 +11,10 @@
 
 namespace FOS\CommentBundle\Controller;
 
+use FOS\CommentBundle\FormFactory\CommentFormFactory;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -43,19 +45,44 @@ class ThreadController extends ContainerAware
     }
 
     /**
-     * Creates a form to reply to the supplied ThreadInterface
+     * Binds ThreadInterface data to supplied FormInterface
      *
      * @param ThreadInterface $thread
-     * @return Form
+     * @param FormInterface $form
+     * @return FormInterface
      */
-    protected function getCommentForm(ThreadInterface $thread)
+    protected function bindCommentForm(ThreadInterface $thread, FormInterface $form)
     {
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
-
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
         return $form;
+    }
+
+    /**
+     * Creates a form to reply to the supplied ThreadInterface
+     *
+     * @param ThreadInterface $thread
+     * @return FormInterface
+     */
+    protected function getCreateCommentForm(ThreadInterface $thread)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createCreateForm();
+
+        return $this->bindCommentForm($thread, $form);
+    }
+
+    /**
+     * Creates a form to reply to the supplied ThreadInterface
+     *
+     * @param ThreadInterface $thread
+     * @return FormInterface
+     */
+    protected function getReplyCommentForm(ThreadInterface $thread)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createReplyForm();
+
+        return $this->bindCommentForm($thread, $form);
     }
 
     /**
@@ -80,8 +107,8 @@ class ThreadController extends ContainerAware
     public function showAction($id, $sorter = null, $displayDepth = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        $newCommentForm = $this->getCreateCommentForm($thread);
+        $replyForm = $this->getReplyCommentForm($thread);
 
         return $this->container->get('templating')->renderResponse(
             'FOSCommentBundle:Thread:show.html.'.$this->container->getParameter('fos_comment.template.engine'),
@@ -114,8 +141,8 @@ class ThreadController extends ContainerAware
     public function showFlatAction($id, $sorter = null)
     {
         $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        $newCommentForm = $this->getCreateCommentForm($thread);
+        $replyForm = $this->getReplyCommentForm($thread);
 
         return $this->container->get('templating')->renderResponse(
             'FOSCommentBundle:Thread:showFlat.html.'.$this->container->getParameter('fos_comment.template.engine'),

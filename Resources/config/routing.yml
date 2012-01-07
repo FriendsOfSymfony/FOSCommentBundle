@@ -8,34 +8,44 @@
 #
 
 fos_comment_comment_create:
-    pattern:         /new/{threadId}/{parentId}
+    pattern:         /new/{threadId}
     defaults:
         _controller: FOSCommentBundle:Comment:create
-        parentId:    null
-    requirements:    { _method: "post" }
+    requirements:
+        _method:     POST
+
+fos_comment_comment_reply:
+    pattern:         /new/{threadId}/{parentId}
+    defaults:
+        _controller: FOSCommentBundle:Comment:reply
+    requirements:
+        _method:     POST
 
 fos_comment_thread_show_feed:
-    pattern:        /{id}.xml
-    defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
+    pattern:         /{id}.xml
+    defaults:
+        _controller: FOSCommentBundle:Thread:showFeed
+        _format:     xml
 
 fos_comment_comment_loadmore:
-    pattern:        /subtree/{commentId}/{sorter}
+    pattern:         /subtree/{commentId}/{sorter}
     defaults:
         _controller: FOSCommentBundle:Comment:subtree
-        sorter: null
+        sorter:      null
 
 fos_comment_vote_add_up:
-    pattern:        /vote/{commentId}/up
+    pattern:         /vote/{commentId}/up
     defaults:
-        _controller:  FOSCommentBundle:Vote:add
-        value:        1
+        _controller: FOSCommentBundle:Vote:add
+        value:       1
 
 fos_comment_vote_add_down:
-    pattern:        /vote/{commentId}/down
+    pattern:         /vote/{commentId}/down
     defaults:
-        _controller:  FOSCommentBundle:Vote:add
-        value:        -1
+        _controller: FOSCommentBundle:Vote:add
+        value:       -1
 
 fos_comment_vote_list:
-    pattern:        /votes/{commentId}
-    defaults:       { _controller: FOSCommentBundle:Vote:list }
+    pattern:         /votes/{commentId}
+    defaults:
+        _controller: FOSCommentBundle:Vote:list }

@@ -78,7 +78,8 @@ class FOSCommentExtension extends Extension
         }
 
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
-        $container->setParameter('fos_comment.form.comment.name', $config['form']['comment']['name']);
+        $container->setParameter('fos_comment.form.comment.name.create', $config['form']['comment']['create_name']);
+        $container->setParameter('fos_comment.form.comment.name.reply', $config['form']['comment']['reply_name']);
 
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 

@@ -11,13 +11,14 @@
 
 namespace FOS\CommentBundle\Controller;
 
+use FOS\CommentBundle\FormFactory\CommentFormFactory;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Groups all comment related actions into the controller.
@@ -112,32 +113,56 @@ class CommentController extends ContainerAware
     }
 
     /**
-     * Submit a comment form.
+     * Submit root comment form.
      *
-     * @param mixed $threadId Thread id
-     * @param mixed $parentId Comment id
+     * @param string $threadId Thread id
      * @return Response
      */
-    public function createAction($threadId, $parentId = null)
+    public function createAction($threadId)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createCreateForm();
+
+        return $this->addComment($form, $threadId);
+    }
+
+    /**
+     * Submit comment reply form.
+     *
+     * @param string $threadId Thread id
+     * @param int    $parentId Comment id
+     * @throws NotFoundHttpException
+     * @return Response
+     */
+    public function replyAction($threadId, $parentId)
+    {
+        $form = $this->container->get('fos_comment.form_factory.comment')->createReplyForm();
+        $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
+
+        if (!$parent) {
+            throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
+        }
+
+        return $this->addComment($form, $threadId, $parent);
+    }
+
+    /**
+     * Submit comment form.
+     *
+     * @param FormInterface $form
+     * @param string $threadId
+     * @param CommentInterface $parent
+     * @throws NotFoundHttpException
+     * @return Response
+     */
+    protected function addComment(FormInterface $form, $threadId, CommentInterface $parent = null)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($threadId);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadId));
         }
 
-        if (!empty($parentId)) {
-            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
-
-            if (!$parent) {
-                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
-            }
-        } else {
-            $parent = null;
-        }
-
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread, $parent);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
         $request = $this->container->get('request');
@@ -155,10 +180,10 @@ class CommentController extends ContainerAware
     /**
      * Forwards the action to the thread view on a successful form submission.
      *
-     * @param CommentForm $form
+     * @param FormInterface $form
      * @return Response
      */
-    protected function onCreateSuccess(Form $form)
+    protected function onCreateSuccess(FormInterface $form)
     {
         return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:show', array(
             'id' => $form->getData()->getThread()->getId()
@@ -168,10 +193,10 @@ class CommentController extends ContainerAware
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param CommentForm $form
+     * @param FormInterface $form
      * @return Response
      */
-    protected function onCreateError(Form $form)
+    protected function onCreateError(FormInterface $form)
     {
         return new Response('An error occurred with form submission', 400);
     }

@@ -29,7 +29,14 @@ $('form.fos_comment_comment_form').live('submit', function() {
 $('button.fos_comment_comment_reply_show_form').live('click', function() {
     var $button = $(this);
     var $container = $button.parent().addClass('replying');
+    var $suffix = $button.attr('data-url').replace(/^.*?(\d+)$/, '_$1');
     var $reply = $('div.fos_comment_reply_prototype').clone()
+        // Append parent id as suffix to eliminate possible duplicate identifiers
+        .find('*').each(function () {
+            var $this = $(this), $id = $this.attr('id'), $for = $this.attr('for');
+            undefined !== $id  && $this.attr('id',  $id  + $suffix);
+            undefined !== $for && $this.attr('for', $for + $suffix);
+        }).end()
         .removeClass('fos_comment_reply_prototype')
         .find('.fos_comment_reply_name_placeholder').text($button.attr('data-name')).end()
         .find('.fos_comment_comment_form').attr('action', $button.attr('data-url')).end()

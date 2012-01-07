@@ -21,9 +21,16 @@ use Symfony\Component\Form\Form;
 interface CommentFormFactoryInterface
 {
     /**
-     * Creates a comment form
+     * Creates a new master comment form.
      *
-     * @return Form
+     * @return FormInterface
      */
-    public function createForm();
+    public function createCreateForm();
+
+    /**
+     * Creates a new child comment form.
+     *
+     * @return FormInterface
+     */
+    public function createReplyForm();
 }

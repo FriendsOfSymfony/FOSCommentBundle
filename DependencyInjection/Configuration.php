@@ -39,10 +39,11 @@ class Configuration
 
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('comment')->isRequired()->addDefaultsIfNotSet()
+                        ->arrayNode('comment')->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('type')->defaultValue('fos_comment.comment')->end()
-                                ->scalarNode('name')->defaultValue('fos_comment_comment')->end()
+                                ->scalarNode('create_name')->defaultValue('fos_comment_comment_create')->end()
+                                ->scalarNode('reply_name')->defaultValue('fos_comment_comment_reply')->end()
                             ->end()
                         ->end()
                     ->end()
