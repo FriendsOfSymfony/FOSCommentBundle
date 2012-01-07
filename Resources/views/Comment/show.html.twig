@@ -16,7 +16,7 @@
 <div class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" id="{{ comment.id }}">
     <div class="fos_comment_comment_metas">
         {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
-        {% if comment is fos_comment_votable %}
+        {% if comment is fos_comment_votable and app.user is not empty and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <button data-url="{{ path("fos_comment_vote_add_up", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
         <button data-url="{{ path("fos_comment_vote_add_down", {"commentId": comment.id}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
         <div class="fos_comment_comment_score">{{ comment.score }}</div>
