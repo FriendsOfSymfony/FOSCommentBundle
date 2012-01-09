@@ -28,15 +28,11 @@
     </class>
 
     <class name="FOS\CommentBundle\Model\Vote">
-        <property name="value">
-            <constraint name="True">
-                <option name="message">The vote must have a value</option>
-            </constraint>
-            <constraint name="NotNull">
-                <option name="message">The vote must have a value</option>
-            </constraint>
-        </property>
-
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isVoteValid</value>
+            </option>
+        </constraint>
     </class>
 
 </constraint-mapping>
