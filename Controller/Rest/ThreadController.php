@@ -132,10 +132,10 @@ class ThreadController extends Controller
      * @param string $id
      * @return View
      */
-    public function getThreadCommentsAction($id, Request $request)
+    public function getThreadCommentsAction(Request $request, $id)
     {
-        $displayDepth = $this->getRequest()->query->get('displayDepth');
-        $sorter = $this->getRequest()->query->get('sorter');
+        $displayDepth = $request->query->get('displayDepth');
+        $sorter = $request->query->get('sorter');
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
 
         // We're now sure it is no duplicate id, so create the thread
@@ -147,7 +147,24 @@ class ThreadController extends Controller
             $this->container->get('fos_comment.manager.thread')->addThread($thread);
         }
 
-        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
+        $view = $request->query->get('view', 'tree');
+        switch($view) {
+            case 'flat':
+                $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $sorter, $displayDepth);
+
+                // We need nodes for the api to return a consistent response, not an array of comments
+                $comments = array_map(function($comment) {
+                        return array('comment' => $comment, 'children' => array());
+                    },
+                    $comments
+                );
+                break;
+            default:
+                // todo: not implemented exception?
+            case 'tree':
+                $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
+                break;
+        }
 
         $view = View::create()
           ->setStatusCode(200)
@@ -156,10 +173,21 @@ class ThreadController extends Controller
               'displayDepth' => $displayDepth,
               'sorter' => 'date',
               'thread' => $thread,
-              'view' => $request->query->get('view', 'tree'),
+              'view' => $view,
               )
           )
           ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'comments'));
+
+        // Register a special handler for RSS. Only available on this route.
+        if('rss' === $request->getRequestFormat()) {
+            $templatingHandler = function($handler, $view, $request) {
+                $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread/rest', 'thread_xml_feed'));
+
+                return new Response($handler->renderTemplate($view, 'rss'), 200, $view->getHeaders());
+            };
+
+            $this->get('fos_rest.view_handler')->registerHandler('rss', $templatingHandler);
+        }
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
