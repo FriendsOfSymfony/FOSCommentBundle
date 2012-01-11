@@ -11,8 +11,6 @@
 
 namespace FOS\CommentBundle\Model;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 /**
  * Abstract Thread Manager implementation which can be used as base class for your
  * concrete manager.
@@ -41,22 +39,5 @@ abstract class ThreadManager implements ThreadManagerInterface
         $commentThread = new $class;
 
         return $commentThread;
-    }
-
-    /**
-     * Creates a thread from the request parameters.
-     *
-     * @param string $id The id for the thread.
-     * @param ParameterBag $query The query parameters.
-     *
-     * @return ThreadInterface
-     */
-    public function createThreadFromQuery($id, ParameterBag $query)
-    {
-        $thread = $this->createThread();
-        $thread->setId($id);
-        $thread->setPermalink($query->get('permalink'));
-
-        return $thread;
     }
 }

@@ -13,7 +13,6 @@ namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -100,14 +99,6 @@ class AclThreadManager implements ThreadManagerInterface
     public function createThread()
     {
         return $this->realManager->createThread();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function createThreadFromQuery($id, ParameterBag $query)
-    {
-        return $this->realManager->createThreadFromQuery($id, $query);
     }
 
     /**
