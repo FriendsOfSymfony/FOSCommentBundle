@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -7,6 +8,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace FOS\CommentBundle\Controller;
 
 use FOS\CommentBundle\Model\CommentInterface;
@@ -50,6 +52,7 @@ class ThreadController extends Controller
      * Gets the thread for a given id.
      *
      * @param string $id
+     *
      * @return View
      */
     public function getThreadAction($id)
@@ -101,6 +104,7 @@ class ThreadController extends Controller
      * Presents the form to use to create a new Comment for a Thread.
      *
      * @param string $id
+     *
      * @return View
      */
     public function newThreadCommentsAction($id)
@@ -135,8 +139,9 @@ class ThreadController extends Controller
     /**
      * Get a comment of a thread.
      *
-     * @param string $id
-     * @param mixed $commentId
+     * @param string $id        Id of the thread
+     * @param mixed  $commentId Id of the comment
+     *
      * @return View
      */
     public function getThreadCommentAction($id, $commentId)
@@ -159,11 +164,11 @@ class ThreadController extends Controller
     /**
      * Get the comments of a thread. Creates a new thread if none exists.
      *
-     * @todo Add support page/pagesize/sorting/tree-depth parameters
+     * @param Request $request Current request
+     * @param string  $id      Id of the thread
      *
-     * @param Request $request
-     * @param string $id
      * @return View
+     * @todo Add support page/pagesize/sorting/tree-depth parameters
      */
     public function getThreadCommentsAction(Request $request, $id)
     {
@@ -213,7 +218,7 @@ class ThreadController extends Controller
           ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comments'));
 
         // Register a special handler for RSS. Only available on this route.
-        if('rss' === $request->getRequestFormat()) {
+        if ('rss' === $request->getRequestFormat()) {
             $templatingHandler = function($handler, $view, $request) {
                 $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'thread_xml_feed'));
 
@@ -229,10 +234,10 @@ class ThreadController extends Controller
     /**
      * Creates a new Comment for the Thread from the submitted data.
      *
-     * @todo Add support for comment parent (in form?)
-     *
      * @param string $id
+     *
      * @return View
+     * @todo Add support for comment parent (in form?)
      */
     public function postThreadCommentsAction($id)
     {
@@ -259,8 +264,9 @@ class ThreadController extends Controller
     /**
      * Presents the form to use to create a new Vote for a Comment.
      *
-     * @param string id
-     * @param mixed $commentId Id of the comment.
+     * @param string $id        Id of the thread
+     * @param mixed  $commentId Id of the comment
+     *
      * @return View
      */
     public function newThreadCommentVotesAction($id, $commentId)
@@ -294,8 +300,9 @@ class ThreadController extends Controller
     /**
      * Creates a new Vote for the Comment from the submitted data.
      *
-     * @param string $id
-     * @param mixed $commentId Id of the comment.
+     * @param string $id        Id of the thread
+     * @param mixed  $commentId Id of the comment
+     *
      * @return View
      */
     public function postThreadCommentVotesAction($id, $commentId)
@@ -325,6 +332,7 @@ class ThreadController extends Controller
      * Forwards the action to the comment view on a successful form submission.
      *
      * @param CommentForm $form
+     *
      * @return View
      */
     protected function onCreateCommentSuccess(Form $form)
@@ -336,6 +344,7 @@ class ThreadController extends Controller
      * Returns a 400 response when the form submission fails.
      *
      * @param CommentForm $form
+     *
      * @return View
      */
     protected function onCreateCommentError(Form $form)
@@ -354,7 +363,8 @@ class ThreadController extends Controller
     /**
      * Forwards the action to the thread view on a successful form submission.
      *
-     * @param CommentForm $form
+     * @param ThreadForm $form
+     *
      * @return View
      */
     protected function onCreateThreadSuccess(Form $form)
@@ -365,7 +375,8 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param CommentForm $form
+     * @param ThreadForm $form
+     *
      * @return View
      */
     protected function onCreateThreadError(Form $form)
@@ -384,7 +395,8 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the Thread creation fails due to a duplicate id.
      *
-     * @param CommentForm $form
+     * @param ThreadForm $form
+     *
      * @return View
      */
     protected function onCreateThreadErrorDuplicate(Form $form)
@@ -395,10 +407,10 @@ class ThreadController extends Controller
     /**
      * Action executed when a vote was succesfully created.
      *
-     * @todo Think about what to show. For now the new score of the comment.
-     *
      * @param VoteForm $form
+     *
      * @return View
+     * @todo Think about what to show. For now the new score of the comment.
      */
     protected function onCreateVoteSuccess(Form $form)
     {
@@ -417,6 +429,7 @@ class ThreadController extends Controller
      * Returns a 400 response when the form submission fails.
      *
      * @param VoteForm $form
+     *
      * @return View
      */
     protected function onCreateVoteError(Form $form)
@@ -435,20 +448,20 @@ class ThreadController extends Controller
     /**
      * Checks if a comment belongs to a thread. Returns the comment if it does.
      *
-     * @param ThreadInterface $thread
-     * @param mixed $commentId Id of the comment.
+     * @param ThreadInterface $thread    Thread object
+     * @param mixed           $commentId Id of the comment.
      *
-     * @return CommentInterface The comment.
+     * @return CommentInterface|null The comment.
      */
     private function getValidCommentParent(ThreadInterface $thread, $commentId)
     {
-        if(null !== $commentId) {
+        if (null !== $commentId) {
             $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
             if (!$comment) {
                 throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $commentId));
             }
 
-            if($comment->getThread() !== $thread) {
+            if ($comment->getThread() !== $thread) {
                 throw new NotFoundHttpException('Parent comment is not a comment of the given thread.');
             }
 
