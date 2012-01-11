@@ -8,8 +8,7 @@
  */
 
 /**
- * To use this reference javascript, you must also have jQuery and easyXdm
- * installed.
+ * To use this reference javascript, you must also have jQuery installed.
  *
  * @todo: expand this explanation (also in the docs)
  *
@@ -17,7 +16,10 @@
  *
  * <div id="fos_comment_thread">#comments</div>
  * <script type="text/javascript">
+ *     // Set the thread_id if you want comments to be loaded via ajax
  *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
+ *
+ *     // Set the cors url if you want cross-domain AJAX (also needs easyXDM)
  *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
  *
  * (function() {
@@ -34,30 +36,6 @@
 (function(window, $, easyXDM){
     var FOS_COMMENT = {
         /**
-         * easyXDM instance to use
-         */
-        easyXDM: easyXDM.noConflict('FOS_COMMENT'),
-
-        /**
-         * Shorcut request method.
-         *
-         * @param string method The request method to use.
-         * @param string url The url of the page to request.
-         * @param object data The data parameters.
-         * @param function callback Optional callback function to use.
-         */
-        request: function(method, url, data, callback) {
-            // todo: is there a better way to do this?
-            if('undefined' === typeof callback) {
-                callback = function(r){};
-            }
-            FOS_COMMENT.xhr.request({
-                    url: url,
-                    method: method,
-                    data: data,
-            }, callback);
-        },
-        /**
          * Shorcut post method.
          *
          * @param string url The url of the page to post.
@@ -65,7 +43,7 @@
          * @param function callback Optional callback function to use.
          */
         post: function(url, data, callback) {
-            this.request('POST', url, data, callback);
+            $.post(url, data, callback);
         },
 
         /**
@@ -76,7 +54,7 @@
          * @param function callback Optional callback function to use.
          */
         get: function(url, data, callback) {
-            this.request('GET', url, data, callback);
+            $.get(url, data, callback);
         },
 
         /**
@@ -93,8 +71,8 @@
             FOS_COMMENT.get(
                 '/app_dev.php/api/threads/'+encodeURIComponent(identifier)+'/comments',
                 {permalink: encodeURIComponent(permalink)},
-                function(response) {
-                    $('#fos_comment_thread').html(response.data);
+                function(data) {
+                    $('#fos_comment_thread').html(data);
                 }
             );
         },
@@ -102,17 +80,17 @@
         /**
          * Initialize the event listeners.
          */
-        init: function() {
+        initializeListeners: function() {
             $('form.fos_comment_comment_form').live('submit',
                 function(e) {
                     var that = $(this);
-                    var data = that.data();
+                    var form_data = that.data();
 
                     FOS_COMMENT.post(
-                        data.action,
+                        form_data.action,
                         FOS_COMMENT.serializeObject(this),
-                        function(response) {
-                            FOS_COMMENT.appendComment(response.data, that);
+                        function(data) {
+                            FOS_COMMENT.appendComment(data, that);
                         }
                     );
 
@@ -122,14 +100,14 @@
 
             $('.fos_comment_comment_reply_show_form').live('click',
                 function(e) {
-                    var data = $(this).data();
+                    var form_data = $(this).data();
                     var that = this;
 
                     FOS_COMMENT.get(
-                        data.url,
-                        {parentId: data.parentId},
-                        function(response) {
-                            $(that).after(response.data);
+                        form_data.url,
+                        {parentId: form_data.parentId},
+                        function(data) {
+                            $(that).after(data);
                         }
                     );
                 }
@@ -137,23 +115,23 @@
 
             $('.fos_comment_comment_vote').live('click',
                 function(e) {
-                    var data = $(this).data();
+                    var form_data = $(this).data();
                     var that = this;
 
                     // Get the form
                     FOS_COMMENT.get(
-                        data.url,
+                        form_data.url,
                         {},
-                        function(response) {
+                        function(data) {
                             // Post it
-                            var form = $(response.data).children('form');
-                            var data = $(form).data();
+                            var form = $(data).children('form');
+                            var form_data = $(form).data();
 
                             FOS_COMMENT.post(
-                                data.action,
+                                form_data.action,
                                 FOS_COMMENT.serializeObject(form),
-                                function(response) {
-                                    $('#' + data.scoreHolder).html(response.data);
+                                function(data) {
+                                    $('#' + form_data.scoreHolder).html(data);
                                 }
                             );
                         }
@@ -163,9 +141,9 @@
         },
 
         appendComment: function(commentHtml, form) {
-            var data = form.data();
+            var form_data = form.data();
 
-            if('' != data.parent) {
+            if('' != form_data.parent) {
                 form.after(commentHtml);
 
                 // one up for form holder, then again one up
@@ -203,19 +181,62 @@
         }
     };
 
-    /* Initialize xhr object to do cross-domain requests. */
-    FOS_COMMENT.xhr = new FOS_COMMENT.easyXDM.Rpc({
-            remote: fos_comment_remote_cors_url
-    }, {
-        remote: {
-            request: {} // request is exposed by /cors/
-        }
-    });
+    // AJAX via easyXDM if this is configured
+    if(typeof fos_comment_remote_cors_url != "undefined") {
+        /**
+         * easyXDM instance to use
+         */
+        FOS_COMMENT.easyXDM = easyXDM.noConflict('FOS_COMMENT');
 
+        /**
+         * Shorcut request method.
+         *
+         * @param string method The request method to use.
+         * @param string url The url of the page to request.
+         * @param object data The data parameters.
+         * @param function callback Optional callback function to use.
+         */
+        FOS_COMMENT.request = function(method, url, data, callback) {
+            // wrap the callback to match the callback parameters of jQuery
+            var wrappedCallback = function(response){
+                if('undefined' !== typeof callback) {
+                    callback(response.data, response.status);
+                }
+            };
 
-    // get the thread comments and init listeners
-    FOS_COMMENT.getThreadComments(fos_comment_thread_id);
-    FOS_COMMENT.init();
+            // todo: is there a better way to do this?
+            FOS_COMMENT.xhr.request({
+                    url: url,
+                    method: method,
+                    data: data,
+            }, wrappedCallback);
+        };
+
+        FOS_COMMENT.post = function(url, data, callback) {
+            this.request('POST', url, data, callback);
+        };
+
+        FOS_COMMENT.get= function(url, data, callback) {
+            this.request('GET', url, data, callback);
+        };
+
+        /* Initialize xhr object to do cross-domain requests. */
+        FOS_COMMENT.xhr = new FOS_COMMENT.easyXDM.Rpc({
+                remote: fos_comment_remote_cors_url
+        }, {
+            remote: {
+                request: {} // request is exposed by /cors/
+            }
+        });
+    }
+
+    // Load the comment if there is a thread id defined.
+    if(typeof fos_comment_thread_id != "undefined") {
+        // get the thread comments and init listeners
+        FOS_COMMENT.getThreadComments(fos_comment_thread_id);
+    }
+
+    FOS_COMMENT.initializeListeners();
 
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;
