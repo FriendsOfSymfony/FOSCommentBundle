@@ -13,10 +13,10 @@
 
 {% if depth == 0 %}
     {% if fos_comment_can_comment() %}
-        {% render "FOSCommentBundle:Rest/Thread:newThreadComments" with {"id": thread.id} %}
+        {% render "FOSCommentBundle:Thread:newThreadComments" with {"id": thread.id} %}
     {% endif %}
 {% endif %}
 
 {% for commentinfo in comments %}
-    {% include "FOSCommentBundle:Thread:rest/comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
+    {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
 {% endfor %}

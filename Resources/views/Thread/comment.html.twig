@@ -4,7 +4,7 @@
 <div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
     <div class="fos_comment_comment_metas">
         {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
-        {% if comment is fos_comment_votable %}
+        {% if fos_comment_can_vote(comment) %}
         <button data-url="{{ path("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
         <button data-url="{{ path("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
         <div class="fos_comment_comment_score" id="fos_comment_score_{{ comment.id }}">{{ comment.score }}</div>
@@ -21,10 +21,10 @@
         </div>
     {% endif %}
     {% if view is not sameas('flat') and children is defined %}
-        {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+        {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
     {% endif %}
     </div>
     {% if view is sameas('flat') and children is defined %}
-        {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+        {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
     {% endif %}
 </div>
