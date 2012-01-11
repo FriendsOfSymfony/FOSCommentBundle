@@ -21,10 +21,10 @@
         </div>
     {% endif %}
     {% if view is not sameas('flat') and children is defined %}
-        {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+        {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
     {% endif %}
     </div>
     {% if view is sameas('flat') and children is defined %}
-        {% include "FOSCommentBundle:Thread:rest/comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+        {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
     {% endif %}
 </div>

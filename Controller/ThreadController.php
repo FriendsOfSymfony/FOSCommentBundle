@@ -1,151 +1,454 @@
 <?php
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace FOS\CommentBundle\Controller;
 
-use FOS\CommentBundle\Model\ThreadInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\CommentBundle\Model\CommentInterface,
+    FOS\CommentBundle\Model\ThreadInterface;
+
+use FOS\RestBundle\View\View;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Bundle\FrameworkBundle\Templating\TemplateReference,
+    Symfony\Component\Form\Form,
+    Symfony\Component\HttpFoundation\Response,
+    Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Groups all thread related actions into the controller.
+ * Restful controller for the Threads.
  *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Tim Nagel <tim@nagel.com.au>
+ * @uses Controller
  */
-class ThreadController extends ContainerAware
+class ThreadController extends Controller
 {
     /**
-     * Gets the thread specified by id, and if it does
-     * not exist, creates a new one.
+     * Presents the form to use to create a new Thread.
      *
-     * @param string $id
-     * @return ThreadInterface
+     * @return View
      */
-    protected function getThread($id)
+    public function newThreadsAction()
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
 
-        if (!$thread) {
-            $thread = $this->container->get('fos_comment.creator.thread')->create($id);
-        }
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array('form' => $form->createView()))
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
 
-        return $thread;
+        return $view;
     }
 
     /**
-     * Creates a form to reply to the supplied ThreadInterface
+     * Gets the thread for a given id.
      *
-     * @param ThreadInterface $thread
-     * @return Form
+     * @param string $id
+     * @return View
      */
-    protected function getCommentForm(ThreadInterface $thread)
+    public function getThreadAction($id)
     {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+
+        if (null === $thread) {
+            throw new NotFoundHttpException;
+        }
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array('thread' => $thread));
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+    /**
+     * Creates a new Thread from the submitted data.
+     *
+     * @return Response
+     */
+    public function postThreadsAction()
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->createThread();
+        $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
+        $form->setData($thread);
+
+        $request = $this->container->get('request');
+        if ('POST' == $request->getMethod()) {
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                if (null !== $this->container->get('fos_comment.manager.thread')->findThreadById($thread->getId())) {
+                    $this->onCreateThreadErrorDuplicate($form);
+                }
+
+                // Add the thread
+                $this->container->get('fos_comment.manager.thread')->addThread($thread);
+
+                $this->onCreateThreadSuccess($form);
+            }
+        }
+
+        $this->onCreateThreadError($form);
+    }
+
+    /**
+     * Forwards the action to the thread view on a successful form submission.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
+    protected function onCreateThreadSuccess(Form $form)
+    {
+        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:getThread', array(
+            'id' => $form->getData()->getId()
+        ));
+    }
+
+    /**
+     * Returns a 400 response when the form submission fails.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
+    protected function onCreateThreadError(Form $form)
+    {
+        return new Response('An error occurred with form submission', 400);
+    }
+
+    /**
+     * Returns a 400 response when the Thread creation fails due to a duplicate id.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
+    protected function onCreateThreadErrorDuplicate(Form $form)
+    {
+        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), 400);
+    }
+
+    /**
+     * Get the comments of a thread. Creates a new thread if none exists.
+     *
+     * @todo Add support page/pagesize/sorting/tree-depth parameters
+     *
+     * @param Request $request
+     * @param string $id
+     * @return View
+     */
+    public function getThreadCommentsAction(Request $request, $id)
+    {
+        $displayDepth = $request->query->get('displayDepth');
+        $sorter = $request->query->get('sorter');
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+
+        // We're now sure it is no duplicate id, so create the thread
+        if (null === $thread) {
+            $thread = $this->container->get('fos_comment.manager.thread')
+                ->createThreadFromQuery($id, $this->get('request')->query);
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->addThread($thread);
+        }
+
+        $view = $request->query->get('view', 'tree');
+        switch($view) {
+            case 'flat':
+                $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $sorter, $displayDepth);
+
+                // We need nodes for the api to return a consistent response, not an array of comments
+                $comments = array_map(function($comment) {
+                        return array('comment' => $comment, 'children' => array());
+                    },
+                    $comments
+                );
+                break;
+            default:
+                // todo: not implemented exception?
+            case 'tree':
+                $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
+                break;
+        }
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'comments' => $comments,
+              'displayDepth' => $displayDepth,
+              'sorter' => 'date',
+              'thread' => $thread,
+              'view' => $view,
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comments'));
+
+        // Register a special handler for RSS. Only available on this route.
+        if('rss' === $request->getRequestFormat()) {
+            $templatingHandler = function($handler, $view, $request) {
+                $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'thread_xml_feed'));
+
+                return new Response($handler->renderTemplate($view, 'rss'), 200, $view->getHeaders());
+            };
+
+            $this->get('fos_rest.view_handler')->registerHandler('rss', $templatingHandler);
+        }
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+    /**
+     * Presents the form to use to create a new Comment for a Thread.
+     *
+     * @param string $id
+     * @return View
+     */
+    public function newThreadCommentsAction($id)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        if (!$thread) {
+            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
+        }
+
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
+
+        $parent = $this->getValidCommentParent($thread, $this->getRequest()->query->get('parentId'));
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
 
-        return $form;
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'form' => $form->createView(),
+              'first' => 0 === $thread->getNumComments(),
+              'thread' => $thread,
+              'fos_comment_create_action_path' => $this->get('router')->generate('fos_comment_post_thread_comments', array('id' => $id, 'parentId' => $parent ? $parent->getId() : null)),
+              'parent' => $parent,
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
+
+        return $view;
     }
 
     /**
-     * Show a thread, its comments and the comment form if available
-     * There is no routing for this action, call it from a template:
+     * Get a comment of a thread.
      *
-     *    {% render "FOSCommentBundle:Thread:show" with {"id": "something_unique"} %}
-     *
-     * If the thread for the id does not exist, it will be created.
-     *
-     * Available options to pass to this action are:
-     *    id:           The id of the thread.
-     *    sorter:       The alias of the sorter to use, or null
-     *                  for the default sorter.
-     *    displayDepth: The depth of comments to display.
-     *
-     * @param mixed $id
-     * @param string $sorter
-     * @param integer $displayDepth
-     * @return Response
+     * @param string $id
+     * @param mixed $commentId
+     * @return View
      */
-    public function showAction($id, $sorter = null, $displayDepth = null)
+    public function getThreadCommentAction($id, $commentId)
     {
-        $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
 
-        return $this->container->get('templating')->renderResponse(
-            'FOSCommentBundle:Thread:show.html.'.$this->container->getParameter('fos_comment.template.engine'),
-            array(
-                'thread'           => $thread,
-                'sorter'           => $sorter,
-                'displayDepth'     => $displayDepth,
-                'newCommentForm'   => $newCommentForm->createView(),
-                'replyForm'        => $replyForm->createView(),
-            )
-        );
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array('comment' => $comment, 'thread' => $thread))
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment'));
+
+        return $this->get('fos_rest.view_handler')->handle($view);
     }
 
     /**
-     * Show a thread, its comments and the comment form in a flat manner if available
-     * There is no routing for this action, call it from a template:
+     * Checks if a comment belongs to a thread. Returns the comment if it does.
      *
-     *    {% render "FOSCommentBundle:Thread:show" with {"id": "something_unique"} %}
+     * @param ThreadInterface $thread
+     * @param mixed $commentId Id of the comment.
      *
-     * If the thread for the id does not exist, it will be created.
-     *
-     * Available options to pass to this action are:
-     *    id:      The id of the thread.
-     *    sorter:  The alias of the sorter to use, or null for the default sorter.
-     *
-     * @param mixed $id
-     * @param string $sorter
-     * @return Response
+     * @return CommentInterface The comment.
      */
-    public function showFlatAction($id, $sorter = null)
+    private function getValidCommentParent(ThreadInterface $thread, $commentId)
     {
-        $thread = $this->getThread($id);
-        $newCommentForm = $this->getCommentForm($thread);
-        $replyForm = $this->getCommentForm($thread);
+        if(null !== $commentId) {
+            $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+            if (!$comment) {
+                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $commentId));
+            }
 
-        return $this->container->get('templating')->renderResponse(
-            'FOSCommentBundle:Thread:showFlat.html.'.$this->container->getParameter('fos_comment.template.engine'),
-            array(
-                'thread'           => $thread,
-                'sorter'           => $sorter,
-                'newCommentForm'   => $newCommentForm->createView(),
-                'replyForm'        => $replyForm->createView(),
-            )
-        );
+            if($comment->getThread() !== $thread) {
+                throw new NotFoundHttpException('Parent comment is not a comment of the given thread.');
+            }
+
+            return $comment;
+        }
     }
 
     /**
-     * Show an xml feed for a thread.
+     * Creates a new Comment for the Thread from the submitted data.
      *
-     * @param mixed $id
+     * @todo Add support for comment parent (in form?)
+     *
+     * @param string $id
      * @return Response
      */
-    public function showFeedAction($id)
+    public function postThreadCommentsAction($id)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         if (!$thread) {
-            throw new NotFoundHttpException(sprintf('No comment thread with identifier "%s"', $id));
+            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
         }
 
-        return $this->container->get('templating')->renderResponse(
-            'FOSCommentBundle:Thread:showFeed.xml.'.$this->container->getParameter('fos_comment.template.engine'),
-            array(
-                'thread' => $thread
-            )
-        );
+        $comment = $this->container
+            ->get('fos_comment.manager.comment')
+            ->createComment($thread, $this->getValidCommentParent($thread, $this->getRequest()->query->get('parentId')));
+
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form->setData($comment);
+        $form->bindRequest($this->container->get('request'));
+
+        if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment)) {
+            return $this->onCreateCommentSuccess($form);
+        }
+
+        return $this->onCreateCommentError($form);
+    }
+
+    /**
+     * Forwards the action to the comment view on a successful form submission.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
+    protected function onCreateCommentSuccess(Form $form)
+    {
+        return $this->container->get('http_kernel')->forward('FOSCommentBundle:Thread:getThreadComment', array(
+            'id' => $form->getData()->getThread()->getId(),
+            'commentId' => $form->getData()->getId(),
+        ));
+    }
+
+    /**
+     * Returns a 400 response when the form submission fails.
+     *
+     * @param CommentForm $form
+     * @return Response
+     */
+    protected function onCreateCommentError(Form $form)
+    {
+        $view = View::create()
+          ->setStatusCode(400)
+          ->setData(array(
+              'form' => $form,
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'form_errors'));
+
+        return $view;
+    }
+
+    /**
+     * Presents the form to use to create a new Vote for a Comment.
+     *
+     * @param string id
+     * @param mixed $commentId Id of the comment.
+     * @return View
+     */
+    public function newThreadCommentVotesAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+        $vote->setValue($this->getRequest()->query->get('value', 1));
+
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form->setData($vote);
+
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'id' => $id,
+              'commentId' => $commentId,
+              'form' => $form->createView()
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
+
+        return $view;
+    }
+
+    /**
+     * Creates a new Vote for the Comment from the submitted data.
+     *
+     * @param string $id
+     * @param mixed $commentId Id of the comment.
+     * @return Response
+     */
+    public function postThreadCommentVotesAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread
+            || null === $comment
+            || $comment->getThread() !== $thread
+        ) {
+            throw new NotFoundHttpException;
+        }
+
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form->setData($vote);
+
+        $form->bindRequest($this->container->get('request'));
+
+        if ($form->isValid() && $this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
+            return $this->onCreateVoteSuccess($form);
+        }
+
+        return $this->onCreateVoteError($form);
+    }
+
+    /**
+     * Action executed when a vote was succesfully created.
+     *
+     * @todo Think about what to show. For now the new score of the comment.
+     *
+     * @param VoteForm $form
+     * @return Response
+     */
+    protected function onCreateVoteSuccess(Form $form)
+    {
+        $view = View::create()
+          ->setStatusCode(200)
+          ->setData(array(
+              'commentScore' => $form->getData()->getComment()->getScore(),
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_create_success'));
+
+        return $view;
+    }
+
+    /**
+     * Returns a 400 response when the form submission fails.
+     *
+     * @param VoteForm $form
+     * @return Response
+     */
+    protected function onCreateVoteError(Form $form)
+    {
+        $view = View::create()
+          ->setStatusCode(400)
+          ->setData(array(
+              'form' => $form,
+              )
+          )
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'form_errors'));
+
+        return $view;
     }
 }
