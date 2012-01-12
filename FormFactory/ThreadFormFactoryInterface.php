@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\FormFactory;
 
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Thread form creator
@@ -19,9 +19,9 @@ use Symfony\Component\Form\Form;
 interface ThreadFormFactoryInterface
 {
     /**
-     * Creates a comment form
+     * Creates a thread form
      *
-     * @return Form
+     * @return FormInterface
      */
     public function createForm();
 }
