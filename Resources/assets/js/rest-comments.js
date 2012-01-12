@@ -89,12 +89,10 @@
             FOS_COMMENT.thread_container.on('submit',
                 'form.fos_comment_comment_form',
                 function(e) {
-                    console.log(e);
                     var that = $(this);
-                    var form_data = that.data();
 
                     FOS_COMMENT.post(
-                        form_data.action,
+                        this.action,
                         FOS_COMMENT.serializeObject(this),
                         function(data) {
                             FOS_COMMENT.appendComment(data, that);
@@ -132,11 +130,11 @@
                         {},
                         function(data) {
                             // Post it
-                            var form = $(data).children('form');
+                            var form = $(data).children('form')[0];
                             var form_data = $(form).data();
 
                             FOS_COMMENT.post(
-                                form_data.action,
+                                form.action,
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);

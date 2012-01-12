@@ -22,7 +22,7 @@
         {% endif %}
     {% endblock %}
 
-    <form class="fos_comment_comment_form" action="{{ fos_comment_create_action_path }}" data-action="{{ fos_comment_create_action_path }}" data-parent="{{ parent.id|default() }}" method="POST">
+    <form class="fos_comment_comment_form" action="{{ fos_comment_create_action_path }}" data-parent="{{ parent.id|default() }}" method="POST">
 
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}

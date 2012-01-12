@@ -9,10 +9,8 @@
 
 #}
 
-{% set actionUrl = path('fos_comment_post_thread_comment_votes', {'id': id, 'commentId': commentId} ) %}
-
 <div class="fos_comment_vote_form_holder">
-    <form class="fos_comment_vote_form" action="{{ actionUrl }}" data-action="{{ actionUrl }}" data-score-holder="fos_comment_score_{{ commentId }}" method="POST">
+    <form class="fos_comment_vote_form" action="{{ url('fos_comment_post_thread_comment_votes', {'id': id, 'commentId': commentId}) }}" data-score-holder="fos_comment_score_{{ commentId }}" method="POST">
 
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}
