@@ -9,11 +9,13 @@
 
 #}
 
-<form class="fos_comment_comment_form" action="{{ path("fos_comment_post_threads") }}" method="POST">
+<form class="fos_comment_comment_form" action="{{ url('fos_comment_post_threads') }}" method="POST">
 
     {% block fos_comment_form_fields %}
         {{ form_errors(form) }}
+        {{ form_errors(form.id) }}
         {{ form_widget(form.id) }}
+        {{ form_errors(form.permalink) }}
         {{ form_widget(form.permalink) }}
         {{ form_widget(form._token) }}
     {% endblock %}
