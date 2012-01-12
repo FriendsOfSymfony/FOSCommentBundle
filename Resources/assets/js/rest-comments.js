@@ -17,8 +17,8 @@
  *
  * <div id="fos_comment_thread">#comments</div>
  * <script type="text/javascript">
- *     // Set the thread_id if you want comments to be loaded via ajax
- *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
+ *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
+ *     var fos_comment_thread_id = 'http://example.org/api/threads/a_unique_identifier_for_the_thread/comments';
  *
  *     // Set the cors url if you want cross-domain AJAX (also needs easyXDM)
  *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
@@ -65,7 +65,7 @@
         /**
          * Gets the comments of a thread and places them in the thread holder.
          *
-         * @param string identifier Unique identifier for the thread.
+         * @param string identifier Unique identifier url for the thread comments.
          * @param string url Optional url for the thread. Defaults to current location.
          */
         getThreadComments: function(identifier, permalink) {
@@ -74,7 +74,7 @@
             }
 
             FOS_COMMENT.get(
-                '/app_dev.php/api/threads/'+encodeURIComponent(identifier)+'/comments',
+                identifier,
                 {permalink: encodeURIComponent(permalink)},
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
