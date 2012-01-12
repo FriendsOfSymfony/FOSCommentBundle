@@ -13,7 +13,6 @@
 
 {% if depth == 0 and fos_comment_can_comment() %}
         {% render "FOSCommentBundle:Thread:newThreadComments" with {"id": thread.id} %}
-    {% endif %}
 {% endif %}
 
 {% for commentinfo in comments %}
