@@ -157,8 +157,7 @@
 
                 // Remove the form
                 form.parent().remove();
-            }
-            else {
+            } else {
                 form.after(commentHtml);
                 form[0].reset();
             }
@@ -188,11 +187,7 @@
     };
 
     // Check if a thread container was configured. If not, use default.
-    if(typeof window.fos_comment_thread_container != "undefined") {
-        FOS_COMMENT.thread_container = window.fos_comment_thread_container;
-    } else {
-        FOS_COMMENT.thread_container = $('#fos_comment_thread');
-    }
+    FOS_COMMENT.thread_container = window.fos_comment_thread_container || $('#fos_comment_thread');
 
     // AJAX via easyXDM if this is configured
     if(typeof window.fos_comment_remote_cors_url != "undefined") {
