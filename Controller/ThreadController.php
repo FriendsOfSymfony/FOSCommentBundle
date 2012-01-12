@@ -355,7 +355,7 @@ class ThreadController extends Controller
               'form' => $form,
               )
           )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'form_errors'));
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
 
         return $view;
     }
@@ -440,7 +440,7 @@ class ThreadController extends Controller
               'form' => $form,
               )
           )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'form_errors'));
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
 
         return $view;
     }
