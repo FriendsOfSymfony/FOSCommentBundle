@@ -41,9 +41,9 @@ class ThreadController extends Controller
         $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array('form' => $form->createView()))
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
+            ->setStatusCode(200)
+            ->setData(array('form' => $form->createView()))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
 
         return $view;
     }
@@ -65,8 +65,8 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array('thread' => $thread));
+            ->setStatusCode(200)
+            ->setData(array('thread' => $thread));
 
         return $view;
     }
@@ -123,17 +123,16 @@ class ThreadController extends Controller
         $form->setData($comment);
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array(
-              'form' => $form->createView(),
-              'first' => 0 === $thread->getNumComments(),
-              'thread' => $thread,
-              'parent' => $parent,
-              'id' => $id,
-              'parentId' => $parent ? $parent->getId() : null,
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
+            ->setStatusCode(200)
+            ->setData(array(
+                'form' => $form->createView(),
+                'first' => 0 === $thread->getNumComments(),
+                'thread' => $thread,
+                'parent' => $parent,
+                'id' => $id,
+                'parentId' => $parent ? $parent->getId() : null,
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
 
         return $view;
     }
@@ -156,9 +155,9 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array('comment' => $comment, 'thread' => $thread))
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment'));
+            ->setStatusCode(200)
+            ->setData(array('comment' => $comment, 'thread' => $thread))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment'));
 
         return $view;
     }
@@ -190,7 +189,7 @@ class ThreadController extends Controller
         }
 
         $view = $request->query->get('view', 'tree');
-        switch($view) {
+        switch ($view) {
             case self::VIEW_FLAT:
                 $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $sorter, $displayDepth);
 
@@ -208,16 +207,15 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array(
-              'comments' => $comments,
-              'displayDepth' => $displayDepth,
-              'sorter' => 'date',
-              'thread' => $thread,
-              'view' => $view,
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comments'));
+            ->setStatusCode(200)
+            ->setData(array(
+                'comments' => $comments,
+                'displayDepth' => $displayDepth,
+                'sorter' => 'date',
+                'thread' => $thread,
+                'view' => $view,
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comments'));
 
         // Register a special handler for RSS. Only available on this route.
         if ('rss' === $request->getRequestFormat()) {
@@ -289,14 +287,13 @@ class ThreadController extends Controller
         $form->setData($vote);
 
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array(
-              'id' => $id,
-              'commentId' => $commentId,
-              'form' => $form->createView()
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
+            ->setStatusCode(200)
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'form' => $form->createView()
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
 
         return $view;
     }
@@ -358,14 +355,13 @@ class ThreadController extends Controller
     protected function onCreateCommentError(FormInterface $form, $id, $parentId = null)
     {
         $view = View::create()
-          ->setStatusCode(400)
-          ->setData(array(
-              'form' => $form,
-              'id' => $id,
-              'parentId' => $parentId,
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
+            ->setStatusCode(400)
+            ->setData(array(
+                'form' => $form,
+                'id' => $id,
+                'parentId' => $parentId,
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
 
         return $view;
     }
@@ -392,12 +388,11 @@ class ThreadController extends Controller
     protected function onCreateThreadError(FormInterface $form)
     {
         $view = View::create()
-          ->setStatusCode(400)
-          ->setData(array(
-              'form' => $form,
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
+            ->setStatusCode(400)
+            ->setData(array(
+                'form' => $form,
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
 
         return $view;
     }
@@ -427,12 +422,11 @@ class ThreadController extends Controller
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
-          ->setStatusCode(200)
-          ->setData(array(
-              'commentScore' => $form->getData()->getComment()->getScore(),
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_create_success'));
+            ->setStatusCode(200)
+            ->setData(array(
+                'commentScore' => $form->getData()->getComment()->getScore(),
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_create_success'));
 
         return $view;
     }
@@ -449,14 +443,13 @@ class ThreadController extends Controller
     protected function onCreateVoteError(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
-          ->setStatusCode(400)
-          ->setData(array(
-              'id' => $id,
-              'commentId' => $commentId,
-              'form' => $form,
-              )
-          )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
+            ->setStatusCode(400)
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'form' => $form,
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
 
         return $view;
     }
