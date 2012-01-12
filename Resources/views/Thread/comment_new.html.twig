@@ -13,7 +13,7 @@
     {% block fos_comment_form_title %}
         {% if first %}
             <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
-        {% elseif if parent %}
+        {% elseif parent %}
             <h3>Reply to {{ parent.authorName }}.</h3>
         {% else %}
             <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
