@@ -388,7 +388,7 @@ class ThreadController extends Controller
               'form' => $form,
               )
           )
-          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'form_errors'));
+          ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
 
         return $view;
     }
