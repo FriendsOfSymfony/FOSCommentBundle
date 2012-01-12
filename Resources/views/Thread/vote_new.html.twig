@@ -14,6 +14,7 @@
 
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}
+            {{ form_errors(form.value) }}
             {{ form_widget(form.value) }}
             {{ form_widget(form._token) }}
         {% endblock %}
