@@ -128,7 +128,7 @@ class ThreadController extends Controller
               'form' => $form->createView(),
               'first' => 0 === $thread->getNumComments(),
               'thread' => $thread,
-              'fos_comment_create_action_path' => $this->get('router')->generate('fos_comment_post_thread_comments', array('id' => $id, 'parentId' => $parent ? $parent->getId() : null)),
+              'fos_comment_create_action_path' => $this->get('router')->generate('fos_comment_post_thread_comments', array('id' => $id, 'parentId' => $parent ? $parent->getId() : null), true),
               'parent' => $parent,
               )
           )
