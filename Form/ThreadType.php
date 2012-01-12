@@ -24,7 +24,7 @@ class ThreadType extends AbstractType
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('id', 'textarea');
+        $builder->add('id', 'text');
         $builder->add('permalink', 'textarea');
     }
 

@@ -8,7 +8,8 @@
  */
 
 /**
- * To use this reference javascript, you must also have jQuery installed.
+ * To use this reference javascript, you must also have jQuery installed. If
+ * you want to embed comments cross-domain, then easyXDM CORS is also required.
  *
  * @todo: expand this explanation (also in the docs)
  *
@@ -22,6 +23,9 @@
  *     // Set the cors url if you want cross-domain AJAX (also needs easyXDM)
  *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
  *
+ *     // Optionally set a different element than div#fos_comment_thread as container
+ *     var fos_comment_thread_container = $('#other_element');
+ *
  * (function() {
  *     var fos_comment_script = document.createElement('script');
  *     fos_comment_script.async = true;
@@ -34,6 +38,7 @@
  */
 
 (function(window, $, easyXDM){
+    "use strict";
     var FOS_COMMENT = {
         /**
          * Shorcut post method.
@@ -72,7 +77,7 @@
                 '/app_dev.php/api/threads/'+encodeURIComponent(identifier)+'/comments',
                 {permalink: encodeURIComponent(permalink)},
                 function(data) {
-                    $('#fos_comment_thread').html(data);
+                    FOS_COMMENT.thread_container.html(data);
                 }
             );
         },
@@ -81,8 +86,10 @@
          * Initialize the event listeners.
          */
         initializeListeners: function() {
-            $('form.fos_comment_comment_form').live('submit',
+            FOS_COMMENT.thread_container.on('submit',
+                'form.fos_comment_comment_form',
                 function(e) {
+                    console.log(e);
                     var that = $(this);
                     var form_data = that.data();
 
@@ -98,7 +105,8 @@
                 }
             );
 
-            $('.fos_comment_comment_reply_show_form').live('click',
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_reply_show_form',
                 function(e) {
                     var form_data = $(this).data();
                     var that = this;
@@ -113,10 +121,10 @@
                 }
             );
 
-            $('.fos_comment_comment_vote').live('click',
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_vote',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
 
                     // Get the form
                     FOS_COMMENT.get(
@@ -181,8 +189,15 @@
         }
     };
 
+    // Check if a thread container was configured. If not, use default.
+    if(typeof window.fos_comment_thread_container != "undefined") {
+        FOS_COMMENT.thread_container = window.fos_comment_thread_container;
+    } else {
+        FOS_COMMENT.thread_container = $('#fos_comment_thread');
+    }
+
     // AJAX via easyXDM if this is configured
-    if(typeof fos_comment_remote_cors_url != "undefined") {
+    if(typeof window.fos_comment_remote_cors_url != "undefined") {
         /**
          * easyXDM instance to use
          */
@@ -222,7 +237,7 @@
 
         /* Initialize xhr object to do cross-domain requests. */
         FOS_COMMENT.xhr = new FOS_COMMENT.easyXDM.Rpc({
-                remote: fos_comment_remote_cors_url
+                remote: window.fos_comment_remote_cors_url
         }, {
             remote: {
                 request: {} // request is exposed by /cors/
@@ -231,9 +246,9 @@
     }
 
     // Load the comment if there is a thread id defined.
-    if(typeof fos_comment_thread_id != "undefined") {
+    if(typeof window.fos_comment_thread_id != "undefined") {
         // get the thread comments and init listeners
-        FOS_COMMENT.getThreadComments(fos_comment_thread_id);
+        FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
     }
 
     FOS_COMMENT.initializeListeners();
