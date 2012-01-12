@@ -11,8 +11,7 @@
 {% set depth = depth|default(0) %}
 {% set view = view|default('tree') %}
 
-{% if depth == 0 %}
-    {% if fos_comment_can_comment() %}
+{% if depth == 0 and fos_comment_can_comment() %}
         {% render "FOSCommentBundle:Thread:newThreadComments" with {"id": thread.id} %}
     {% endif %}
 {% endif %}
