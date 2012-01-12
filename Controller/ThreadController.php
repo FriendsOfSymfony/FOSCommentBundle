@@ -16,7 +16,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\RestBundle\View\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -332,11 +332,11 @@ class ThreadController extends Controller
     /**
      * Forwards the action to the comment view on a successful form submission.
      *
-     * @param CommentForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateCommentSuccess(Form $form)
+    protected function onCreateCommentSuccess(FormInterface $form)
     {
         return $this->getThreadCommentAction($form->getData()->getThread()->getId(), $form->getData()->getId());
     }
@@ -344,11 +344,11 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param CommentForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateCommentError(Form $form)
+    protected function onCreateCommentError(FormInterface $form)
     {
         $view = View::create()
           ->setStatusCode(400)
@@ -364,11 +364,11 @@ class ThreadController extends Controller
     /**
      * Forwards the action to the thread view on a successful form submission.
      *
-     * @param ThreadForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateThreadSuccess(Form $form)
+    protected function onCreateThreadSuccess(FormInterface $form)
     {
         return $this->getThreadAction($form->getData()->getId());
     }
@@ -376,11 +376,11 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param ThreadForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateThreadError(Form $form)
+    protected function onCreateThreadError(FormInterface $form)
     {
         $view = View::create()
           ->setStatusCode(400)
@@ -396,11 +396,11 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the Thread creation fails due to a duplicate id.
      *
-     * @param ThreadForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateThreadErrorDuplicate(Form $form)
+    protected function onCreateThreadErrorDuplicate(FormInterface $form)
     {
         return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), 400);
     }
@@ -408,12 +408,12 @@ class ThreadController extends Controller
     /**
      * Action executed when a vote was succesfully created.
      *
-     * @param VoteForm $form
+     * @param FormInterface $form
      *
      * @return View
      * @todo Think about what to show. For now the new score of the comment.
      */
-    protected function onCreateVoteSuccess(Form $form)
+    protected function onCreateVoteSuccess(FormInterface $form)
     {
         $view = View::create()
           ->setStatusCode(200)
@@ -429,11 +429,11 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param VoteForm $form
+     * @param FormInterface $form
      *
      * @return View
      */
-    protected function onCreateVoteError(Form $form)
+    protected function onCreateVoteError(FormInterface $form)
     {
         $view = View::create()
           ->setStatusCode(400)
