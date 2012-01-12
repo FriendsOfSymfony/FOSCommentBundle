@@ -322,10 +322,10 @@ class ThreadController extends Controller
         $form->bindRequest($this->container->get('request'));
 
         if ($form->isValid() && $this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
-            return $this->onCreateVoteSuccess($form);
+            return $this->onCreateVoteSuccess($form, $id, $commentId);
         }
 
-        return $this->onCreateVoteError($form);
+        return $this->onCreateVoteError($form, $id, $commentId);
     }
 
     /**
@@ -407,12 +407,14 @@ class ThreadController extends Controller
     /**
      * Action executed when a vote was succesfully created.
      *
-     * @param FormInterface $form
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
      *
      * @return View
      * @todo Think about what to show. For now the new score of the comment.
      */
-    protected function onCreateVoteSuccess(FormInterface $form)
+    protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
           ->setStatusCode(200)
@@ -428,15 +430,19 @@ class ThreadController extends Controller
     /**
      * Returns a 400 response when the form submission fails.
      *
-     * @param FormInterface $form
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
      *
      * @return View
      */
-    protected function onCreateVoteError(FormInterface $form)
+    protected function onCreateVoteError(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
           ->setStatusCode(400)
           ->setData(array(
+              'id' => $id,
+              'commentId' => $commentId,
               'form' => $form,
               )
           )
