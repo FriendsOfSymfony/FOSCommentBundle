@@ -10,4 +10,3 @@ fos_comment_thread_api:
     type: rest
     resource: FOS\CommentBundle\Controller\ThreadController
     name_prefix: fos_comment_
-    prefix: /api
