@@ -260,6 +260,11 @@ class ThreadController extends Controller
     }
 
     /**
+     * Get the votes of a comment.
+     *
+     * @param string $id        Id of the thread
+     * @param mixed  $commentId Id of the comment
+     *
      * @return View
      */
     public function getThreadCommentVotesAction($id, $commentId)
