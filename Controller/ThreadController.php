@@ -15,6 +15,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Response\Codes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\Form\FormInterface;
@@ -42,7 +43,6 @@ class ThreadController extends Controller
         $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array('form' => $form->createView()))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'new'));
 
@@ -66,7 +66,6 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array('thread' => $thread));
 
         return $view;
@@ -124,7 +123,6 @@ class ThreadController extends Controller
         $form->setData($comment);
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array(
                 'form' => $form->createView(),
                 'first' => 0 === $thread->getNumComments(),
@@ -156,7 +154,6 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array('comment' => $comment, 'thread' => $thread))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment'));
 
@@ -208,7 +205,6 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array(
                 'comments' => $comments,
                 'displayDepth' => $displayDepth,
@@ -223,7 +219,7 @@ class ThreadController extends Controller
             $templatingHandler = function($handler, $view, $request) {
                 $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'thread_xml_feed'));
 
-                return new Response($handler->renderTemplate($view, 'rss'), 200, $view->getHeaders());
+                return new Response($handler->renderTemplate($view, 'rss'), Codes::HTTP_OK, $view->getHeaders());
             };
 
             $this->get('fos_rest.view_handler')->registerHandler('rss', $templatingHandler);
@@ -277,7 +273,6 @@ class ThreadController extends Controller
         }
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array(
                 'commentScore' => $comment->getScore(),
             ))
@@ -310,7 +305,6 @@ class ThreadController extends Controller
         $form->setData($vote);
 
         $view = View::create()
-            ->setStatusCode(200)
             ->setData(array(
                 'id' => $id,
                 'commentId' => $commentId,
@@ -367,7 +361,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Returns a 400 response when the form submission fails.
+     * Returns a HTTP_BAD_REQUEST response when the form submission fails.
      *
      * @param FormInterface $form     Form with the error
      * @param string        $id       Id of the thread
@@ -378,7 +372,7 @@ class ThreadController extends Controller
     protected function onCreateCommentError(FormInterface $form, $id, $parentId = null)
     {
         $view = View::create()
-            ->setStatusCode(400)
+            ->setStatusCode(Codes::HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
                 'id' => $id,
@@ -402,7 +396,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Returns a 400 response when the form submission fails.
+     * Returns a HTTP_BAD_REQUEST response when the form submission fails.
      *
      * @param FormInterface $form
      *
@@ -411,7 +405,7 @@ class ThreadController extends Controller
     protected function onCreateThreadError(FormInterface $form)
     {
         $view = View::create()
-            ->setStatusCode(400)
+            ->setStatusCode(Codes::HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
             ))
@@ -421,7 +415,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Returns a 400 response when the Thread creation fails due to a duplicate id.
+     * Returns a HTTP_BAD_REQUEST response when the Thread creation fails due to a duplicate id.
      *
      * @param FormInterface $form
      *
@@ -429,7 +423,7 @@ class ThreadController extends Controller
      */
     protected function onCreateThreadErrorDuplicate(FormInterface $form)
     {
-        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), 400);
+        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), Codes::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -448,7 +442,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Returns a 400 response when the form submission fails.
+     * Returns a HTTP_BAD_REQUEST response when the form submission fails.
      *
      * @param FormInterface $form      Form with the error
      * @param string        $id        Id of the thread
@@ -459,7 +453,7 @@ class ThreadController extends Controller
     protected function onCreateVoteError(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
-            ->setStatusCode(400)
+            ->setStatusCode(Codes::HTTP_BAD_REQUEST)
             ->setData(array(
                 'id' => $id,
                 'commentId' => $commentId,
