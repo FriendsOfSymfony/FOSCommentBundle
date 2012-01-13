@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Controller;
 
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\View\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
@@ -264,6 +265,28 @@ class ThreadController extends Controller
     }
 
     /**
+     * @return View
+     */
+    public function getThreadCommentVotesAction($id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread || null === $comment || $comment->getThread() !== $thread) {
+            throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
+        }
+
+        $view = View::create()
+            ->setStatusCode(200)
+            ->setData(array(
+                'commentScore' => $comment->getScore(),
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_votes'));
+
+        return $view;
+    }
+
+    /**
      * Presents the form to use to create a new Vote for a Comment.
      *
      * @param string $id        Id of the thread
@@ -340,7 +363,7 @@ class ThreadController extends Controller
      */
     protected function onCreateCommentSuccess(FormInterface $form, $id, $parentId = null)
     {
-        return $this->getThreadCommentAction($form->getData()->getThread()->getId(), $form->getData()->getId());
+        return RouteRedirectView::create('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()));
     }
 
     /**
@@ -375,7 +398,7 @@ class ThreadController extends Controller
      */
     protected function onCreateThreadSuccess(FormInterface $form)
     {
-        return $this->getThreadAction($form->getData()->getId());
+        return RouteRedirectView::create('fos_comment_get_thread', array('id' => $form->getData()->getId()));
     }
 
     /**
@@ -421,14 +444,7 @@ class ThreadController extends Controller
      */
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
-        $view = View::create()
-            ->setStatusCode(200)
-            ->setData(array(
-                'commentScore' => $form->getData()->getComment()->getScore(),
-            ))
-            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_create_success'));
-
-        return $view;
+        return RouteRedirectView::create('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId));
     }
 
     /**
