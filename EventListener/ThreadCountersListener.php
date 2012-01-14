@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\EventSubscriber;
+namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ThreadCountersSubscriber implements EventSubscriberInterface
+class ThreadCountersListener implements EventSubscriberInterface
 {
     public function onCommentPersist(CommentEvent $event)
     {

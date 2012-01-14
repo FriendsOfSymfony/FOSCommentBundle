@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\EventSubscriber;
+namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CommentVoteScoreSubscriber implements EventSubscriberInterface
+class CommentVoteScoreListener implements EventSubscriberInterface
 {
     public function onVotePersist(VoteEvent $event)
     {

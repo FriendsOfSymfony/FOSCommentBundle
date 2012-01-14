@@ -14,12 +14,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.event_subscriber.comment_vote_score" class="FOS\CommentBundle\EventSubscriber\CommentVoteScoreSubscriber" public="false">
+        <service id="fos_comment.event_subscriber.comment_vote_score" class="FOS\CommentBundle\EventListener\CommentVoteScoreListener" public="false">
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
             <tag name="kernel.event_listener" event="fos_comment.vote.pre_persist" method="onVotePersist" />
         </service>
 
-        <service id="fos_comment.event_subscriber.thread_counters" class="FOS\CommentBundle\EventSubscriber\ThreadCountersSubscriber" public="false">
+        <service id="fos_comment.event_subscriber.thread_counters" class="FOS\CommentBundle\EventListener\ThreadCountersListener" public="false">
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
             <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="onCommentPersist" />
         </service>
