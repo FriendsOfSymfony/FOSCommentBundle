@@ -14,7 +14,6 @@ namespace FOS\CommentBundle\Twig;
 use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use FOS\CommentBundle\Acl\VoteAclInterface;
 
 /**
@@ -24,13 +23,11 @@ use FOS\CommentBundle\Acl\VoteAclInterface;
  */
 class CommentExtension extends \Twig_Extension
 {
-    protected $securityContext;
     protected $commentAcl;
     protected $voteAcl;
 
-    public function __construct(SecurityContextInterface $securityContext, CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null)
+    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null)
     {
-        $this->securityContext = $securityContext;
         $this->commentAcl = $commentAcl;
         $this->voteAcl = $voteAcl;
     }
@@ -88,14 +85,12 @@ class CommentExtension extends \Twig_Extension
 
     public function canVote(CommentInterface $comment)
     {
-        if (null !== $this->commentAcl && !$this->commentAcl->canView($comment)) {
-            return false;
+        if (null === $this->voteAcl) {
+            return true;
         }
 
-        if (null === $this->voteAcl) {
-            $token = $this->securityContext->getToken();
-
-            return null !== $token && $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED');
+        if (null !== $this->commentAcl && !$this->commentAcl->canView($comment)) {
+            return false;
         }
 
         return $this->voteAcl->canCreate();
