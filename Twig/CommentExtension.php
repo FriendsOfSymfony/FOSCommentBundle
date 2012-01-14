@@ -15,6 +15,7 @@ use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use FOS\CommentBundle\Acl\VoteAclInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -87,10 +88,8 @@ class CommentExtension extends \Twig_Extension
 
     public function canVote(CommentInterface $comment)
     {
-        if (null !== $this->commentAcl) {
-            if (!$this->commentAcl->canView($comment)) {
-                return false;
-            }
+        if (null !== $this->commentAcl && !$this->commentAcl->canView($comment)) {
+            return false;
         }
 
         if (null === $this->voteAcl) {
