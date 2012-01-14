@@ -47,7 +47,7 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('blamer', 'form', 'creator', 'spam_detection', 'twig', 'sorting') as $basename) {
+        foreach (array('blamer', 'events', 'form', 'creator', 'spam_detection', 'twig', 'sorting') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 

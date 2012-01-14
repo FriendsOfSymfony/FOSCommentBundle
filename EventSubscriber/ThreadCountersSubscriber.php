@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\EventListener;
+namespace FOS\CommentBundle\EventSubscriber;
 
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Event\CommentEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ThreadCountersListener implements EventSubscriberInterface
+class ThreadCountersSubscriber implements EventSubscriberInterface
 {
-    public function onCommentAdd(CommentEvent $event)
+    public function onCommentPersist(CommentEvent $event)
     {
         $comment = $event->getComment();
         $thread = $comment->getThread();
@@ -28,6 +28,6 @@ class ThreadCountersListener implements EventSubscriberInterface
 
     static public function getSubscribedEvents()
     {
-        return array(CommentEvents::ADD => 'onCommentAdd');
+        return array(CommentEvents::PRE_PERSIST => 'onCommentPersist');
     }
 }

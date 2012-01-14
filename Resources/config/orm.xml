@@ -29,6 +29,7 @@
         </service>
 
         <service id="fos_comment.manager.thread.default" class="%fos_comment.manager.thread.default.class%">
+            <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
@@ -39,6 +40,7 @@
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
         <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.vote.default.class%">
+            <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.entity_manager" />
             <argument>%fos_comment.model.vote.class%</argument>
         </service>

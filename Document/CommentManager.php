@@ -49,7 +49,7 @@ class CommentManager extends BaseCommentManager
      *
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      * @param \FOS\CommentBundle\Sorting\SortingFactory $factory
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\ODM\MongoDB\DocumentManager $dm
      * @param string $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, $class)

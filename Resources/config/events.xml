@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="fos_comment.event_subscriber.comment_vote_score" class="FOS\CommentBundle\EventSubscriber\CommentVoteScoreSubscriber" public="false">
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="fos_comment.event_subscriber.thread_counters" class="FOS\CommentBundle\EventSubscriber\ThreadCountersSubscriber" public="false">
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</container>
