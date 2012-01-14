@@ -166,5 +166,11 @@ abstract class CommentManager implements CommentManagerInterface
         $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
     }
 
+    /**
+     * Performs the persistence of a comment.
+     *
+     * @abstract
+     * @param CommentInterface $comment
+     */
     abstract protected function doAddComment(CommentInterface $comment);
 }

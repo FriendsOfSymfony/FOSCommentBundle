@@ -29,7 +29,7 @@ abstract class Vote implements VoteInterface
     protected $id;
 
     /**
-     * @var CommentInterface
+     * @var VotableCommentInterface
      */
     protected $comment;
 

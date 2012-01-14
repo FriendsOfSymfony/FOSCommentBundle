@@ -71,5 +71,11 @@ abstract class VoteManager implements VoteManagerInterface
         $this->dispatcher->dispatch(Events::VOTE_POST_PERSIST, $event);
     }
 
+    /**
+     * Performs the persistence of the Vote.
+     * 
+     * @abstract
+     * @param VoteInterface $vote
+     */
     abstract protected function doAddVote(VoteInterface $vote);
 }

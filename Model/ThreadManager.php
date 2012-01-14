@@ -71,5 +71,11 @@ abstract class ThreadManager implements ThreadManagerInterface
         $this->dispatcher->dispatch(Events::THREAD_POST_PERSIST, $event);
     }
 
+    /**
+     * Performs the persistence of the Thread.
+     *
+     * @abstract
+     * @param ThreadInterface $thread
+     */
     abstract protected function doAddThread(ThreadInterface $thread);
 }
