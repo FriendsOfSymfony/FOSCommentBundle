@@ -12,11 +12,13 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use FOS\CommentBundle\Event\VoteEvent;
+use FOS\CommentBundle\Event\VoteEvents;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default ORM VoteManager.
@@ -46,11 +48,15 @@ class VoteManager extends BaseVoteManager
      * @param EntityManager     $em
      * @param string            $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispacher, EntityManager $em, $class)
     {
-        $this->em         = $em;
+        parent::__construct($dispacher);
+
+        $this->em = $em;
         $this->repository = $em->getRepository($class);
-        $this->class      = $em->getClassMetadata($class)->name;
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
     }
 
     /**
@@ -60,14 +66,16 @@ class VoteManager extends BaseVoteManager
      * @param VotableCommentInterface $comment
      * @return void
      */
-    public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
+    public function addVote(VoteInterface $vote)
     {
-        $vote->setComment($comment);
-        $comment->incrementScore($vote->getvalue());
+        parent::addVote($vote);
 
-        $this->em->persist($comment);
+        $this->em->persist($vote->getComment());
         $this->em->persist($vote);
         $this->em->flush();
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(VoteEvents::POST_PERSIST, $event);
     }
 
     /**

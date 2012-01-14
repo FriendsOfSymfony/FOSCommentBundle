@@ -12,11 +12,13 @@
 namespace FOS\CommentBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use FOS\CommentBundle\Event\VoteEvent;
+use FOS\CommentBundle\Event\VoteEvents;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default ODM VoteManager.
@@ -46,11 +48,15 @@ class VoteManager extends BaseVoteManager
      * @param DocumentManager   $dm
      * @param string            $class
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
     {
-        $this->em         = $dm;
+        parent::__construct($dispatcher);
+
+        $this->dm = $dm;
         $this->repository = $dm->getRepository($class);
-        $this->class      = $dm->getClassMetadata($class)->name;
+
+        $metadata = $dm->getClassMetadata($class);
+        $this->class = $metadata->name;
     }
 
     /**
@@ -60,14 +66,16 @@ class VoteManager extends BaseVoteManager
      * @param VotableCommentInterface $comment
      * @return void
      */
-    public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
+    public function addVote(VoteInterface $vote)
     {
-        $vote->setComment($comment);
-        $comment->setScore($comment->getScore() + $vote->getValue());
+        parent::addVote($vote);
 
-        $this->dm->persist($comment);
+        $this->dm->persist($vote->getComment());
         $this->dm->persist($vote);
         $this->dm->flush();
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(VoteEvents::POST_PERSIST, $event);
     }
 
     /**

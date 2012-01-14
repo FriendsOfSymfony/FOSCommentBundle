@@ -29,6 +29,17 @@ abstract class Vote implements VoteInterface
     protected $id;
 
     /**
+     * @var CommentInterface
+     */
+    protected $comment;
+
+    public function __construct(VotableCommentInterface $comment)
+    {
+        $this->comment = $comment;
+        $this->createdAt = new DateTime();
+    }
+
+    /**
      * Return the comment unique id
      *
      * @return mixed
@@ -42,11 +53,6 @@ abstract class Vote implements VoteInterface
      * @var DateTime
      */
     protected $createdAt;
-
-    public function __construct()
-    {
-        $this->createdAt = new DateTime();
-    }
 
     /**
      * @return DateTime

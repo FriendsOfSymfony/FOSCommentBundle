@@ -11,6 +11,10 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Event\VoteEvent;
+use FOS\CommentBundle\Event\VoteEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 /**
  * Abstract VotingManager
  *
@@ -18,6 +22,21 @@ namespace FOS\CommentBundle\Model;
  */
 abstract class VoteManager implements VoteManagerInterface
 {
+    /**
+     * @var
+     */
+    protected $dispatcher;
+
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     */
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -29,11 +48,21 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function createVote()
+    public function createVote(VotableCommentInterface $comment)
     {
         $class = $this->getClass();
-        $vote = new $class();
+        $vote = new $class($comment);
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(VoteEvents::CREATE, $event);
 
         return $vote;
     }
+
+    public function addVote(VoteInterface $vote)
+    {
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(VoteEvents::PRE_PERSIST, $event);
+    }
+
 }

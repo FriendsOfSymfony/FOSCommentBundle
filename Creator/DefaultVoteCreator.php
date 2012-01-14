@@ -59,7 +59,7 @@ class DefaultVoteCreator implements VoteCreatorInterface
             return false;
         }
 
-        $this->voteManager->addVote($vote, $comment);
+        $this->voteManager->addVote($vote);
 
         return true;
     }
