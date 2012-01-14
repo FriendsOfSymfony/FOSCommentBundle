@@ -12,8 +12,6 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use FOS\CommentBundle\Event\VoteEvent;
-use FOS\CommentBundle\Event\VoteEvents;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;

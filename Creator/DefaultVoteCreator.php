@@ -51,7 +51,7 @@ class DefaultVoteCreator implements VoteCreatorInterface
      * @param VotableCommentInterface $comment
      * @return bool
      */
-    public function create(VoteInterface $vote, VotableCommentInterface $comment)
+    public function create(VoteInterface $vote)
     {
         $this->voteBlamer->blame($vote);
 

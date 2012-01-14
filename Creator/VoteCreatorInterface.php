@@ -27,5 +27,5 @@ interface VoteCreatorInterface
      * @param VoteInterface $vote
      * @return bool if the Vote was created successfully
      */
-    function create(VoteInterface $vote, VotableCommentInterface $comment);
+    function create(VoteInterface $vote);
 }

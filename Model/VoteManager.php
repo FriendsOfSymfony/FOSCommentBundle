@@ -51,7 +51,8 @@ abstract class VoteManager implements VoteManagerInterface
     public function createVote(VotableCommentInterface $comment)
     {
         $class = $this->getClass();
-        $vote = new $class($comment);
+        $vote = new $class();
+        $vote->setComment($comment);
 
         $event = new VoteEvent($vote);
         $this->dispatcher->dispatch(Events::VOTE_CREATE, $event);

@@ -12,8 +12,6 @@
 namespace FOS\CommentBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use FOS\CommentBundle\Event\VoteEvent;
-use FOS\CommentBundle\Event\VoteEvents;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;

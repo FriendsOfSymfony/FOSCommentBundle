@@ -12,8 +12,6 @@
 namespace FOS\CommentBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use FOS\CommentBundle\Event\CommentEvent;
-use FOS\CommentBundle\Event\CommentEvents;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;

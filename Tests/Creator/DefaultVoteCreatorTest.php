@@ -59,10 +59,10 @@ class DefaultVoteCreatorTest extends \PHPUnit_Framework_TestCase
 
         $this->voteManager->expects($this->once())
             ->method('addVote')
-            ->with($this->vote, $this->comment);
+            ->with($this->vote);
 
         $creator = new DefaultVoteCreator($this->voteManager, $this->voteBlamer, $this->validator);
-        $result = $creator->create($this->vote, $this->comment);
+        $result = $creator->create($this->vote);
 
         $this->assertTrue($result);
     }

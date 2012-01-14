@@ -12,8 +12,6 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use FOS\CommentBundle\Event\ThreadEvent;
-use FOS\CommentBundle\Event\ThreadEvents;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
