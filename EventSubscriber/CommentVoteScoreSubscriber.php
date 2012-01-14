@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\EventSubscriber;
 
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
-use FOS\CommentBundle\Event\VoteEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CommentVoteScoreSubscriber implements EventSubscriberInterface
@@ -26,6 +26,6 @@ class CommentVoteScoreSubscriber implements EventSubscriberInterface
 
     static public function getSubscribedEvents()
     {
-        return array(VoteEvents::PRE_PERSIST => 'onVotePersist');
+        return array(Events::VOTE_PRE_PERSIST => 'onVotePersist');
     }
 }

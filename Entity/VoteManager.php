@@ -63,19 +63,13 @@ class VoteManager extends BaseVoteManager
      * Persists a vote.
      *
      * @param VoteInterface $vote
-     * @param VotableCommentInterface $comment
      * @return void
      */
-    public function addVote(VoteInterface $vote)
+    protected function doAddVote(VoteInterface $vote)
     {
-        parent::addVote($vote);
-
         $this->em->persist($vote->getComment());
         $this->em->persist($vote);
         $this->em->flush();
-
-        $event = new VoteEvent($vote);
-        $this->dispatcher->dispatch(VoteEvents::POST_PERSIST, $event);
     }
 
     /**

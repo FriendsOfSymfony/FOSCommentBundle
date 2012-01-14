@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\EventSubscriber;
 
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
-use FOS\CommentBundle\Event\CommentEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ThreadCountersSubscriber implements EventSubscriberInterface
@@ -28,6 +28,6 @@ class ThreadCountersSubscriber implements EventSubscriberInterface
 
     static public function getSubscribedEvents()
     {
-        return array(CommentEvents::PRE_PERSIST => 'onCommentPersist');
+        return array(Events::COMMENT_PRE_PERSIST => 'onCommentPersist');
     }
 }

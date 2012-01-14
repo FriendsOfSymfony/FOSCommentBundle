@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\ThreadEvent;
-use FOS\CommentBundle\Event\ThreadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -50,21 +50,26 @@ abstract class ThreadManager implements ThreadManagerInterface
         $thread = new $class;
 
         $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(ThreadEvents::CREATE, $event);
+        $this->dispatcher->dispatch(Events::THREAD_CREATE, $event);
 
         return $thread;
     }
 
     /**
-     * Handles notifiying any event listeners of an upcoming persist
-     * action. Implementors must take care to handle persisting after
-     * calling this method, and dispatching a POST_PERSIST event.
+     * Persists a thread.
      *
      * @param ThreadInterface $thread
      */
     public function addThread(ThreadInterface $thread)
     {
         $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(ThreadEvents::PRE_PERSIST, $event);
+        $this->dispatcher->dispatch(Events::THREAD_PRE_PERSIST, $event);
+
+        $this->doAddThread($thread);
+
+        $event = new ThreadEvent($thread);
+        $this->dispatcher->dispatch(Events::THREAD_POST_PERSIST, $event);
     }
+
+    abstract protected function doAddThread(ThreadInterface $thread);
 }

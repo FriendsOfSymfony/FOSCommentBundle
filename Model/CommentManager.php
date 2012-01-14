@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
-use FOS\CommentBundle\Event\CommentEvents;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -66,7 +66,7 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(CommentEvents::CREATE, $event);
+        $this->dispatcher->dispatch(Events::COMMENT_CREATE, $event);
 
         return $comment;
     }
@@ -158,6 +158,13 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(CommentEvents::PRE_PERSIST, $event);
+        $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
+
+        $this->doAddComment($comment);
+
+        $event = new CommentEvent($comment);
+        $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
     }
+
+    abstract protected function doAddComment(CommentInterface $comment);
 }

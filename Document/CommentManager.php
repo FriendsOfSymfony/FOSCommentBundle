@@ -127,16 +127,11 @@ class CommentManager extends BaseCommentManager
      *
      * @param CommentInterface $comment
      */
-    public function addComment(CommentInterface $comment)
+    protected function doAddComment(CommentInterface $comment)
     {
-        parent::addComment($comment);
-
         $this->dm->persist($comment->getThread());
         $this->dm->persist($comment);
         $this->dm->flush();
-
-        $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(CommentEvents::POST_PERSIST, $event);
     }
 
     /**

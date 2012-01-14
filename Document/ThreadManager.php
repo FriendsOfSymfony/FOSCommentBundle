@@ -83,15 +83,10 @@ class ThreadManager extends BaseThreadManager
      *
      * @param ThreadInterface $thread
      */
-    public function addThread(ThreadInterface $thread)
+    protected function doAddThread(ThreadInterface $thread)
     {
-        parent::addThread($thread);
-
         $this->dm->persist($thread);
         $this->dm->flush();
-
-        $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(ThreadEvents::POST_PERSIST, $event);
     }
 
     /**
