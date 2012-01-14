@@ -49,4 +49,11 @@ interface CommentInterface
      * @return ThreadInterface
      */
     function getThread();
+
+    function setThread(ThreadInterface $thread);
+
+    function getParent();
+
+    function setParent(CommentInterface $comment);
+
 }
