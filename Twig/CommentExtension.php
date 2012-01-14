@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Twig;
 use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -22,11 +23,15 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
  */
 class CommentExtension extends \Twig_Extension
 {
+    protected $securityContext;
     protected $commentAcl;
+    protected $voteAcl;
 
-    public function __construct(CommentAclInterface $commentAcl = null)
+    public function __construct(SecurityContextInterface $securityContext, CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null)
     {
+        $this->securityContext = $securityContext;
         $this->commentAcl = $commentAcl;
+        $this->voteAcl = $voteAcl;
     }
 
     public function getTests()
@@ -55,6 +60,7 @@ class CommentExtension extends \Twig_Extension
     {
         return array(
             'fos_comment_can_comment' => new \Twig_Function_Method($this, 'canComment'),
+            'fos_comment_can_vote'    => new \Twig_Function_Method($this, 'canVote'),
         );
     }
 
@@ -77,6 +83,23 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->commentAcl->canReply($comment);
+    }
+
+    public function canVote(CommentInterface $comment)
+    {
+        if (null !== $this->commentAcl) {
+            if (!$this->commentAcl->canView($comment)) {
+                return false;
+            }
+        }
+
+        if (null === $this->voteAcl) {
+            $token = $this->securityContext->getToken();
+
+            return null !== $token && $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED');
+        }
+
+        return $this->voteAcl->canCreate();
     }
 
     /**
