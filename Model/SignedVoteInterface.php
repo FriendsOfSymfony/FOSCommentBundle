@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * A signed vote is bound to a FOS\UserBundle User model.
