@@ -11,8 +11,11 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Event\CommentEvent;
+use FOS\CommentBundle\Event\CommentEvents;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -27,32 +30,23 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * @var SortingFactory
      */
-    private $sortingFactory;
+    protected $sortingFactory;
 
     /**
-     * Sets the SortingFactory instance on the Manager.
-     *
-     * @param SortingFactory $factory
-     * @return void
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    protected function setSortingFactory(SortingFactory $factory)
+    protected $dispatcher;
+
+    /**
+     * Constructor
+     *
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \FOS\CommentBundle\Sorting\SortingFactory $factory
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
+        $this->dispatcher = $dispatcher;
         $this->sortingFactory = $factory;
-    }
-
-    /**
-     * Retrieves the SortingFactory.
-     *
-     * @return SortingFactory
-     * @throws RuntimeException when no sorting factory has been set
-     */
-    protected function getSortingFactory()
-    {
-        if (null === $this->sortingFactory) {
-            throw new RuntimeException('No sorting factory has been set');
-        }
-
-        return $this->sortingFactory;
     }
 
     /**
@@ -70,6 +64,9 @@ abstract class CommentManager implements CommentManagerInterface
         if (null !== $parent) {
             $comment->setParent($parent);
         }
+
+        $event = new CommentEvent($comment);
+        $this->dispatcher->dispatch(CommentEvents::CREATE, $event);
 
         return $comment;
     }
@@ -102,7 +99,7 @@ abstract class CommentManager implements CommentManagerInterface
     public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
     {
         $comments = $this->findCommentsByThread($thread, $depth);
-        $sorter = $this->getSortingFactory()->getSorter($sorter);
+        $sorter = $this->sortingFactory->getSorter($sorter);
 
         return $this->organiseComments($comments, $sorter);
     }
@@ -141,5 +138,26 @@ abstract class CommentManager implements CommentManagerInterface
         $tree = $sorter->sort($tree);
 
         return $tree;
+    }
+
+    /**
+     * Performs the base calculations for adding a comment. It is up to
+     * the CommentManager implemented for a persistence backend to
+     * overwrite this function and deal with persisting objects.
+     *
+     * @param CommentInterface $comment
+     */
+    public function addComment(CommentInterface $comment)
+    {
+        if (null !== $comment->getId()) {
+            throw new InvalidArgumentException('Can not add already saved comment');
+        }
+
+        if (null === $comment->getThread()) {
+            throw new InvalidArgumentException('The comment must have a thread');
+        }
+
+        $event = new CommentEvent($comment);
+        $this->dispatcher->dispatch(CommentEvents::PRE_PERSIST, $event);
     }
 }
