@@ -35,4 +35,22 @@
         </constraint>
     </class>
 
+    <class name="FOS\CommentBundle\Model\Thread">
+
+        <property name="id">
+            <constraint name="NotBlank">
+                <option name="message">Please enter an id</option>
+            </constraint>
+        </property>
+
+        <property name="permalink">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a permalink</option>
+            </constraint>
+            <constraint name="Url">
+                <option name="message">Please provide a valid url</option>
+            </constraint>
+        </property>
+    </class>
+
 </constraint-mapping>

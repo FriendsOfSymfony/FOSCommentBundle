@@ -76,10 +76,6 @@ abstract class Vote implements VoteInterface
      */
     public function setValue($value)
     {
-        if (!$this->checkValue($value)) {
-            throw new InvalidArgumentException('A vote cannot have a 0 value');
-        }
-
         $this->value = intval($value);
     }
 

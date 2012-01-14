@@ -14,11 +14,11 @@ namespace FOS\CommentBundle\FormFactory;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Comment form creator
+ * Vote form creator
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-interface CommentFormFactoryInterface
+interface VoteFormFactoryInterface
 {
     /**
      * Creates a comment form

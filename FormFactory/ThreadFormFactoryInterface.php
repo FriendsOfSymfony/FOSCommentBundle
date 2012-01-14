@@ -14,14 +14,12 @@ namespace FOS\CommentBundle\FormFactory;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Comment form creator
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * Thread form creator
  */
-interface CommentFormFactoryInterface
+interface ThreadFormFactoryInterface
 {
     /**
-     * Creates a comment form
+     * Creates a thread form
      *
      * @return FormInterface
      */

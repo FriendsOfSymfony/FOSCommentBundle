@@ -6,36 +6,7 @@
 # This source file is subject to the MIT license that is bundled
 # with this source code in the file LICENSE.
 #
-
-fos_comment_comment_create:
-    pattern:         /new/{threadId}/{parentId}
-    defaults:
-        _controller: FOSCommentBundle:Comment:create
-        parentId:    null
-    requirements:    { _method: "post" }
-
-fos_comment_thread_show_feed:
-    pattern:        /{id}.xml
-    defaults:       { _controller: FOSCommentBundle:Thread:showFeed, _format: xml }
-
-fos_comment_comment_loadmore:
-    pattern:        /subtree/{commentId}/{sorter}
-    defaults:
-        _controller: FOSCommentBundle:Comment:subtree
-        sorter: null
-
-fos_comment_vote_add_up:
-    pattern:        /vote/{commentId}/up
-    defaults:
-        _controller:  FOSCommentBundle:Vote:add
-        value:        1
-
-fos_comment_vote_add_down:
-    pattern:        /vote/{commentId}/down
-    defaults:
-        _controller:  FOSCommentBundle:Vote:add
-        value:        -1
-
-fos_comment_vote_list:
-    pattern:        /votes/{commentId}
-    defaults:       { _controller: FOSCommentBundle:Vote:list }
+fos_comment_thread_api:
+    type: rest
+    resource: FOS\CommentBundle\Controller\ThreadController
+    name_prefix: fos_comment_
