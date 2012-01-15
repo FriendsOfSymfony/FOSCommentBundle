@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Twig;
 use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Acl\VoteAclInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -23,10 +24,12 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 class CommentExtension extends \Twig_Extension
 {
     protected $commentAcl;
+    protected $voteAcl;
 
-    public function __construct(CommentAclInterface $commentAcl = null)
+    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null)
     {
         $this->commentAcl = $commentAcl;
+        $this->voteAcl = $voteAcl;
     }
 
     public function getTests()
@@ -55,6 +58,7 @@ class CommentExtension extends \Twig_Extension
     {
         return array(
             'fos_comment_can_comment' => new \Twig_Function_Method($this, 'canComment'),
+            'fos_comment_can_vote'    => new \Twig_Function_Method($this, 'canVote'),
         );
     }
 
@@ -77,6 +81,23 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->commentAcl->canReply($comment);
+    }
+
+    public function canVote(CommentInterface $comment)
+    {
+        if (!$comment instanceof VotableCommentInterface) {
+            return false;
+        }
+
+        if (null === $this->voteAcl) {
+            return true;
+        }
+
+        if (null !== $this->commentAcl && !$this->commentAcl->canView($comment)) {
+            return false;
+        }
+
+        return $this->voteAcl->canCreate();
     }
 
     /**
