@@ -85,6 +85,10 @@ class CommentExtension extends \Twig_Extension
 
     public function canVote(CommentInterface $comment)
     {
+        if (!$comment instanceof VotableCommentInterface) {
+            return false;
+        }
+
         if (null === $this->voteAcl) {
             return true;
         }
