@@ -117,4 +117,25 @@ abstract class Vote implements VoteInterface
     {
         return null !== $value && intval($value);
     }
+
+    /**
+     * Gets the comment this vote belongs to.
+     *
+     * @return VotableCommentInterface
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment this vote belongs to.
+     *
+     * @param VotableCommentInterface $comment
+     * @return void
+     */
+    public function setComment(VotableCommentInterface $comment)
+    {
+        $this->comment = $comment;
+    }
 }
