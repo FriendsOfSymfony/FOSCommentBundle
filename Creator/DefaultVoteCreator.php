@@ -24,7 +24,7 @@ use Symfony\Component\Validator\ValidatorInterface;
  */
 class DefaultVoteCreator implements VoteCreatorInterface
 {
-    protected $voteBlamer;
+    protected $validator;
     protected $voteManager;
 
     /**
@@ -34,10 +34,9 @@ class DefaultVoteCreator implements VoteCreatorInterface
      * @param VoteBlamerInterface $voteBlamer
      * @param Validator $validator
      */
-    public function __construct(VoteManagerInterface $voteManager, VoteBlamerInterface $voteBlamer, ValidatorInterface $validator)
+    public function __construct(VoteManagerInterface $voteManager, ValidatorInterface $validator)
     {
         $this->validator = $validator;
-        $this->voteBlamer = $voteBlamer;
         $this->voteManager = $voteManager;
     }
 
@@ -53,8 +52,6 @@ class DefaultVoteCreator implements VoteCreatorInterface
      */
     public function create(VoteInterface $vote)
     {
-        $this->voteBlamer->blame($vote);
-
         if (count($this->validator->validate($vote))) {
             return false;
         }

@@ -11,8 +11,12 @@
 
 namespace FOS\CommentBundle\Blamer;
 
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use InvalidArgumentException;
 use RuntimeException;
@@ -22,7 +26,7 @@ use RuntimeException;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class SecurityCommentBlamer implements CommentBlamerInterface
+class SecurityCommentBlamer implements EventSubscriberInterface
 {
     /**
      * @var SecurityContext
@@ -30,34 +34,56 @@ class SecurityCommentBlamer implements CommentBlamerInterface
     protected $securityContext;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
-     * @param SecurityContext $securityContext
+     * @param SecurityContextInterface $securityContext
+     * @param LoggerInterface $logger
      */
-    public function __construct(SecurityContextInterface $securityContext)
+    public function __construct(SecurityContextInterface $securityContext, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
+        $this->logger = $logger;
     }
 
     /**
      * Assigns the currently logged in user to a Comment.
      *
-     * @throws InvalidArgumentException when the Comment is not a SignedCommentInterface
-     * @param CommentInterface $comment
+     * @param \FOS\CommentBundle\Event\CommentEvent $event
      * @return void
+     * @throws \RuntimeException when the Comment is not a SignedCommentInterface
      */
-    public function blame(CommentInterface $comment)
+    public function blame(CommentEvent $event)
     {
+        $comment = $event->getComment();
+
         if (!$comment instanceof SignedCommentInterface) {
-            throw new InvalidArgumentException('The comment must implement SignedCommentInterface');
+            if ($this->logger) {
+                $this->logger->info("Comment does not implement SignedCommentInterface, skipping");
+            }
+
+            return;
         }
 
         if (null === $this->securityContext->getToken()) {
-            throw new RuntimeException('You must configure a firewall for this route');
+            if ($this->logger) {
+                $this->logger->info("There is no firewall configured. We cant get a user.");
+            }
+
+            return;
         }
 
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $comment->setAuthor($this->securityContext->getToken()->getUser());
         }
+    }
+
+    static public function getSubscribedEvents()
+    {
+        return array(Events::COMMENT_PRE_PERSIST => 'blame');
     }
 }

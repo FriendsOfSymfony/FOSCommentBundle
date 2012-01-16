@@ -11,8 +11,12 @@
 
 namespace FOS\CommentBundle\Blamer;
 
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use FOS\CommentBundle\Model\VoteInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use InvalidArgumentException;
 use RuntimeException;
@@ -22,7 +26,7 @@ use RuntimeException;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class SecurityVoteBlamer implements VoteBlamerInterface
+class SecurityVoteBlamer implements EventSubscriberInterface
 {
     /**
      * @var SecurityContextInterface
@@ -30,13 +34,20 @@ class SecurityVoteBlamer implements VoteBlamerInterface
     protected $securityContext;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
+     * @param LoggerInterface $logger
      */
-    public function __construct(SecurityContextInterface $securityContext)
+    public function __construct(SecurityContextInterface $securityContext, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
+        $this->logger = $logger;
     }
 
     /**
@@ -47,18 +58,33 @@ class SecurityVoteBlamer implements VoteBlamerInterface
      * @param VoteInterface $vote
      * @return void
      */
-    public function blame(VoteInterface $vote)
+    public function blame(VoteEvent $event)
     {
+        $vote = $event->getVote();
+
         if (!$vote instanceof SignedVoteInterface) {
-            throw new InvalidArgumentException('The vote must implement SignedVoteInterface');
+            if ($this->logger) {
+                $this->logger->info("Vote does not implement SignedVoteInterface, skipping");
+            }
+
+            return;
         }
 
         if (null === $this->securityContext->getToken()) {
-            throw new RuntimeException('You must configure a firewall for this route');
+            if ($this->logger) {
+                $this->logger->info("There is no firewall configured. We cant get a user.");
+            }
+
+            return;
         }
 
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->securityContext->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
             $vote->setVoter($this->securityContext->getToken()->getUser());
         }
+    }
+
+    static public function getSubscribedEvents()
+    {
+        return array(Events::VOTE_PRE_PERSIST => 'blame');
     }
 }

@@ -20,7 +20,7 @@ class CommentVoteScoreListener implements EventSubscriberInterface
     public function onVotePersist(VoteEvent $event)
     {
         $vote = $event->getVote();
-        $comment = $event->getComment();
+        $comment = $vote->getComment();
         $comment->incrementScore($vote->getValue());
     }
 

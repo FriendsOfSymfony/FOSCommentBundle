@@ -29,11 +29,6 @@ class DefaultCommentCreator implements CommentCreatorInterface
     protected $commentManager;
 
     /**
-     * @var CommentBlamerInterface
-     */
-    protected $commentBlamer;
-
-    /**
      * @var SpamDetectionInterface
      */
     protected $spamDetection;
@@ -42,13 +37,11 @@ class DefaultCommentCreator implements CommentCreatorInterface
      * Constructor.
      *
      * @param CommentManagerInterface $commentManager
-     * @param CommentBlamerInterface $commentBlamer
      * @param SpamDetectionInterface $spamDetection
      */
-    public function __construct(CommentManagerInterface $commentManager, CommentBlamerInterface $commentBlamer, SpamDetectionInterface $spamDetection)
+    public function __construct(CommentManagerInterface $commentManager, SpamDetectionInterface $spamDetection)
     {
         $this->commentManager = $commentManager;
-        $this->commentBlamer  = $commentBlamer;
         $this->spamDetection  = $spamDetection;
     }
 
@@ -57,8 +50,6 @@ class DefaultCommentCreator implements CommentCreatorInterface
      */
     public function create(CommentInterface $comment)
     {
-        $this->commentBlamer->blame($comment);
-
         if ($this->spamDetection->isSpam($comment)) {
             return false;
         }

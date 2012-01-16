@@ -86,8 +86,6 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.creator.thread', $config['service']['creator']['thread']);
         $container->setAlias('fos_comment.creator.comment', $config['service']['creator']['comment']);
         $container->setAlias('fos_comment.creator.vote', $config['service']['creator']['vote']);
-        $container->setAlias('fos_comment.blamer.comment', $config['service']['blamer']['comment']);
-        $container->setAlias('fos_comment.blamer.vote', $config['service']['blamer']['vote']);
         $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
 
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);

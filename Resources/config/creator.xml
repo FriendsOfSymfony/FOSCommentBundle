@@ -20,12 +20,10 @@
         </service>
         <service id="fos_comment.creator.comment.default" class="FOS\CommentBundle\Creator\DefaultCommentCreator" public="false" scope="request">
             <argument type="service" id="fos_comment.manager.comment" />
-            <argument type="service" id="fos_comment.blamer.comment" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
         </service>
         <service id="fos_comment.creator.vote.default" class="FOS\CommentBundle\Creator\DefaultVoteCreator" public="false">
             <argument type="service" id="fos_comment.manager.vote" />
-            <argument type="service" id="fos_comment.blamer.vote" />
             <argument type="service" id="validator" />
         </service>
     </services>
