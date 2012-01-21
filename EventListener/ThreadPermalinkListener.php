@@ -51,7 +51,7 @@ class ThreadPermalinkListener implements EventSubscriberInterface
         $thread->setPermalink($this->request->getUri());
     }
 
-    static function getSubscribedEvents()
+    static public function getSubscribedEvents()
     {
         return array(Events::THREAD_CREATE => 'onThreadCreate');
     }
