@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-$vendorDir = __DIR__.'/../';
+$vendorDir = __DIR__.'/../vendor';
 require_once $vendorDir.'/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
