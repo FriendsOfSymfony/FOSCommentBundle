@@ -40,7 +40,7 @@ class CommentSpamListener implements EventSubscriberInterface
 
         if ($this->spamDetector->isSpam($comment)) {
             if (null !== $this->logger) {
-                $this->logger->alert('Comment is marked as spam from detector, aborting persistence.');
+                $this->logger->info('Comment is marked as spam from detector, aborting persistence.');
             }
 
             $event->abortPersistence();
