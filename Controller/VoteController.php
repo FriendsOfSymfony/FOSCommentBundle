@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Controller;
 
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\VotableCommentInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,8 +52,8 @@ class VoteController extends ContainerAware
             throw new NotFoundHttpException('Comment not found');
         }
 
-        $vote = $this->createVote($value);
-        if ($this->container->get('fos_comment.creator.vote')->create($vote, $comment)) {
+        $vote = $this->createVote($value, $comment);
+        if ($this->container->get('fos_comment.creator.vote')->create($vote)) {
             return new Response(json_encode(array('score' => $comment->getScore())));
         }
 
@@ -88,11 +89,12 @@ class VoteController extends ContainerAware
      * Creates a vote for a given comment with a supplied value.
      *
      * @param integer $value The value of the vote
+     * @param VotableCommentInterface $comment
      * @return VoteInterface
      */
-    public function createVote($value)
+    public function createVote($value, VotableCommentInterface $comment)
     {
-        $vote = $this->container->get('fos_comment.manager.vote')->createVote();
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote($comment);
         $vote->setValue($value);
 
         return $vote;

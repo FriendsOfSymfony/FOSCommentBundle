@@ -29,6 +29,29 @@ abstract class Vote implements VoteInterface
     protected $id;
 
     /**
+     * @var VotableCommentInterface
+     */
+    protected $comment;
+
+    /**
+     * @var DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * The value of the vote.
+     *
+     * @var integer
+     */
+    protected $value;
+
+    public function __construct(VotableCommentInterface $comment = null)
+    {
+        $this->comment = $comment;
+        $this->createdAt = new DateTime();
+    }
+
+    /**
      * Return the comment unique id
      *
      * @return mixed
@@ -39,29 +62,12 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @var DateTime
-     */
-    protected $createdAt;
-
-    public function __construct()
-    {
-        $this->createdAt = new DateTime();
-    }
-
-    /**
      * @return DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-
-    /**
-     * The value of the vote.
-     *
-     * @var integer
-     */
-    protected $value;
 
     /**
      * @return integer The votes value.
@@ -110,5 +116,26 @@ abstract class Vote implements VoteInterface
     protected function checkValue($value)
     {
         return null !== $value && intval($value);
+    }
+
+    /**
+     * Gets the comment this vote belongs to.
+     *
+     * @return VotableCommentInterface
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment this vote belongs to.
+     *
+     * @param VotableCommentInterface $comment
+     * @return void
+     */
+    public function setComment(VotableCommentInterface $comment)
+    {
+        $this->comment = $comment;
     }
 }

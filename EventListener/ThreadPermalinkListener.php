@@ -9,18 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\Creator;
+namespace FOS\CommentBundle\EventListener;
 
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\ThreadEvent;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Responsible for the creation and persistence of Thread objects.
+ * Responsible for setting a permalink for each new Thread object.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com
  */
-class DefaultThreadCreator implements ThreadCreatorInterface
+class ThreadPermalinkListener implements EventSubscriberInterface
 {
     /**
      * @var Request
@@ -28,35 +31,28 @@ class DefaultThreadCreator implements ThreadCreatorInterface
     protected $request;
 
     /**
-     * @var ThreadManagerInterface
-     */
-    protected $threadManager;
-
-    /**
      * Constructor.
      *
      * @param Request $request
-     * @param ThreadManagerInterface $threadManager
      */
-    public function __construct(Request $request, ThreadManagerInterface $threadManager)
+    public function __construct(Request $request)
     {
         $this->request       = $request;
-        $this->threadManager = $threadManager;
     }
 
     /**
      * Creates and persists a thread with the specified id.
      *
-     * @param mixed $id
-     * @return ThreadInterface
+     * @param \FOS\CommentBundle\Event\ThreadEvent $event
      */
-    public function create($id)
+    public function onThreadCreate(ThreadEvent $event)
     {
-        $thread = $this->threadManager->createThread();
-        $thread->setId($id);
+        $thread = $event->getThread();
         $thread->setPermalink($this->request->getUri());
-        $this->threadManager->addThread($thread);
+    }
 
-        return $thread;
+    static public function getSubscribedEvents()
+    {
+        return array(Events::THREAD_CREATE => 'onThreadCreate');
     }
 }

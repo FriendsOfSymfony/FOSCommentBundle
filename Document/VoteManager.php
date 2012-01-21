@@ -16,7 +16,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default ODM VoteManager.
@@ -46,32 +46,34 @@ class VoteManager extends BaseVoteManager
      * @param DocumentManager   $dm
      * @param string            $class
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
     {
-        $this->em         = $dm;
+        parent::__construct($dispatcher);
+
+        $this->dm = $dm;
         $this->repository = $dm->getRepository($class);
-        $this->class      = $dm->getClassMetadata($class)->name;
+
+        $metadata = $dm->getClassMetadata($class);
+        $this->class = $metadata->name;
     }
 
     /**
      * Persists a vote.
      *
-     * @param VoteInterface $vote
-     * @param VotableCommentInterface $comment
-     * @return void
+     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
-    public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
+    protected function doSaveVote(VoteInterface $vote)
     {
-        $vote->setComment($comment);
-        $comment->setScore($comment->getScore() + $vote->getValue());
-
-        $this->dm->persist($comment);
+        $this->dm->persist($vote->getComment());
         $this->dm->persist($vote);
         $this->dm->flush();
     }
 
     /**
-     * {@inheritDoc}
+     * Finds a vote by specified criteria.
+     *
+     * @param array $criteria
+     * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
     {
@@ -81,8 +83,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param VotableCommentInterface $comment
-     * @return array of VoteInterface
+     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {
