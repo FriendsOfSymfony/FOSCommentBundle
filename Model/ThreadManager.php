@@ -44,10 +44,14 @@ abstract class ThreadManager implements ThreadManagerInterface
      *
      * @return Thread
      */
-    public function createThread()
+    public function createThread($id = null)
     {
         $class = $this->getClass();
         $thread = new $class;
+
+        if (null !== $id) {
+            $thread->setId($id);
+        }
 
         $event = new ThreadEvent($thread);
         $this->dispatcher->dispatch(Events::THREAD_CREATE, $event);
