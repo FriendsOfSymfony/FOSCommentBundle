@@ -69,41 +69,20 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testAddCommentAlreadySaved()
+    public function testSaveCommentNoThread()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(1));
-
-        $commentManager = new CommentManager($this->dispatcher, $this->sortingFactory, $this->em, $this->class);
-        $commentManager->addComment($comment);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testAddCommentNoThread()
-    {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(null));
-
         $comment->expects($this->once())
             ->method('getThread')
             ->will($this->returnValue(null));
 
         $commentManager = new CommentManager($this->dispatcher, $this->sortingFactory, $this->em, $this->class);
-        $commentManager->addComment($comment);
+        $commentManager->saveComment($comment);
     }
 
-    public function testAddComment()
+    public function testSaveComment()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(null));
 
         $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
         $comment->expects($this->any())
@@ -119,7 +98,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush');
 
         $commentManager = new CommentManager($this->dispatcher, $this->sortingFactory, $this->em, $this->class);
-        $commentManager->addComment($comment);
+        $commentManager->saveComment($comment);
     }
 
     public function testGetClass()

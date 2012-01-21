@@ -33,6 +33,18 @@ abstract class Vote implements VoteInterface
      */
     protected $comment;
 
+    /**
+     * @var DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * The value of the vote.
+     *
+     * @var integer
+     */
+    protected $value;
+
     public function __construct(VotableCommentInterface $comment = null)
     {
         $this->comment = $comment;
@@ -50,24 +62,12 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @var DateTime
-     */
-    protected $createdAt;
-
-    /**
      * @return DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-
-    /**
-     * The value of the vote.
-     *
-     * @var integer
-     */
-    protected $value;
 
     /**
      * @return integer The votes value.

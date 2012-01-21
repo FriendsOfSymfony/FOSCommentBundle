@@ -1,10 +1,21 @@
 <?php
 
-namespace FOS\CommentBundle\SpamDetection;
+/**
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentPersistEvent;
+use FOS\CommentBundle\SpamDetection\SpamDetectionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * A listener that checks if a comment is spam based on a service
@@ -15,10 +26,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class CommentSpamListener implements EventSubscriberInterface
 {
     protected $spamDetector;
+    protected $logger;
 
-    public function __construct(SpamDetectionInterface $detector)
+    public function __construct(SpamDetectionInterface $detector, LoggerInterface $logger = null)
     {
         $this->spamDetector = $detector;
+        $this->logger = $logger;
     }
 
     public function spamCheck(CommentPersistEvent $event)
@@ -26,7 +39,11 @@ class CommentSpamListener implements EventSubscriberInterface
         $comment = $event->getComment();
 
         if ($this->spamDetector->isSpam($comment)) {
-            $event->abortPersist();
+            if (null !== $this->logger) {
+                $this->logger->alert('Comment is marked as spam from detector, aborting persistence.');
+            }
+
+            $event->abortPersistence();
         }
     }
 

@@ -64,12 +64,12 @@ abstract class ThreadManager implements ThreadManagerInterface
      *
      * @param ThreadInterface $thread
      */
-    public function addThread(ThreadInterface $thread)
+    public function saveThread(ThreadInterface $thread)
     {
         $event = new ThreadEvent($thread);
         $this->dispatcher->dispatch(Events::THREAD_PRE_PERSIST, $event);
 
-        $this->doAddThread($thread);
+        $this->doSaveThread($thread);
 
         $event = new ThreadEvent($thread);
         $this->dispatcher->dispatch(Events::THREAD_POST_PERSIST, $event);
@@ -81,5 +81,5 @@ abstract class ThreadManager implements ThreadManagerInterface
      * @abstract
      * @param ThreadInterface $thread
      */
-    abstract protected function doAddThread(ThreadInterface $thread);
+    abstract protected function doSaveThread(ThreadInterface $thread);
 }

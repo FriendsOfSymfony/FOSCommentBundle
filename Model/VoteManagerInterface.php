@@ -28,6 +28,7 @@ interface VoteManagerInterface
     /**
      * Creates a Vote object.
      *
+     * @param VotableCommentInterface $comment
      * @return VoteInterface
      */
     function createVote(VotableCommentInterface $comment);
@@ -38,7 +39,7 @@ interface VoteManagerInterface
      * @param VoteInterface $vote
      * @return void
      */
-    function addVote(VoteInterface $vote);
+    function saveVote(VoteInterface $vote);
 
     /**
      * Finds a vote by specified criteria.

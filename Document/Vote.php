@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Document;
 
 use FOS\CommentBundle\Model\Vote as BaseVote;
-use FOS\CommentBundle\Model\VotableCommentInterface;
 
 /**
  * Default ODM implementation of VoteInterface.

@@ -51,11 +51,11 @@ interface ThreadManagerInterface
     function createThread($id = null);
 
     /**
-     * Saves a new thread
+     * Saves a thread
      *
      * @param ThreadInterface $thread
      */
-    function addThread(ThreadInterface $thread);
+    function saveThread(ThreadInterface $thread);
 
     /**
      * Returns the comment thread fully qualified class name

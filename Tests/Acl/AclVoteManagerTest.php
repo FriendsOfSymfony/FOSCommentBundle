@@ -178,14 +178,14 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->never())
-            ->method('addVote');
+            ->method('saveVote');
 
         $this->voteSecurity->expects($this->once())
             ->method('canCreate')
             ->will($this->returnValue(false));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote, $comment);
+        $manager->saveVote($this->vote, $comment);
     }
 
     /**
@@ -196,7 +196,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->never())
-            ->method('addVote');
+            ->method('saveVote');
 
         $this->voteSecurity->expects($this->once())
             ->method('canCreate')
@@ -208,7 +208,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote, $comment);
+        $manager->saveVote($this->vote, $comment);
     }
 
     public function testAddVote()
@@ -216,7 +216,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->once())
-            ->method('addVote')
+            ->method('saveVote')
             ->with($this->vote);
 
         $this->voteSecurity->expects($this->once())
@@ -229,7 +229,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote);
+        $manager->saveVote($this->vote);
     }
 
     public function testGetClass()

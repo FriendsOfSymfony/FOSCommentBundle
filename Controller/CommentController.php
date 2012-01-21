@@ -120,13 +120,14 @@ class CommentController extends ContainerAware
      */
     public function createAction($threadId, $parentId = null)
     {
+        $manager = $this->container->get('fos_comment.manager.comment');
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($threadId);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $threadId));
         }
 
         if (!empty($parentId)) {
-            $parent = $this->container->get('fos_comment.manager.comment')->findCommentById($parentId);
+            $parent = $manager->findCommentById($parentId);
 
             if (!$parent) {
                 throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $parentId));
@@ -135,7 +136,7 @@ class CommentController extends ContainerAware
             $parent = null;
         }
 
-        $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread, $parent);
+        $comment = $manager->createComment($thread, $parent);
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
@@ -144,7 +145,9 @@ class CommentController extends ContainerAware
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
 
-            if ($form->isValid() && $this->container->get('fos_comment.creator.comment')->create($comment)) {
+            if ($form->isValid()) {
+                $manager->saveComment($comment);
+
                 return $this->onCreateSuccess($form);
             }
         }

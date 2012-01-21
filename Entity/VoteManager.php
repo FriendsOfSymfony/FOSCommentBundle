@@ -43,12 +43,13 @@ class VoteManager extends BaseVoteManager
     /**
      * Constructor.
      *
-     * @param EntityManager     $em
-     * @param string            $class
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param $class
      */
-    public function __construct(EventDispatcherInterface $dispacher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
-        parent::__construct($dispacher);
+        parent::__construct($dispatcher);
 
         $this->em = $em;
         $this->repository = $em->getRepository($class);
@@ -60,10 +61,9 @@ class VoteManager extends BaseVoteManager
     /**
      * Persists a vote.
      *
-     * @param VoteInterface $vote
-     * @return void
+     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
-    protected function doAddVote(VoteInterface $vote)
+    protected function doSaveVote(VoteInterface $vote)
     {
         $this->em->persist($vote->getComment());
         $this->em->persist($vote);
@@ -71,7 +71,10 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
-     * {@inheritDoc}
+     * Finds a vote by specified criteria.
+     *
+     * @param array $criteria
+     * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
     {
@@ -81,8 +84,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param VotableCommentInterface $comment
-     * @return array of VoteInterface
+     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {

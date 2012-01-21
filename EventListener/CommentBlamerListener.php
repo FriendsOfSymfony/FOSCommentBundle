@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\CommentBundle\Blamer;
+namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
-use FOS\CommentBundle\Event\VoteEvent;
-use FOS\CommentBundle\Model\SignedVoteInterface;
-use FOS\CommentBundle\Model\VoteInterface;
+use FOS\CommentBundle\Event\CommentEvent;
+use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -22,14 +22,14 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Assigns a FOS\UserBundle user from the logged in user to a vote.
+ * Blames a comment using Symfony2 security component
  *
- * @author Tim Nagel <tim@nagel.com.au>
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class SecurityVoteBlamer implements EventSubscriberInterface
+class CommentBlamerListener implements EventSubscriberInterface
 {
     /**
-     * @var SecurityContextInterface
+     * @var SecurityContext
      */
     protected $securityContext;
 
@@ -51,18 +51,18 @@ class SecurityVoteBlamer implements EventSubscriberInterface
     }
 
     /**
-     * Assigns the Security token's user to the vote.
+     * Assigns the currently logged in user to a Comment.
      *
-     * @param VoteEvent $vote
+     * @param \FOS\CommentBundle\Event\CommentEvent $event
      * @return void
      */
-    public function blame(VoteEvent $event)
+    public function blame(CommentEvent $event)
     {
-        $vote = $event->getVote();
+        $comment = $event->getComment();
 
-        if (!$vote instanceof SignedVoteInterface) {
+        if (!$comment instanceof SignedCommentInterface) {
             if ($this->logger) {
-                $this->logger->info("Vote does not implement SignedVoteInterface, skipping");
+                $this->logger->debug("Comment does not implement SignedCommentInterface, skipping");
             }
 
             return;
@@ -70,19 +70,19 @@ class SecurityVoteBlamer implements EventSubscriberInterface
 
         if (null === $this->securityContext->getToken()) {
             if ($this->logger) {
-                $this->logger->info("There is no firewall configured. We cant get a user.");
+                $this->logger->debug("There is no firewall configured. We cant get a user.");
             }
 
             return;
         }
 
-        if (!$this->securityContext->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-            $vote->setVoter($this->securityContext->getToken()->getUser());
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $comment->setAuthor($this->securityContext->getToken()->getUser());
         }
     }
 
     static public function getSubscribedEvents()
     {
-        return array(Events::VOTE_PRE_PERSIST => 'blame');
+        return array(Events::COMMENT_PRE_PERSIST => 'blame');
     }
 }

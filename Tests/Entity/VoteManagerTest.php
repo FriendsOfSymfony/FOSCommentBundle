@@ -60,6 +60,9 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testAddVote()
     {
         $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote->expects($this->any())
+            ->method('getComment')
+            ->will($this->returnValue($this->getMock('FOS\CommentBundle\Model\VotableCommentInterface')));
 
         $this->em->expects($this->exactly(2))
             ->method('persist');
@@ -68,7 +71,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush');
 
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
-        $manager->addVote($vote);
+        $manager->saveVote($vote);
     }
 
     public function testFindVoteBy()

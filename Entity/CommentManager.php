@@ -129,7 +129,7 @@ class CommentManager extends BaseCommentManager
      *
      * @param CommentInterface $comment
      */
-    protected function doAddComment(CommentInterface $comment)
+    protected function doSaveComment(CommentInterface $comment)
     {
         $this->em->persist($comment->getThread());
         $this->em->persist($comment);

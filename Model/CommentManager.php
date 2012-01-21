@@ -142,18 +142,15 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
-     * Performs the base calculations for adding a comment. It is up to
-     * the CommentManager implemented for a persistence backend to
-     * overwrite this function and deal with persisting objects.
+     * Saves a comment to the persistence backend used. Each backend
+     * must implement the abstract doSaveComment method which will
+     * perform the saving of the comment to the backend.
      *
      * @param CommentInterface $comment
+     * @throws InvalidArumgnetException when the comment does not have a thread.
      */
-    public function addComment(CommentInterface $comment)
+    public function saveComment(CommentInterface $comment)
     {
-        if (null !== $comment->getId()) {
-            throw new InvalidArgumentException('Can not add already saved comment');
-        }
-
         if (null === $comment->getThread()) {
             throw new InvalidArgumentException('The comment must have a thread');
         }
@@ -161,11 +158,11 @@ abstract class CommentManager implements CommentManagerInterface
         $event = new CommentPersistEvent($comment);
         $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
 
-        if ($event->isAbortPersist()) {
+        if ($event->isPersistenceAborted()) {
             return;
         }
 
-        $this->doAddComment($comment);
+        $this->doSaveComment($comment);
 
         $event = new CommentEvent($comment);
         $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
@@ -177,5 +174,5 @@ abstract class CommentManager implements CommentManagerInterface
      * @abstract
      * @param CommentInterface $comment
      */
-    abstract protected function doAddComment(CommentInterface $comment);
+    abstract protected function doSaveComment(CommentInterface $comment);
 }

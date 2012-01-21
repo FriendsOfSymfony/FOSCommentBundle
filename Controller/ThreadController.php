@@ -33,11 +33,12 @@ class ThreadController extends ContainerAware
      */
     protected function getThread($id)
     {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $manager = $this->container->get('fos_comment.manager.thread');
+        $thread = $manager->findThreadById($id);
 
         if (!$thread) {
-            $thread = $this->container->get('fos_comment.manager.thread')->createThread($id);
-            $this->container->get('fos_comment.manager.thread')->addThread($thread);
+            $thread = $manager->createThread($id);
+            $manager->addThread($thread);
         }
 
         return $thread;

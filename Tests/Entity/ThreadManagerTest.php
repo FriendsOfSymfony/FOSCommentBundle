@@ -62,7 +62,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
                 ->method('flush');
 
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
-        $manager->addThread($thread);
+        $manager->saveThread($thread);
     }
 
     public function testGetClass()

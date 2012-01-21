@@ -25,14 +25,14 @@ class CommentPersistEvent extends CommentEvent
     /**
      * @var bool
      */
-    private $abortPersist = false;
+    private $abortPersistence = false;
 
     /**
      * Indicates that the persisting operation should not proceed.
      */
-    public function abortPersist()
+    public function abortPersistence()
     {
-        $this->abortPersist = true;
+        $this->abortPersistence = true;
     }
 
     /**
@@ -41,8 +41,8 @@ class CommentPersistEvent extends CommentEvent
      *
      * @return bool
      */
-    public function isAbortPersist()
+    public function isPersistenceAborted()
     {
-        return $this->abortPersist;
+        return $this->abortPersistence;
     }
 }

@@ -38,7 +38,10 @@ abstract class VoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Finds a vote by id.
+     *
+     * @param  $id
+     * @return VoteInterface
      */
     public function findVoteById($id)
     {
@@ -46,7 +49,10 @@ abstract class VoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a Vote object.
+     *
+     * @param VotableCommentInterface $comment
+     * @return VoteInterface
      */
     public function createVote(VotableCommentInterface $comment)
     {
@@ -60,12 +66,16 @@ abstract class VoteManager implements VoteManagerInterface
         return $vote;
     }
 
-    public function addVote(VoteInterface $vote)
+    public function saveVote(VoteInterface $vote)
     {
+        if (null === $vote->getComment()) {
+            throw new \InvalidArgumentException('Vote passed into saveVote must have a comment');
+        }
+
         $event = new VoteEvent($vote);
         $this->dispatcher->dispatch(Events::VOTE_PRE_PERSIST, $event);
 
-        $this->doAddVote($vote);
+        $this->doSaveVote($vote);
 
         $event = new VoteEvent($vote);
         $this->dispatcher->dispatch(Events::VOTE_POST_PERSIST, $event);
@@ -73,9 +83,9 @@ abstract class VoteManager implements VoteManagerInterface
 
     /**
      * Performs the persistence of the Vote.
-     * 
+     *
      * @abstract
      * @param VoteInterface $vote
      */
-    abstract protected function doAddVote(VoteInterface $vote);
+    abstract protected function doSaveVote(VoteInterface $vote);
 }

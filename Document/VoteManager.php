@@ -60,10 +60,9 @@ class VoteManager extends BaseVoteManager
     /**
      * Persists a vote.
      *
-     * @param VoteInterface $vote
-     * @return void
+     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
-    protected function doAddVote(VoteInterface $vote)
+    protected function doSaveVote(VoteInterface $vote)
     {
         $this->dm->persist($vote->getComment());
         $this->dm->persist($vote);
@@ -71,7 +70,10 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
-     * {@inheritDoc}
+     * Finds a vote by specified criteria.
+     *
+     * @param array $criteria
+     * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
     {
@@ -81,8 +83,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param VotableCommentInterface $comment
-     * @return array of VoteInterface
+     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {

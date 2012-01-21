@@ -77,11 +77,11 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * Saves a new thread
+     * Saves a thread
      *
      * @param ThreadInterface $thread
      */
-    protected function doAddThread(ThreadInterface $thread)
+    protected function doSaveThread(ThreadInterface $thread)
     {
         $this->dm->persist($thread);
         $this->dm->flush();

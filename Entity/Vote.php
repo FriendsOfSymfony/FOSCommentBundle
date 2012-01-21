@@ -11,7 +11,6 @@
 
 namespace FOS\CommentBundle\Entity;
 
-use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\Vote as BaseVote;
 
 /**

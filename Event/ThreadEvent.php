@@ -36,7 +36,7 @@ class ThreadEvent extends Event
     /**
      * Returns the thread for this event.
      *
-     * @return ThreadInterface|\FOS\CommentBundle\Model\ThreadInterface
+     * @return \FOS\CommentBundle\Model\ThreadInterface
      */
     public function getThread()
     {

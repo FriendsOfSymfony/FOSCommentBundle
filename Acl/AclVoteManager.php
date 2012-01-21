@@ -102,7 +102,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function addVote(VoteInterface $vote)
+    public function saveVote(VoteInterface $vote)
     {
         if (!$this->voteAcl->canCreate()) {
             throw new AccessDeniedException();
@@ -112,7 +112,7 @@ class AclVoteManager implements VoteManagerInterface
             throw new AccessDeniedException();
         }
 
-        $this->realManager->addVote($vote);
+        $this->realManager->saveVote($vote);
         $this->voteAcl->setDefaultAcl($vote);
     }
 
