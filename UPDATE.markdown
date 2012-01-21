@@ -1,3 +1,7 @@
+2012-01-21
+
+* Blamers, Creators and Spam Detection classes have been moved to an Event Dispatcher based set up
+
 2011-08-10
 
 * ORM: Column names like ``createdAt`` have been changed to underscore delimited format ``created_at``. Schema update and cache clearance is required for migration.
