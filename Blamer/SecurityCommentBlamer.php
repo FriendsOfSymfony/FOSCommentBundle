@@ -55,7 +55,6 @@ class SecurityCommentBlamer implements EventSubscriberInterface
      *
      * @param \FOS\CommentBundle\Event\CommentEvent $event
      * @return void
-     * @throws \RuntimeException when the Comment is not a SignedCommentInterface
      */
     public function blame(CommentEvent $event)
     {

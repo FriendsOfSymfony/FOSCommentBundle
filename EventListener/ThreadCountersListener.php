@@ -15,6 +15,11 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * A listener that updates thread counters when a new comment is made.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class ThreadCountersListener implements EventSubscriberInterface
 {
     public function onCommentPersist(CommentEvent $event)

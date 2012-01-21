@@ -14,6 +14,11 @@ namespace FOS\CommentBundle\Event;
 use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * An event that occurs related to a comment.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class CommentEvent extends Event
 {
     private $comment;
@@ -21,13 +26,18 @@ class CommentEvent extends Event
     /**
      * Constructs an event.
      *
-     * @param CommentInterface $comment
+     * @param \FOS\CommentBundle\Model\CommentInterface $comment
      */
     public function __construct(CommentInterface $comment)
     {
         $this->comment = $comment;
     }
 
+    /**
+     * Returns the comment for this event.
+     *
+     * @return \FOS\CommentBundle\Model\CommentInterface
+     */
     public function getComment()
     {
         return $this->comment;

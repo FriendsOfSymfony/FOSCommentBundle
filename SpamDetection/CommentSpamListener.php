@@ -6,6 +6,12 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentPersistEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * A listener that checks if a comment is spam based on a service
+ * that implements SpamDetectionInterface.
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
 class CommentSpamListener implements EventSubscriberInterface
 {
     protected $spamDetector;

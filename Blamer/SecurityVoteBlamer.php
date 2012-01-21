@@ -53,9 +53,7 @@ class SecurityVoteBlamer implements EventSubscriberInterface
     /**
      * Assigns the Security token's user to the vote.
      *
-     * @throws InvalidArgumentException when the vote does not implement SignedVoteInterface
-     * @throws RuntimeException When the firewall is not properly configured
-     * @param VoteInterface $vote
+     * @param VoteEvent $vote
      * @return void
      */
     public function blame(VoteEvent $event)
