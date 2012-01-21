@@ -16,7 +16,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default ORM VoteManager.
@@ -43,35 +43,38 @@ class VoteManager extends BaseVoteManager
     /**
      * Constructor.
      *
-     * @param EntityManager     $em
-     * @param string            $class
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
-        $this->em         = $em;
+        parent::__construct($dispatcher);
+
+        $this->em = $em;
         $this->repository = $em->getRepository($class);
-        $this->class      = $em->getClassMetadata($class)->name;
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
     }
 
     /**
      * Persists a vote.
      *
-     * @param VoteInterface $vote
-     * @param VotableCommentInterface $comment
-     * @return void
+     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
-    public function addVote(VoteInterface $vote, VotableCommentInterface $comment)
+    protected function doSaveVote(VoteInterface $vote)
     {
-        $vote->setComment($comment);
-        $comment->incrementScore($vote->getvalue());
-
-        $this->em->persist($comment);
+        $this->em->persist($vote->getComment());
         $this->em->persist($vote);
         $this->em->flush();
     }
 
     /**
-     * {@inheritDoc}
+     * Finds a vote by specified criteria.
+     *
+     * @param array $criteria
+     * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
     {
@@ -81,8 +84,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param VotableCommentInterface $comment
-     * @return array of VoteInterface
+     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {

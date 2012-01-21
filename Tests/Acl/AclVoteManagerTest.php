@@ -27,13 +27,18 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     protected $voteSecurity;
     protected $commentSecurity;
     protected $vote;
+    protected $comment;
 
     public function setUp()
     {
         $this->realManager = $this->getMock('FOS\CommentBundle\Model\VoteManagerInterface');
         $this->voteSecurity = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
         $this->commentSecurity = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $this->comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
         $this->vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $this->vote->expects($this->any())
+            ->method('getComment')
+            ->will($this->returnValue($this->comment));
     }
 
     /**
@@ -173,14 +178,14 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->never())
-            ->method('addVote');
+            ->method('saveVote');
 
         $this->voteSecurity->expects($this->once())
             ->method('canCreate')
             ->will($this->returnValue(false));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote, $comment);
+        $manager->saveVote($this->vote, $comment);
     }
 
     /**
@@ -191,7 +196,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->never())
-            ->method('addVote');
+            ->method('saveVote');
 
         $this->voteSecurity->expects($this->once())
             ->method('canCreate')
@@ -203,7 +208,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote, $comment);
+        $manager->saveVote($this->vote, $comment);
     }
 
     public function testAddVote()
@@ -211,9 +216,8 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
 
         $this->realManager->expects($this->once())
-            ->method('addVote')
-            ->with($this->vote,
-                   $comment);
+            ->method('saveVote')
+            ->with($this->vote);
 
         $this->voteSecurity->expects($this->once())
             ->method('canCreate')
@@ -225,7 +229,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $manager->addVote($this->vote, $comment);
+        $manager->saveVote($this->vote);
     }
 
     public function testGetClass()
@@ -246,10 +250,11 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->realManager->expects($this->once())
             ->method('createVote')
+            ->with($this->comment)
             ->will($this->returnValue($this->vote));
 
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
-        $result = $manager->createVote();
+        $result = $manager->createVote($this->comment);
 
         $this->assertEquals($this->vote, $result);
     }

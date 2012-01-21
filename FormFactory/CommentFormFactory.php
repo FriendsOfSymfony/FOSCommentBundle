@@ -13,7 +13,6 @@ namespace FOS\CommentBundle\FormFactory;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
-use FOS\CommentBundle\Form\ValueTransformer\ThreadValueTransformer;
 
 /**
  * CommentForm factory class.

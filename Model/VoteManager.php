@@ -11,6 +11,10 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\VoteEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 /**
  * Abstract VotingManager
  *
@@ -19,7 +23,25 @@ namespace FOS\CommentBundle\Model;
 abstract class VoteManager implements VoteManagerInterface
 {
     /**
-     * {@inheritDoc}
+     * @var
+     */
+    protected $dispatcher;
+
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     */
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
+    /**
+     * Finds a vote by id.
+     *
+     * @param  $id
+     * @return VoteInterface
      */
     public function findVoteById($id)
     {
@@ -27,13 +49,43 @@ abstract class VoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a Vote object.
+     *
+     * @param VotableCommentInterface $comment
+     * @return VoteInterface
      */
-    public function createVote()
+    public function createVote(VotableCommentInterface $comment)
     {
         $class = $this->getClass();
         $vote = new $class();
+        $vote->setComment($comment);
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(Events::VOTE_CREATE, $event);
 
         return $vote;
     }
+
+    public function saveVote(VoteInterface $vote)
+    {
+        if (null === $vote->getComment()) {
+            throw new \InvalidArgumentException('Vote passed into saveVote must have a comment');
+        }
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(Events::VOTE_PRE_PERSIST, $event);
+
+        $this->doSaveVote($vote);
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(Events::VOTE_POST_PERSIST, $event);
+    }
+
+    /**
+     * Performs the persistence of the Vote.
+     *
+     * @abstract
+     * @param VoteInterface $vote
+     */
+    abstract protected function doSaveVote(VoteInterface $vote);
 }

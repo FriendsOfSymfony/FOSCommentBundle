@@ -11,6 +11,10 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\ThreadEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 /**
  * Abstract Thread Manager implementation which can be used as base class for your
  * concrete manager.
@@ -19,6 +23,13 @@ namespace FOS\CommentBundle\Model;
  */
 abstract class ThreadManager implements ThreadManagerInterface
 {
+    protected $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @param string $id
      * @return ThreadInterface
@@ -33,11 +44,42 @@ abstract class ThreadManager implements ThreadManagerInterface
      *
      * @return Thread
      */
-    public function createThread()
+    public function createThread($id = null)
     {
         $class = $this->getClass();
-        $commentThread = new $class;
+        $thread = new $class;
 
-        return $commentThread;
+        if (null !== $id) {
+            $thread->setId($id);
+        }
+
+        $event = new ThreadEvent($thread);
+        $this->dispatcher->dispatch(Events::THREAD_CREATE, $event);
+
+        return $thread;
     }
+
+    /**
+     * Persists a thread.
+     *
+     * @param ThreadInterface $thread
+     */
+    public function saveThread(ThreadInterface $thread)
+    {
+        $event = new ThreadEvent($thread);
+        $this->dispatcher->dispatch(Events::THREAD_PRE_PERSIST, $event);
+
+        $this->doSaveThread($thread);
+
+        $event = new ThreadEvent($thread);
+        $this->dispatcher->dispatch(Events::THREAD_POST_PERSIST, $event);
+    }
+
+    /**
+     * Performs the persistence of the Thread.
+     *
+     * @abstract
+     * @param ThreadInterface $thread
+     */
+    abstract protected function doSaveThread(ThreadInterface $thread);
 }

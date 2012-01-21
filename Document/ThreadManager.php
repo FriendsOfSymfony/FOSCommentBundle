@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Document;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default ODM ThreadManager.
@@ -43,11 +44,15 @@ class ThreadManager extends BaseThreadManager
      * @param DocumentManager         $dm
      * @param string                  $class
      */
-    public function __construct(DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
     {
-        $this->dm         = $dm;
+        parent::__construct($dispatcher);
+
+        $this->dm = $dm;
         $this->repository = $dm->getRepository($class);
-        $this->class      = $dm->getClassMetadata($class)->name;
+
+        $metadata = $dm->getClassMetadata($class);
+        $this->class = $metadata->name;
     }
 
     /**
@@ -72,11 +77,11 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * Saves a new thread
+     * Saves a thread
      *
      * @param ThreadInterface $thread
      */
-    public function addThread(ThreadInterface $thread)
+    protected function doSaveThread(ThreadInterface $thread)
     {
         $this->dm->persist($thread);
         $this->dm->flush();

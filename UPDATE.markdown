@@ -1,6 +1,7 @@
 2012-01-21
 
-* Blamers, Creators and Spam Detection classes have been moved to an Event Dispatcher based set up
+* Blamers, Creators and Spam Detection classes have been moved to an Event Dispatcher based set up. Documentation on how to use this feature is expected to be available with the release of v1.0.0
+* CommentManager, ThreadManager and VoteManager's interfaces have changed slightly, renaming add*() methods to save*().
 
 2011-08-10
 
