@@ -19,7 +19,10 @@ final class Events
      *
      * This event allows you to modify the data in the Comment prior
      * to persisting occuring. The listener receives a
-     * FOS\CommentBundle\Event\CommentEvent instance.
+     * FOS\CommentBundle\Event\CommentPersistEvent instance.
+     *
+     * Persisting of the comment can be aborted by calling
+     * $event->abortPersist()
      *
      * @var string
      */
