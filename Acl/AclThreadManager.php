@@ -96,9 +96,9 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function createThread()
+    public function createThread($id = null)
     {
-        return $this->realManager->createThread();
+        return $this->realManager->createThread($id);
     }
 
     /**

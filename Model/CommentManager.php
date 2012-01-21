@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Model;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
+use FOS\CommentBundle\Event\CommentPersistEvent;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -157,8 +158,12 @@ abstract class CommentManager implements CommentManagerInterface
             throw new InvalidArgumentException('The comment must have a thread');
         }
 
-        $event = new CommentEvent($comment);
+        $event = new CommentPersistEvent($comment);
         $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
+
+        if ($event->isAbortPersist()) {
+            return;
+        }
 
         $this->doAddComment($comment);
 

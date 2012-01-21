@@ -3,7 +3,7 @@
 namespace FOS\CommentBundle\SpamDetection;
 
 use FOS\CommentBundle\Events;
-use FOS\CommentBundle\Event\CommentEvent;
+use FOS\CommentBundle\Event\CommentPersistEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CommentSpamListener implements EventSubscriberInterface
@@ -15,15 +15,14 @@ class CommentSpamListener implements EventSubscriberInterface
         $this->spamDetector = $detector;
     }
 
-    public function spamCheck(CommentEvent $event)
+    public function spamCheck(CommentPersistEvent $event)
     {
         $comment = $event->getComment();
 
         if ($this->spamDetector->isSpam($comment)) {
-            throw new 
+            $event->abortPersist();
         }
     }
-
 
     static function getSubscribedEvents()
     {

@@ -47,7 +47,7 @@ class FOSCommentExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('blamer', 'events', 'form', 'creator', 'spam_detection', 'twig', 'sorting') as $basename) {
+        foreach (array('blamer', 'events', 'form', 'twig', 'sorting') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -83,10 +83,11 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
-        $container->setAlias('fos_comment.creator.thread', $config['service']['creator']['thread']);
-        $container->setAlias('fos_comment.creator.comment', $config['service']['creator']['comment']);
-        $container->setAlias('fos_comment.creator.vote', $config['service']['creator']['vote']);
-        $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
+
+        if (isset($config['service']['spam_detection'])) {
+            $loader->load('spam_detection.xml');
+            $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
+        }
 
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
