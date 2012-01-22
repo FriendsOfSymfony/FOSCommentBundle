@@ -104,14 +104,6 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function createThreadFromQuery($id, ParameterBag $query)
-    {
-        return $this->realManager->createThreadFromQuery($id, $query);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function saveThread(ThreadInterface $thread)
     {
         if (!$this->threadAcl->canCreate()) {

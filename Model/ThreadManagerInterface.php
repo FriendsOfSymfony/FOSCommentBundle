@@ -51,16 +51,6 @@ interface ThreadManagerInterface
     function createThread($id = null);
 
     /**
-     * Creates a thread from the request parameters.
-     *
-     * @param string $id The id for the thread.
-     * @param ParameterBag $query The query parameters.
-     *
-     * @return ThreadInterface
-     */
-    function createThreadFromQuery($id, ParameterBag $query);
-
-    /**
      * Saves a thread
      *
      * @param ThreadInterface $thread
