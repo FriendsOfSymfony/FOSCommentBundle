@@ -52,8 +52,9 @@ class VoteController extends ContainerAware
             throw new NotFoundHttpException('Comment not found');
         }
 
-        $vote = $this->createVote($value, $comment);
-        if ($this->container->get('fos_comment.creator.vote')->create($vote)) {
+        if($vote = $this->createVote($value, $comment)) {
+            $this->container->get('fos_comment.manager.vote')->saveVote($vote);
+
             return new Response(json_encode(array('score' => $comment->getScore())));
         }
 
