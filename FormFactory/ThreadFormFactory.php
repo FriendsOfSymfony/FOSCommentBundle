@@ -15,12 +15,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 /**
- * CommentForm factory class.
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Tim Nagel <tim@nagel.com.au>
+ * ThreadForm factory class.
  */
-class CommentFormFactory implements CommentFormFactoryInterface
+class ThreadFormFactory implements ThreadFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
