@@ -1,5 +1,5 @@
-FOSCommentBundle: Setup MongoDB mapping
-=====================================
+Step 2b: Setup MongoDB mapping
+==============================
 The MongoDB implementation does not provide a concrete Comment class for your use,
 you must create one:
 

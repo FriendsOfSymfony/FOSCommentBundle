@@ -1,5 +1,5 @@
-FOSCommentBundle: Setup Doctrine ORM mapping
-=====================================
+Step 2a: Setup Doctrine ORM mapping
+===================================
 The ORM implementation does not provide a concrete Comment class for your use,
 you must create one::
 
