@@ -81,17 +81,17 @@ public function registerBundles()
 }
 ```
 
-### 4. Create your Comment and Thread classes
+### Step 4: Create your Comment and Thread classes
 
 The FOSCommentBundle supports both Doctrine ODM (mongodb) and Doctrine ORM by
 default. However, you must provide a concrete Comment and Thread class. Follow
 the appropriate instructions to set up the classes:
-- [Doctrine ORM](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/mapping_orm.md)
-- [Doctrine ODM (mongodb)](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/mapping_mongodb.md)
+- [Doctrine ORM](mapping_orm.md)
+- [Doctrine ODM (mongodb)](mapping_mongodb.md)
 
 After the classes are created and configured you can continue with step 5.
 
-### 5. Import FOSCommentBundle routing
+### Step 5: Import FOSCommentBundle routing
 
 Import the bundle routing:
 
@@ -105,7 +105,7 @@ fos_comment_api:
 
 > The `type: rest` part is important.
 
-### 6. Enable comments on a page
+### Step 6: Enable comments on a page
 The recommended way to include comments on a page is using the reference
 javascript provided. The javascript will asynchronously load the comments after
 the page load.
@@ -117,22 +117,7 @@ At the place where the comments should be loaded, add this to the html:
 
 And the following code to actually load the comments:
 ``` jinja
-{% javascripts '@FOSCommentBundle/Resources/assets/js/rest-comments.js' %}
-<script type="text/javascript">
-// URI identifier for the thread comments
-var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': 'foo'}) }}';
-
-// Snippet for asynchronously loading the comments
-(function() {
-    var fos_comment_script = document.createElement('script');
-    fos_comment_script.async = true;
-    fos_comment_script.src = 'http://comment-app.local/comment-app.js';
-    fos_comment_script.type = 'text/javascript';
-
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
-})();
-</script>
-{% endjavascripts %}
+{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
 ```
 
 That's the basic setup! For additional information and configuration check the ... section and the cookbook.
