@@ -1,0 +1,18 @@
+<div id="fos_comment_thread"></div>
+
+{% javascripts '@FOSCommentBundle/Resources/assets/js/rest-comments.js' %}
+<script type="text/javascript">
+// URI identifier for the thread comments
+var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': id}) }}';
+
+// Snippet for asynchronously loading the comments
+(function() {
+    var fos_comment_script = document.createElement('script');
+    fos_comment_script.async = true;
+    fos_comment_script.src = '{{ asset_url }}';
+    fos_comment_script.type = 'text/javascript';
+
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
+})();
+</script>
+{% endjavascripts %}
