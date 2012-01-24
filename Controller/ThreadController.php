@@ -38,7 +38,7 @@ class ThreadController extends ContainerAware
 
         if (!$thread) {
             $thread = $manager->createThread($id);
-            $manager->addThread($thread);
+            $manager->saveThread($thread);
         }
 
         return $thread;
