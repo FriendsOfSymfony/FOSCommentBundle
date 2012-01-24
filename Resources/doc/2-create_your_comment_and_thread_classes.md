@@ -1,4 +1,4 @@
-Step 4: Create your Comment and Thread classes
+Step 2: Create your Comment and Thread classes
 ==============================================
 
 The FOSCommentBundle supports both Doctrine ODM (mongodb) and Doctrine ORM by

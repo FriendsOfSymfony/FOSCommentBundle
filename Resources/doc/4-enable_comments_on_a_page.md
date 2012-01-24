@@ -5,7 +5,7 @@ javascript provided. The javascript will asynchronously load the comments after
 the page load.
 
 And the following code at a desired place in the template to load the comments:
-``` jinja
+```twig
 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
 ```
 
