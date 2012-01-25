@@ -50,7 +50,8 @@ class Comment extends BaseComment
 }
 ```
 
-Additionally, create the Thread object::
+Additionally, create the Thread object:
+
 ``` php
 <?php
 // src/MyProject/MyBundle/Document/Thread.php
@@ -99,3 +100,6 @@ Or if you prefer XML:
     </fos_comment:class>
 </fos_comment:config>
 ```
+
+### Back to the main step
+[Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).

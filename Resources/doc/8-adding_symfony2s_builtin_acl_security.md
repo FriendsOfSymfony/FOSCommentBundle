@@ -2,6 +2,7 @@ Step 8: Adding role based ACL security
 ======================================
 
 **Note:**
+
 > This bundle ships with support different security setups. You can also have a look at [Adding role based ACL security](7-adding_role_based_acl_security.md).
 
 To use the built in Acl system, it must first be initialised with the Symfony2 console:
@@ -11,6 +12,7 @@ $ app/console init:acl
 ```
 
 Additionally, your configuration needs to be modified to add the right managers:
+
 ``` yaml
 # app/config/config.yml
 
@@ -24,6 +26,7 @@ fos_comment:
 ```
 
 **Note:**
+
 > Note: you must enable the Security Acl component::
 
 ``` yaml
@@ -37,8 +40,8 @@ security:
 Finally, you must populate the Acl system with entries that may not be there yet
 by running:
 
-``` yaml
-    app/console fos:comment:installAces
+``` bash
+$ app/console fos:comment:installAces
 ```
 
 This will make sure that the Acl entries in the database are correct. This comment

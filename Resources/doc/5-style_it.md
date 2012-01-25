@@ -1,7 +1,7 @@
 Step 5: Style it
 ================
 This bundle supplies some basic CSS markup that will make it usable. It's
-included in the Resources/assets/css directory.
+included in the `Resources/assets/css` directory.
 
 To use the basic CSS in your templates with Assetic, place the following in your base template::
 

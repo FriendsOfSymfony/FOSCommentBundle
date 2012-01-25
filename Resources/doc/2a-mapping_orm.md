@@ -52,7 +52,7 @@ class Comment extends BaseComment
 }
 ```
 
-And the Thread::
+And the Thread:
 
 ``` php
 <?php
@@ -106,3 +106,5 @@ Or if you prefer XML:
     </fos_comment:class>
 </fos_comment:config>
 ```
+### Back to the main step
+[Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).

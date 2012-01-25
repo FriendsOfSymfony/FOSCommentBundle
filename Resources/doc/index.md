@@ -14,10 +14,10 @@ Installation is a quick (I promise!) 4 step process:
 
 The following steps are optional and the order doesn't matter:
 
-5. [Style it](5-style_it.md)
-6. [Integration with FOSUserBundle](6-integration_with_fosuserbundle.md)
-7. [Adding role based ACL security](7-adding_role_based_acl_security.md)
-8. [Adding Symfony2's built in ACL security](8-adding_symfony2s_builtin_acl_security.md)
+- [Style it](5-style_it.md)
+- [Integration with FOSUserBundle](6-integration_with_fosuserbundle.md)
+- [Adding role based ACL security](7-adding_role_based_acl_security.md)
+- [Adding Symfony2's built in ACL security](8-adding_symfony2s_builtin_acl_security.md)
 
 TODO:
 
@@ -25,3 +25,4 @@ TODO:
 - Spam detection
 - Comment tree sorting
 - Implement a new persistence backend
+- Other ways of adding comments to a page

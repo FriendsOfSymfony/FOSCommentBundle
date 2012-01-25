@@ -13,6 +13,7 @@ In order to add an author to a comment, the Comment class should implement the
 `SignedCommentInterface` and add a field to your mapping.
 
 For example in the ORM:
+
 ``` php
 <?php
 // src/MyProject/MyBundle/Entity/Comment.php

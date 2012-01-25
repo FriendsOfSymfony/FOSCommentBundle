@@ -10,4 +10,4 @@ the appropriate instructions to set up the classes:
 
 ### Continue to the next step!
 When you're done. Continue with importing the routing:
-[Step 3: Importing FOSCommentBundle routing](3-importing_foscommentbundle_routing.md)
+[Step 3: Importing FOSCommentBundle routing](3-importing_foscommentbundle_routing.md).

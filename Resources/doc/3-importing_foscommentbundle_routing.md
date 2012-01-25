@@ -14,4 +14,4 @@ fos_comment_api:
 
 ### Continue to the next step! (final!)
 When you're done. Continue with the final step: enabling the comments on a page:
-[Step 4: Enable comments on a page](4-enable_comments_on_a_page.md)
+[Step 4: Enable comments on a page](4-enable_comments_on_a_page.md).

@@ -70,4 +70,4 @@ public function registerBundles()
 
 ### Continue to the next step!
 When you're done. Continue by creating the appropriate Comment and Thread classes:
-[Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md)
+[Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).
