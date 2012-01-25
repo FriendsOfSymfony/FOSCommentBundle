@@ -23,7 +23,7 @@ fos_comment:
             vote: fos_comment.acl.vote.roles
 ```
 
-To change the roles required for specific actions, modify the acl_roles configuration
+To change the roles required for specific actions, modify the `acl_roles` configuration
 key:
 
 ``` yaml
