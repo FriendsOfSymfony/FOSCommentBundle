@@ -9,19 +9,14 @@
 
 #}
 
-{% block fos_comment_form_title %}
-    {% if first %}
-        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
-    {% else %}
-        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
-    {% endif %}
-{% endblock %}
-
-<form class="fos_comment_comment_form" action="{{ path("fos_comment_comment_create", { "threadId": thread.id }) }}" method="POST">
+<form class="fos_comment_comment_form" action="{{ url('fos_comment_post_threads') }}" method="POST">
 
     {% block fos_comment_form_fields %}
         {{ form_errors(form) }}
-        {{ form_widget(form.body) }}
+        {{ form_errors(form.id) }}
+        {{ form_widget(form.id) }}
+        {{ form_errors(form.permalink) }}
+        {{ form_widget(form.permalink) }}
         {{ form_widget(form._token) }}
     {% endblock %}
 

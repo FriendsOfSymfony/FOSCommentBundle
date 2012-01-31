@@ -9,4 +9,4 @@
 
 #}
 
-{% include "FOSCommentBundle:Comment:tree.html.twig" with { "nodes": nodes, "displayDepth": 0, "depth": depth, "sorter": sorter } %}
+{% trans from 'FOSCommentBundle' %}fos_comment_comment_vote_score{% endtrans %} {{ commentScore }}

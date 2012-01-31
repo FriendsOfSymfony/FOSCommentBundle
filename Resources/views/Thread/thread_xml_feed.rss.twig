@@ -1,0 +1,28 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>{{ thread.id }}</title>
+    <id>{{ thread.id }}</id>
+    <link href="{{ thread.permalink }}" rel="alternate" />
+    <updated>{{ thread.lastCommentAt|date("c") }}</updated>
+{% for commentinfo in comments %}
+    <entry>
+        <title>By {{ commentinfo.comment.authorName }} on {{ commentinfo.comment.createdAt|date }}</title>
+        <author>
+            <name>{{ commentinfo.comment.authorName }}</name>
+        </author>
+        <updated>{{ commentinfo.comment.createdAt|date("c") }}</updated>
+        <link rel="alternate">{{ thread.permalink }}#{{ commentinfo.comment.id }}</link>
+        <summary>{{ commentinfo.comment.body }}</summary>
+    </entry>
+{% endfor %}
+</feed>
