@@ -35,8 +35,9 @@ class CommentController extends ContainerAware
      * @param integer $displayDepth
      * @return Response
      */
-    public function treeAction(ThreadInterface $thread, $sorter = null, $displayDepth = null)
+    public function treeAction($thread, $sorter = null, $displayDepth = null)
     {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($thread);
         $nodes = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
 
         return $this->container->get('templating')->renderResponse(
