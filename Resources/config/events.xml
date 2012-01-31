@@ -44,5 +44,9 @@
             <argument type="service" id="logger" />
         </service>
 
+        <service id="fos_comment.listener.closed_threads" class="FOS\CommentBundle\EventListener\ClosedThreadListener">
+            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
+            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="onCommentPersist" />
+        </service>
     </services>
 </container>

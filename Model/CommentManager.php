@@ -147,7 +147,7 @@ abstract class CommentManager implements CommentManagerInterface
      * perform the saving of the comment to the backend.
      *
      * @param CommentInterface $comment
-     * @throws InvalidArumgnetException when the comment does not have a thread.
+     * @throws InvalidArgumentException when the comment does not have a thread.
      */
     public function saveComment(CommentInterface $comment)
     {
