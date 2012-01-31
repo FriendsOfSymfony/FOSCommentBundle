@@ -184,7 +184,7 @@ class ThreadController extends Controller
             $thread->setPermalink($request->query->get('permalink'));
 
             // Add the thread
-            $this->container->get('fos_comment.manager.thread')->addThread($thread);
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
         }
 
         $view = $request->query->get('view', 'tree');
