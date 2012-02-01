@@ -14,6 +14,6 @@ fos_comment_comment_vote_score:               "Оноо: "
 
 fos_comment_comment_tree_load_more:           Сэтгэгдлийг цааш унших
 
-%num% сэтгэгдэл|%num% сэтгэгдэлүүд: %num% сэтгэгдэл|%num% сэтгэгдлүүд
+Showing %num% comment|Showing %num% comments: %num% сэтгэгдэл|%num% сэтгэгдлүүд
 
 fos_comment_rss_feed:                         RSS Feed
