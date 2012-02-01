@@ -11,7 +11,10 @@ The FOSCommentBundle adds support for a comment system in Symfony2. Features inc
 - Optional use of Symfony2 Acl to protect comments
 - Optional integration with FOS\UserBundle
 - Optional integration with `Akismet`_
+ 
+**Note:**
 
+> The structure of this bundle has changed recently. If you are using 0.9.x, there are changes you need to make listed in UPDATE.markdown. There is also a 0.9 branch if you do not wish to upgrade, however this branch is not supported.
 
 [![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSCommentBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSCommentBundle)
 
