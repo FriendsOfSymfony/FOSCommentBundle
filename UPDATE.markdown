@@ -1,5 +1,7 @@
 0.9.2 to 1.0.0
 
+ * You need to remove comment.js previously used by this bundle. async.html.twig now includes its
+   own javascript file automatically.
  * There is now a dependency on FOSRestBundle. Check the installation documentation for details.
  * Routing has changed, you must replace your existing fos_comment route import to
 
