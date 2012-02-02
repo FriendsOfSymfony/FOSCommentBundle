@@ -161,7 +161,7 @@
                 form.after(commentHtml);
 
                 // one up for form holder, then again one up
-                form.parent().parent().after(commentHtml).removeClass('replying');
+                form.parent().parent().after(commentHtml).removeClass('fos_comment_replying');
 
                 // Remove the form
                 form.parent().remove();
