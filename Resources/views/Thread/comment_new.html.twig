@@ -16,7 +16,7 @@
         {% if first %}
             <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
         {% elseif parent is not null %}
-            <h3>Reply to {{ parent.authorName }}.</h3>
+            <h3>{% trans with {"%name%": parent.authorName } from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %}</h3>
         {% else %}
             <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
         {% endif %}
