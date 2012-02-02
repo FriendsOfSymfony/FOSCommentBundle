@@ -60,7 +60,7 @@ button.fos_comment_comment_reply_show_form {
     padding: 2px 5px;
     font-size: 0.8em;
 }
-div.fos_comment_comment_reply.replying button.fos_comment_comment_reply_show_form {
+div.fos_comment_comment_reply.fos_comment_replying button.fos_comment_comment_reply_show_form {
     display: none;
 }
 div.fos_comment_thread_comments {
