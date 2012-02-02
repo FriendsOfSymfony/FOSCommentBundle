@@ -108,12 +108,20 @@
                 function(e) {
                     var form_data = $(this).data();
                     var that = this;
+                    var $button = $(this);
+                    var $container = $button.parent().addClass('replying');
 
                     FOS_COMMENT.get(
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
                             $(that).after(data);
+                            var $reply = $container.find('.fos_comment_comment_form_holder')
+                                .find('.fos_comment_reply_cancel').click(function() {
+                                    $reply.remove();
+                                    $container.removeClass('replying');
+                                }).end()
+                                .find('textarea').focus().end();
                         }
                     );
                 }
@@ -153,7 +161,9 @@
                 form.after(commentHtml);
 
                 // one up for form holder, then again one up
-                form.parent().parent().after(commentHtml);
+                var $container = form.parent().parent();
+                    $container.after(commentHtml);
+                    $container.removeClass('replying');
 
                 // Remove the form
                 form.parent().remove();
