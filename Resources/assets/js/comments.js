@@ -45,10 +45,17 @@
          *
          * @param string url The url of the page to post.
          * @param object data The data to be posted.
-         * @param function callback Optional callback function to use.
+         * @param function success Optional callback function to use in case of succes.
+         * @param function error Optional callback function to use in case of error.
          */
-        post: function(url, data, callback) {
-            $.post(url, data, callback);
+        post: function(url, data, success, error) {
+            // Wrap the error callback to match return data between jQuery and easyXDM
+            var wrappedErrorCallback = function(response){
+                if('undefined' !== typeof error) {
+                    error(response.responseText, response.status);
+                }
+            };
+            $.post(url, data, success).error(wrappedErrorCallback);
         },
 
         /**
@@ -56,10 +63,17 @@
          *
          * @param string url The url of the page to get.
          * @param object data The query data.
-         * @param function callback Optional callback function to use.
+         * @param function success Optional callback function to use in case of succes.
+         * @param function error Optional callback function to use in case of error.
          */
-        get: function(url, data, callback) {
-            $.get(url, data, callback);
+        get: function(url, data, success, error) {
+            // Wrap the error callback to match return data between jQuery and easyXDM
+            var wrappedErrorCallback = function(response){
+                if('undefined' !== typeof error) {
+                    error(response.responseText, response.status);
+                }
+            };
+            $.get(url, data, success).error(wrappedErrorCallback);
         },
 
         /**
@@ -94,8 +108,14 @@
                     FOS_COMMENT.post(
                         this.action,
                         FOS_COMMENT.serializeObject(this),
-                        function(data) {
+                        // success
+                        function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
+                        },
+                        // error
+                        function(data, statusCode) {
+                            that.parent().after(data);
+                            that.parent().remove();
                         }
                     );
 
@@ -158,8 +178,12 @@
                 // Remove the form
                 form.parent().remove();
             } else {
+                // Insert the comment
                 form.after(commentHtml);
-                form[0].reset();
+
+                // "reset" the form
+                $(form[0]).children('textarea')[0].value = '';
+                $(form[0]).children('.fos_comment_form_errors').remove();
             }
         },
 
@@ -202,13 +226,19 @@
          * @param string method The request method to use.
          * @param string url The url of the page to request.
          * @param object data The data parameters.
-         * @param function callback Optional callback function to use.
+         * @param function success Optional callback function to use in case of succes.
+         * @param function error Optional callback function to use in case of error.
          */
-        FOS_COMMENT.request = function(method, url, data, callback) {
-            // wrap the callback to match the callback parameters of jQuery
-            var wrappedCallback = function(response){
-                if('undefined' !== typeof callback) {
-                    callback(response.data, response.status);
+        FOS_COMMENT.request = function(method, url, data, success, error) {
+            // wrap the callbacks to match the callback parameters of jQuery
+            var wrappedSuccessCallback = function(response){
+                if('undefined' !== typeof success) {
+                    success(response.data, response.status);
+                }
+            };
+            var wrappedErrorCallback = function(response){
+                if('undefined' !== typeof error) {
+                    error(response.data.data, response.data.status);
                 }
             };
 
@@ -217,15 +247,15 @@
                     url: url,
                     method: method,
                     data: data,
-            }, wrappedCallback);
+            }, wrappedSuccessCallback, wrappedErrorCallback);
         };
 
-        FOS_COMMENT.post = function(url, data, callback) {
-            this.request('POST', url, data, callback);
+        FOS_COMMENT.post = function(url, data, success, error) {
+            this.request('POST', url, data, success, error);
         };
 
-        FOS_COMMENT.get= function(url, data, callback) {
-            this.request('GET', url, data, callback);
+        FOS_COMMENT.get= function(url, data, success, error) {
+            this.request('GET', url, data, success, error);
         };
 
         /* Initialize xhr object to do cross-domain requests. */
