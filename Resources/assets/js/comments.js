@@ -116,7 +116,7 @@
                         {parentId: form_data.parentId},
                         function(data) {
                             $(that).after(data);
-                            $container.find('.fos_comment_comment_form_holder')
+                            var $reply = $container.find('.fos_comment_comment_form_holder')
                                 .find('.fos_comment_reply_cancel').click(function() {
                                     $reply.remove();
                                     $container.removeClass('fos_comment_replying');
