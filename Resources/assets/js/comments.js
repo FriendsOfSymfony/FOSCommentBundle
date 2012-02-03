@@ -114,8 +114,9 @@
                         },
                         // error
                         function(data, statusCode) {
-                            that.parent().after(data);
-                            that.parent().remove();
+                            var parent = that.parent();
+                            parent.after(data);
+                            parent.remove();
                         }
                     );
 
@@ -172,18 +173,21 @@
             if('' != form_data.parent) {
                 form.after(commentHtml);
 
+                var form_parent = form.parent();
+
                 // one up for form holder, then again one up
-                form.parent().parent().after(commentHtml);
+                form_parent.parent().after(commentHtml);
 
                 // Remove the form
-                form.parent().remove();
+                form_parent.remove();
             } else {
                 // Insert the comment
                 form.after(commentHtml);
 
                 // "reset" the form
-                $(form[0]).children('textarea')[0].value = '';
-                $(form[0]).children('.fos_comment_form_errors').remove();
+                form = $(form[0]);
+                form.children('textarea')[0].value = '';
+                form.children('.fos_comment_form_errors').remove();
             }
         },
 
