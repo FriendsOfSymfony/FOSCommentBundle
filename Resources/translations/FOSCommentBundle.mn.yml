@@ -2,10 +2,10 @@ fos_comment_comment_new_headline_first:       Анхны сэтгэл бичиг
 fos_comment_comment_new_headline:             Шинэ сэтгэгдэл нэмэх
 fos_comment_comment_new_submit:               Илгээх
 
-fos_comment_comment_reply_reply_to:           -д хариу бичих
+fos_comment_comment_reply_reply_to:           %name% -д хариу бичих
 fos_comment_comment_reply_cancel:             Цуцлах 
 
-fos_comment_comment_show_by:                  
+fos_comment_comment_show_by:                  ""
 fos_comment_comment_show_voteup:              Нэмэх оноо
 fos_comment_comment_show_votedown:            Хасах оноо
 fos_comment_comment_show_reply:               Хариулах
