@@ -187,7 +187,7 @@
                 var reply_button_holder = form_parent.parent();
                 reply_button_holder.removeClass('fos_comment_replying');
 
-                reply_button_holder.parent().after(commentHtml);
+                reply_button_holder.after(commentHtml);
 
                 // Remove the form
                 form_parent.remove();
