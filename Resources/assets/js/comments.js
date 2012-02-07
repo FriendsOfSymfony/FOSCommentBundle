@@ -134,9 +134,19 @@
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
+                            $(that).parent().addClass('fos_comment_replying');
                             $(that).after(data);
                         }
                     );
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_reply_cancel',
+                function(e) {
+                    var form_holder = $(this).parent().parent().parent();
+                    form_holder.parent().removeClass('fos_comment_replying');
+                    form_holder.remove();
                 }
             );
 
@@ -171,12 +181,13 @@
             var form_data = form.data();
 
             if('' != form_data.parent) {
-                form.after(commentHtml);
-
                 var form_parent = form.parent();
 
-                // one up for form holder, then again one up
-                form_parent.parent().after(commentHtml);
+                // reply button holder
+                var reply_button_holder = form_parent.parent();
+                reply_button_holder.removeClass('fos_comment_replying');
+
+                reply_button_holder.parent().after(commentHtml);
 
                 // Remove the form
                 form_parent.remove();
