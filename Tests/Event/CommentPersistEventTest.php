@@ -6,7 +6,6 @@ use FOS\CommentBundle\Event\CommentPersistEvent;
 
 class CommentPersistEventTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testAbortingPersistence()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
@@ -15,5 +14,4 @@ class CommentPersistEventTest extends \PHPUnit_Framework_TestCase
         $event->abortPersistence();
         $this->assertTrue($event->isPersistenceAborted());
     }
-
 }

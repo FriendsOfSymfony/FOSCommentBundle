@@ -7,7 +7,6 @@ use FOS\CommentBundle\Event\CommentEvent;
 
 class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testNonSignedCommentIsNotBlamed()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
@@ -107,5 +106,4 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
     {
         return $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
     }
-
 }
