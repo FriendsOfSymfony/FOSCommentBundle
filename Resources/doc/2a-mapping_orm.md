@@ -1,8 +1,10 @@
 Step 2a: Setup Doctrine ORM mapping
 ===================================
 The ORM implementation does not provide a concrete Comment class for your use,
-you must create one::
+you must create one. This can be done by extending the abstract entities
+provided by the bundle and creating the appropriate mappings.
 
+For example:
 ``` php
 <?php
 // src/MyProject/MyBundle/Entity/Comment.php
@@ -32,23 +34,6 @@ class Comment extends BaseComment
      * @ORM\ManyToOne(targetEntity="MyProject\MyBundle\Entity\Thread")
      */
     protected $thread;
-
-    /**
-     * @return Thread
-     */
-    public function getThread()
-    {
-        return $this->thread;
-    }
-
-    /**
-     * @param Thread $thread
-     * @return null
-     */
-    public function setThread(Thread $thread)
-    {
-        $this->thread = $thread;
-    }
 }
 ```
 

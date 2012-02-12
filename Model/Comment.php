@@ -54,6 +54,13 @@ abstract class Comment implements CommentInterface
      */
     protected $createdAt;
 
+    /**
+     * Should be mapped by the end developer.
+     *
+     * @var ThreadInterface
+     */
+    protected $thread;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -143,5 +150,15 @@ abstract class Comment implements CommentInterface
         $ancestors[] = $parent->getId();
 
         $this->setAncestors($ancestors);
+    }
+
+    public function getThread()
+    {
+        return $this->thread;
+    }
+
+    public function setThread(ThreadInterface $thread)
+    {
+        $this->thread = $thread;
     }
 }

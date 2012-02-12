@@ -30,23 +30,6 @@ class Comment extends BaseComment
      * @MongoDB\ReferenceOne(targetDocument="MyProject\MyBundle\Document\Thread")
      */
     protected $thread;
-
-    /**
-     * @return Thread
-     */
-    public function getThread()
-    {
-        return $this->thread;
-    }
-
-    /**
-     * @param Thread $thread
-     * @return null
-     */
-    public function setThread(Thread $thread)
-    {
-        $this->thread = $thread;
-    }
 }
 ```
 
