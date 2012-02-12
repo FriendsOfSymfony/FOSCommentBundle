@@ -61,5 +61,5 @@ class Comment extends BaseComment implements SignedCommentInterface
 }
 ```
 
-## That was it!
+## That is it!
 [Return to the index.](index.md)
