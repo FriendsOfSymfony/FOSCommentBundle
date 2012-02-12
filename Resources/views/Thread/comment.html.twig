@@ -25,7 +25,7 @@
     </div>
     <div class="fos_comment_comment_body">
         {% if comment is fos_comment_raw %}
-        {{ comment.body | raw }}
+        {{ comment.rawBody | raw }}
         {% else %}
         {{ comment.body | nl2br }}
         {% endif %}
