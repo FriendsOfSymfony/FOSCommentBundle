@@ -152,11 +152,19 @@ abstract class Comment implements CommentInterface
         $this->setAncestors($ancestors);
     }
 
+    /**
+     * @return ThreadInterface
+     */
     public function getThread()
     {
         return $this->thread;
     }
 
+    /**
+     * @param ThreadInterface $thread
+     *
+     * @return void
+     */
     public function setThread(ThreadInterface $thread)
     {
         $this->thread = $thread;

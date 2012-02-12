@@ -5,6 +5,7 @@ you must create one. This can be done by extending the abstract entities
 provided by the bundle and creating the appropriate mappings.
 
 For example:
+
 ``` php
 <?php
 // src/MyProject/MyBundle/Entity/Comment.php
