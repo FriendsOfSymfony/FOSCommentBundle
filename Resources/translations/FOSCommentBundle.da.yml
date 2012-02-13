@@ -1,0 +1,19 @@
+fos_comment_comment_new_headline_first:       Vær den første til at kommentere
+fos_comment_comment_new_headline:             Tilføj ny kommentar
+fos_comment_comment_new_submit:               Send
+
+fos_comment_comment_reply_reply_to:           Svarer %name%
+fos_comment_comment_reply_cancel:             Afbryd
+
+fos_comment_comment_show_by:                  Af
+fos_comment_comment_show_voteup:              Stem op
+fos_comment_comment_show_votedown:            Stem ned
+fos_comment_comment_show_reply:               Svar
+
+fos_comment_comment_vote_score:               "Score: "
+
+fos_comment_comment_tree_load_more:           Hent flere svar
+
+Showing %num% comment|Showing %num% comments: Viser %num% kommentar|Viser %num% kommentare
+
+fos_comment_rss_feed:                         RSS format
