@@ -34,7 +34,7 @@ class CommentMarkupListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param MarkupParserInterface
+     * @param \FOS\CommentBundle\Markup\ParserInterface $parser
      */
     public function __construct(ParserInterface $parser)
     {
@@ -42,10 +42,10 @@ class CommentMarkupListener implements EventSubscriberInterface
     }
 
     /**
-     * Assigns the currently logged in user to a Comment.
+     * Parses raw comment data and assigns it to the rawBody
+     * property.
      *
      * @param \FOS\CommentBundle\Event\CommentEvent $event
-     * @return void
      */
     public function markup(CommentEvent $event)
     {
