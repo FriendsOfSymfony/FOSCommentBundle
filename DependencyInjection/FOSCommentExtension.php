@@ -97,6 +97,12 @@ class FOSCommentExtension extends Extension
             $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
         }
 
+        if (isset($config['service']['markup'])) {
+            $container->setAlias('fos_comment.markup', $config['service']['markup'], false);
+            $loader->load('markup.xml');
+            $container->setAlias('fos_comment.markup', $config['service']['markup']);
+        }
+
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);

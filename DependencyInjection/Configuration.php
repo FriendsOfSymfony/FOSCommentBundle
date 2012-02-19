@@ -143,6 +143,7 @@ class Configuration
                                 ->scalarNode('default')->cannotBeEmpty()->defaultValue('date_desc')->end()
                             ->end()
                         ->end()
+                        ->scalarNode('markup')->end()
                     ->end()
                 ->end()
             ->end()

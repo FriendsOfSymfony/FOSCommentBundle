@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Twig;
 use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Acl\VoteAclInterface;
 
 /**
@@ -36,6 +37,7 @@ class CommentExtension extends \Twig_Extension
     {
         return array(
             'fos_comment_votable'        => new \Twig_Test_Method($this, 'isVotable'),
+            'fos_comment_raw'            => new \Twig_Test_Method($this, 'isRawComment'),
         );
     }
 
@@ -47,11 +49,12 @@ class CommentExtension extends \Twig_Extension
      */
     public function isVotable($value)
     {
-        if (!is_object($value)) {
-            return false;
-        }
-
         return ($value instanceof VotableCommentInterface);
+    }
+
+    public function isRawComment($comment)
+    {
+        return ($comment instanceof RawCommentInterface);
     }
 
     public function getFunctions()
@@ -83,6 +86,13 @@ class CommentExtension extends \Twig_Extension
         return $this->commentAcl->canReply($comment);
     }
 
+    /**
+     * Checks if the comment is Votable and that the user has
+     * permission to vote.
+     *
+     * @param \FOS\CommentBundle\Model\CommentInterface $comment
+     * @return bool
+     */
     public function canVote(CommentInterface $comment)
     {
         if (!$comment instanceof VotableCommentInterface) {

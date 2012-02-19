@@ -24,7 +24,11 @@
         {% endif %}
     </div>
     <div class="fos_comment_comment_body">
+        {% if comment is fos_comment_raw %}
+        {{ comment.rawBody | raw }}
+        {% else %}
         {{ comment.body | nl2br }}
+        {% endif %}
     </div>
 
     {% if view is not sameas('flat') %}

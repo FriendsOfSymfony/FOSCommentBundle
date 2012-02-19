@@ -49,5 +49,5 @@ must be run whenever any configuration for security changes in FOSCommentBundle,
 including enabling the security features or changing the FQCN of your extended
 FOSCommentBundle objects.
 
-## That was it!
+## That is it!
 [Return to the index.](index.md)
