@@ -49,19 +49,11 @@ class CommentExtension extends \Twig_Extension
      */
     public function isVotable($value)
     {
-        if (!is_object($value)) {
-            return false;
-        }
-
         return ($value instanceof VotableCommentInterface);
     }
 
     public function isRawComment($comment)
     {
-        if (!is_object($comment)) {
-            return false;
-        }
-
         return ($comment instanceof RawCommentInterface);
     }
 
@@ -94,6 +86,13 @@ class CommentExtension extends \Twig_Extension
         return $this->commentAcl->canReply($comment);
     }
 
+    /**
+     * Checks if the comment is Votable and that the user has
+     * permission to vote.
+     *
+     * @param \FOS\CommentBundle\Model\CommentInterface $comment
+     * @return bool
+     */
     public function canVote(CommentInterface $comment)
     {
         if (!$comment instanceof VotableCommentInterface) {
