@@ -1,3 +1,7 @@
+1.0.0 to 1.1.0
+
+ * `Resources/Thread/comment.html.twig` has changed, adding a rawBody option. This change is not relevant unless you are going to use RawComments
+
 0.9.2 to 1.0.0
 
  * You need to remove comment.js previously used by this bundle. async.html.twig now includes its
