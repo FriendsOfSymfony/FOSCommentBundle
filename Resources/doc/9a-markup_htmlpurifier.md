@@ -20,7 +20,7 @@ so that it knows to use it. Both requirements are listed in the code block below
 
 services:
     # ...
-    fos_comment.markup.exercise_html_purifier:
+    markup.exercise_html_purifier:
         class: FOS\CommentBundle\Markup\HtmlPurifier
         arguments: [ @exercise_html_purifier.default ]
     # ...
@@ -28,7 +28,7 @@ services:
 fos_comment:
     # ...
     services:
-        markup: fos_comment.markup.exercise_html_purifier
+        markup: markup.exercise_html_purifier
     # ...
 ```
 
