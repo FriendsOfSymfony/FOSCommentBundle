@@ -16,9 +16,9 @@
     <services>
         <service id="fos_comment.listener.comment_markup" class="FOS\CommentBundle\EventListener\CommentMarkupListener">
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.vote.pre_persist" method="markup" />
+            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="markup" />
 
-            <argument type="service" id="%fos_comment.markup%" />
+            <argument type="service" id="fos_comment.markup" />
         </service>
 
     </services>
