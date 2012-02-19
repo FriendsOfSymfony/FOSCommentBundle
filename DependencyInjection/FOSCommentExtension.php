@@ -98,6 +98,7 @@ class FOSCommentExtension extends Extension
         }
 
         if (isset($config['service']['markup'])) {
+            $container->setAlias('fos_comment.markup', $config['service']['markup'], false);
             $loader->load('markup.xml');
             $container->setAlias('fos_comment.markup', $config['service']['markup']);
         }
