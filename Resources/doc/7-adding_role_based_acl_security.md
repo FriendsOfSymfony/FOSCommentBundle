@@ -48,5 +48,5 @@ fos_comment:
             delete: ROLE_ADMIN
 ```
 
-## That was it!
+## That is it!
 [Return to the index.](index.md)

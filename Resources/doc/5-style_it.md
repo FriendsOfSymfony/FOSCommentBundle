@@ -12,5 +12,5 @@ To use the basic CSS in your templates with Assetic, place the following in your
 {% endstylesheets %}
 ```
 
-## That was it!
+## That is it!
 [Return to the index.](index.md)
