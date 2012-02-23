@@ -23,5 +23,7 @@ fos_comment:
 FOSCommentBundle ships with support for Exercise\HTMLPurifierBundle and the
 set up procedure for using HTMLPurifier can be found [at the following page](9a-markup_htmlpurifier.md)
 
+This is an example [bridge implementation](9b-sundown_markdown_parser.md) that uses the PECL sundown module.
+
 ## That is it!
 [Return to the index.](index.md)
