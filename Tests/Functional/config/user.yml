@@ -1,0 +1,6 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.noop

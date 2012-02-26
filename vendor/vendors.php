@@ -16,9 +16,11 @@ if (isset($argv[1])) {
     $_SERVER['SYMFONY_VERSION'] = $argv[1];
 }
 
+$dev = !isset($_SERVER['SYMFONY_VERSION']) || ('origin/master' == $_SERVER['SYMFONY_VERSION']);
+
 $vendorDir = __DIR__;
 $deps = array(
-    array('symfony', 'git://github.com/symfony/symfony.git', isset($_SERVER['SYMFONY_VERSION']) ? $_SERVER['SYMFONY_VERSION'] : 'origin/master'),
+    array('symfony', 'git://github.com/symfony/symfony.git', $dev ? 'origin/master' : $_SERVER['SYMFONY_VERSION']),
     array('twig', 'git://github.com/fabpot/Twig.git', 'origin/master'),
     array('doctrine-common', 'git://github.com/doctrine/common.git', 'origin/master'),
     array('doctrine-dbal', 'git://github.com/doctrine/dbal.git', 'origin/master'),
@@ -26,7 +28,16 @@ $deps = array(
     array('doctrine-mongodb-odm', 'git://github.com/doctrine/mongodb-odm.git', 'origin/master'),
     array('doctrine-mongodb', 'git://github.com/doctrine/mongodb.git', 'origin/master'),
     array('bundles/Ornicar/AkismetBundle', 'git://github.com/ornicar/OrnicarAkismetBundle.git', 'origin/master'),
+    array('bundles/FOS/UserBundle', 'git://github.com/FriendsOfSymfony/FOSUserBundle.git', 'origin/master'),
+    array('bundles/JMS/SerializerBundle', 'git://github.com/schmittjoh/JMSSerializerBundle.git', 'origin/master'),
+    array('bundles/FOS/RestBundle', 'git://github.com/FriendsOfSymfony/FOSRestBundle.git', $dev ? 'origin/master' : 'origin/0.6'),
+    array('bundles/Sensio/Bundle/FrameworkExtraBundle', 'git://github.com/sensio/SensioFrameworkExtraBundle.git', 'origin/master'),
 );
+
+if ($dev) {
+    $deps[] = array('bundles/Doctrine/Bundle/DoctrineBundle', 'git://github.com/doctrine/DoctrineBundle', 'origin/master');
+}
+
 
 foreach ($deps as $dep) {
     list($name, $url, $rev) = $dep;

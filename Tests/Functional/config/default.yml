@@ -2,3 +2,6 @@ imports:
     - { resource: framework.yml }
     - { resource: twig.yml }
     - { resource: comment.yml }
+    - { resource: user.yml }
+    - { resource: security.yml }
+    - { resource: doctrine_orm.yml }

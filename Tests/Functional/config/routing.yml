@@ -1,0 +1,2 @@
+_commenttest:
+    resource: "@CommentBundle/Resources/config/routing.yml"
