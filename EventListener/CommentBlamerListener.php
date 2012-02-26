@@ -44,7 +44,7 @@ class CommentBlamerListener implements EventSubscriberInterface
      * @param SecurityContextInterface $securityContext
      * @param LoggerInterface $logger
      */
-    public function __construct(SecurityContextInterface $securityContext, LoggerInterface $logger = null)
+    public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
         $this->logger = $logger;
@@ -59,6 +59,14 @@ class CommentBlamerListener implements EventSubscriberInterface
     public function blame(CommentEvent $event)
     {
         $comment = $event->getComment();
+
+        if (null === $this->securityContext) {
+            if ($this->logger) {
+                $this->logger->debug("Comment Blamer did not receive the security.context service.");
+            }
+
+            return;
+        }
 
         if (!$comment instanceof SignedCommentInterface) {
             if ($this->logger) {
