@@ -25,6 +25,7 @@ $deps = array(
     array('doctrine', 'git://github.com/doctrine/doctrine2.git', 'origin/master'),
     array('doctrine-mongodb-odm', 'git://github.com/doctrine/mongodb-odm.git', 'origin/master'),
     array('doctrine-mongodb', 'git://github.com/doctrine/mongodb.git', 'origin/master'),
+    array('bundles/Ornicar/AkismetBundle', 'git://github.com/ornicar/OrnicarAkismetBundle.git', 'origin/master'),
 );
 
 foreach ($deps as $dep) {
