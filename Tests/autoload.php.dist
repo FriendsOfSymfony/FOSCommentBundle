@@ -13,6 +13,7 @@ $vendorDir = __DIR__.'/../vendor';
 require_once $vendorDir.'/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
@@ -23,6 +24,8 @@ $loader->registerNamespaces(array(
     'Doctrine\\ODM\\MongodB' => $vendorDir.'/doctrine-mongodb-odm/lib',
     'Doctrine\\MongodB'      => $vendorDir.'/doctrine-mongodb/lib',
     'Doctrine'               => $vendorDir.'/doctrine/lib',
+    'Metadata'               => $vendorDir.'/metadata/src',
+    'Assetic'                => __DIR__.'/../vendor/assetic/src',
 
     'FOS'                    => $vendorDir.'/bundles',
     'JMS'                    => $vendorDir.'/bundles',
@@ -46,3 +49,9 @@ spl_autoload_register(function($class) {
         return true;
     }
 });
+
+AnnotationRegistry::registerLoader(function($class) use ($loader) {
+    $loader->loadClass($class);
+    return class_exists($class, false);
+});
+AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');

@@ -29,13 +29,13 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * Thread of this comment
      *
      * @var Thread
-     * @ORM\ManyToOne(targetEntity="CommentBundle:Thread")
+     * @ORM\ManyToOne(targetEntity="Thread")
      */
     protected $thread;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="CommentBundle:User")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     protected $author;
 

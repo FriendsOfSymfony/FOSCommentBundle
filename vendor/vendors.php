@@ -27,11 +27,14 @@ $deps = array(
     array('doctrine', 'git://github.com/doctrine/doctrine2.git', 'origin/master'),
     array('doctrine-mongodb-odm', 'git://github.com/doctrine/mongodb-odm.git', 'origin/master'),
     array('doctrine-mongodb', 'git://github.com/doctrine/mongodb.git', 'origin/master'),
+    array('metadata', 'git://github.com/schmittjoh/metadata.git', 'origin/master'),
+    array('assetic', 'git://github.com/kriswallsmith/assetic.git', 'origin/master'),
     array('bundles/Ornicar/AkismetBundle', 'git://github.com/ornicar/OrnicarAkismetBundle.git', 'origin/master'),
     array('bundles/FOS/UserBundle', 'git://github.com/FriendsOfSymfony/FOSUserBundle.git', 'origin/master'),
     array('bundles/JMS/SerializerBundle', 'git://github.com/schmittjoh/JMSSerializerBundle.git', 'origin/master'),
     array('bundles/FOS/RestBundle', 'git://github.com/FriendsOfSymfony/FOSRestBundle.git', $dev ? 'origin/master' : 'origin/0.6'),
     array('bundles/Sensio/Bundle/FrameworkExtraBundle', 'git://github.com/sensio/SensioFrameworkExtraBundle.git', 'origin/master'),
+    array('bundles/Symfony/Bundle/AsseticBundle', 'git://github.com/symfony/AsseticBundle.git', 'origin/master'),
 );
 
 if ($dev) {

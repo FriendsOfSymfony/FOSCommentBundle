@@ -10,9 +10,11 @@ class AppKernel extends Kernel
 {
     private $config;
 
-    public function __construct($config)
+    public function __construct()
     {
         parent::__construct('test', true);
+
+        $config = 'default.yml';
 
         $fs = new Filesystem();
         if (!$fs->isAbsolutePath($config)) {
@@ -34,6 +36,7 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
             new \FOS\RestBundle\FOSRestBundle(),
             new \FOS\UserBundle\FOSUserBundle(),

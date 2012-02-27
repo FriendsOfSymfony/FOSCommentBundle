@@ -24,7 +24,7 @@ class CommentController extends Controller
         if (null === $thread) {
             $thread = $this->container->get('fos_comment.manager.thread')->createThread();
             $thread->setId($id);
-            $thread->setPermalink($request->query->get('permalink'));
+            $thread->setPermalink($request->getUri());
 
             // Add the thread
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
