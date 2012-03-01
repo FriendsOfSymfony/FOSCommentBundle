@@ -1,4 +1,4 @@
-Step 9: Using the Sundown PECL extension
+Step 9b: Using the Sundown PECL extension
 ======================================
 
 The markup system in FOSCommentBundle is flexible and allows you to use any
