@@ -1,4 +1,4 @@
-Step 9: Using ExerciseHTMLPurifierBundle
+Step 9a: Using ExerciseHTMLPurifierBundle
 ======================================
 
 FOSCommentBundle allows you to use [ExerciseHTMLPurifierBundle](https://github.com/Exercise/HTMLPurifierBundle)

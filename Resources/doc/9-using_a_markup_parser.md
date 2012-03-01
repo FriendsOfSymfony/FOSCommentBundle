@@ -20,10 +20,9 @@ fos_comment:
         markup: your_markup_service
 ```
 
-FOSCommentBundle ships with support for Exercise\HTMLPurifierBundle and the
-set up procedure for using HTMLPurifier can be found [at the following page](9a-markup_htmlpurifier.md)
-
-This is an example [bridge implementation](9b-sundown_markdown_parser.md) that uses the PECL sundown module.
+ * [Allow your users to post safe HTML with ExerciseHtmlPurifierBundle](9a-markup_htmlpurifier.md)
+ * [Enable the sundown pecl extension to parse comments for markdown](9b-sundown_markdown_parser.md)
+ * [Implement a BBCode parser to let your users post comments with BBCode](9c-using_a_bbcode_parser.md)
 
 ## That is it!
 [Return to the index.](index.md)
