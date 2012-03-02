@@ -1,3 +1,5 @@
+<div id="fos_comment_thread"></div>
+
 {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
     'comments': comments,
     'displayDepth': displayDepth,
@@ -5,3 +7,10 @@
     'thread': thread,
     'view': view
 } %}
+
+{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+<script type="text/javascript" src="{{ asset_url }}">
+// URI identifier for the thread comments
+var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
+</script>
+{% endjavascripts %}

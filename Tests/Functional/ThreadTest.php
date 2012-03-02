@@ -28,13 +28,14 @@ class ThreadTest extends BaseTestCase
     {
         $crawler = $this->client->request('GET', '/async/test');
 
+        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
         $this->assertContains('fos_comment_script.src', $crawler->filter('script')->text());
     }
 
     public function testInline()
     {
-        $this->client->request('GET', '/inline/test');
+        $crawler = $this->client->request('GET', '/inline/test');
 
-        $this->assertContains('fos_comment_comment_new_headline_first', $this->client->getResponse()->getContent());
+        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
     }
 }
