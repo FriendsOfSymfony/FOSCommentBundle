@@ -1,7 +1,65 @@
-imports:
-    - { resource: framework.yml }
-    - { resource: twig.yml }
-    - { resource: comment.yml }
-    - { resource: user.yml }
-    - { resource: security.yml }
-    - { resource: doctrine_orm.yml }
+framework:
+    secret: test
+    test: ~
+    session:
+        storage_id: session.storage.filesystem
+    form:            true
+    csrf_protection: true
+    validation:
+        enabled: true
+        enable_annotations: true
+    router:
+        resource: %kernel.root_dir%/config/routing.yml
+    templating:
+        engines: [twig]
+
+doctrine:
+    dbal:
+        driver:   pdo_sqlite
+        path:     %kernel.cache_dir%/db.sqlite
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_manager
+
+    encoders:
+        "FOS\UserBundle\Model\UserInterface": sha512
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+
+twig:
+    debug: %kernel.debug%
+    strict_variables: %kernel.debug%
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.noop
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Comment
+            thread: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Thread
+            vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote
