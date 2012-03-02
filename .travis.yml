@@ -4,13 +4,10 @@ php:
   - 5.3
   - 5.4
 
-env:
-  - SYMFONY_VERSION=v2.0.10
-  - SYMFONY_VERSION=origin/2.0
-  - SYMFONY_VERSION=origin/master
-
-before_script: php vendor/vendors.php
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --install-suggests
 
 notifications:
   email:
-    - friendsofsymfony-dev@googlegroups.com
+    - tim@nagel.com.au
