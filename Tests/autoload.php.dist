@@ -28,7 +28,7 @@ spl_autoload_register(function($class) {
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-AnnotationRegistry::registerLoader(function($class) use ($autoload) {
+AnnotationRegistry::registerLoader(array($autoload, 'loadfunction($class) use ($autoload) {
     $autoload->loadClass($class);
     return class_exists($class, false);
 });

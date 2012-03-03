@@ -4,7 +4,7 @@ namespace FOS\CommentBundle\Tests\Functional;
 
 use Doctrine\ORM\Tools\SchemaTool;
 
-class ThreadTest extends BaseTestCase
+class ThreadTest extends WebTestCase
 {
     /**
      * @var \Symfony\Bundle\FrameworkBundle\Client
@@ -13,15 +13,12 @@ class ThreadTest extends BaseTestCase
 
     public function setUp()
     {
-        $this->client = self::createClient();
+        $this->client = self::createClient(array(
+            'test_case' => 'Basic',
+            'root_config' => 'config.yml'
+        ));
 
-        /** @var \Doctrine\ORM\EntityManager $em  */
-        $em = $this->client->getContainer()->get('doctrine')->getEntityManager();
-        $st = new \Doctrine\ORM\Tools\SchemaTool($em);
-
-        $classes = $em->getMetadataFactory()->getAllMetadata();
-        $st->dropSchema($classes);
-        $st->createSchema($classes);
+        $this->setUpDatabase();
     }
 
     public function testAsync()

@@ -16,11 +16,7 @@ class CommentController extends Controller
 
     public function inlineAction(Request $request, $id)
     {
-        $displayDepth = null;
-        $sorter = null;
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
-
-        // We're now sure it is no duplicate id, so create the thread
         if (null === $thread) {
             $thread = $this->container->get('fos_comment.manager.thread')->createThread();
             $thread->setId($id);
@@ -30,12 +26,12 @@ class CommentController extends Controller
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
         }
 
-        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread, $sorter, $displayDepth);
+        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
         return $this->render('CommentBundle:Comment:inline.html.twig', array(
             'comments' => $comments,
-            'displayDepth' => $displayDepth,
-            'sorter' => $sorter,
+            'displayDepth' => null,
+            'sorter' => null,
             'thread' => $thread,
             'view' => 'tree',
         ));

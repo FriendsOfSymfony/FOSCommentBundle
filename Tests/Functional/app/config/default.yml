@@ -9,7 +9,7 @@ framework:
         enabled: true
         enable_annotations: true
     router:
-        resource: %kernel.root_dir%/config/routing.yml
+        resource: %kernel.root_dir%/%kernel.test_case%/routing.yml
     templating:
         engines: [twig]
 
@@ -44,7 +44,6 @@ security:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-
 twig:
     debug: %kernel.debug%
     strict_variables: %kernel.debug%
@@ -55,11 +54,3 @@ fos_user:
     user_class: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\User
     service:
         mailer: fos_user.mailer.noop
-
-fos_comment:
-    db_driver: orm
-    class:
-        model:
-            comment: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Comment
-            thread: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Thread
-            vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote
