@@ -12,6 +12,11 @@ class WebTestCase extends BaseWebTestCase
      */
     protected $em;
 
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\Client
+     */
+    protected $client;
+
     static public function assertRedirect($response, $location)
     {
         self::assertTrue($response->isRedirect(), 'Response is not a redirect, got status code: '.substr($response, 0, 2000));
@@ -33,6 +38,8 @@ class WebTestCase extends BaseWebTestCase
         if (!class_exists('Twig_Environment')) {
             $this->markTestSkipped('Twig is not available.');
         }
+
+        $this->setUpDatabase();
 
         parent::setUp();
     }
@@ -65,7 +72,7 @@ class WebTestCase extends BaseWebTestCase
         return new $class(
             $options['test_case'],
             isset($options['root_config']) ? $options['root_config'] : 'config.yml',
-            isset($options['environment']) ? $options['environment'] : 'securitybundletest',
+            isset($options['environment']) ? $options['environment'] : 'foscommenttest',
             isset($options['debug']) ? $options['debug'] : true
         );
     }

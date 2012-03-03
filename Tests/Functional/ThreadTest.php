@@ -6,19 +6,14 @@ use Doctrine\ORM\Tools\SchemaTool;
 
 class ThreadTest extends WebTestCase
 {
-    /**
-     * @var \Symfony\Bundle\FrameworkBundle\Client
-     */
-    protected $client;
-
-    public function setUp()
+    protected function setUp()
     {
         $this->client = self::createClient(array(
             'test_case' => 'Basic',
             'root_config' => 'config.yml'
         ));
 
-        $this->setUpDatabase();
+        parent::setUp();
     }
 
     public function testAsync()
