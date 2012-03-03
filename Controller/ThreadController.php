@@ -13,9 +13,9 @@ namespace FOS\CommentBundle\Controller;
 
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\Rest\Util\Codes;
 use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\Response\Codes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\Form\FormInterface;
