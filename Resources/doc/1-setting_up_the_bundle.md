@@ -6,6 +6,14 @@ Step 1: Setting up the bundle
 
 > This bundle depends on the [FOSRestBundle](https://github.com/FriendsOfSymfony/FOSRestBundle). Please follow the instructions of the bundle to set it up.
 
+You also need to install the FOSRest library. When using the `deps` file:
+
+```
+[FOSRest]
+    git=http://github.com/FriendsOfSymfony/FOSRest.git
+    target=vendor/bundles/FOS/Rest
+```
+
 Ultimately, the FOSCommentBundle files should be downloaded to the
 `vendor/bundles/FOS/CommentBundle` directory.
 
