@@ -37,7 +37,7 @@
             {{ form_errors(form.body) }}
             </div>
             {{ form_widget(form.body) }}
-            {{ form_widget(form._token) }}
+            {% if form.has('_token') %}{{ form_widget(form._token) }}{% endif %}
         {% endblock %}
 
         <div class="fos_comment_submit">

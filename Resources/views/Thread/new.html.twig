@@ -17,7 +17,7 @@
         {{ form_widget(form.id) }}
         {{ form_errors(form.permalink) }}
         {{ form_widget(form.permalink) }}
-        {{ form_widget(form._token) }}
+        {% if form.has('_token') %}{{ form_widget(form._token) }}{% endif %}
     {% endblock %}
 
     <div class="fos_comment_submit">
