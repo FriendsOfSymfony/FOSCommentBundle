@@ -23,19 +23,19 @@ class Vote extends BaseVote implements SignedVoteInterface
     protected $id;
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @var string
+     * @ORM\Column(type="string")
      */
     protected $voter;
 
     /**
      * Sets the owner of the vote
      *
-     * @param UserInterface $user
+     * @param string $user
      */
     public function setVoter(UserInterface $voter)
     {
-        $this->voter = $voter;
+        $this->voter = $voter->getUsername();
     }
 
     /**

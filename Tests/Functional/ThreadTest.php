@@ -11,6 +11,9 @@ class ThreadTest extends WebTestCase
         $this->client = self::createClient(array(
             'test_case' => 'Basic',
             'root_config' => 'config.yml'
+        ), array(
+            'PHP_AUTH_USER' => 'user',
+            'PHP_AUTH_PW' => 'user'
         ));
 
         parent::setUp();

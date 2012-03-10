@@ -21,27 +21,27 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @ORM\generatedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * Thread of this comment
      *
-     * @var Thread
      * @ORM\ManyToOne(targetEntity="Thread")
+     * @var Thread
      */
     protected $thread;
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\Column(type="string")
+     * @var string
      */
     protected $author;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
+     * @var int
      */
     protected $score = 0;
 
@@ -71,17 +71,17 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * Sets the author of the Comment
      *
-     * @param UserInterface $user
+     * @param string $user
      */
     public function setAuthor(UserInterface $author)
     {
-        $this->author = $author;
+        $this->author = $author->getUsername();
     }
 
     /**
      * Gets the author of the Comment
      *
-     * @return UserInterface
+     * @return string
      */
     public function getAuthor()
     {
@@ -123,11 +123,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
 
     public function getAuthorName()
     {
-        if (null === $this->author) {
-            return parent::getAuthorName();
-        }
-
-        return $this->author->getUsername();
+        return $this->author ?: parent::getAuthorName();
     }
 
     /**

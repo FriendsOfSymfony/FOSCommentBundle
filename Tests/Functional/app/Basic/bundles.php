@@ -9,7 +9,6 @@ return array(
     new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
     new \FOS\RestBundle\FOSRestBundle(),
-    new \FOS\UserBundle\FOSUserBundle(),
     new \FOS\CommentBundle\FOSCommentBundle(),
     new \JMS\SerializerBundle\JMSSerializerBundle($this),
 
