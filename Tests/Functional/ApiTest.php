@@ -34,12 +34,10 @@ class ApiTest extends WebTestCase
 
     public function testGetThread404()
     {
-        /**
-         * TODO: This request causes an uncaught exception in the phpunit output..
-         *
-         * $this->client->request('GET', '/comment_api/threads/non-existant.json');
-         * $this->assertEquals(404, $this->client->getResponse()->getStatus());
-         */
+        $this->client->insulate(true);
+
+        $this->client->request('GET', '/comment_api/threads/non-existant.json');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 
     public function testGetThreadFormAndSubmit()
@@ -51,25 +49,30 @@ class ApiTest extends WebTestCase
             $crawler->filter('form.fos_comment_comment_form')->attr('action')
         );
 
-        /*$form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
-        $form['fos_comment_thread[id]'] = 'test';
-        $form['fos_comment_thread[permalink]'] = '/async/test';
+        $id = 'test';
 
-        $crawler = $this->client->submit($form);*/
+        $form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
+        $form['fos_comment_thread[id]'] = $id;
+        // Note: the url validator fails with just http://localhost/
+        $form['fos_comment_thread[permalink]'] = 'http://localhost.test/async/test';
+        $this->client->submit($form);
+
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}");
+        var_dump($this->client->getContainer()->get('database_connection')->fetchAll('SELECT * FROM test_thread'));
+
+        return $id;
     }
 
-    public function testAsync()
+    /**
+     * @param mixed $id
+     * @depends testGetThreadFormAndSubmit
+     */
+    public function testGetThread($id)
     {
-        $crawler = $this->client->request('GET', '/async/test');
+        var_dump($this->client->getContainer()->get('database_connection')->fetchAll('SELECT * FROM test_thread'));
 
-        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
-        $this->assertContains('fos_comment_script.src', $crawler->filter('script')->text());
-    }
-
-    public function testInline()
-    {
-        $crawler = $this->client->request('GET', '/inline/test');
-
-        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
+        die;
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}");
+        //var_dump((string) $this->client->getResponse()); die;
     }
 }
