@@ -11,6 +11,7 @@ class WebTestCase extends BaseWebTestCase
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $em;
+    protected $schemaSetUp = false;
 
     /**
      * @var \Symfony\Bundle\FrameworkBundle\Client
@@ -23,23 +24,25 @@ class WebTestCase extends BaseWebTestCase
         self::assertEquals('http://localhost'.$location, $response->headers->get('Location'));
     }
 
-    protected function setUpDatabase()
-    {
-        $this->em = $this->client->getContainer()->get('doctrine')->getEntityManager();
-        $st = new SchemaTool($this->em);
-
-        $classes = $this->em->getMetadataFactory()->getAllMetadata();
-        $st->dropSchema($classes);
-        $st->createSchema($classes);
-    }
-
     protected function setUp()
     {
         if (!class_exists('Twig_Environment')) {
             $this->markTestSkipped('Twig is not available.');
         }
 
-        $this->setUpDatabase();
+        if (null === $this->em) {
+            $this->em = $this->client->getContainer()->get('doctrine')->getEntityManager();
+
+            if (!$this->schemaSetUp) {
+                $st = new SchemaTool($this->em);
+
+                $classes = $this->em->getMetadataFactory()->getAllMetadata();
+                $st->dropSchema($classes);
+                $st->createSchema($classes);
+
+                $this->schemaSetUp = true;
+            }
+        }
 
         parent::setUp();
     }
