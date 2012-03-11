@@ -26,7 +26,7 @@
     },
     "recommend": {
         "doctrine/doctrine-bundle": "*",
-        "symfony/assetic-bundle": "2.1.*"
+        "symfony/assetic-bundle": "*"
     },
     "suggest": {
         "doctrine/orm": "2.2.*",
