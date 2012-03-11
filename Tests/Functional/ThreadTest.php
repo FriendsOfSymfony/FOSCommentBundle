@@ -4,6 +4,9 @@ namespace FOS\CommentBundle\Tests\Functional;
 
 use Doctrine\ORM\Tools\SchemaTool;
 
+/**
+ * @group functional
+ */
 class ThreadTest extends WebTestCase
 {
     protected function setUp()

@@ -11,7 +11,7 @@ class WebTestCase extends BaseWebTestCase
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $em;
-    protected $schemaSetUp = false;
+    protected static $schemaSetUp = false;
 
     /**
      * @var \Symfony\Bundle\FrameworkBundle\Client
@@ -33,14 +33,14 @@ class WebTestCase extends BaseWebTestCase
         if (null === $this->em) {
             $this->em = $this->client->getContainer()->get('doctrine')->getEntityManager();
 
-            if (!$this->schemaSetUp) {
+            if (!static::$schemaSetUp) {
                 $st = new SchemaTool($this->em);
 
                 $classes = $this->em->getMetadataFactory()->getAllMetadata();
                 $st->dropSchema($classes);
                 $st->createSchema($classes);
 
-                $this->schemaSetUp = true;
+                static::$schemaSetUp = true;
             }
         }
 

@@ -4,7 +4,6 @@ namespace FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
-use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
@@ -16,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface, RawCommentInterface
+class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
 {
     /**
      * @ORM\Id
@@ -44,12 +43,6 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @var int
      */
     protected $score = 0;
-
-    /**
-     * @ORM\Column(type="text")
-     * @var string
-     */
-    protected $rawBody;
 
     /**
      * @return Thread
@@ -124,25 +117,5 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     public function getAuthorName()
     {
         return $this->author ?: parent::getAuthorName();
-    }
-
-    /**
-     * Gets the raw processed html.
-     *
-     * @return string
-     */
-    public function getRawBody()
-    {
-        return $this->rawBody;
-    }
-
-    /**
-     * Sets the processed body with raw html.
-     *
-     * @param string $rawBody
-     */
-    public function setRawBody($rawBody)
-    {
-        $this->rawBody = $rawBody;
     }
 }

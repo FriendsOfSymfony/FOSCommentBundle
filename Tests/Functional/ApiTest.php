@@ -4,6 +4,9 @@ namespace FOS\CommentBundle\Tests\Functional;
 
 use Doctrine\ORM\Tools\SchemaTool;
 
+/**
+ * @group functional
+ */
 class ApiTest extends WebTestCase
 {
     protected function setUp()
@@ -20,18 +23,10 @@ class ApiTest extends WebTestCase
     }
 
     /**
-     * fos_comment_new_thread_comment_votes: GET: /comment_api/threads/{id}/comments/{commentId}/votes/new.{_format}
-     * fos_comment_new_thread_comments: GET: /comment_api/threads/{id}/comments/new.{_format}
-     * fos_comment_new_threads: GET: /comment_api/threads/new.{_format}
+     * Tests retrieval of a thread that doesnt exist.
+     *
      * fos_comment_get_thread: GET: /comment_api/threads/{id}.{_format}
-     * fos_comment_get_thread_comment: GET: /comment_api/threads/{id}/comments/{commentId}.{_format}
-     * fos_comment_get_thread_comment_votes: GET: /comment_api/threads/{id}/comments/{commentId}/votes.{_format}
-     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}
-     * fos_comment_post_thread_comment_votes: POST: /comment_api/threads/{id}/comments/{commentId}/votes.{_format}
-     * fos_comment_post_thread_comments: POST: /comment_api/threads/{id}/comments.{_format}
-     * fos_comment_post_threads: POST: /comment_api/threads.{_format}
      */
-
     public function testGetThread404()
     {
         $this->client->insulate(true);
@@ -40,6 +35,14 @@ class ApiTest extends WebTestCase
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 
+    /**
+     * Tests creation of a new form.retrieval of a thread that doesnt exist.
+     *
+     * fos_comment_new_threads: GET: /comment_api/threads/new.{_format}
+     * fos_comment_post_threads: POST: /comment_api/threads.{_format}
+     *
+     * @return string The id of the created thread
+     */
     public function testGetThreadFormAndSubmit()
     {
         $crawler = $this->client->request('GET', '/comment_api/threads/new.html');
@@ -49,30 +52,122 @@ class ApiTest extends WebTestCase
             $crawler->filter('form.fos_comment_comment_form')->attr('action')
         );
 
-        $id = 'test';
+        $id = uniqid();
 
         $form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
         $form['fos_comment_thread[id]'] = $id;
         // Note: the url validator fails with just http://localhost/
-        $form['fos_comment_thread[permalink]'] = 'http://localhost.test/async/test';
+        $form['fos_comment_thread[permalink]'] = "http://localhost.test/async/{$id}";
         $this->client->submit($form);
 
         $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}");
-        var_dump($this->client->getContainer()->get('database_connection')->fetchAll('SELECT * FROM test_thread'));
 
         return $id;
     }
 
     /**
+     * Tests retrieval of an existing thread.
+     *
+     * fos_comment_get_thread: GET: /comment_api/threads/{id}.{_format}
+     *
      * @param mixed $id
      * @depends testGetThreadFormAndSubmit
      */
     public function testGetThread($id)
     {
-        var_dump($this->client->getContainer()->get('database_connection')->fetchAll('SELECT * FROM test_thread'));
+        $this->client->request('GET', "/comment_api/threads/{$id}.json");
 
-        die;
-        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}");
-        //var_dump((string) $this->client->getResponse()); die;
+        $this->assertContains($id, (string) $this->client->getResponse());
+    }
+
+    /**
+     * Tests retrieval of an empty thread.
+     *
+     * fos_comment_post_thread_comments: POST: /comment_api/threads/{id}/comments.{_format}
+     *
+     * @param mixed $id
+     * @depends testGetThreadFormAndSubmit
+     */
+    public function testGetEmptyThread($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html");
+
+        $this->assertCount(0, $crawler->filter('.fos_comment_comment_body'));
+
+        return $id;
+    }
+
+    /**
+     * Tests addition of a comment to a thread.
+     *
+     * fos_comment_new_thread_comments: GET: /comment_api/threads/{id}/comments/new.{_format}
+     * fos_comment_post_thread_comments: POST: /comment_api/threads/{id}/comments.{_format}
+     * fos_comment_get_thread_comment: GET: /comment_api/threads/{id}/comments/{commentId}.{_format}
+     *
+     * @param mixed $id
+     * @depends testGetEmptyThread
+     */
+    public function testAddCommentToThread($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments/new.html");
+
+        $form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
+        $form['fos_comment_comment[body]'] = 'Test Comment';
+        $this->client->submit($form);
+
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/1");
+        $crawler = $this->client->followRedirect();
+
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->text());
+
+        return $id;
+    }
+
+    /**
+     * Replies to an existing comment.
+     *
+     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}
+     * fos_comment_new_thread_comments: GET: /comment_api/threads/{id}/comments/new.{_format}
+     * fos_comment_get_thread_comment: GET: /comment_api/threads/{id}/comments/{commentId}.{_format}
+     *
+     * @param mixed $id
+     * @depends testAddCommentToThread
+     */
+    public function testReplyToComment($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html");
+
+        $parentId = $crawler->filter('.fos_comment_comment_reply_show_form')->first()->attr('data-parent-id');
+
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments/new.html", array(
+            'parentId' => $parentId,
+        ));
+
+        $form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
+        $form['fos_comment_comment[body]'] = 'Test Reply Comment';
+        $this->client->submit($form);
+
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/2");
+        $crawler = $this->client->followRedirect();
+
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_body')->text());
+
+        return $id;
+    }
+
+    /**
+     * Tests that there are 2 comments in a tree.
+     *
+     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}
+     *
+     * @param $id
+     * @depends testReplyToComment
+     */
+    public function testGetCommentTree($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html");
+
+        $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show .fos_comment_comment_depth_1 .fos_comment_comment_body')->first()->text());
     }
 }
