@@ -1,0 +1,5 @@
+{% extends "::base.html.twig"%}
+
+{% block body %}
+{% include 'FOSCommentBundle:Thread:async.html.twig' with { 'id': id } %}
+{% endblock body %}

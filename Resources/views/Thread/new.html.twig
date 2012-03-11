@@ -17,7 +17,8 @@
         {{ form_widget(form.id) }}
         {{ form_errors(form.permalink) }}
         {{ form_widget(form.permalink) }}
-        {{ form_widget(form._token) }}
+
+        {{ form_rest(form) }}
     {% endblock %}
 
     <div class="fos_comment_submit">
