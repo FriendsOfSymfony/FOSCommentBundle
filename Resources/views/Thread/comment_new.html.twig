@@ -37,7 +37,8 @@
             {{ form_errors(form.body) }}
             </div>
             {{ form_widget(form.body) }}
-            {{ form_widget(form._token) }}
+
+            {{ form_rest(form) }}
         {% endblock %}
 
         <div class="fos_comment_submit">

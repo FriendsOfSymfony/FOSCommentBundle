@@ -44,7 +44,7 @@ class VoteBlamerListener implements EventSubscriberInterface
      * @param SecurityContextInterface $securityContext
      * @param LoggerInterface $logger
      */
-    public function __construct(SecurityContextInterface $securityContext, LoggerInterface $logger = null)
+    public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
         $this->logger = $logger;
@@ -59,6 +59,14 @@ class VoteBlamerListener implements EventSubscriberInterface
     public function blame(VoteEvent $event)
     {
         $vote = $event->getVote();
+
+        if (null === $this->securityContext) {
+            if ($this->logger) {
+                $this->logger->debug("Vote Blamer did not receive the security.context service.");
+            }
+
+            return;
+        }
 
         if (!$vote instanceof SignedVoteInterface) {
             if ($this->logger) {

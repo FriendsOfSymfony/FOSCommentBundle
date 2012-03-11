@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit bootstrap="./Tests/bootstrap.php" color="true">
-<!--
     <php>
-        <server name="SYMFONY" value="../../vendor/symfony/src" />
-        <server name="KERNEL_DIR" value="../../../app" />
+        <ini name="xdebug.max_nesting_level" value="200" />
     </php>
--->
     <testsuites>
         <testsuite name="FOSCommentBundle">
             <directory suffix="Test.php">./Tests</directory>
@@ -19,6 +16,7 @@
             <exclude>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>

@@ -187,8 +187,8 @@ class ThreadController extends Controller
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
         }
 
-        $view = $request->query->get('view', 'tree');
-        switch ($view) {
+        $viewMode = $request->query->get('view', 'tree');
+        switch ($viewMode) {
             case self::VIEW_FLAT:
                 $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $sorter, $displayDepth);
 
@@ -211,7 +211,7 @@ class ThreadController extends Controller
                 'displayDepth' => $displayDepth,
                 'sorter' => 'date',
                 'thread' => $thread,
-                'view' => $view,
+                'view' => $viewMode,
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comments'));
 

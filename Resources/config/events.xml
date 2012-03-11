@@ -33,15 +33,15 @@
         <service id="fos_comment.listener.comment_blamer" class="FOS\CommentBundle\EventListener\CommentBlamerListener">
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
             <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="blame" />
-            <argument type="service" id="security.context" />
-            <argument type="service" id="logger" />
+            <argument type="service" id="security.context" on-invalid="null" />
+            <argument type="service" id="logger" on-invalid="null" />
         </service>
 
         <service id="fos_comment.listener.vote_blamer" class="FOS\CommentBundle\EventListener\VoteBlamerListener">
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
             <tag name="kernel.event_listener" event="fos_comment.vote.pre_persist" method="blame" />
-            <argument type="service" id="security.context" />
-            <argument type="service" id="logger" />
+            <argument type="service" id="security.context" on-invalid="null" />
+            <argument type="service" id="logger" on-invalid="null" />
         </service>
 
         <service id="fos_comment.listener.closed_threads" class="FOS\CommentBundle\EventListener\ClosedThreadListener">
