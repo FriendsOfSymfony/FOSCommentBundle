@@ -39,7 +39,7 @@ class ThreadTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/async/test');
 
-        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
+        $this->assertCount(1, $crawler->filter('#fos_comment_thread'));
         $this->assertContains('fos_comment_script.src', $crawler->filter('script')->text());
     }
 
@@ -47,6 +47,6 @@ class ThreadTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/inline/test');
 
-        $this->assertEquals(1, $crawler->filter('#fos_comment_thread')->count());
+        $this->assertCount(1, $crawler->filter('#fos_comment_thread'));
     }
 }

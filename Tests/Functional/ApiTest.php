@@ -89,7 +89,7 @@ class ApiTest extends WebTestCase
     {
         $this->client->request('GET', "/comment_api/threads/{$id}.json");
 
-        $this->assertContains($id, (string) $this->client->getResponse());
+        $this->assertContains($id, (string) $this->client->getResponse()->getContent());
     }
 
     /**
