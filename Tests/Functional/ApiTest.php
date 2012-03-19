@@ -197,7 +197,7 @@ class ApiTest extends WebTestCase
      */
     public function testGetCommentTreeDepth($id)
     {
-        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?displayDepth=1");
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?displayDepth=0");
 
         $this->assertCount(1, $crawler->filter('.fos_comment_comment_body'));
         $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->first()->text());
