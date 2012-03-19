@@ -190,7 +190,7 @@ class ThreadController extends Controller
         $viewMode = $request->query->get('view', 'tree');
         switch ($viewMode) {
             case self::VIEW_FLAT:
-                $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $sorter, $displayDepth);
+                $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $displayDepth, $sorter);
 
                 // We need nodes for the api to return a consistent response, not an array of comments
                 $comments = array_map(function($comment) {

@@ -147,6 +147,10 @@ class ApiTest extends WebTestCase
      */
     public function testReplyToComment($id)
     {
+        //todo: is there a cleaner/faster way for this?
+        // sleep a second to create different 'createdAt' dates
+        sleep(1);
+
         $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html");
 
         $parentId = $crawler->filter('.fos_comment_comment_reply_show_form')->first()->attr('data-parent-id');
@@ -181,5 +185,68 @@ class ApiTest extends WebTestCase
 
         $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
         $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show .fos_comment_comment_depth_1 .fos_comment_comment_body')->first()->text());
+    }
+
+    /**
+     * Tests that there is only 1 comment in the tree.
+     *
+     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}?displayDepth=0
+     *
+     * @param $id
+     * @depends testReplyToComment
+     */
+    public function testGetCommentTreeDepth($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?displayDepth=1");
+
+        $this->assertCount(1, $crawler->filter('.fos_comment_comment_body'));
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->first()->text());
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->last()->text());
+    }
+
+    /**
+     * Tests that there are 2 comments in a thread. Rendered both on level 0.
+     *
+     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}?view=flat
+     *
+     * @param $id
+     * @depends testReplyToComment
+     */
+    public function testGetCommentFlat($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?view=flat");
+
+        $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
+    }
+
+    /**
+     * Tests that there are 2 comments in a thread. Rendered both on level 0. Sorted by date asc/desc.
+     *
+     * fos_comment_get_thread_comments: GET: /comment_api/threads/{id}/comments.{_format}?view=flat&sorter=date_asc/date_desc
+     *
+     * @param $id
+     * @depends testReplyToComment
+     */
+    public function testGetCommentFlatSorted($id)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?view=flat&sorter=date_desc");
+        $crawler2 = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?view=flat&sorter=date_asc");
+
+        $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
+        $this->assertCount(2, $crawler2->filter('.fos_comment_comment_body'));
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
+
+        $this->assertEquals(
+            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(),
+            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text()
+        );
+
+        $this->assertEquals(
+            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(),
+            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text()
+        );
     }
 }

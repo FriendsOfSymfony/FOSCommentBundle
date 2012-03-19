@@ -77,11 +77,11 @@ class CommentManager extends BaseCommentManager
                 ->orderBy('c.ancestors', 'ASC')
                 ->setParameter('thread', $thread->getId());
 
-        if ($depth > 0) {
+        if (null !== $depth && $depth >= 0) {
             // Queries for an additional level so templates can determine
             // if the final 'depth' layer has children.
 
-            $qb->andWhere('c.depth <= :depth')
+            $qb->andWhere('c.depth < :depth')
                ->setParameter('depth', $depth + 1);
         }
 
@@ -90,7 +90,7 @@ class CommentManager extends BaseCommentManager
             ->execute();
 
         if (null !== $sorterAlias) {
-            $sorter = $this->getSortingFactory()->getSorter($sorterAlias);
+            $sorter = $this->sortingFactory->getSorter($sorterAlias);
             $comments = $sorter->sortFlat($comments);
         }
 
@@ -118,7 +118,7 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
-        $sorter = $this->getSortingFactory()->getSorter($sorter);
+        $sorter = $this->sortingFactory->getSorter($sorter);
 
         $trimParents = current($comments)->getAncestors();
         return $this->organiseComments($comments, $sorter, $trimParents);

@@ -87,7 +87,7 @@ class CommentManager extends BaseCommentManager
             ->execute();
 
         if (null !== $sorterAlias) {
-            $sorter = $this->getSortingFactory()->getSorter($sorterAlias);
+            $sorter = $this->sortingFactory->getSorter($sorterAlias);
             $comments = $sorter->sortFlat($comments);
         }
 
@@ -114,7 +114,7 @@ class CommentManager extends BaseCommentManager
             return array();
         }
 
-        $sorter = $this->getSortingFactory()->getSorter($sorter);
+        $sorter = $this->sortingFactory->getSorter($sorter);
 
         $ignoreParents = $comments->getSingleResult()->getAncestors();
         return $this->organiseComments($comments, $sorter, $ignoreParents);
