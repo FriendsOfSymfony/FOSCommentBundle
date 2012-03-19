@@ -252,8 +252,49 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
             ->method('setDefaultAcl')
             ->with($this->comment);
 
+        $this->realManager->expects($this->once())
+             ->method('isNewComment')
+             ->with($this->equalTo($this->comment))
+             ->will($this->returnValue(true));
+
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
         $manager->saveComment($this->comment, $this->parent);
+    }
+
+
+    protected function editCommentSetup()
+    {
+        $this->saveCommentSetup();
+        $this->configureCommentSecurity('canReply', true);
+        $this->configureThreadSecurity('canView', true);
+
+        $this->realManager->expects($this->once())
+             ->method('isNewComment')
+             ->with($this->equalTo($this->comment))
+             ->will($this->returnValue(false));
+    }
+
+    public function testSaveEditedComment()
+    {
+        $this->editCommentSetup();
+        $this->configureCommentSecurity('canEdit', true);
+        $this->commentSecurity->expects($this->never())
+            ->method('setDefaultAcl');
+
+        $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
+        $manager->saveComment($this->comment, $this->parent);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    public function testSaveEditedCommentNoEditPermission()
+    {
+        $this->editCommentSetup();
+        $this->configureCommentSecurity('canEdit', false);
+
+        $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
+        $manager->saveComment($this->comment);
     }
 
     public function testCreateComment()

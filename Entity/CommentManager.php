@@ -147,6 +147,14 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function isNewComment(CommentInterface $comment)
+    {
+        return !$this->em->getUnitOfWork()->isInIdentityMap($comment);
+    }
+
+    /**
      * Returns the fully qualified comment thread class name
      *
      * @return string

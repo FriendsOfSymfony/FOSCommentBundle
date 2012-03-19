@@ -60,8 +60,9 @@ class CommentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'fos_comment_can_comment' => new \Twig_Function_Method($this, 'canComment'),
-            'fos_comment_can_vote'    => new \Twig_Function_Method($this, 'canVote'),
+            'fos_comment_can_comment'      => new \Twig_Function_Method($this, 'canComment'),
+            'fos_comment_can_edit_comment' => new \Twig_Function_Method($this, 'canEditComment'),
+            'fos_comment_can_vote'         => new \Twig_Function_Method($this, 'canVote'),
         );
     }
 
@@ -84,6 +85,22 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->commentAcl->canReply($comment);
+    }
+
+    /**
+     * Checks if the current user is able to edit a comment.
+     *
+     * @param CommentInterface $comment
+     *
+     * @return bool If the user is able to comment
+     */
+    public function canEditComment(CommentInterface $comment)
+    {
+        if (null === $this->commentAcl) {
+            return true;
+        }
+
+        return $this->commentAcl->canEdit($comment);
     }
 
     /**
