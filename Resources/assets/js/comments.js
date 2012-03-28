@@ -261,7 +261,7 @@
             FOS_COMMENT.xhr.request({
                     url: url,
                     method: method,
-                    data: data,
+                    data: data
             }, wrappedSuccessCallback, wrappedErrorCallback);
         };
 
