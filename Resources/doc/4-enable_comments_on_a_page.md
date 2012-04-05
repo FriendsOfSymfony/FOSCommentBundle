@@ -18,4 +18,11 @@ And the following code at a desired place in the template to load the comments:
 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
 ```
 
-That's the basic setup! For additional information and configuration check the ... section and the cookbook.
+Or if you want to load the flat view:
+
+```
+{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo', 'view': 'flat'} %}
+```
+
+## That is it!
+That's the basic setup! [Return to the index.](index.md)

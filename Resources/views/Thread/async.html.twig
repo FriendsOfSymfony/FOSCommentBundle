@@ -9,12 +9,14 @@
 
 #}
 
+{% set view = view|default('tree') %}
+
 <div id="fos_comment_thread"></div>
 
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 <script type="text/javascript">
 // URI identifier for the thread comments
-var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': id}) }}';
+var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': id}) }}?view={{ view }}';
 
 // Snippet for asynchronously loading the comments
 (function() {

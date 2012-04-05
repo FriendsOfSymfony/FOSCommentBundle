@@ -127,7 +127,7 @@ class ApiTest extends WebTestCase
         $form['fos_comment_comment[body]'] = 'Test Comment';
         $this->client->submit($form);
 
-        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/1");
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/1?view=tree");
         $crawler = $this->client->followRedirect();
 
         $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->text());
@@ -163,7 +163,7 @@ class ApiTest extends WebTestCase
         $form['fos_comment_comment[body]'] = 'Test Reply Comment';
         $this->client->submit($form);
 
-        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/2");
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/2?view=tree");
         $crawler = $this->client->followRedirect();
 
         $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_body')->text());
