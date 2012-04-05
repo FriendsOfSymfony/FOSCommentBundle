@@ -22,7 +22,7 @@
         {% endif %}
     {% endblock %}
 
-    {% set url_parameters = {'id': id } %}
+    {% set url_parameters = {'id': id, '_format': 'html' } %}
     {% if parent is not null %}
         {% set url_parameters = url_parameters|merge({'parentId': parent.id}) %}
     {% endif %}

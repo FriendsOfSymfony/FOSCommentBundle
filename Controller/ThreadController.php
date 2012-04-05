@@ -367,7 +367,7 @@ class ThreadController extends Controller
      */
     protected function onCreateCommentSuccess(FormInterface $form, $id, CommentInterface $parent = null)
     {
-        return RouteRedirectView::create('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()));
+        return RouteRedirectView::create('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId(), '_format' => 'html'));
     }
 
     /**
@@ -402,7 +402,7 @@ class ThreadController extends Controller
      */
     protected function onCreateThreadSuccess(FormInterface $form)
     {
-        return RouteRedirectView::create('fos_comment_get_thread', array('id' => $form->getData()->getId()));
+        return RouteRedirectView::create('fos_comment_get_thread', array('id' => $form->getData()->getId(), '_format' => 'html'));
     }
 
     /**
@@ -448,7 +448,7 @@ class ThreadController extends Controller
      */
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
-        return RouteRedirectView::create('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId));
+        return RouteRedirectView::create('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId, '_format' => 'html'));
     }
 
     /**
