@@ -72,6 +72,25 @@ class ThreadController extends Controller
     }
 
     /**
+     * Gets the threads for the specified ids.
+     *
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function getThreadsActions(Request $request)
+    {
+        $ids = $request->query->get('ids');
+
+        $threads = $this->container->get('fos_comment.manager.thread')->findThreadsBy(array('id' => $ids));
+
+        $view = View::create()
+            ->setData(array('threads' => $threads));
+
+        return $view;
+    }
+
+    /**
      * Creates a new Thread from the submitted data.
      *
      * @return View

@@ -18,10 +18,14 @@
  * <div id="fos_comment_thread">#comments</div>
  * <script type="text/javascript">
  *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
- *     var fos_comment_thread_id = 'http://example.org/api/threads/a_unique_identifier_for_the_thread/comments';
+ *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
+ *     var fos_comment_thread_api_base_url = 'http://example.org/api/threads';
  *
- *     // Set the cors url if you want cross-domain AJAX (also needs easyXDM)
+ *     // Optionally set the cors url if you want cross-domain AJAX (also needs easyXDM)
  *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
+ *
+ *     // Optionally set a custom callback function to update the comment count elements
+ *     var window.fos_comment_thread_comment_count_callback = function(elem, threadObject){}
  *
  *     // Optionally set a different element than div#fos_comment_thread as container
  *     var fos_comment_thread_container = $('#other_element');
@@ -88,7 +92,7 @@
             }
 
             FOS_COMMENT.get(
-                identifier,
+                FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
                 {permalink: encodeURIComponent(permalink)},
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
@@ -222,6 +226,54 @@
                 }
             });
             return o;
+        },
+
+        loadCommentCounts: function()
+        {
+            var threadIds = [];
+            var commentCountElements = $('span.fos-comment-count');
+
+            commentCountElements.each(function(i, elem){
+                var threadId = $(elem).data('fosCommentThreadId');
+                if(threadId) {
+                    threadIds.push(threadId);
+                }
+            });
+
+            FOS_COMMENT.get(
+                FOS_COMMENT.base_url + '.json',
+                {ids: threadIds},
+                function(data) {
+                    // easyXdm doesn't always serialize
+                    if (typeof data != "object") {
+                        data = jQuery.parseJSON(data);
+                    }
+
+                    var threadData = {};
+
+                    for (var i in data.threads) {
+                        threadData[data.threads[i].id] = data.threads[i];
+                    }
+
+                    $.each(commentCountElements, function(){
+                        var threadId = $(this).data('fosCommentThreadid');
+                        if(threadId) {
+                            FOS_COMMENT.setCommentCount(this, threadData[threadId]);
+                        }
+                    });
+                }
+            );
+
+        },
+
+        setCommentCount: function(elem, threadObject) {
+            if (threadObject == undefined) {
+                elem.innerHTML = '';
+
+                return;
+            }
+
+            elem.innerHTML = threadObject.num_comments;
         }
     };
 
@@ -270,7 +322,9 @@
         };
 
         FOS_COMMENT.get= function(url, data, success, error) {
-            this.request('GET', url, data, success, error);
+            // make data serialization equals to that of jquery
+            url += '?' + jQuery.param(data);
+            this.request('GET', url, undefined, success, error);
         };
 
         /* Initialize xhr object to do cross-domain requests. */
@@ -283,10 +337,21 @@
         });
     }
 
+    // set the appropriate base url
+    FOS_COMMENT.base_url = window.fos_comment_thread_api_base_url;
+
     // Load the comment if there is a thread id defined.
     if(typeof window.fos_comment_thread_id != "undefined") {
         // get the thread comments and init listeners
         FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
+    }
+
+    if(typeof window.fos_comment_thread_comment_count_callback != "undefined") {
+        FOS_COMMENT.setCommentCount = window.fos_comment_thread_comment_count_callback;
+    }
+
+    if($('span.fos-comment-count').length > 0) {
+        FOS_COMMENT.loadCommentCounts();
     }
 
     FOS_COMMENT.initializeListeners();
