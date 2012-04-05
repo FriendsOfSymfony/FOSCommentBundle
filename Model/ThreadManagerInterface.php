@@ -36,6 +36,15 @@ interface ThreadManagerInterface
     function findThreadBy(array $criteria);
 
     /**
+     * Finds threads by the given criteria
+     *
+     * @param array $criteria
+     *
+     * @return array of ThreadInterface
+     */
+    function findThreadsBy(array $criteria);
+
+    /**
      * Finds all threads.
      *
      * @return array of ThreadInterface

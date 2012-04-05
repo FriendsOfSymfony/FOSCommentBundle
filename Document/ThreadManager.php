@@ -67,6 +67,14 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findThreadsBy(array $criteria)
+    {
+        return $this->repository->findBy($criteria);
+    }
+
+    /**
      * Finds all threads.
      *
      * @return array of ThreadInterface

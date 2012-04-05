@@ -80,6 +80,22 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritDoc}
      */
+    public function findThreadsBy(array $criteria)
+    {
+        $threads = $this->realManager->findThreadsBy($criteria);
+
+        foreach ($threads as $thread) {
+            if (!$this->threadAcl->canView($thread)) {
+                throw new AccessDeniedException();
+            }
+        }
+
+        return $threads;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findAllThreads()
     {
         $threads = $this->realManager->findAllThreads();
