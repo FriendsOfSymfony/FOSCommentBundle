@@ -72,25 +72,6 @@ class ThreadController extends Controller
     }
 
     /**
-     * Gets the threads for the specified ids.
-     *
-     * @param Request $request
-     *
-     * @return View
-     */
-    public function getThreadsActions(Request $request)
-    {
-        $ids = $request->query->get('ids');
-
-        $threads = $this->container->get('fos_comment.manager.thread')->findThreadsBy(array('id' => $ids));
-
-        $view = View::create()
-            ->setData(array('threads' => $threads));
-
-        return $view;
-    }
-
-    /**
      * Creates a new Thread from the submitted data.
      *
      * @return View
@@ -119,68 +100,6 @@ class ThreadController extends Controller
         }
 
         return $this->onCreateThreadError($form);
-    }
-
-    /**
-     * Get the edit form the open/close a thread.
-     *
-     * @param Request $request Currenty request
-     * @param mixed $id        Thread id
-     *
-     * @return View
-     */
-    public function editThreadCommentableAction(Request $request, $id)
-    {
-        $manager = $this->container->get('fos_comment.manager.thread');
-        $thread = $manager->findThreadById($id);
-
-        if (null === $thread) {
-            throw new NotFoundHttpException(sprintf("Thread with id '%s' could not be found.", $id));
-        }
-
-        $thread->setCommentable($this->getRequest()->query->get('value', 1));
-
-        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
-        $form->setData($thread);
-
-        $view = View::create()
-            ->setData(array('form' => $form, 'id' => $id, 'isCommentable' => $thread->isCommentable()))
-            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'commentable'));
-
-        return $view;
-    }
-
-    /**
-     * Edits the thread.
-     *
-     * @param Request $request Currenty request
-     * @param mixed $id        Thread id
-     *
-     * @return View
-     */
-    public function patchThreadCommentableAction(Request $request, $id)
-    {
-        $manager = $this->container->get('fos_comment.manager.thread');
-        $thread = $manager->findThreadById($id);
-
-        if (null === $thread) {
-            throw new NotFoundHttpException(sprintf("Thread with id '%s' could not be found.", $id));
-        }
-
-        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
-        $form->setData($thread);
-
-        if ('PATCH' === $request->getMethod()) {
-            $form->bindRequest($request);
-
-            if ($form->isValid()) {
-                $manager->saveThread($thread);
-
-                return $this->onOpenThreadSuccess($form);
-            }
-        }
-
-        return $this->onOpenThreadError($form);
     }
 
     /**
@@ -551,39 +470,6 @@ class ThreadController extends Controller
                 'form' => $form,
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
-
-        return $view;
-    }
-
-    /**
-     * Forwards the action to the open thread edit view on a successful form submission.
-     *
-     * @param FormInterface $form
-     *
-     * @return View
-     */
-    protected function onOpenThreadSuccess(FormInterface $form)
-    {
-        return RouteRedirectView::create('fos_comment_edit_thread_commentable', array('id' => $form->getData()->getId(), 'value' => !$form->getData()->isCommentable()));
-    }
-
-    /**
-     * Returns a HTTP_BAD_REQUEST response when the form submission fails.
-     *
-     * @param FormInterface $form
-     *
-     * @return View
-     */
-    protected function onOpenThreadError(FormInterface $form)
-    {
-        $view = View::create()
-            ->setStatusCode(Codes::HTTP_BAD_REQUEST)
-            ->setData(array(
-                'form' => $form,
-                'id' => $form->getData()->getId(),
-                'isCommentable' => $form->getData()->isCommentable(),
-            ))
-            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'commentable'));
 
         return $view;
     }

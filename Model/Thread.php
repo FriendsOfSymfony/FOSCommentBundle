@@ -102,7 +102,7 @@ abstract class Thread implements ThreadInterface
      * @param  bool
      * @return null
      */
-    public function setCommentable($isCommentable)
+    public function setIsCommentable($isCommentable)
     {
         $this->isCommentable = (bool) $isCommentable;
     }

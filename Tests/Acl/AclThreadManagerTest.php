@@ -174,11 +174,6 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
                 ->method('saveThread')
                 ->with($this->thread);
 
-        $this->realManager->expects($this->once())
-                ->method('isNewThread')
-                ->with($this->thread)
-                ->will($this->returnValue(true));
-
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $manager->saveThread($this->thread);
     }

@@ -24,16 +24,6 @@
             <argument>%fos_comment.form.comment.name%</argument>
         </service>
 
-        <service id="fos_comment.form_type.commentable_thread.default" class="FOS\CommentBundle\Form\CommentableThreadType">
-            <tag name="form.type" alias="fos_comment.commentable_thread" />
-        </service>
-
-        <service id="fos_comment.form_factory.commentable_thread.default" class="FOS\CommentBundle\FormFactory\CommentableThreadFormFactory" public="false">
-            <argument type="service" id="form.factory" />
-            <argument>%fos_comment.form.commentable_thread.type%</argument>
-            <argument>%fos_comment.form.commentable_thread.name%</argument>
-        </service>
-
         <service id="fos_comment.form_type.thread.default" class="FOS\CommentBundle\Form\ThreadType">
             <tag name="form.type" alias="fos_comment.thread" />
         </service>

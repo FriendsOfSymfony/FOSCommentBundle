@@ -80,22 +80,6 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findThreadsBy(array $criteria)
-    {
-        $threads = $this->realManager->findThreadsBy($criteria);
-
-        foreach ($threads as $thread) {
-            if (!$this->threadAcl->canView($thread)) {
-                throw new AccessDeniedException();
-            }
-        }
-
-        return $threads;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function findAllThreads()
     {
         $threads = $this->realManager->findAllThreads();
@@ -126,25 +110,8 @@ class AclThreadManager implements ThreadManagerInterface
             throw new AccessDeniedException();
         }
 
-        $newThread = $this->isNewThread($thread);
-
-        if (!$newThread && !$this->threadAcl->canEdit($thread)) {
-            throw new AccessDeniedException();
-        }
-
         $this->realManager->saveThread($thread);
-
-        if ($newThread) {
-            $this->threadAcl->setDefaultAcl($thread);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isNewThread(ThreadInterface $thread)
-    {
-        return $this->realManager->isNewThread($thread);
+        $this->threadAcl->setDefaultAcl($thread);
     }
 
     /**

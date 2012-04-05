@@ -40,24 +40,15 @@
         <property name="id">
             <constraint name="NotBlank">
                 <option name="message">Please enter an id</option>
-                <option name="groups">
-                    <value>NewThread</value>
-                </option>
             </constraint>
         </property>
 
         <property name="permalink">
             <constraint name="NotBlank">
                 <option name="message">Please enter a permalink</option>
-                <option name="groups">
-                    <value>NewThread</value>
-                </option>
             </constraint>
             <constraint name="Url">
                 <option name="message">Please provide a valid url</option>
-                <option name="groups">
-                    <value>NewThread</value>
-                </option>
             </constraint>
         </property>
     </class>
