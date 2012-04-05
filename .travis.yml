@@ -11,3 +11,4 @@ before_script:
 notifications:
   email:
     - friendsofsymfony-dev@googlegroups.com
+    - tim+build@nagel.com.au
