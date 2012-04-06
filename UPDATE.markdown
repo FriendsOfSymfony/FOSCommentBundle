@@ -8,6 +8,11 @@
  var fos_comment_thread_id = 'my_thread_id';
  ```
  * A new method `ThreadManagerInterface#findThreadsBy` was added.
+ * A new method `ThreadManagerInterface#isNewThread()` was added.
+ * `ThreadInterface#setIsCommentable` was renamed to `ThreadInterface#setCommentable`
+ * A new method `CommentManagerInterface#isNewComment` was added.
+ * The html class `fos_comment_comment_form` was renamed to `fos_comment_comment_new_form`. Custom javascript implementations should be adjusted for this change.
+
 
 0.9.2 to 1.0.0
 
