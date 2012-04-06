@@ -96,6 +96,7 @@
                 {permalink: encodeURIComponent(permalink)},
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
+                    FOS_COMMENT.thread_container.attr('data-thread', identifier);
                 }
             );
         },
