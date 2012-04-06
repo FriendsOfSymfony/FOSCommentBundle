@@ -1,6 +1,13 @@
 1.0.0 to 1.1.0
 
  * `Resources/Thread/comment.html.twig` has changed, adding a rawBody option. This change is not relevant unless you are going to use RawComments
+ * If you don't use the async template to render the comments, you will need to add a new variable defining the base url of the api:
+
+ ``` javascript
+ var fos_comment_thread_api_base_url = 'http://example.org/api/threads';
+ var fos_comment_thread_id = 'my_thread_id';
+ ```
+ * A new method `ThreadManagerInterface#findThreadsBy` was added.
 
 0.9.2 to 1.0.0
 
