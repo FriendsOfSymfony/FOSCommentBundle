@@ -5,8 +5,24 @@ php:
   - 5.4
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
+  - sudo apt-get -qq install nginx > /dev/null 2>&1
+  - node -v
+  - curl --silent http://npmjs.org/install.sh | sh > /dev/null 2>&1
+  - npm -v
+  - npm install --silent -g zombie > /dev/null
+  - export NODE_PATH=/home/vagrant/.nvm/v0.4.12/lib/node_modules:/usr/local/lib/node_modules
+  - curl --silent http://getcomposer.org/installer | php
+  - php-cgi -v
+  - php-cgi -b 127.0.0.1:9000 &
+  - nginx -v
+  - sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - php composer.phar install --install-suggests --quiet
+  - ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web
+  - ./Tests/Functional/app/console doctrine:database:drop --force
+  - ./Tests/Functional/app/console doctrine:database:create
+  - ./Tests/Functional/app/console doctrine:schema:create
+
+script: ./run_tests.sh
 
 notifications:
   email:

@@ -16,6 +16,9 @@ return array(
     new Symfony\Bundle\SecurityBundle\SecurityBundle(),
     new Symfony\Bundle\TwigBundle\TwigBundle(),
 
+    new Behat\BehatBundle\BehatBundle(),
+    new Behat\MinkBundle\MinkBundle(),
+
     new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
     new FOS\RestBundle\FOSRestBundle(),
