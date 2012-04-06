@@ -126,8 +126,25 @@ class AclThreadManager implements ThreadManagerInterface
             throw new AccessDeniedException();
         }
 
+        $newThread = $this->isNewThread($thread);
+
+        if (!$newThread && !$this->threadAcl->canEdit($thread)) {
+            throw new AccessDeniedException();
+        }
+
         $this->realManager->saveThread($thread);
-        $this->threadAcl->setDefaultAcl($thread);
+
+        if ($newThread) {
+            $this->threadAcl->setDefaultAcl($thread);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isNewThread(ThreadInterface $thread)
+    {
+        return $this->realManager->isNewThread($thread);
     }
 
     /**

@@ -67,6 +67,15 @@ interface ThreadManagerInterface
     function saveThread(ThreadInterface $thread);
 
     /**
+     * Checks if the thread was already persisted before, or if it's a new one.
+     *
+     * @param ThreadInterface $thread
+     *
+     * @return boolean True, if it's a new thread
+     */
+    function isNewThread(ThreadInterface $thread);
+
+    /**
      * Returns the comment thread fully qualified class name
      *
      * @return string

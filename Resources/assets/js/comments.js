@@ -105,7 +105,7 @@
          */
         initializeListeners: function() {
             FOS_COMMENT.thread_container.on('submit',
-                'form.fos_comment_comment_form',
+                'form.fos_comment_comment_new_form',
                 function(e) {
                     var that = $(this);
 
@@ -155,6 +155,60 @@
             );
 
             FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_edit_show_form',
+                function(e) {
+                    var form_data = $(this).data();
+                    var that = this;
+
+                    FOS_COMMENT.get(
+                        form_data.url,
+                        {},
+                        function(data) {
+                            var commentBody = $(that).parent().next();
+
+                            // save the old comment for the cancel function
+                            commentBody.data('original', commentBody.html());
+
+                            // show the edit form
+                            commentBody.html(data);
+                        }
+                    );
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('submit',
+                'form.fos_comment_comment_edit_form',
+                function(e) {
+                    var that = $(this);
+
+                    FOS_COMMENT.post(
+                        this.action,
+                        FOS_COMMENT.serializeObject(this),
+                        // success
+                        function(data) {
+                            FOS_COMMENT.editComment(data);
+                        },
+
+                        // error
+                        function(data, statusCode) {
+                            var parent = that.parent();
+                            parent.after(data);
+                            parent.remove();
+                        }
+                    );
+
+                    e.preventDefault();
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_edit_cancel',
+                function(e) {
+                    FOS_COMMENT.cancelEditComment($(this).parents('.fos_comment_comment_body'));
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('click',
                 '.fos_comment_comment_vote',
                 function(e) {
                     var form_data = $(this).data();
@@ -173,6 +227,36 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_thread_commentable_action',
+                function(e) {
+                    var form_data = $(this).data();
+
+                    // Get the form
+                    FOS_COMMENT.get(
+                        form_data.url,
+                        {},
+                        function(data) {
+                            // Post it
+                            var form = $(data).children('form')[0];
+                            var form_data = $(form).data();
+
+                            FOS_COMMENT.post(
+                                form.action,
+                                FOS_COMMENT.serializeObject(form),
+                                function(data) {
+                                    var form = $(data).children('form')[0];
+                                    var threadId = $(form).data().fosCommentThreadId;
+
+                                    // reload the intire thread
+                                    FOS_COMMENT.getThreadComments(threadId);
                                 }
                             );
                         }
@@ -204,6 +288,17 @@
                 form.children('textarea')[0].value = '';
                 form.children('.fos_comment_form_errors').remove();
             }
+        },
+
+        editComment: function(commentHtml) {
+            var commentHtml = $(commentHtml);
+            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.fos_comment_comment_body');
+
+            originalCommentBody.html(commentHtml.children('.fos_comment_comment_body').html());
+        },
+
+        cancelEditComment: function(commentBody) {
+            commentBody.html(commentBody.data('original'));
         },
 
         /**
@@ -323,7 +418,9 @@
 
         FOS_COMMENT.get= function(url, data, success, error) {
             // make data serialization equals to that of jquery
-            url += '?' + jQuery.param(data);
+            var params = jQuery.param(data);
+            url += '' != params ? '?' + params : '';
+
             this.request('GET', url, undefined, success, error);
         };
 

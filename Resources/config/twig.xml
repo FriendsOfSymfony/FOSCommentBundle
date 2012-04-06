@@ -17,6 +17,7 @@
         <service id="fos_comment.twig.comment_extension" class="FOS\CommentBundle\Twig\CommentExtension" public="false">
             <argument type="service" id="fos_comment.acl.comment" on-invalid="null" />
             <argument type="service" id="fos_comment.acl.vote" on-invalid="null" />
+            <argument type="service" id="fos_comment.acl.thread" on-invalid="null" />
             <tag name="twig.extension" />
         </service>
     </services>

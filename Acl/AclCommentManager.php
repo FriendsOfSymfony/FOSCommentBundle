@@ -119,8 +119,17 @@ class AclCommentManager implements CommentManagerInterface
             throw new AccessDeniedException();
         }
 
+        $newComment = $this->isNewComment($comment);
+
+        if (!$newComment && !$this->commentAcl->canEdit($comment)) {
+            throw new AccessDeniedException();
+        }
+
         $this->realManager->saveComment($comment);
-        $this->commentAcl->setDefaultAcl($comment);
+
+        if ($newComment) {
+            $this->commentAcl->setDefaultAcl($comment);
+        }
     }
 
     /**
@@ -143,6 +152,14 @@ class AclCommentManager implements CommentManagerInterface
     public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
         return $this->realManager->createComment($thread, $parent);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isNewComment(CommentInterface $comment)
+    {
+        return $this->realManager->isNewComment($comment);
     }
 
     /**
