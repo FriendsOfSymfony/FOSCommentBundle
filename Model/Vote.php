@@ -91,7 +91,16 @@ abstract class Vote implements VoteInterface
     public function isVoteValid(ExecutionContext $context)
     {
         if (!$this->checkValue($this->value)) {
-            $context->addViolationAtSubPath('value', 'A vote cannot have a 0 value', array(), null);
+            $message = 'A vote cannot have a 0 value';
+            $propertyPath = $context->getPropertyPath() . '.value';
+
+            // Checks support for new Symfony 2.1.x method.
+            if (method_exists($context, 'addViolationAtPath')) {
+                $context->addViolationAtPath($propertyPath, $message);
+            } else {
+                $context->setPropertyPath($propertyPath);
+                $context->addViolation($message, array(), null);
+            }
         }
     }
 
