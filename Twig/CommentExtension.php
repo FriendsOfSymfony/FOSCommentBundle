@@ -82,16 +82,18 @@ class CommentExtension extends \Twig_Extension
      */
     public function canComment(CommentInterface $comment = null)
     {
+        if (null !== $comment
+            && null !== $comment->getThread()
+            && !$comment->getThread()->isCommentable()) {
+            return false;
+        }
+
         if (null === $this->commentAcl) {
             return true;
         }
 
         if (null === $comment) {
             return $this->commentAcl->canCreate();
-        }
-
-        if (!$comment->getThread()->isCommentable()) {
-            return false;
         }
 
         return $this->commentAcl->canReply($comment);
@@ -169,7 +171,7 @@ class CommentExtension extends \Twig_Extension
     public function canCommentThread(ThreadInterface $thread)
     {
         return $thread->isCommentable()
-            && $this->commentAcl->canCreate();
+            && (null === $this->commentAcl || $this->commentAcl->canCreate());
     }
 
     /**
