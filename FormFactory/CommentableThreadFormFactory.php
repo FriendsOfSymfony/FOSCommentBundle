@@ -15,9 +15,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 /**
- * ThreadForm factory class.
+ * CommentableThreadForm factory class.
  */
-class ThreadFormFactory implements ThreadFormFactoryInterface
+class CommentableThreadFormFactory implements CommentableThreadFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
@@ -55,7 +55,7 @@ class ThreadFormFactory implements ThreadFormFactoryInterface
      */
     public function createForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name, null, array('validation_groups' => array('CreateThread')));
+        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name, null, array('validation_groups' => array('OpenThread')));
 
         return $builder->getForm();
     }

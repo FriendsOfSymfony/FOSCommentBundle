@@ -86,6 +86,14 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function isNewThread(ThreadInterface $thread)
+    {
+        return !$this->em->getUnitOfWork()->isInIdentityMap($thread);
+    }
+
+    /**
      * Saves a thread
      *
      * @param ThreadInterface $thread
