@@ -30,7 +30,8 @@
     },
     "suggest": {
         "doctrine/orm": "2.2.*",
-        "friendsofsymfony/user-bundle": "*"
+        "friendsofsymfony/user-bundle": "*",
+        "ornicar/akismet-bundle": "*"
     },
     "autoload": {
         "psr-0": { "FOS\\CommentBundle": "" }
