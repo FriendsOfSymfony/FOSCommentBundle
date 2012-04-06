@@ -179,6 +179,36 @@
                     );
                 }
             );
+
+            FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_thread_commentable_action',
+                function(e) {
+                    var form_data = $(this).data();
+
+                    // Get the form
+                    FOS_COMMENT.get(
+                        form_data.url,
+                        {},
+                        function(data) {
+                            // Post it
+                            var form = $(data).children('form')[0];
+                            var form_data = $(form).data();
+
+                            FOS_COMMENT.post(
+                                form.action,
+                                FOS_COMMENT.serializeObject(form),
+                                function(data) {
+                                    var form = $(data).children('form')[0];
+                                    var threadId = $(form).data().fosCommentThreadId;
+
+                                    // reload the intire thread
+                                    FOS_COMMENT.getThreadComments(threadId);
+                                }
+                            );
+                        }
+                    );
+                }
+            );
         },
 
         appendComment: function(commentHtml, form) {
@@ -323,7 +353,9 @@
 
         FOS_COMMENT.get= function(url, data, success, error) {
             // make data serialization equals to that of jquery
-            url += '?' + jQuery.param(data);
+            var params = jQuery.param(data);
+            url += '' != params ? '?' + params : '';
+
             this.request('GET', url, undefined, success, error);
         };
 

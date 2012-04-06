@@ -13,8 +13,10 @@ namespace FOS\CommentBundle\Twig;
 
 use FOS\CommentBundle\Acl\CommentAclInterface;
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\RawCommentInterface;
+use FOS\CommentBundle\Acl\ThreadAclInterface;
 use FOS\CommentBundle\Acl\VoteAclInterface;
 
 /**
@@ -26,18 +28,20 @@ class CommentExtension extends \Twig_Extension
 {
     protected $commentAcl;
     protected $voteAcl;
+    protected $threadAcl;
 
-    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null)
+    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
     {
         $this->commentAcl = $commentAcl;
-        $this->voteAcl = $voteAcl;
+        $this->voteAcl    = $voteAcl;
+        $this->threadAcl  = $threadAcl;
     }
 
     public function getTests()
     {
         return array(
-            'fos_comment_votable'        => new \Twig_Test_Method($this, 'isVotable'),
-            'fos_comment_raw'            => new \Twig_Test_Method($this, 'isRawComment'),
+            'fos_comment_votable'         => new \Twig_Test_Method($this, 'isVotable'),
+            'fos_comment_raw'             => new \Twig_Test_Method($this, 'isRawComment'),
         );
     }
 
@@ -60,8 +64,9 @@ class CommentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'fos_comment_can_comment' => new \Twig_Function_Method($this, 'canComment'),
-            'fos_comment_can_vote'    => new \Twig_Function_Method($this, 'canVote'),
+            'fos_comment_can_comment'     => new \Twig_Function_Method($this, 'canComment'),
+            'fos_comment_can_vote'        => new \Twig_Function_Method($this, 'canVote'),
+            'fos_comment_can_edit_thread' => new \Twig_Function_Method($this, 'canEditThread'),
         );
     }
 
@@ -108,6 +113,24 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->voteAcl->canCreate();
+    }
+
+    /**
+     * Checks if the thread can be edited.
+     *
+     * Will use the specified ACL, or return true otherwise.
+     *
+     * @param ThreadInterface $thread
+     *
+     * @return bool
+     */
+    public function canEditThread(ThreadInterface $thread)
+    {
+        if (null === $this->threadAcl) {
+            return true;
+        }
+
+        return $this->threadAcl->canEdit($thread);
     }
 
     /**
