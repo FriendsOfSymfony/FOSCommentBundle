@@ -8,6 +8,3 @@ fos_comment:
             comment: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Comment
             thread: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Thread
             vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote
-
-sensio_framework_extra:
-    view: { annotations: false }

@@ -48,6 +48,9 @@ security:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
+sensio_framework_extra:
+    view: { annotations: false }
+
 twig:
     debug: %kernel.debug%
     strict_variables: %kernel.debug%
