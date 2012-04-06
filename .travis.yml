@@ -17,6 +17,10 @@ before_script:
   - nginx -v
   - sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - php composer.phar install --install-suggests --quiet
+  - ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web
+  - ./Tests/Functional/app/console doctrine:database:drop --force
+  - ./Tests/Functional/app/console doctrine:database:create
+  - ./Tests/Functional/app/console doctrine:schema:create
 
 script: ./run_tests.sh
 
