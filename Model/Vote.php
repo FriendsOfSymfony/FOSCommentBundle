@@ -91,9 +91,7 @@ abstract class Vote implements VoteInterface
     public function isVoteValid(ExecutionContext $context)
     {
         if (!$this->checkValue($this->value)) {
-            $propertyPath = $context->getPropertyPath() . '.value';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('A vote cannot have a 0 value', array(), null);
+            $context->addViolationAtSubPath('value', 'A vote cannot have a 0 value', array(), null);
         }
     }
 
