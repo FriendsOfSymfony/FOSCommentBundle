@@ -13,7 +13,7 @@
 {% set view = view|default('tree') %}
 
 {% if depth == 0 %}
-    {% if thread.commentable and fos_comment_can_comment() %}
+    {% if fos_comment_can_comment_thread(thread) %}
         {% render "FOSCommentBundle:Thread:newThreadComments" with {"id": thread.id} %}
     {% endif %}
 
