@@ -56,6 +56,16 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($extension->canComment());
     }
 
+    public function testCannotCreateCommentOnClosedThread()
+    {
+        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread->expects($this->once())->method('isCommentable')->will($this->returnValue(false));
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment->expects($this->exactly(2))->method('getThread')->will($this->returnValue($thread));
+        $extension = new CommentExtension();
+        $this->assertFalse($extension->canComment($comment));
+    }
+
     public function testCannotCreateRootCommentWithAcl()
     {
         $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
