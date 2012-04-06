@@ -64,10 +64,11 @@ class CommentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'fos_comment_can_comment'     => new \Twig_Function_Method($this, 'canComment'),
-            'fos_comment_can_vote'        => new \Twig_Function_Method($this, 'canVote'),
-            'fos_comment_can_edit_comment' => new \Twig_Function_Method($this, 'canEditComment'),
-            'fos_comment_can_edit_thread' => new \Twig_Function_Method($this, 'canEditThread'),
+            'fos_comment_can_comment'        => new \Twig_Function_Method($this, 'canComment'),
+            'fos_comment_can_vote'           => new \Twig_Function_Method($this, 'canVote'),
+            'fos_comment_can_edit_comment'   => new \Twig_Function_Method($this, 'canEditComment'),
+            'fos_comment_can_edit_thread'    => new \Twig_Function_Method($this, 'canEditThread'),
+            'fos_comment_can_comment_thread' => new \Twig_Function_Method($this, 'canCommentThread'),
         );
     }
 
@@ -89,6 +90,10 @@ class CommentExtension extends \Twig_Extension
             return $this->commentAcl->canCreate();
         }
 
+        if (!$comment->getThread()->isCommentable()) {
+            return false;
+        }
+
         return $this->commentAcl->canReply($comment);
     }
 
@@ -101,6 +106,10 @@ class CommentExtension extends \Twig_Extension
      */
     public function canEditComment(CommentInterface $comment)
     {
+        if (!$comment->getThread()->isCommentable()) {
+            return false;
+        }
+
         if (null === $this->commentAcl) {
             return true;
         }
@@ -148,6 +157,19 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->threadAcl->canEdit($thread);
+    }
+
+    /**
+     * Checks if the thread can be commented.
+     *
+     * @param ThreadInterface $thread
+     *
+     * @return bool
+     */
+    public function canCommentThread(ThreadInterface $thread)
+    {
+        return $thread->isCommentable()
+            && $this->commentAcl->canCreate();
     }
 
     /**
