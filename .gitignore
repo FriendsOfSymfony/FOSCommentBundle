@@ -1,4 +1,4 @@
 phpunit.xml
 Tests/autoload.php
-
+composer.phar
 vendor/*
