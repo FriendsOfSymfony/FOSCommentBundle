@@ -1,4 +1,6 @@
+composer.phar
 phpunit.xml
 Tests/autoload.php
-composer.phar
-vendor/*
+Tests/Functional/app/Behat/nginx.conf
+Tests/Functional/web/bundles
+vendor
