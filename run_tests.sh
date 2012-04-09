@@ -4,4 +4,4 @@ set -e
 set -o pipefail
 
 phpunit
-Tests/Functional/app/console behat
+Tests/Functional/app/console behat --format=progress

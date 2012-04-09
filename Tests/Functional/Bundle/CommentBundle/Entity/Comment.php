@@ -42,7 +42,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     protected $thread;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      */
     protected $author;

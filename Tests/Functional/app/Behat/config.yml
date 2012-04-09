@@ -11,9 +11,8 @@ fos_comment:
 
 mink:
     base_url: http://127.0.0.1:8080/
-    default_session: zombie
-    javascript_session: zombie
-    zombie: ~
+    javascript_session: sahi
+    sahi: ~
     show_cmd: open %s
 
 parameters:
