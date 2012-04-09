@@ -25,8 +25,8 @@ Functional tests have more dependencies.
 
  * vendors set up by [Composer](http://getcomposer.org)
    * `php composer.phar install --install-suggests`
- * [Node.js](http://nodejs.org/)
- * [Zombie.js](https://github.com/assaf/zombie)
+ * Sahi
+ * A browser supported by Sahi (headless or otherwise)
  * A webserver with ability to parse PHP
  * Once vendors are installed, a few commands must be run to set up the environment
    * ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web

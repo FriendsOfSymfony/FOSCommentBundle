@@ -28,6 +28,10 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if (!class_exists('Doctrine\\ORM\\EntityManager')) {
+            $this->markTestSkipped('Doctrine ORM not installed');
+        }
+
         $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $this->em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()

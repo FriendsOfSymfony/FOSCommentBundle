@@ -15,8 +15,8 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\ThreadEvent;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Responsible for setting a permalink for each new Thread object.
@@ -26,18 +26,18 @@ use Symfony\Component\HttpFoundation\Request;
 class ThreadPermalinkListener implements EventSubscriberInterface
 {
     /**
-     * @var Request
+     * @var ContainerInterface
      */
-    protected $request;
+    protected $container;
 
     /**
      * Constructor.
      *
-     * @param Request $request
+     * @param ContainerInterface $container
      */
-    public function __construct(Request $request)
+    public function __construct(ContainerInterface $container)
     {
-        $this->request       = $request;
+        $this->container = $container;
     }
 
     /**
@@ -47,8 +47,12 @@ class ThreadPermalinkListener implements EventSubscriberInterface
      */
     public function onThreadCreate(ThreadEvent $event)
     {
+        if (!$this->container->isScopeActive('request')) {
+            return;
+        }
+
         $thread = $event->getThread();
-        $thread->setPermalink($this->request->getUri());
+        $thread->setPermalink($this->container->get('request')->getUri());
     }
 
     static public function getSubscribedEvents()
