@@ -24,8 +24,8 @@
             <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="onCommentPersist" />
         </service>
 
-        <service id="fos_comment.listener.thread_permalink" class="FOS\CommentBundle\EventListener\ThreadPermalinkListener" scope="request">
-            <argument type="service" id="request" />
+        <service id="fos_comment.listener.thread_permalink" class="FOS\CommentBundle\EventListener\ThreadPermalinkListener">
+            <argument type="service" id="service_container" />
             <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
             <tag name="kernel.event_listener" event="fos_comment.thread.create" method="onThreadCreate" />
         </service>

@@ -30,7 +30,11 @@
     },
     "suggest": {
         "doctrine/orm": "2.2.*",
-        "friendsofsymfony/user-bundle": "*"
+        "friendsofsymfony/user-bundle": "*",
+        "ornicar/akismet-bundle": "*",
+        "behat/behat-bundle": "*",
+        "behat/mink-bundle": "*",
+        "behat/sahi-client": "*"
     },
     "autoload": {
         "psr-0": { "FOS\\CommentBundle": "" }

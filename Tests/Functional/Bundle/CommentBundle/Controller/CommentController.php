@@ -44,10 +44,7 @@ class CommentController extends Controller
 
         return $this->render('CommentBundle:Comment:inline.html.twig', array(
             'comments' => $comments,
-            'displayDepth' => null,
-            'sorter' => null,
             'thread' => $thread,
-            'view' => 'tree',
         ));
     }
 }

@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+set_time_limit(0);
+
+require_once __DIR__.'/AppKernel.php';
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+
+use FOS\CommentBundle\Tests\Functional\AppKernel;
+
+$kernel = new AppKernel('Behat', 'config.yml', 'test', true);
+$application = new Application($kernel);
+$application->run();
