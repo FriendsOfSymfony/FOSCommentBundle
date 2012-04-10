@@ -35,35 +35,35 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @var ObjectIdentityRetrievalStrategy
      */
-    private $objectRetrieval;
+    protected $objectRetrieval;
 
     /**
      * The AclProvider.
      *
      * @var MutableAclProviderInterface
      */
-    private $aclProvider;
+    protected $aclProvider;
 
     /**
      * The current Security Context.
      *
      * @var SecurityContextInterface
      */
-    private $securityContext;
+    protected $securityContext;
 
     /**
      * The FQCN of the Vote object.
      *
      * @var string
      */
-    private $voteClass;
+    protected $voteClass;
 
     /**
      * The Class OID for the Vote object.
      *
      * @var ObjectIdentity
      */
-    private $oid;
+    protected $oid;
 
     /**
      * Constructor.

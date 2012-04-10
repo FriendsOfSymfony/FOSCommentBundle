@@ -34,35 +34,35 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @var ObjectIdentityRetrievalStrategy
      */
-    private $objectRetrieval;
+    protected $objectRetrieval;
 
     /**
      * The AclProvider.
      *
      * @var MutableAclProviderInterface
      */
-    private $aclProvider;
+    protected $aclProvider;
 
     /**
      * The current Security Context.
      *
      * @var SecurityContextInterface
      */
-    private $securityContext;
+    protected $securityContext;
 
     /**
      * The FQCN of the Thread object.
      *
      * @var string
      */
-    private $threadClass;
+    protected $threadClass;
 
     /**
      * The Class OID for the Thread object.
      *
      * @var ObjectIdentity
      */
-    private $oid;
+    protected $oid;
 
     /**
      * Constructor.

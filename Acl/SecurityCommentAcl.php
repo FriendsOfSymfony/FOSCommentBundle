@@ -35,35 +35,35 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @var ObjectIdentityRetrievalStrategyInterface
      */
-    private $objectRetrieval;
+    protected $objectRetrieval;
 
     /**
      * The AclProvider.
      *
      * @var MutableAclProviderInterface
      */
-    private $aclProvider;
+    protected $aclProvider;
 
     /**
      * The current Security Context.
      *
      * @var SecurityContextInterface
      */
-    private $securityContext;
+    protected $securityContext;
 
     /**
      * The FQCN of the Comment object.
      *
      * @var string
      */
-    private $commentClass;
+    protected $commentClass;
 
     /**
      * The Class OID for the Comment object.
      *
      * @var ObjectIdentity
      */
-    private $oid;
+    protected $oid;
 
     /**
      * Constructor.
