@@ -84,7 +84,7 @@ class CommentBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if (null === $comment->getAuthor() && $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (null === $comment->getAuthor() && $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $comment->setAuthor($this->securityContext->getToken()->getUser());
         }
     }
