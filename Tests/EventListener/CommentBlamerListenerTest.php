@@ -36,7 +36,7 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $event = new CommentEvent($comment);
         $securityContext = $this->getSecurityContext();
         $securityContext->expects($this->once())->method('getToken')->will($this->returnValue('some non-null'));
-        $securityContext->expects($this->once())->method('isGranted')->with('IS_AUTHENTICATED_FULLY')->will($this->returnValue(false));
+        $securityContext->expects($this->once())->method('isGranted')->with('IS_AUTHENTICATED_REMEMBERED')->will($this->returnValue(false));
         $listener = new CommentBlamerListener($securityContext);
         $listener->blame($event);
     }
@@ -50,7 +50,7 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
         $token->expects($this->once())->method('getUser')->will($this->returnValue($this->getMock('Symfony\Component\Security\Core\User\UserInterface')));
         $securityContext = $this->getSecurityContext();
-        $securityContext->expects($this->once())->method('isGranted')->with('IS_AUTHENTICATED_FULLY')->will($this->returnValue(true));
+        $securityContext->expects($this->once())->method('isGranted')->with('IS_AUTHENTICATED_REMEMBERED')->will($this->returnValue(true));
         $securityContext->expects($this->exactly(2))->method('getToken')->will($this->returnValue($token));
 
         $listener = new CommentBlamerListener($securityContext);
