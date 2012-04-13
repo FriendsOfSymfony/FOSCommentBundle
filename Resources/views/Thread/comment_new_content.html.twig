@@ -1,0 +1,53 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+{% block fos_comment_comment_form_holder %}
+    <div class="fos_comment_comment_form_holder">
+        {% block fos_comment_form_title %}
+            {% if first %}
+                <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
+            {% elseif parent is not null %}
+                <h3>{% trans with {"%name%": parent.authorName } from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %}</h3>
+            {% else %}
+                <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
+            {% endif %}
+        {% endblock %}
+
+
+        {% block fos_comment_comment_new_form %}
+            <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
+
+                {% block fos_comment_form_fields %}
+                    <div class="fos_comment_form_errors">
+                    {{ form_errors(form) }}
+                    </div>
+                    <div class="fos_comment_form_errors">
+                    {{ form_errors(form.body) }}
+                    </div>
+                    {{ form_widget(form.body) }}
+
+                    {{ form_rest(form) }}
+                {% endblock %}
+
+                <div class="fos_comment_submit">
+                    {% block fos_comment_form_submit %}
+                        {% if parent is not null %}
+                            <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel" />
+                        {% endif %}
+                        <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />
+                    {% endblock %}
+                </div>
+
+            </form>
+        {% endblock fos_comment_comment_new_form %}
+
+    </div>
+{% endblock fos_comment_comment_form_holder %}
