@@ -352,7 +352,7 @@
                     }
 
                     $.each(commentCountElements, function(){
-                        var threadId = $(this).data('fosCommentThreadid');
+                        var threadId = $(this).data('fosCommentThreadId');
                         if(threadId) {
                             FOS_COMMENT.setCommentCount(this, threadData[threadId]);
                         }
