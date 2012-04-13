@@ -14,7 +14,7 @@
 
     <div class="fos_comment_comment_metas">
         {% block fos_comment_comment_metas %}
-            {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} {{ comment.authorName }} - {{ comment.createdAt|date }}
+            {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} <span class="fos_comment_comment_authorname">{{ comment.authorName }}</span> - {{ comment.createdAt|date }}
 
             {% if fos_comment_can_edit_comment(comment) %}
             <button data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">Edit</button>
