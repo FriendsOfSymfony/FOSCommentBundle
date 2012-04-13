@@ -35,7 +35,7 @@
     </div>
 
     {% if view is not sameas('flat') %}
-        <div class="fos_comment_comment_replies" style="margin-left: 2em;">
+        <div class="fos_comment_comment_replies">
         {% if fos_comment_can_comment(comment) %}
             <div class="fos_comment_comment_reply">
                 <button data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
