@@ -25,11 +25,14 @@
         "friendsofsymfony/rest-bundle": "*"
     },
     "recommend": {
-        "doctrine/doctrine-bundle": "*",
-        "symfony/assetic-bundle": "*"
+        "symfony/assetic-bundle": "",
+        "friendsofsymfony/user-bundle": "Allows for user integration.",
+        "ornicar/akismet-bundle": "Integrate Akismet for spamdetection."
     },
-    "suggest": {
+    "require-dev": {
         "doctrine/orm": "2.2.*",
+        "doctrine/doctrine-bundle": "*",
+        "symfony/assetic-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
         "ornicar/akismet-bundle": "*",
         "behat/behat-bundle": "*",
