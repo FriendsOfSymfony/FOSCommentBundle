@@ -40,9 +40,22 @@ class CommentExtension extends \Twig_Extension
     public function getTests()
     {
         return array(
+            'fos_comment_deleted'         => new \Twig_Test_Method($this, 'isCommentDeleted'),
             'fos_comment_votable'         => new \Twig_Test_Method($this, 'isVotable'),
             'fos_comment_raw'             => new \Twig_Test_Method($this, 'isRawComment'),
         );
+    }
+
+    /**
+     * Check if the state of the comment is deleted.
+     *
+     * @param CommentInterface $comment
+     *
+     * @return bool
+     */
+    public function isCommentDeleted(CommentInterface $comment)
+    {
+        return $comment->getState() === $comment::STATE_DELETED;
     }
 
     /**
@@ -66,6 +79,7 @@ class CommentExtension extends \Twig_Extension
         return array(
             'fos_comment_can_comment'        => new \Twig_Function_Method($this, 'canComment'),
             'fos_comment_can_vote'           => new \Twig_Function_Method($this, 'canVote'),
+            'fos_comment_can_delete_comment' => new \Twig_Function_Method($this, 'canDeleteComment'),
             'fos_comment_can_edit_comment'   => new \Twig_Function_Method($this, 'canEditComment'),
             'fos_comment_can_edit_thread'    => new \Twig_Function_Method($this, 'canEditThread'),
             'fos_comment_can_comment_thread' => new \Twig_Function_Method($this, 'canCommentThread'),
@@ -97,6 +111,22 @@ class CommentExtension extends \Twig_Extension
         }
 
         return $this->commentAcl->canReply($comment);
+    }
+
+    /**
+     * Checks if the current user is able to delete a comment.
+     *
+     * @param CommentInterface $comment
+     *
+     * @return bool
+     */
+    public function canDeleteComment(CommentInterface $comment)
+    {
+        if (null === $this->commentAcl) {
+            return true;
+        }
+
+        return $this->commentAcl->canDelete($comment);
     }
 
     /**

@@ -24,6 +24,8 @@
 
         <field name="createdAt" fieldName="createdAt" type="date" />
 
+        <field name="state" fieldName="state" type="int" />
+
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

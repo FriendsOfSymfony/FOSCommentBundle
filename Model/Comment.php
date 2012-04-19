@@ -55,6 +55,20 @@ abstract class Comment implements CommentInterface
     protected $createdAt;
 
     /**
+     * Current state of the comment.
+     *
+     * @var integer
+     */
+    protected $state = 0;
+
+    /**
+     * The previous state of the comment.
+     *
+     * @var integer
+     */
+    protected $previousState = 0;
+
+    /**
      * Should be mapped by the end developer.
      *
      * @var ThreadInterface
@@ -168,5 +182,30 @@ abstract class Comment implements CommentInterface
     public function setThread(ThreadInterface $thread)
     {
         $this->thread = $thread;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setState($state)
+    {
+        $this->previousState = $this->state;
+        $this->state = $state;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPreviousState()
+    {
+        return $this->previousState;
     }
 }
