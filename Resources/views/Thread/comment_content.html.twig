@@ -15,7 +15,14 @@
     <div class="fos_comment_comment_metas">
         {% block fos_comment_comment_metas %}
             {% block fos_comment_comment_metas_authorline %}
-                {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %} <span class="fos_comment_comment_authorname">{{ comment.authorName }}</span> - {{ comment.createdAt|date }}
+                {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %}
+                <span class="fos_comment_comment_authorname">
+                    {% if comment is fos_comment_deleted %}
+                {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                    {% else %}
+                        {{ comment.authorName }}
+                    {% endif %}
+                </span> - {{ comment.createdAt|date }}
             {% endblock fos_comment_comment_metas_authorline %}
 
             {% block fos_comment_comment_metas_edit %}
@@ -23,6 +30,18 @@
                 <button data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">Edit</button>
                 {% endif %}
             {% endblock fos_comment_comment_metas_edit %}
+
+            {% block fos_comment_comment_metas_delete %}
+                {% if fos_comment_can_delete_comment(comment) %}
+                    {% if comment is fos_comment_deleted %}
+                        {# undelete #}
+                        <button data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value": constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE') }) }}" class="fos_comment_comment_remove">{% trans from 'FOSCommentBundle' %}fos_comment_comment_undelete{% endtrans %}</button>
+                    {% else %}
+                        {# delete #}
+                        <button data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value":  constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')}) }}" class="fos_comment_comment_remove">{% trans from 'FOSCommentBundle' %}fos_comment_comment_delete{% endtrans %}</button>
+                    {% endif %}
+                {% endif %}
+            {% endblock fos_comment_comment_metas_delete %}
 
             {% block fos_comment_comment_metas_voting %}
                 {% if fos_comment_can_vote(comment) %}
@@ -38,10 +57,14 @@
 
     <div class="fos_comment_comment_body">
         {% block fos_comment_comment_body %}
-            {% if comment is fos_comment_raw %}
-                {{ comment.rawBody | raw }}
+            {% if comment is fos_comment_deleted %}
+                {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
             {% else %}
-                {{ comment.body | nl2br }}
+                {% if comment is fos_comment_raw %}
+                    {{ comment.rawBody | raw }}
+                {% else %}
+                    {{ comment.body | nl2br }}
+                {% endif %}
             {% endif %}
         {% endblock fos_comment_comment_body %}
     </div>

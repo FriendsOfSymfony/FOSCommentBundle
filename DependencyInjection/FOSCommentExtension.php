@@ -86,6 +86,9 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.commentable_thread.type', $config['form']['commentable_thread']['type']);
         $container->setParameter('fos_comment.form.commentable_thread.name', $config['form']['commentable_thread']['name']);
 
+        $container->setParameter('fos_comment.form.delete_comment.type', $config['form']['delete_comment']['type']);
+        $container->setParameter('fos_comment.form.delete_comment.name', $config['form']['delete_comment']['name']);
+
         $container->setParameter('fos_comment.form.vote.type', $config['form']['vote']['type']);
         $container->setParameter('fos_comment.form.vote.name', $config['form']['vote']['name']);
 
@@ -93,6 +96,7 @@ class FOSCommentExtension extends Extension
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
         $container->setAlias('fos_comment.form_factory.commentable_thread', $config['service']['form_factory']['commentable_thread']);
+        $container->setAlias('fos_comment.form_factory.delete_comment', $config['service']['form_factory']['delete_comment']);
         $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
         $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
 
