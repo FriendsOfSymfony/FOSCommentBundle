@@ -243,6 +243,69 @@ class ThreadController extends Controller
     }
 
     /**
+     * Get the delete form for a comment.
+     *
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
+     *
+     * @return View
+     */
+    public function removeThreadCommentAction(Request $request, $id, $commentId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+
+        if (null === $thread || null === $comment || $comment->getThread() !== $thread) {
+            throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
+        }
+
+        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm();
+        $comment->setState($request->query->get('value', $comment::STATE_DELETED));
+
+        $form->setData($comment);
+
+        $view = View::create()
+            ->setData(array('form' => $form, 'id' => $id, 'commentId' => $commentId))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_remove'));
+
+        return $view;
+    }
+
+    /**
+     * Edits the comment state
+     *
+     * @param Request   $request   Current request
+     * @param mixed     $id        Thread id
+     * @param mixed     $commentId Id of the comment
+     *
+     * @return View
+     */
+    public function patchThreadCommentStateAction(Request $request, $id, $commentId)
+    {
+        $manager = $this->container->get('fos_comment.manager.comment');
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $manager->findCommentById($commentId);
+
+        if (null === $thread || null === $comment || $comment->getThread() !== $thread) {
+            throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
+        }
+
+        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm();
+        $form->setData($comment);
+
+        $form->bindRequest($request);
+
+        if ($form->isValid()) {
+            $manager->saveComment($comment);
+
+            return $this->onRemoveThreadCommentSuccess($form, $id);
+        }
+
+        return $this->onRemoveThreadCommentError($form, $id);
+    }
+
+    /**
      * Presents the form to use to edit a Comment for a Thread.
      *
      * @param string $id        Id of the thread
@@ -681,6 +744,41 @@ class ThreadController extends Controller
                 'isCommentable' => $form->getData()->isCommentable(),
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'commentable'));
+
+        return $view;
+    }
+
+    /**
+     * Forwards the action to the comment view on a successful form submission.
+     *
+     * @param FormInterface $form Comment delete form
+     * @param integer       $id   Thread id
+     *
+     * @return View
+     */
+    protected function onRemoveThreadCommentSuccess(FormInterface $form, $id)
+    {
+        return RouteRedirectView::create('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()));
+    }
+
+    /**
+     * Returns a HTTP_BAD_REQUEST response when the form submission fails.
+     *
+     * @param FormInterface $form Comment delete form
+     * @param integer       $id   Thread id
+     *
+     * @return View
+     */
+    protected function onRemoveThreadCommentError(FormInterface $form, $id)
+    {
+        $view = View::create()
+            ->setStatusCode(Codes::HTTP_BAD_REQUEST)
+            ->setData(array(
+                'form' => $form,
+                'id' => $id,
+                'value' => $form->getData()->getState(),
+            ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_remove'));
 
         return $view;
     }

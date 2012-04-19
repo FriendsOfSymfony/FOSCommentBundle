@@ -135,6 +135,49 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($extension->canVote($comment));
     }
 
+    public function testIsDeletedWhenStateIsDeleted()
+    {
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_DELETED));
+
+        $extension = new CommentExtension();
+        $this->assertTrue($extension->isCommentDeleted($comment));
+    }
+
+    public function testIsDeletedWhenStateIsNotDeleted()
+    {
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_VISIBLE));
+
+        $extension = new CommentExtension();
+        $this->assertFalse($extension->isCommentDeleted($comment));
+    }
+
+    public function testCanDeleteWhenNoCommentAcl()
+    {
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $extension = new CommentExtension();
+        $this->assertTrue($extension->canDeleteComment($comment));
+    }
+
+    public function testCanDeleteWhenCommentAclCanDelete()
+    {
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl->expects($this->once())->method('canDelete')->with($comment)->will($this->returnValue(true));
+        $extension = new CommentExtension($commentAcl);
+        $this->assertTrue($extension->canDeleteComment($comment));
+    }
+
+    public function testCannotDeleteWhenCommentAclCannotDelete()
+    {
+        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl->expects($this->once())->method('canDelete')->with($comment)->will($this->returnValue(false));
+        $extension = new CommentExtension($commentAcl);
+        $this->assertFalse($extension->canDeleteComment($comment));
+    }
+
     protected function getVotableComment()
     {
         return $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');

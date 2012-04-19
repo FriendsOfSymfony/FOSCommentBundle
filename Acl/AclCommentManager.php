@@ -125,6 +125,12 @@ class AclCommentManager implements CommentManagerInterface
             throw new AccessDeniedException();
         }
 
+        if (($comment::STATE_DELETED === $comment->getState() || $comment::STATE_DELETED === $comment->getPreviousState())
+            && !$this->commentAcl->canDelete($comment)
+        ) {
+            throw new AccessDeniedException();
+        }
+
         $this->realManager->saveComment($comment);
 
         if ($newComment) {

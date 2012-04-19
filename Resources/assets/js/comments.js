@@ -236,6 +236,35 @@
             );
 
             FOS_COMMENT.thread_container.on('click',
+                '.fos_comment_comment_remove',
+                function(e) {
+                    var form_data = $(this).data();
+
+                    // Get the form
+                    FOS_COMMENT.get(
+                        form_data.url,
+                        {},
+                        function(data) {
+                            // Post it
+                            var form = $(data).children('form')[0];
+
+                            FOS_COMMENT.post(
+                                form.action,
+                                FOS_COMMENT.serializeObject(form),
+                                function(data) {
+                                    var commentHtml = $(data);
+
+                                    var originalComment = $('#' + commentHtml.attr('id'));
+
+                                    originalComment.replaceWith(commentHtml);
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+
+            FOS_COMMENT.thread_container.on('click',
                 '.fos_comment_thread_commentable_action',
                 function(e) {
                     var form_data = $(this).data();
@@ -247,7 +276,6 @@
                         function(data) {
                             // Post it
                             var form = $(data).children('form')[0];
-                            var form_data = $(form).data();
 
                             FOS_COMMENT.post(
                                 form.action,
