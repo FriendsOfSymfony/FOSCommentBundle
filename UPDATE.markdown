@@ -12,6 +12,10 @@
  * `ThreadInterface#setIsCommentable` was renamed to `ThreadInterface#setCommentable`
  * A new method `CommentManagerInterface#isNewComment` was added.
  * The html class `fos_comment_comment_form` was renamed to `fos_comment_comment_new_form`. Custom javascript implementations should be adjusted for this change.
+ * A new method `CommentInterface#getState` was added.
+ * A new method `CommentInterface#setState` was added.
+ * A new method `CommentInterface#getPreviousState` was added.
+ * A new field was added to `Document\Comment` and `Entity\Comment`. ORM users should update their schema.
 
 
 0.9.2 to 1.0.0
