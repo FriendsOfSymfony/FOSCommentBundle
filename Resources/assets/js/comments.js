@@ -60,6 +60,7 @@
                 }
             };
             $.post(url, data, success).error(wrappedErrorCallback);
+            this.loadCommentCounts();
         },
 
         /**
