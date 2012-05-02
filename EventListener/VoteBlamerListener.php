@@ -84,7 +84,7 @@ class VoteBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->securityContext->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $vote->setVoter($this->securityContext->getToken()->getUser());
         }
     }
