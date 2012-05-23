@@ -16,6 +16,13 @@ use Symfony\Component\Form\FormBuilder;
 
 class VoteType extends AbstractType
 {
+    private $dataClass;
+
+    public function __construct($dataClass)
+    {
+        $this->dataClass = $dataClass;
+    }
+
     /**
      * Configures a Comment form.
      *
@@ -25,6 +32,11 @@ class VoteType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('value', 'textarea');
+    }
+
+    public function getDefaultOptions(array $options = array())
+    {
+        return array('data_class' => $this->dataClass);
     }
 
     public function getName()

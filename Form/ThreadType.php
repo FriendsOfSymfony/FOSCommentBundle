@@ -16,6 +16,13 @@ use Symfony\Component\Form\FormBuilder;
 
 class ThreadType extends AbstractType
 {
+    private $dataClass;
+
+    public function __construct($dataClass)
+    {
+        $this->dataClass = $dataClass;
+    }
+
     /**
      * Configures a Thread form.
      *
@@ -26,6 +33,11 @@ class ThreadType extends AbstractType
     {
         $builder->add('id', 'text');
         $builder->add('permalink', 'textarea');
+    }
+
+    public function getDefaultOptions(array $options = array())
+    {
+        return array('data_class' => $this->dataClass);
     }
 
     public function getName()
