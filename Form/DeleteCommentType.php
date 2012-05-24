@@ -16,6 +16,13 @@ use Symfony\Component\Form\FormBuilder;
 
 class DeleteCommentType extends AbstractType
 {
+    private $dataClass;
+
+    public function __construct($dataClass)
+    {
+        $this->dataClass = $dataClass;
+    }
+
     /**
      * Configures a form to delete a comment.
      *
@@ -25,6 +32,11 @@ class DeleteCommentType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('state', 'hidden');
+    }
+
+    public function getDefaultOptions(array $options = array())
+    {
+        return array('data_class' => $this->dataClass);
     }
 
     public function getName()

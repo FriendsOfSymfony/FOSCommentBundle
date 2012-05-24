@@ -16,6 +16,13 @@ use Symfony\Component\Form\FormBuilder;
 
 class CommentableThreadType extends AbstractType
 {
+    private $dataClass;
+
+    public function __construct($dataClass)
+    {
+        $this->dataClass = $dataClass;
+    }
+
     /**
      * Configures a form to close a thread.
      *
@@ -25,6 +32,11 @@ class CommentableThreadType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('isCommentable', 'hidden', array('property_path' => 'commentable'));
+    }
+
+    public function getDefaultOptions(array $options = array())
+    {
+        return array('data_class' => $this->dataClass);
     }
 
     public function getName()

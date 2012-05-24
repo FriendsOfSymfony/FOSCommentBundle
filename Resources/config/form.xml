@@ -15,6 +15,7 @@
 
     <services>
         <service id="fos_comment.form_type.comment.default" class="FOS\CommentBundle\Form\CommentType">
+            <argument>%fos_comment.model.comment.class%</argument>
             <tag name="form.type" alias="fos_comment.comment" />
         </service>
 
@@ -25,6 +26,7 @@
         </service>
 
         <service id="fos_comment.form_type.commentable_thread.default" class="FOS\CommentBundle\Form\CommentableThreadType">
+            <argument>%fos_comment.model.thread.class%</argument>
             <tag name="form.type" alias="fos_comment.commentable_thread" />
         </service>
 
@@ -35,6 +37,7 @@
         </service>
 
         <service id="fos_comment.form_type.delete_comment.default" class="FOS\CommentBundle\Form\DeleteCommentType">
+            <argument>%fos_comment.model.comment.class%</argument>
             <tag name="form.type" alias="fos_comment.delete_comment" />
         </service>
 
@@ -45,6 +48,7 @@
         </service>
 
         <service id="fos_comment.form_type.thread.default" class="FOS\CommentBundle\Form\ThreadType">
+            <argument>%fos_comment.model.thread.class%</argument>
             <tag name="form.type" alias="fos_comment.thread" />
         </service>
 
@@ -55,6 +59,7 @@
         </service>
 
         <service id="fos_comment.form_type.vote.default" class="FOS\CommentBundle\Form\VoteType">
+            <argument>%fos_comment.model.vote.class%</argument>
             <tag name="form.type" alias="fos_comment.vote" />
         </service>
 
