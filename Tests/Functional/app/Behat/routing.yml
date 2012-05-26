@@ -5,3 +5,7 @@ FOSComentBundle:
     resource: "@FOSCommentBundle/Resources/config/routing.yml"
     type: rest
     prefix: /comment_api
+
+_assetic:
+    resource: .
+    type:     assetic
