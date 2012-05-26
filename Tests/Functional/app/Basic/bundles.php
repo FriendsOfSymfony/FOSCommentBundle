@@ -13,10 +13,10 @@ return array(
     new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 
     new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+    new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
     new Symfony\Bundle\SecurityBundle\SecurityBundle(),
     new Symfony\Bundle\TwigBundle\TwigBundle(),
 
-    new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
     new FOS\RestBundle\FOSRestBundle(),
     new FOS\CommentBundle\FOSCommentBundle(),

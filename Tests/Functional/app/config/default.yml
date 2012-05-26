@@ -26,10 +26,9 @@ doctrine:
 security:
     providers:
         memory:
-            memory:
-                users:
-                    admin: { password: admin, roles: [ROLE_SUPER_ADMIN] }
-                    user: { password: user, roles: [ROLE_USER] }
+            users:
+                admin: { password: admin, roles: [ROLE_SUPER_ADMIN] }
+                user: { password: user, roles: [ROLE_USER] }
 
     encoders:
         "Symfony\Component\Security\Core\User\User": plaintext
