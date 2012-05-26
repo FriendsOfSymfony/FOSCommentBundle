@@ -15,39 +15,33 @@
 
     <services>
         <service id="fos_comment.listener.comment_vote_score" class="FOS\CommentBundle\EventListener\CommentVoteScoreListener">
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.vote.pre_persist" method="onVotePersist" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.thread_counters" class="FOS\CommentBundle\EventListener\ThreadCountersListener">
             <argument type="service" id="fos_comment.manager.comment" />
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="onCommentPersist" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.thread_permalink" class="FOS\CommentBundle\EventListener\ThreadPermalinkListener">
             <argument type="service" id="service_container" />
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.thread.create" method="onThreadCreate" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.comment_blamer" class="FOS\CommentBundle\EventListener\CommentBlamerListener">
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="blame" />
             <argument type="service" id="security.context" on-invalid="null" />
             <argument type="service" id="logger" on-invalid="null" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.vote_blamer" class="FOS\CommentBundle\EventListener\VoteBlamerListener">
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.vote.pre_persist" method="blame" />
             <argument type="service" id="security.context" on-invalid="null" />
             <argument type="service" id="logger" on-invalid="null" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.closed_threads" class="FOS\CommentBundle\EventListener\ClosedThreadListener">
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="onCommentPersist" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>
