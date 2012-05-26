@@ -16,7 +16,10 @@ The FOSCommentBundle adds support for a comment system in Symfony2. Features inc
 
 **Note:**
 
-> The structure of this bundle has changed recently. If you are using 0.9.x, there are changes you need to make listed in UPDATE.markdown. There is also a 0.9 branch if you do not wish to upgrade, however this branch is not supported.
+> For users of Symfony2.0, you must use the 1.x branch. Master is no longer
+> compatible with Symyfony2.0.
+>
+> For users of Symfony2.1, you must use 2.0.0 or higher of this bundle.
 
 [![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSCommentBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSCommentBundle)
 
