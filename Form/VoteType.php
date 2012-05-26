@@ -12,19 +12,35 @@
 namespace FOS\CommentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class VoteType extends AbstractType
 {
+    private $voteClass;
+
+    public function __construct($voteClass)
+    {
+        $this->voteClass = $voteClass;
+    }
+
     /**
      * Configures a Comment form.
      *
-     * @param FormBuilder $builder
+     * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('value', 'textarea');
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+        $resolver->setDefaults(array(
+            'data_class' => $this->voteClass,
+        ));
     }
 
     public function getName()

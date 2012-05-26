@@ -12,20 +12,36 @@
 namespace FOS\CommentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ThreadType extends AbstractType
 {
+    private $threadClass;
+
+    public function __construct($threadClass)
+    {
+        $this->threadClass = $threadClass;
+    }
+
     /**
      * Configures a Thread form.
      *
-     * @param FormBuilder $builder
+     * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', 'text');
         $builder->add('permalink', 'textarea');
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+        $resolver->setDefaults(array(
+            'data_class' => $this->threadClass,
+        ));
     }
 
     public function getName()

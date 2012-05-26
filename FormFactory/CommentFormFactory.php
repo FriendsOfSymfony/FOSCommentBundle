@@ -58,7 +58,7 @@ class CommentFormFactory implements CommentFormFactoryInterface
      */
     public function createForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name);
+        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type);
 
         return $builder->getForm();
     }
