@@ -15,3 +15,10 @@ fos_comment_comment_tree_load_more:           Afficher plus de réponses
 Showing %num% comment|Showing %num% comments: Afficher %num% commentaire|Afficher %num% commentaires
 
 fos_comment_rss_feed:                         Flux RSS
+
+fos_comment_thread_close:                     Fermer le fil de discussion
+fos_comment_thread_open:                      Ouvrir le fil de discussion
+fos_comment_thread_comment_count:             %count% commentaire|%count% commentaires
+fos_comment_comment_delete:                   Supprimer un commentaire
+fos_comment_comment_undelete:                 Restaurer le commentaire
+fos_comment_comment_deleted:                  "[Supprimé]"
