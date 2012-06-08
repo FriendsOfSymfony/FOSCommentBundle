@@ -484,4 +484,4 @@
 
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;
-})(window, window.jQuery, window.easyXDM)
+})(window, window.jQuery, window.easyXDM);
