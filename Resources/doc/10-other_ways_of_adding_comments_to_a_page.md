@@ -16,6 +16,8 @@ public function somethingAction(Request $request)
     $id = 'thread_id';
     $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
     if (null === $thread) {
+        $request = $this->container->get('request');
+    
         $thread = $this->container->get('fos_comment.manager.thread')->createThread();
         $thread->setId($id);
         $thread->setPermalink($request->getUri());
