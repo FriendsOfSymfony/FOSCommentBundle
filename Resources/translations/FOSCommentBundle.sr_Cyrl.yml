@@ -1,0 +1,27 @@
+fos_comment_comment_new_headline_first:       Оставите први коментар
+fos_comment_comment_new_headline:             Додај нови коментар
+fos_comment_comment_new_submit:               Пошаљи
+
+fos_comment_comment_reply_reply_to:           Одговори %name%
+fos_comment_comment_reply_cancel:             Откажи
+
+fos_comment_comment_show_by:                  Коментар
+fos_comment_comment_show_voteup:              Гласај за
+fos_comment_comment_show_votedown:            Гласај против
+fos_comment_comment_show_reply:               Одговори
+
+fos_comment_comment_vote_score:               "Гласова: "
+
+fos_comment_comment_tree_load_more:           Учитај још одговора
+
+Showing %num% comment|Showing %num% comments: Приказано %num% коментар|Приказано %num% коментара
+
+fos_comment_rss_feed:                         RSS канал
+
+fos_comment_thread_close:                     Затвори дискусију
+fos_comment_thread_open:                      Отвори дискусију
+fos_comment_thread_comment_count:             %count% коментар|%count% коментара
+fos_comment_comment_edit:                     Измени
+fos_comment_comment_delete:                   Обриши коментар
+fos_comment_comment_undelete:                 Обнови коментар
+fos_comment_comment_deleted:                  "[обрисано]"
