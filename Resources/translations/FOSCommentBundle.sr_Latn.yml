@@ -1,0 +1,27 @@
+fos_comment_comment_new_headline_first:       Ostavite prvi komentar
+fos_comment_comment_new_headline:             Dodaj novi komentar
+fos_comment_comment_new_submit:               Pošalji
+
+fos_comment_comment_reply_reply_to:           Odgovori %name%
+fos_comment_comment_reply_cancel:             Otkaži
+
+fos_comment_comment_show_by:                  Komentar
+fos_comment_comment_show_voteup:              Glasaj za
+fos_comment_comment_show_votedown:            Glasaj protiv
+fos_comment_comment_show_reply:               Odgovori
+
+fos_comment_comment_vote_score:               "Glasova: "
+
+fos_comment_comment_tree_load_more:           Učitaj još odgovora
+
+Showing %num% comment|Showing %num% comments: Prikazano %num% komentar|Prikazano %num% komentara
+
+fos_comment_rss_feed:                         RSS kanal
+
+fos_comment_thread_close:                     Zatvori diskusiju
+fos_comment_thread_open:                      Otvori diskusiju
+fos_comment_thread_comment_count:             %count% komentar|%count% komentara
+fos_comment_comment_edit:                     Izmeni
+fos_comment_comment_delete:                   Obriši komentar
+fos_comment_comment_undelete:                 Obnovi komentar
+fos_comment_comment_deleted:                  "[obrisano]"
