@@ -1,6 +1,7 @@
 fos_comment_comment_new_headline_first:       Napisz pierwszy komentarz
 fos_comment_comment_new_headline:             Dodaj nowy komentarz
 fos_comment_comment_new_submit:               Napisz
+fos_comment_comment_new_cancel:               Anuluj
 
 fos_comment_comment_reply_reply_to:           Odpowiadając na %name%
 fos_comment_comment_reply_cancel:             Anuluj
@@ -10,7 +11,7 @@ fos_comment_comment_show_voteup:              Głosuj w górę
 fos_comment_comment_show_votedown:            Głosuj w dół
 fos_comment_comment_show_reply:               Odpowiedz
 
-fos_comment_comment_tree_load_more:           Załaduj więcej odpowiedzi 
+fos_comment_comment_tree_load_more:           Załaduj więcej odpowiedzi
 
 Showing %num% comment|Showing %num% comments: Pokazuje %num% komentarz|Pokazuje %num% komentarze|Pokazuje %num% komentarzy
 
