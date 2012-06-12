@@ -39,12 +39,14 @@ template:
 ``` jinga
 {% block body %}
 {# ... #}
-<div id="fos_comment_thread" data-thread="{{ thread.id }}"></div>
+<div id="fos_comment_thread" data-thread="{{ thread.id }}">
 
 {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
     'comments': comments,
     'thread': thread
 } %}
+
+</div>
 {# ... #}
 {% endblock body %}
 
