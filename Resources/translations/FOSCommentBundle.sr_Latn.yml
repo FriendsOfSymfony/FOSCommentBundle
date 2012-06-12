@@ -14,13 +14,13 @@ fos_comment_comment_vote_score:               "Glasova: "
 
 fos_comment_comment_tree_load_more:           Učitaj još odgovora
 
-Showing %num% comment|Showing %num% comments: Prikazano %num% komentar|Prikazano %num% komentara
+Showing %num% comment|Showing %num% comments: Prikazano %num% komentar|Prikazano %num% komentara|Prikazano %num% komentara
 
 fos_comment_rss_feed:                         RSS kanal
 
 fos_comment_thread_close:                     Zatvori diskusiju
 fos_comment_thread_open:                      Otvori diskusiju
-fos_comment_thread_comment_count:             %count% komentar|%count% komentara
+fos_comment_thread_comment_count:             %count% komentar|%count% komentara|%count% komentara
 fos_comment_comment_edit:                     Izmeni
 fos_comment_comment_delete:                   Obriši komentar
 fos_comment_comment_undelete:                 Obnovi komentar
