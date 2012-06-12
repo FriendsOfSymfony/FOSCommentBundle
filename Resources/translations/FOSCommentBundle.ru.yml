@@ -1,6 +1,7 @@
 fos_comment_comment_new_headline_first:       Оставьте первый комментарий
 fos_comment_comment_new_headline:             Добавить новый комментарий
 fos_comment_comment_new_submit:               Ответить
+fos_comment_comment_new_cancel:               Отмена
 
 fos_comment_comment_reply_reply_to:           Ответ на %name%
 fos_comment_comment_reply_cancel:             Отмена
