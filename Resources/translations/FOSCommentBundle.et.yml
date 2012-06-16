@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       Ole esimene, kes kommenteerib
+fos_comment_comment_new_headline:             Lisa uus kommentaar
+fos_comment_comment_new_submit:               Postita
+fos_comment_comment_new_cancel:               Tühista
+
+fos_comment_comment_reply_reply_to:           Vasta %name%
+fos_comment_comment_reply_cancel:             Tühista
+
+fos_comment_comment_show_by:                  Kellelt
+fos_comment_comment_show_voteup:              Hääleta poolt
+fos_comment_comment_show_votedown:            Hääleta vastu
+fos_comment_comment_show_reply:               Vasta
+
+fos_comment_comment_vote_score:               "Skoor: "
+
+fos_comment_comment_tree_load_more:           Näita veel kommentaare
+
+Näita %num% kommentaari|Näita %num% kommentaare: Näita %num% kommentaari|Näita %num% kommentaare
+
+fos_comment_rss_feed:                         RSS feed
+
+fos_comment_thread_close:                     Sulge 
+fos_comment_thread_open:                      Ava 
+fos_comment_thread_comment_count:             %count% comment|%count% kommentaarid
+fos_comment_comment_edit:                     Muuda
+fos_comment_comment_delete:                   Kustuta kommentaar
+fos_comment_comment_undelete:                 Taasta kommentaar
+fos_comment_comment_deleted:                  "[kustutatud]"
