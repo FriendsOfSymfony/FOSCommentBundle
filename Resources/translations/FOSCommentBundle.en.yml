@@ -22,6 +22,7 @@ fos_comment_thread_close:                     Close thread
 fos_comment_thread_open:                      Open thread
 fos_comment_thread_comment_count:             %count% comment|%count% comments
 fos_comment_comment_edit:                     Edit
+fos_comment_comment_edit_cancel:              Cancel
 fos_comment_comment_delete:                   Delete comment
 fos_comment_comment_undelete:                 Undelete comment
 fos_comment_comment_deleted:                  "[deleted]"
