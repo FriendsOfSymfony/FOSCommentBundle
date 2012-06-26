@@ -392,7 +392,7 @@
 
         setCommentCount: function(elem, threadObject) {
             if (threadObject == undefined) {
-                elem.innerHTML = '';
+                elem.innerHTML = '0';
 
                 return;
             }
