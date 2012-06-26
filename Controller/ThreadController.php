@@ -158,7 +158,7 @@ class ThreadController extends Controller
      *
      * @return View
      */
-    public function patchThreadCommentableAction(Request $request, $id)
+    public function postThreadCommentableAction(Request $request, $id)
     {
         $manager = $this->container->get('fos_comment.manager.thread');
         $thread = $manager->findThreadById($id);
@@ -170,7 +170,7 @@ class ThreadController extends Controller
         $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
         $form->setData($thread);
 
-        if ('PATCH' === $request->getMethod()) {
+        if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
 
             if ($form->isValid()) {
@@ -281,7 +281,7 @@ class ThreadController extends Controller
      *
      * @return View
      */
-    public function patchThreadCommentStateAction(Request $request, $id, $commentId)
+    public function postThreadCommentStateAction(Request $request, $id, $commentId)
     {
         $manager = $this->container->get('fos_comment.manager.comment');
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
