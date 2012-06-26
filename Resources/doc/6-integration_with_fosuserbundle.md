@@ -4,9 +4,8 @@ By default, comments are made anonymously.
 [FOSUserBundle](http://github.com/FriendsOfSymfony/FOSUserBundle)
 authentication can be used to sign the comments.
 
-### A) Setup FOSCommentBundle
-First you have to setup FOSCommentBundle. Check the instructions:
-[FOSUserBundle](http://github.com/FriendsOfSymfony/FOSUserBundle)
+### A) Setup FOSUserBundle
+First you have to setup [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle). Check the [instructions](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
 
 ### B) Extend the Comment class
 In order to add an author to a comment, the Comment class should implement the
