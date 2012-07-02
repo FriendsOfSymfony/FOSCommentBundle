@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       Commenta per primo
+fos_comment_comment_new_headline:             Aggiungi commento
+fos_comment_comment_new_submit:               Invia
+fos_comment_comment_new_cancel:               Annulla
+
+fos_comment_comment_reply_reply_to:           In risposta a %name%
+fos_comment_comment_reply_cancel:             Annulla
+
+fos_comment_comment_show_by:                  Da
+fos_comment_comment_show_voteup:              Mi piace
+fos_comment_comment_show_votedown:            Non mi piace
+fos_comment_comment_show_reply:               Rispondi
+
+fos_comment_comment_vote_score:               "Punteggio: "
+
+fos_comment_comment_tree_load_more:           Carica altre risposte
+
+Showing %num% comment|Showing %num% comments: %num% comment|%num% commenti
+
+fos_comment_rss_feed:                         Feed RSS
+
+fos_comment_thread_close:                     Chiudi discussione
+fos_comment_thread_open:                      Apri discussione
+fos_comment_thread_comment_count:             %count% commento|%count% commenti
+fos_comment_comment_edit:                     Modifica
+fos_comment_comment_delete:                   Elimina commento
+fos_comment_comment_undelete:                 Recupera commento
+fos_comment_comment_deleted:                  "[cancellato]"
