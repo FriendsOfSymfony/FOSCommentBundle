@@ -59,6 +59,30 @@ class CommentExtension extends \Twig_Extension
     }
 
     /**
+     * Check if the state of the comment is spam.
+     *
+     * @param CommentInterface $comment
+     *
+     * @return bool
+     */
+    public function isCommentSpam(CommentInterface $comment)
+    {
+        return $comment->getState() === $comment::STATE_SPAM;
+    }
+
+    /**
+     * Check if the state of the comment is pending.
+     *
+     * @param CommentInterface $comment
+     *
+     * @return bool
+     */
+    public function isCommentPending(CommentInterface $comment)
+    {
+        return $comment->getState() === $comment::STATE_PENDING;
+    }
+
+    /**
      * Checks if the comment is an instance of a VotableCommentInterface.
      *
      * @param mixed The value to check for VotableCommentInterface
