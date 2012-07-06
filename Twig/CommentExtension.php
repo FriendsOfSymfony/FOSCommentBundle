@@ -40,46 +40,24 @@ class CommentExtension extends \Twig_Extension
     public function getTests()
     {
         return array(
-            'fos_comment_deleted'         => new \Twig_Test_Method($this, 'isCommentDeleted'),
+            'fos_comment_in_state'        => new \Twig_Test_Method($this, 'isCommentInState'),
             'fos_comment_votable'         => new \Twig_Test_Method($this, 'isVotable'),
             'fos_comment_raw'             => new \Twig_Test_Method($this, 'isRawComment'),
         );
     }
 
     /**
-     * Check if the state of the comment is deleted.
+     * Checks if comment is in given state.
      *
      * @param CommentInterface $comment
+     * @param int              $state   CommentInterface::STATE_*
      *
      * @return bool
      */
-    public function isCommentDeleted(CommentInterface $comment)
+    public function isCommentInState(CommentInterface $comment, $state)
     {
-        return $comment->getState() === $comment::STATE_DELETED;
-    }
-
-    /**
-     * Check if the state of the comment is spam.
-     *
-     * @param CommentInterface $comment
-     *
-     * @return bool
-     */
-    public function isCommentSpam(CommentInterface $comment)
-    {
-        return $comment->getState() === $comment::STATE_SPAM;
-    }
-
-    /**
-     * Check if the state of the comment is pending.
-     *
-     * @param CommentInterface $comment
-     *
-     * @return bool
-     */
-    public function isCommentPending(CommentInterface $comment)
-    {
-        return $comment->getState() === $comment::STATE_PENDING;
+        throw new \Exception(var_export($state, true));
+        return $comment->getState() === $state;
     }
 
     /**
