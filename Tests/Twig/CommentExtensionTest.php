@@ -141,7 +141,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
         $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_DELETED));
 
         $extension = new CommentExtension();
-        $this->assertTrue($extension->isCommentDeleted($comment));
+        $this->assertTrue($extension->isCommentInState($comment, $comment::STATE_DELETED));
     }
 
     public function testIsDeletedWhenStateIsNotDeleted()
@@ -150,7 +150,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
         $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_VISIBLE));
 
         $extension = new CommentExtension();
-        $this->assertFalse($extension->isCommentDeleted($comment));
+        $this->assertFalse($extension->isCommentInState($comment, $comment::STATE_DELETED));
     }
 
     public function testCanDeleteWhenNoCommentAcl()

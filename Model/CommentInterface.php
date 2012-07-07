@@ -24,6 +24,10 @@ interface CommentInterface
 
     const STATE_DELETED = 1;
 
+    const STATE_SPAM = 2;
+
+    const STATE_PENDING = 3;
+
     /**
      * @return mixed unique ID for this comment
      */

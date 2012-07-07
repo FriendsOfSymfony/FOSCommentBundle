@@ -12,7 +12,7 @@ Unit Tests
 Unit tests have only a few requirements
 
  * vendors set up by [Composer](http://getcomposer.org)
-   * `php composer.phar install --install-suggests`
+   * `php composer.phar install --dev`
  * [PHPUnit](http://www.phpunit.de/manual/current/en/index.html)
 
 Once these dependencies are installed, run the unit test suite by running `phpunit`
@@ -24,7 +24,7 @@ Functional Tests
 Functional tests have more dependencies.
 
  * vendors set up by [Composer](http://getcomposer.org)
-   * `php composer.phar install --install-suggests`
+   * `php composer.phar install --dev`
  * Sahi
  * A browser supported by Sahi (headless or otherwise)
  * A webserver with ability to parse PHP
