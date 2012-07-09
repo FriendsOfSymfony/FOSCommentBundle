@@ -13,13 +13,10 @@ namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
-use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Blames a comment using Symfony2 security component
@@ -42,7 +39,7 @@ class CommentBlamerListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @param LoggerInterface $logger
+     * @param LoggerInterface          $logger
      */
     public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
     {
@@ -53,7 +50,7 @@ class CommentBlamerListener implements EventSubscriberInterface
     /**
      * Assigns the currently logged in user to a Comment.
      *
-     * @param \FOS\CommentBundle\Event\CommentEvent $event
+     * @param  \FOS\CommentBundle\Event\CommentEvent $event
      * @return void
      */
     public function blame(CommentEvent $event)
@@ -89,7 +86,7 @@ class CommentBlamerListener implements EventSubscriberInterface
         }
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'blame');
     }

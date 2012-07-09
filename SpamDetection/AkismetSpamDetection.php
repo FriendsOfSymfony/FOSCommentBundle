@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\SpamDetection;
 
 use FOS\CommentBundle\Model\CommentInterface;
-use FOS\CommentBundle\Model\SignedCommentInterface;
 use Ornicar\AkismetBundle\Akismet\AkismetInterface;
 
 /**
@@ -38,7 +37,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
     /**
      * Returns true if Akismet believes the comment to be spam.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return bool
      */
     public function isSpam(CommentInterface $comment)
@@ -49,7 +48,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
     /**
      * Compiles comment data into a format Akismet accepts.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return array
      */
     protected function getCommentData(CommentInterface $comment)

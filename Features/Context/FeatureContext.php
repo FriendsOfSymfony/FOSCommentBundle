@@ -3,8 +3,6 @@
 namespace FOS\CommentBundle\Features\Context;
 
 use Behat\BehatBundle\Context\MinkContext;
-use Behat\Behat\Exception\PendingException;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Feature context.

@@ -24,65 +24,65 @@ interface ThreadInterface
      *
      * @return string
      */
-    function getId();
+    public function getId();
 
     /**
      * @param string
      */
-    function setId($id);
+    public function setId($id);
 
     /**
      * Url of the page where the thread lives
      * @return string
      */
-    function getPermalink();
+    public function getPermalink();
 
     /**
      * @param  string
      * @return null
      */
-    function setPermalink($permalink);
+    public function setPermalink($permalink);
 
     /**
      * Tells if new comments can be added in this thread
      *
      * @return bool
      */
-    function isCommentable();
+    public function isCommentable();
 
     /**
      * @param bool $isCommentable
      */
-    function setCommentable($isCommentable);
+    public function setCommentable($isCommentable);
 
     /**
      * Gets the number of comments
      *
      * @return integer
      */
-    function getNumComments();
+    public function getNumComments();
 
     /**
      * Sets the number of comments
      *
      * @param integer $numComments
      */
-    function setNumComments($numComments);
+    public function setNumComments($numComments);
 
     /**
      * Increments the number of comments by the supplied
      * value.
      *
-     * @param integer $by The number of comments to increment by
+     * @param  integer $by The number of comments to increment by
      * @return integer The new comment total
      */
-    function incrementNumComments($by);
+    public function incrementNumComments($by);
 
     /**
      * Denormalized date of the last comment
      * @return DateTime
      */
-    function getLastCommentAt();
+    public function getLastCommentAt();
 
     /**
      * @param  DateTime

@@ -51,6 +51,7 @@ EOT
     {
         if (!$this->getContainer()->has('security.acl.provider')) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
+
             return;
         }
 

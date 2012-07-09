@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
@@ -44,7 +43,7 @@ class VoteManager extends BaseVoteManager
      * Constructor.
      *
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\ORM\EntityManager                                 $em
      * @param $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
@@ -73,7 +72,7 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds a vote by specified criteria.
      *
-     * @param array $criteria
+     * @param  array         $criteria
      * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
@@ -84,7 +83,7 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @param  \FOS\CommentBundle\Model\VotableCommentInterface $comment
      * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)

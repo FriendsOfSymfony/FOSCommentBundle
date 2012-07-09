@@ -29,8 +29,8 @@ class FOSCommentExtension extends Extension
      * Loads and processes configuration to configure the Container.
      *
      * @throws InvalidArgumentException
-     * @param array $configs
-     * @param ContainerBuilder $container
+     * @param  array                    $configs
+     * @param  ContainerBuilder         $container
      * @return void
      */
     public function load(array $configs, ContainerBuilder $container)

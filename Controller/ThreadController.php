@@ -125,7 +125,7 @@ class ThreadController extends Controller
      * Get the edit form the open/close a thread.
      *
      * @param Request $request Currenty request
-     * @param mixed $id        Thread id
+     * @param mixed   $id      Thread id
      *
      * @return View
      */
@@ -154,7 +154,7 @@ class ThreadController extends Controller
      * Edits the thread.
      *
      * @param Request $request Currenty request
-     * @param mixed $id        Thread id
+     * @param mixed   $id      Thread id
      *
      * @return View
      */
@@ -275,9 +275,9 @@ class ThreadController extends Controller
     /**
      * Edits the comment state
      *
-     * @param Request   $request   Current request
-     * @param mixed     $id        Thread id
-     * @param mixed     $commentId Id of the comment
+     * @param Request $request   Current request
+     * @param mixed   $id        Thread id
+     * @param mixed   $commentId Id of the comment
      *
      * @return View
      */

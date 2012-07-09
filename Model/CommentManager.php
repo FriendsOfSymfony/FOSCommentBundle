@@ -18,7 +18,6 @@ use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Abstract Comment Manager implementation which can be used as base class for your
@@ -42,7 +41,7 @@ abstract class CommentManager implements CommentManagerInterface
      * Constructor
      *
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \FOS\CommentBundle\Sorting\SortingFactory $factory
+     * @param \FOS\CommentBundle\Sorting\SortingFactory                   $factory
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
@@ -76,9 +75,9 @@ abstract class CommentManager implements CommentManagerInterface
      * Returns all thread comments in a nested array
      * Will typically be used when it comes to display the comments.
      *
-     * @param ThreadInterface $thread
-     * @param string $sorter
-     * @param integer $depth
+     * @param  ThreadInterface $thread
+     * @param  string          $sorter
+     * @param  integer         $depth
      * @return array(
      *     0 => array(
      *         'comment' => CommentInterface,
@@ -111,16 +110,16 @@ abstract class CommentManager implements CommentManagerInterface
      * have not been fetched should be passed in as an array to
      * $ignoreParents.
      *
-     * @param array $comments An array of comments to organise
-     * @param string|null $sorter The sorter to use for sorting the tree
-     * @param array|null $ignoreParents An array of parents to ignore
-     * @return array A tree of comments
+     * @param  array       $comments      An array of comments to organise
+     * @param  string|null $sorter        The sorter to use for sorting the tree
+     * @param  array|null  $ignoreParents An array of parents to ignore
+     * @return array       A tree of comments
      */
     protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null)
     {
         $tree = new Tree();
 
-        foreach($comments as $comment) {
+        foreach ($comments as $comment) {
             $path = $tree;
 
             $ancestors = $comment->getAncestors();
@@ -146,7 +145,7 @@ abstract class CommentManager implements CommentManagerInterface
      * must implement the abstract doSaveComment method which will
      * perform the saving of the comment to the backend.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface         $comment
      * @throws InvalidArgumentException when the comment does not have a thread.
      */
     public function saveComment(CommentInterface $comment)

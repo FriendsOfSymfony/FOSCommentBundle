@@ -68,10 +68,10 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
+     * @param SecurityContextInterface        $securityContext
      * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param MutableAclProviderInterface $aclProvider
-     * @param string $voteClass
+     * @param MutableAclProviderInterface     $aclProvider
+     * @param string                          $voteClass
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
@@ -99,7 +99,7 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canView(VoteInterface $vote)
@@ -110,7 +110,7 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canEdit(VoteInterface $vote)
@@ -121,7 +121,7 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canDelete(VoteInterface $vote)
@@ -132,7 +132,7 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Sets the default object Acl entry for the supplied Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return void
      */
     public function setDefaultAcl(VoteInterface $vote)
@@ -177,8 +177,8 @@ class SecurityVoteAcl implements VoteAclInterface
      * Once this method has been overridden you need to run the
      * `fos_vote:installAces --flush` command
      *
-     * @param AclInterface $acl
-     * @param MaskBuilder $builder
+     * @param  AclInterface $acl
+     * @param  MaskBuilder  $builder
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

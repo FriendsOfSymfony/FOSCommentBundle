@@ -38,8 +38,8 @@ class DeleteCommentFormFactory implements DeleteCommentFormFactoryInterface
      * Constructor.
      *
      * @param FormFactoryInterface $formFactory
-     * @param string $type
-     * @param string $name
+     * @param string               $type
+     * @param string               $name
      */
     public function __construct(FormFactoryInterface $formFactory, $type, $name)
     {

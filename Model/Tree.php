@@ -41,7 +41,7 @@ class Tree
     /**
      * Adds a comment as a child of this node.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return void
      */
     public function add(CommentInterface $comment)
@@ -52,7 +52,7 @@ class Tree
     /**
      * Returns the Tree related to the supplied id.
      *
-     * @param mixed $id
+     * @param  mixed $id
      * @return Tree
      */
     public function traverse($id)

@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\VoteInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -68,11 +67,11 @@ class RoleVoteAcl implements VoteAclInterface
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @param string $createRole
-     * @param string $viewRole
-     * @param string $editRole
-     * @param string $deleteRole
-     * @param string $voteClass
+     * @param string                   $createRole
+     * @param string                   $viewRole
+     * @param string                   $editRole
+     * @param string                   $deleteRole
+     * @param string                   $voteClass
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 $createRole,
@@ -103,7 +102,7 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canView(VoteInterface $vote)
@@ -114,7 +113,7 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canEdit(VoteInterface $vote)
@@ -125,7 +124,7 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
     public function canDelete(VoteInterface $vote)
@@ -136,7 +135,7 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Role based Acl does not require setup.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return void
      */
     public function setDefaultAcl(VoteInterface $vote)

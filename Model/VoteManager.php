@@ -51,7 +51,7 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * Creates a Vote object.
      *
-     * @param VotableCommentInterface $comment
+     * @param  VotableCommentInterface $comment
      * @return VoteInterface
      */
     public function createVote(VotableCommentInterface $comment)

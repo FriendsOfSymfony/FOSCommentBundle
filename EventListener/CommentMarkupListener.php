@@ -14,7 +14,6 @@ namespace FOS\CommentBundle\EventListener;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Markup\ParserInterface;
-use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\RawCommentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -59,7 +58,7 @@ class CommentMarkupListener implements EventSubscriberInterface
         $comment->setRawBody($result);
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'markup');
     }

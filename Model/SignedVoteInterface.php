@@ -25,12 +25,12 @@ interface SignedVoteInterface extends VoteInterface
      *
      * @param UserInterface $user
      */
-    function setVoter(UserInterface $voter);
+    public function setVoter(UserInterface $voter);
 
     /**
      * Gets the owner of the vote
      *
      * @return UserInterface
      */
-    function getVoter();
+    public function getVoter();
 }

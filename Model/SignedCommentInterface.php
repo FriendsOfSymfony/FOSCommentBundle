@@ -25,12 +25,12 @@ interface SignedCommentInterface extends CommentInterface
      *
      * @param UserInterface $user
      */
-    function setAuthor(UserInterface $author);
+    public function setAuthor(UserInterface $author);
 
     /**
      * Gets the author of the Comment
      *
      * @return UserInterface
      */
-    function getAuthor();
+    public function getAuthor();
 }

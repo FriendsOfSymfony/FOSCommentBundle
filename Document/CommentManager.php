@@ -17,8 +17,6 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use DateTime;
-use InvalidArgumentException;
 
 /**
  * Default ODM CommentManager.
@@ -46,9 +44,9 @@ class CommentManager extends BaseCommentManager
      * Constructor.
      *
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \FOS\CommentBundle\Sorting\SortingFactory $factory
-     * @param \Doctrine\ODM\MongoDB\DocumentManager $dm
-     * @param string $class
+     * @param \FOS\CommentBundle\Sorting\SortingFactory                   $factory
+     * @param \Doctrine\ODM\MongoDB\DocumentManager                       $dm
+     * @param string                                                      $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, $class)
     {
@@ -64,9 +62,9 @@ class CommentManager extends BaseCommentManager
     /**
      * Returns a flat array of comments of a specific thread.
      *
-     * @param ThreadInterface $thread
-     * @param integer $depth
-     * @return array of ThreadInterface
+     * @param  ThreadInterface $thread
+     * @param  integer         $depth
+     * @return array           of ThreadInterface
      */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
     {
@@ -97,9 +95,9 @@ class CommentManager extends BaseCommentManager
     /**
      * Returns the requested comment tree branch
      *
-     * @param integer $commentId
-     * @param string $sorter
-     * @return array See findCommentsByThread
+     * @param  integer $commentId
+     * @param  string  $sorter
+     * @return array   See findCommentsByThread
      */
     public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
@@ -117,6 +115,7 @@ class CommentManager extends BaseCommentManager
         $sorter = $this->sortingFactory->getSorter($sorter);
 
         $ignoreParents = $comments->getSingleResult()->getAncestors();
+
         return $this->organiseComments($comments, $sorter, $ignoreParents);
     }
 

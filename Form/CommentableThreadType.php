@@ -28,7 +28,7 @@ class CommentableThreadType extends AbstractType
      * Configures a form to close a thread.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

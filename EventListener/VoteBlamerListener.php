@@ -14,12 +14,9 @@ namespace FOS\CommentBundle\EventListener;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Model\SignedVoteInterface;
-use FOS\CommentBundle\Model\VoteInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Assigns a FOS\UserBundle user from the logged in user to a vote.
@@ -42,7 +39,7 @@ class VoteBlamerListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @param LoggerInterface $logger
+     * @param LoggerInterface          $logger
      */
     public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
     {
@@ -53,7 +50,7 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * Assigns the Security token's user to the vote.
      *
-     * @param VoteEvent $vote
+     * @param  VoteEvent $vote
      * @return void
      */
     public function blame(VoteEvent $event)
@@ -89,7 +86,7 @@ class VoteBlamerListener implements EventSubscriberInterface
         }
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(Events::VOTE_PRE_PERSIST => 'blame');
     }

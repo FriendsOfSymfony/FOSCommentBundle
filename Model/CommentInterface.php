@@ -31,62 +31,62 @@ interface CommentInterface
     /**
      * @return mixed unique ID for this comment
      */
-    function getId();
+    public function getId();
 
     /**
      * @return string name of the comment author
      */
-    function getAuthorName();
+    public function getAuthorName();
 
     /**
      * @return string
      */
-    function getBody();
+    public function getBody();
 
     /**
      * @param string $body
      */
-    function setBody($body);
+    public function setBody($body);
 
     /**
      * @return DateTime
      */
-    function getCreatedAt();
+    public function getCreatedAt();
 
     /**
      * @return ThreadInterface
      */
-    function getThread();
+    public function getThread();
 
     /**
      * @param ThreadInterface $thread
      */
-    function setThread(ThreadInterface $thread);
+    public function setThread(ThreadInterface $thread);
 
     /**
      * @return CommentInterface
      */
-    function getParent();
+    public function getParent();
 
     /**
      * @param CommentInterface $comment
      */
-    function setParent(CommentInterface $comment);
+    public function setParent(CommentInterface $comment);
 
     /**
      * @return integer The current state of the comment
      */
-    function getState();
+    public function getState();
 
     /**
      * @param integer state
      */
-    function setState($state);
+    public function setState($state);
 
     /**
      * Gets the previous state.
      *
      * @return integer
      */
-    function getPreviousState();
+    public function getPreviousState();
 }

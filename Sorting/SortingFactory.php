@@ -32,12 +32,12 @@ class SortingFactory
     private $defaultSorter;
 
     /**
-     * @param array $sorters An array of SortingInterfaces
+     * @param array  $sorters       An array of SortingInterfaces
      * @param string $defaultSorter The alias of the sorter to use by default
      */
     public function __construct(array $sorters, $defaultSorter)
     {
-        foreach($sorters as $alias => $sorter) {
+        foreach ($sorters as $alias => $sorter) {
             if (!$sorter instanceof SortingInterface) {
                 throw new InvalidArgumentException('Sorters must implement SortingInterface');
             }

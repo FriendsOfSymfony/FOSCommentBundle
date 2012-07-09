@@ -26,31 +26,31 @@ interface ThreadAclInterface
      *
      * @return boolean
      */
-    function canCreate();
+    public function canCreate();
 
     /**
      * Checks if the user should be allowed to view a thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
-    function canView(ThreadInterface $thread);
+    public function canView(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to edit a thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
-    function canEdit(ThreadInterface $thread);
+    public function canEdit(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to delete a thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
-    function canDelete(ThreadInterface $thread);
+    public function canDelete(ThreadInterface $thread);
 
     /**
      * Sets the default Acl permissions on a thread.
@@ -58,22 +58,22 @@ interface ThreadAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new ThreadInterface instances.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return void
      */
-    function setDefaultAcl(ThreadInterface $thread);
+    public function setDefaultAcl(ThreadInterface $thread);
 
     /**
      * Installs the Default 'fallback' Acl entries for generic access.
      *
      * @return void
      */
-    function installFallbackAcl();
+    public function installFallbackAcl();
 
     /**
      * Removes default Acl entries.
      *
      * @return void
      */
-    function uninstallFallbackAcl();
+    public function uninstallFallbackAcl();
 }

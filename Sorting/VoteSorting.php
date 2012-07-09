@@ -23,9 +23,9 @@ class VoteSorting extends AbstractOrderSorting
     /**
      * Compares the comments score.
      *
-     * @param CommentInterface $a
-     * @param CommentInterface $b
-     * @return -1|0|1 As expected for uasort()
+     * @param  CommentInterface $a
+     * @param  CommentInterface $b
+     * @return -1|0|1           As expected for uasort()
      */
     protected function compare(CommentInterface $a, CommentInterface $b)
     {

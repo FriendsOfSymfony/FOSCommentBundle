@@ -28,7 +28,7 @@ class DeleteCommentType extends AbstractType
      * Configures a form to delete a comment.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -42,7 +42,6 @@ class DeleteCommentType extends AbstractType
             'data_class' => $this->commentClass,
         ));
     }
-
 
     public function getName()
     {

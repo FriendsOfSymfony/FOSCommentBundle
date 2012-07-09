@@ -261,7 +261,6 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
         $manager->saveComment($this->comment, $this->parent);
     }
 
-
     protected function editCommentSetup()
     {
         $this->saveCommentSetup();

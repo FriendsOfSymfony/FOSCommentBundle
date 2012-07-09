@@ -19,8 +19,8 @@ Näita %num% kommentaari|Näita %num% kommentaare: Näita %num% kommentaari|Näi
 
 fos_comment_rss_feed:                         RSS feed
 
-fos_comment_thread_close:                     Sulge 
-fos_comment_thread_open:                      Ava 
+fos_comment_thread_close:                     Sulge
+fos_comment_thread_open:                      Ava
 fos_comment_thread_comment_count:             %count% comment|%count% kommentaarid
 fos_comment_comment_edit:                     Muuda
 fos_comment_comment_delete:                   Kustuta kommentaar

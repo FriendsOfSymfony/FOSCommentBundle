@@ -11,7 +11,6 @@
 
 namespace FOS\CommentBundle\Event;
 
-use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

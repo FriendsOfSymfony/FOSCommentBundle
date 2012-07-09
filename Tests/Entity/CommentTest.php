@@ -11,8 +11,6 @@
 
 namespace FOS\CommentBundle\Tests\Entity;
 
-use FOS\CommentBundle\Entity\Comment as BaseComment;
-
 /**
  * Tests the functionality provided by Acl\AclCommentManager.
  *
@@ -62,4 +60,3 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $comment->setParent($parent);
     }
 }
-

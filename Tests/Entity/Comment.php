@@ -32,7 +32,7 @@ class Comment extends BaseComment
     }
 
     /**
-     * @param Thread $thread
+     * @param  Thread $thread
      * @return null
      */
     public function setThread(ThreadInterface $thread)

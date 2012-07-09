@@ -26,31 +26,31 @@ interface VoteAclInterface
      *
      * @return boolean
      */
-    function canCreate();
+    public function canCreate();
 
     /**
      * Checks if the user should be allowed to view a vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
-    function canView(VoteInterface $vote);
+    public function canView(VoteInterface $vote);
 
     /**
      * Checks if the user should be allowed to edit a vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
-    function canEdit(VoteInterface $vote);
+    public function canEdit(VoteInterface $vote);
 
     /**
      * Checks if the user should be allowed to delete a vote.
      *
-     * @param VoteInterface $vote
+     * @param  VoteInterface $vote
      * @return boolean
      */
-    function canDelete(VoteInterface $vote);
+    public function canDelete(VoteInterface $vote);
 
     /**
      * Sets the default Acl permissions on a comment.
@@ -58,22 +58,22 @@ interface VoteAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
      *
-     * @param VoteInterface $comment
+     * @param  VoteInterface $comment
      * @return void
      */
-    function setDefaultAcl(VoteInterface $vote);
+    public function setDefaultAcl(VoteInterface $vote);
 
     /**
      * Installs the Default 'fallback' Acl entries for generic access.
      *
      * @return void
      */
-    function installFallbackAcl();
+    public function installFallbackAcl();
 
     /**
      * Removes default Acl entries
      *
      * @return void
      */
-    function uninstallFallbackAcl();
+    public function uninstallFallbackAcl();
 }

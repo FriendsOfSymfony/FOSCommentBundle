@@ -41,7 +41,7 @@ class AclThreadManager implements ThreadManagerInterface
      * Constructor.
      *
      * @param ThreadManagerInterface $threadManager The concrete ThreadManager service
-     * @param ThreadAclInterface $threadAcl The Thread Acl service
+     * @param ThreadAclInterface     $threadAcl     The Thread Acl service
      */
     public function __construct(ThreadManagerInterface $threadManager, ThreadAclInterface $threadAcl)
     {

@@ -23,16 +23,16 @@ interface SortingInterface
     /**
      * Takes an array of Tree instances and sorts them.
      *
-     * @param array $tree
+     * @param  array $tree
      * @return Tree
      */
-    function sort(array $tree);
+    public function sort(array $tree);
 
     /**
      * Sorts a flat comment array.
      *
-     * @param array $comments
+     * @param  array $comments
      * @return array
      */
-    function sortFlat(array $comments);
+    public function sortFlat(array $comments);
 }

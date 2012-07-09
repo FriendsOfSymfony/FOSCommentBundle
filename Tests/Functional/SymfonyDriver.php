@@ -21,7 +21,7 @@ class SymfonyDriver extends GoutteDriver
     /**
      * Initializes Goutte driver.
      *
-     * @param   Symfony\Component\BrowserKit\Client $client     BrowserKit client instance
+     * @param Symfony\Component\BrowserKit\Client $client BrowserKit client instance
      */
     public function __construct(Client $client = null)
     {

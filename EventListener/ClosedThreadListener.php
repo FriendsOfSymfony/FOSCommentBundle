@@ -13,7 +13,6 @@ namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
-use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -38,7 +37,7 @@ class ClosedThreadListener implements EventSubscriberInterface
         }
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'onCommentPersist');
     }

@@ -11,8 +11,6 @@
 
 namespace FOS\CommentBundle\Tests\Functional;
 
-use Doctrine\ORM\Tools\SchemaTool;
-
 /**
  * Functional tests of the CommentBundle api.
  *

@@ -68,10 +68,10 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
+     * @param SecurityContextInterface                 $securityContext
      * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
-     * @param MutableAclProviderInterface $aclProvider
-     * @param string $commentClass
+     * @param MutableAclProviderInterface              $aclProvider
+     * @param string                                   $commentClass
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
@@ -99,7 +99,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
     public function canView(CommentInterface $comment)
@@ -110,7 +110,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to reply to a parent comment.
      *
-     * @param CommentInterface|null $parent
+     * @param  CommentInterface|null $parent
      * @return boolean
      */
     public function canReply(CommentInterface $parent = null)
@@ -125,7 +125,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
     public function canEdit(CommentInterface $comment)
@@ -136,7 +136,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
     public function canDelete(CommentInterface $comment)
@@ -147,7 +147,7 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Sets the default object Acl entry for the supplied Comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return void
      */
     public function setDefaultAcl(CommentInterface $comment)
@@ -192,8 +192,8 @@ class SecurityCommentAcl implements CommentAclInterface
      * Once this method has been overridden you need to run the
      * `fos:comment:installAces --flush` command
      *
-     * @param AclInterface $acl
-     * @param MaskBuilder $builder
+     * @param  AclInterface $acl
+     * @param  MaskBuilder  $builder
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

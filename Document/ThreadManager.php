@@ -41,8 +41,8 @@ class ThreadManager extends BaseThreadManager
     /**
      * Constructor.
      *
-     * @param DocumentManager         $dm
-     * @param string                  $class
+     * @param DocumentManager $dm
+     * @param string          $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
     {
@@ -58,7 +58,7 @@ class ThreadManager extends BaseThreadManager
     /**
      * Finds one comment thread by the given criteria
      *
-     * @param array $criteria
+     * @param  array           $criteria
      * @return ThreadInterface
      */
     public function findThreadBy(array $criteria)

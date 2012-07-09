@@ -107,8 +107,8 @@ class CommentExtension extends \Twig_Extension
      * can create root comments if no $comment is provided, otherwise
      * checks if they can reply to a given comment if supplied.
      *
-     * @param CommentInterface|null $comment
-     * @return bool If the user is able to comment
+     * @param  CommentInterface|null $comment
+     * @return bool                  If the user is able to comment
      */
     public function canComment(CommentInterface $comment = null)
     {
@@ -169,7 +169,7 @@ class CommentExtension extends \Twig_Extension
      * Checks if the comment is Votable and that the user has
      * permission to vote.
      *
-     * @param \FOS\CommentBundle\Model\CommentInterface $comment
+     * @param  \FOS\CommentBundle\Model\CommentInterface $comment
      * @return bool
      */
     public function canVote(CommentInterface $comment)

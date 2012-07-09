@@ -31,7 +31,7 @@ abstract class ThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * @param string $id
+     * @param  string          $id
      * @return ThreadInterface
      */
     public function findThreadById($id)

@@ -26,9 +26,9 @@ class AgedVoteSorting extends AbstractOrderSorting
      * The end result is a comment that is newer with tje same votes will be ranked
      * higher.
      *
-     * @param CommentInterface $a
-     * @param CommentInterface $b
-     * @return -1|0|1 As expected for uasort()
+     * @param  CommentInterface $a
+     * @param  CommentInterface $b
+     * @return -1|0|1           As expected for uasort()
      */
     protected function compare(CommentInterface $a, CommentInterface $b)
     {

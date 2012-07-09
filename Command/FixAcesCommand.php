@@ -13,7 +13,6 @@ namespace FOS\CommentBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
@@ -51,6 +50,7 @@ EOT
     {
         if (!$this->getContainer()->has('security.acl.provider')) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
+
             return;
         }
 
@@ -78,8 +78,7 @@ EOT
             try {
                 $provider->findAcl($oid);
                 $foundThreadAcls++;
-            }
-            catch (AclNotFoundException $e) {
+            } catch (AclNotFoundException $e) {
                 $threadAcl->setDefaultAcl($thread);
                 $createdThreadAcls++;
             }
@@ -90,8 +89,7 @@ EOT
                 try {
                     $provider->findAcl($comment_oid);
                     $foundCommentAcls++;
-                }
-                catch (AclNotFoundException $e) {
+                } catch (AclNotFoundException $e) {
                     $commentAcl->setDefaultAcl($comment);
                     $createdCommentAcls++;
                 }
@@ -102,8 +100,7 @@ EOT
                     try {
                         $provider->findAcl($vote_oid);
                         $foundVoteAcls++;
-                    }
-                    catch (AclNotFoundException $e) {
+                    } catch (AclNotFoundException $e) {
                         $voteAcl->setDefaultAcl($vote);
                         $createdVoteAcls++;
                     }

@@ -13,8 +13,6 @@ namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\ThreadEvent;
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\ThreadManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -55,7 +53,7 @@ class ThreadPermalinkListener implements EventSubscriberInterface
         $thread->setPermalink($this->container->get('request')->getUri());
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(Events::THREAD_CREATE => 'onThreadCreate');
     }

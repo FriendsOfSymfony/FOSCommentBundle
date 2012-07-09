@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\ThreadInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -68,11 +67,11 @@ class RoleThreadAcl implements ThreadAclInterface
      * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @param string $createRole
-     * @param string $viewRole
-     * @param string $editRole
-     * @param string $deleteRole
-     * @param string $threadClass
+     * @param string                   $createRole
+     * @param string                   $viewRole
+     * @param string                   $editRole
+     * @param string                   $deleteRole
+     * @param string                   $threadClass
      */
     public function __construct(SecurityContextInterface $securityContext,
         $createRole,
@@ -103,7 +102,7 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canView(ThreadInterface $thread)
@@ -114,7 +113,7 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canEdit(ThreadInterface $thread)
@@ -125,7 +124,7 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canDelete(ThreadInterface $thread)
@@ -136,7 +135,7 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Role based Acl does not require setup.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return void
      */
     public function setDefaultAcl(ThreadInterface $thread)

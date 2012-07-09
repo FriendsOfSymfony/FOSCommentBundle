@@ -62,7 +62,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     }
 
     /**
-     * @param Thread $thread
+     * @param  Thread $thread
      * @return null
      */
     public function setThread(ThreadInterface $thread)

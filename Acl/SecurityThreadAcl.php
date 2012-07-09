@@ -14,7 +14,6 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
@@ -67,10 +66,10 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
+     * @param SecurityContextInterface        $securityContext
      * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param MutableAclProviderInterface $aclProvider
-     * @param string $threadClass
+     * @param MutableAclProviderInterface     $aclProvider
+     * @param string                          $threadClass
      */
     public function __construct(SecurityContextInterface $securityContext,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
@@ -98,7 +97,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canView(ThreadInterface $thread)
@@ -109,7 +108,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canEdit(ThreadInterface $thread)
@@ -120,7 +119,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return boolean
      */
     public function canDelete(ThreadInterface $thread)
@@ -131,7 +130,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Sets the default object Acl entry for the supplied Thread.
      *
-     * @param ThreadInterface $thread
+     * @param  ThreadInterface $thread
      * @return void
      */
     public function setDefaultAcl(ThreadInterface $thread)
@@ -170,8 +169,8 @@ class SecurityThreadAcl implements ThreadAclInterface
      * Once this method has been overridden you need to run the
      * `fos_thread:installAces --flush` command
      *
-     * @param AclInterface $acl
-     * @param MaskBuilder $builder
+     * @param  AclInterface $acl
+     * @param  MaskBuilder  $builder
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

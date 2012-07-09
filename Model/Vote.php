@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Model;
 
 use DateTime;
-use InvalidArgumentException;
 
 use Symfony\Component\Validator\ExecutionContext;
 
@@ -127,7 +126,7 @@ abstract class Vote implements VoteInterface
     /**
      * Sets the comment this vote belongs to.
      *
-     * @param VotableCommentInterface $comment
+     * @param  VotableCommentInterface $comment
      * @return void
      */
     public function setComment(VotableCommentInterface $comment)

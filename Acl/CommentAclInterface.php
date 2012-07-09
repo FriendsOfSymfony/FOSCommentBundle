@@ -26,40 +26,40 @@ interface CommentAclInterface
      *
      * @return boolean
      */
-    function canCreate();
+    public function canCreate();
 
     /**
      * Checks if the user should be able to view a comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
-    function canView(CommentInterface $comment);
+    public function canView(CommentInterface $comment);
 
     /**
      * Checks if the user can reply to the supplied 'parent' comment
      * or if not supplied, just the ability to reply.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
-    function canReply(CommentInterface $parent = null);
+    public function canReply(CommentInterface $parent = null);
 
     /**
      * Checks if the user should be able to edit a comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
-    function canEdit(CommentInterface $comment);
+    public function canEdit(CommentInterface $comment);
 
     /**
      * Checks if the user should be able to delete a comment.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return boolean
      */
-    function canDelete(CommentInterface $comment);
+    public function canDelete(CommentInterface $comment);
 
     /**
      * Sets the default Acl permissions on a comment.
@@ -67,21 +67,21 @@ interface CommentAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
      *
-     * @param CommentInterface $comment
+     * @param  CommentInterface $comment
      * @return void
      */
-    function setDefaultAcl(CommentInterface $comment);
+    public function setDefaultAcl(CommentInterface $comment);
 
     /**
      * Installs the Default 'fallback' Acl entries for generic access.
      *
      * @return void
      */
-    function installFallbackAcl();
+    public function installFallbackAcl();
 
     /**
      * Removes default Acl entries
      * @return void
      */
-    function uninstallFallbackAcl();
+    public function uninstallFallbackAcl();
 }
