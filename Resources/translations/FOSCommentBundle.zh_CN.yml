@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       抢沙发
+fos_comment_comment_new_headline:             发表新讨论
+fos_comment_comment_new_submit:               提交
+fos_comment_comment_new_cancel:               取消
+
+fos_comment_comment_reply_reply_to:           回复 %name%
+fos_comment_comment_reply_cancel:             取消
+
+fos_comment_comment_show_by:                  署名：
+fos_comment_comment_show_voteup:              顶
+fos_comment_comment_show_votedown:            踩
+fos_comment_comment_show_reply:               回复
+
+fos_comment_comment_vote_score:               分数：
+
+fos_comment_comment_tree_load_more:           加载更多回复
+
+Showing %num% comment|Showing %num% comments: 显示 %num% 条讨论|显示 %num% 条讨论
+
+fos_comment_rss_feed:                         RSS源
+
+fos_comment_thread_close:                     关闭话题
+fos_comment_thread_open:                      打开话题
+fos_comment_thread_comment_count:             %count% 条讨论|%count% 条讨论
+fos_comment_comment_edit:                     编辑
+fos_comment_comment_delete:                   删除
+fos_comment_comment_undelete:                 取消删除
+fos_comment_comment_deleted:                  "[已删除]"
