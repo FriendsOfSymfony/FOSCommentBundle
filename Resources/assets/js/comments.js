@@ -17,8 +17,10 @@
  *
  * <div id="fos_comment_thread">#comments</div>
  * <script type="text/javascript">
- *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
- *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
+ *     // Set the thread id if you want comments to be loaded via ajax (url to thread comments api)
+ *     // Your thread container must have data-thread-id attribute with requested thread id.
+ *     <div class="thread-contaner" data-thread-id="my_unique_thread_id"></div>
+ * 
  *     var fos_comment_thread_api_base_url = 'http://example.org/api/threads';
  *
  *     // Optionally set the cors url if you want cross-domain AJAX (also needs easyXDM)
@@ -27,7 +29,7 @@
  *     // Optionally set a custom callback function to update the comment count elements
  *     var window.fos_comment_thread_comment_count_callback = function(elem, threadObject){}
  *
- *     // Optionally set a different element than div#fos_comment_thread as container
+ *     // Optionally set a different element than div#fos_comment_thread as container (it can be class instead id)
  *     var fos_comment_thread_container = $('#other_element');
  *
  * (function() {
@@ -86,7 +88,13 @@
          * @param string identifier Unique identifier url for the thread comments.
          * @param string url Optional url for the thread. Defaults to current location.
          */
-        getThreadComments: function(identifier, permalink) {
+        getThreadComments: function(thread_container, permalink) {
+            var identifier = thread_container.data('threadId');
+
+            if('undefined' == typeof identifier) {
+                return;
+            }
+
             if('undefined' == typeof permalink) {
                 permalink = window.location.href;
             }
@@ -95,8 +103,8 @@
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
                 {permalink: encodeURIComponent(permalink)},
                 function(data) {
-                    FOS_COMMENT.thread_container.html(data);
-                    FOS_COMMENT.thread_container.attr('data-thread', identifier);
+                    thread_container.html(data);
+                    thread_container.attr('data-thread', identifier);
                 }
             );
         },
@@ -466,10 +474,13 @@
     // set the appropriate base url
     FOS_COMMENT.base_url = window.fos_comment_thread_api_base_url;
 
-    // Load the comment if there is a thread id defined.
-    if(typeof window.fos_comment_thread_id != "undefined") {
-        // get the thread comments and init listeners
-        FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
+    if(FOS_COMMENT.thread_container.length == 1){
+        FOS_COMMENT.getThreadComments(FOS_COMMENT.thread_container);
+    } else if (FOS_COMMENT.thread_container.length > 1) {
+        // get comments for all threads on page
+        FOS_COMMENT.thread_container.each(function(i, e){
+            FOS_COMMENT.getThreadComments($(e)); 
+        });
     }
 
     if(typeof window.fos_comment_thread_comment_count_callback != "undefined") {

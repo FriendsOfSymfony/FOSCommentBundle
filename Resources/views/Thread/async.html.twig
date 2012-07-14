@@ -9,12 +9,17 @@
 
 #}
 
-<div id="fos_comment_thread"></div>
+<div id="fos_comment_thread" data-thread-id="{% if id is defined %}{{ id }}{% endif %}"></div>
 
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 <script type="text/javascript">
-// thread id
-var fos_comment_thread_id = '{{ id }}';
+// thread container
+var fos_comment_thread_container = $('#fos_comment_thread');
+
+// set own thread container
+{% if thread_container is defined %}
+	fos_comment_thread_container = $('{{ thread_container }}');
+{% endif %}
 
 // api base url to use for initial requests
 var fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}';
