@@ -29,6 +29,6 @@ class CommentableThreadType extends AbstractType
 
     public function getName()
     {
-        return "fos_comment_open_thread";
+        return "fos_comment.commentable_thread";
     }
 }
