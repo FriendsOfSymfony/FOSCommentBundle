@@ -45,6 +45,6 @@ class CommentType extends AbstractType
 
     public function getName()
     {
-        return "fos_comment.comment";
+        return "fos_comment_comment";
     }
 }
