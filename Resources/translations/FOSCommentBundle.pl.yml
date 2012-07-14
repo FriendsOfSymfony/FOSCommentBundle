@@ -16,3 +16,14 @@ fos_comment_comment_tree_load_more:           Załaduj więcej odpowiedzi
 Showing %num% comment|Showing %num% comments: Pokazuje %num% komentarz|Pokazuje %num% komentarze|Pokazuje %num% komentarzy
 
 fos_comment_rss_feed:                         RSS Feed
+
+
+fos_comment_comment_vote_score:               "Liczba głosów: "
+
+fos_comment_thread_close:                     Zamknij wątek
+fos_comment_thread_open:                      Otwórz watek
+fos_comment_thread_comment_count:             %count% komentarz|%count% komentarze|%count% komentarzy
+fos_comment_comment_edit:                     Edytuj
+fos_comment_comment_delete:                   Usuń komentarz
+fos_comment_comment_undelete:                 Przywróć komentarz
+fos_comment_comment_deleted:                  "[usunięty]"
