@@ -30,6 +30,6 @@ class ThreadType extends AbstractType
 
     public function getName()
     {
-        return "fos_comment.thread";
+        return "fos_comment_thread";
     }
 }
