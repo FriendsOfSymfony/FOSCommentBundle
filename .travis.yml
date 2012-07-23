@@ -8,7 +8,8 @@ before_script:
   - export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start
   - wget --quiet -O sahi.zip http://sourceforge.net/projects/sahi/files/sahi-v35/20110719/sahi_20110719.zip/download && unzip -qq sahi.zip
   - export SAHI_HOME=sahi && sh sahi/bin/sahi.sh > /dev/null &
-  - curl --silent http://getcomposer.org/installer | php > /dev/null && php composer.phar install --dev --quiet
+  - curl --silent http://getcomposer.org/installer | php
+  - php composer.phar install --no-interaction --dev
   - sudo apt-get -qq install nginx > /dev/null 2>&1
   - nginx -v && sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - for file in `find /home/vagrant/.phpenv -name 'xdebug.ini'`; do echo "xdebug.max_nesting_level=200" >> $file; done;
