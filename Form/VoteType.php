@@ -29,6 +29,6 @@ class VoteType extends AbstractType
 
     public function getName()
     {
-        return "fos_comment.vote";
+        return "fos_comment_vote";
     }
 }
