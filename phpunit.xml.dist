@@ -17,6 +17,8 @@
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
+                <directory>./sahi</directory>
+                <directory>./Features</directory>
             </exclude>
         </whitelist>
     </filter>
