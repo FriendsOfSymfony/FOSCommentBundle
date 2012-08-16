@@ -3,5 +3,5 @@
 set -e
 set -o pipefail
 
-phpunit
+phpunit --coverage-text --colors
 Tests/Functional/app/console behat --format=progress
