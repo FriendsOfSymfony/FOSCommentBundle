@@ -33,7 +33,7 @@ class Comment extends BaseComment
 }
 ```
 
-Additionally, create the Thread object:
+Additionally, create the Thread class:
 
 ``` php
 <?php
