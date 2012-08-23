@@ -114,7 +114,8 @@ class CommentManager extends BaseCommentManager
 
         $sorter = $this->sortingFactory->getSorter($sorter);
 
-        $ignoreParents = $comments->getSingleResult()->getAncestors();
+        $singleComment = current($comments->toArray());
+        $ignoreParents = $singleComment->getAncestors();
 
         return $this->organiseComments($comments, $sorter, $ignoreParents);
     }
