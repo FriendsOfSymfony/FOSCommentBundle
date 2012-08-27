@@ -5,6 +5,7 @@ Step 1: Setting up the bundle
 **Note:**
 
 > This bundle depends on the [FOSRestBundle](https://github.com/FriendsOfSymfony/FOSRestBundle). Please follow the instructions of the bundle to set it up.
+> This bundle needs service twig.extension.intl must be run to traduce any dates.
 
 Ultimately, the FOSCommentBundle files should be downloaded to the
 `vendor/bundles/FOS/CommentBundle` directory.
