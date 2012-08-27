@@ -22,7 +22,7 @@
                     {% else %}
                         {{ comment.authorName }}
                     {% endif %}
-                </span> - {{ comment.createdAt|date }}
+                </span> - {{ comment.createdAt|localizeddate('full', 'none') }} {{ comment.createdAt|localizeddate('none', 'short') }}
             {% endblock fos_comment_comment_metas_authorline %}
 
             {% block fos_comment_comment_metas_edit %}
