@@ -1,4 +1,4 @@
-Step 8: Adding role based ACL security
+Step 8: Adding ACL security
 ======================================
 
 **Note:**
@@ -20,9 +20,9 @@ fos_comment:
     acl: true
     service:
         manager:
-            thread: fos_comment.manager.thread.acl
+            thread:  fos_comment.manager.thread.acl
             comment: fos_comment.manager.comment.acl
-            vote: fos_comment.manager.vote.acl
+            vote:    fos_comment.manager.vote.acl
 ```
 
 **Note:**
@@ -32,7 +32,7 @@ fos_comment:
 ``` yaml
 # app/config/security.yml
 security:
-
+    # ...
     acl:
         connection: default
 ```
