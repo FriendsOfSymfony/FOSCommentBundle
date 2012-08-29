@@ -49,7 +49,7 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
  * @MongoDB\Document
  * @MongoDB\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Comment extends BaseThread implements VotableCommentInterface
+class Comment extends BaseComment implements VotableCommentInterface
 {
     // .. fields
 
