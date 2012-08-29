@@ -53,7 +53,7 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 /**
  * @ORM\Entity
  */
-class Comment extends BaseThread implements VotableCommentInterface
+class Comment extends BaseComment implements VotableCommentInterface
 {
     // .. fields
 
