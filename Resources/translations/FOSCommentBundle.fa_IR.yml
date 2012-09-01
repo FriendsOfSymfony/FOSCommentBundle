@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       اولین نظر را بدهید
+fos_comment_comment_new_headline:             افزودن نظر
+fos_comment_comment_new_submit:               فرستادن
+fos_comment_comment_new_cancel:               لغو
+
+fos_comment_comment_reply_reply_to:           جواب دادن به %name%
+fos_comment_comment_reply_cancel:             لغو
+
+fos_comment_comment_show_by:                  بر اساس
+fos_comment_comment_show_voteup:              رای مثبت
+fos_comment_comment_show_votedown:            رای منفی
+fos_comment_comment_show_reply:               جواب
+
+fos_comment_comment_vote_score:               "امتیاز: "
+
+fos_comment_comment_tree_load_more:           بارگزاری جواب های بیشتر
+
+Showing %num% comment|Showing %num% comments: نمایش %num% نظر|نمایش %num% نظر
+
+fos_comment_rss_feed:                         خوراک RSS
+
+fos_comment_thread_close:                     بستن رشته
+fos_comment_thread_open:                      گشودن رشته
+fos_comment_thread_comment_count:             %count% نظر|%count% نظر
+fos_comment_comment_edit:                     ویرایش
+fos_comment_comment_delete:                   حذف نظر
+fos_comment_comment_undelete:                 بهنگام سازی نظر
+fos_comment_comment_deleted:                  "[حذف شده]"
