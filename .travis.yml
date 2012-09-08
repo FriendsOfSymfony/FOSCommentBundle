@@ -14,7 +14,10 @@ before_script:
   - nginx -v && sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - for file in `find /home/vagrant/.phpenv -name 'xdebug.ini'`; do echo "xdebug.max_nesting_level=200" >> $file; done;
   - php-cgi -b 127.0.0.1:9000 &
-  - ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web > /dev/null && ./Tests/Functional/app/console doctrine:database:drop --force > /dev/null && ./Tests/Functional/app/console doctrine:database:create > /dev/null && ./Tests/Functional/app/console doctrine:schema:create
+  - ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web > /dev/null
+  - ./Tests/Functional/app/console doctrine:database:drop --force > /dev/null
+  - ./Tests/Functional/app/console doctrine:database:create > /dev/null
+  - ./Tests/Functional/app/console doctrine:schema:create > /dev/null
 
 script: ./run_tests.sh
 
