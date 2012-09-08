@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
+use FOS\CommentBundle\Model\VotableCommentInterface;
 
 /**
  * This command installs global access control entries (ACEs)
@@ -96,16 +97,17 @@ EOT
                     $createdCommentAcls++;
                 }
 
-                foreach ($voteManager->findVotesByComment($comment) as $vote) {
-                    $vote_oid = new ObjectIdentity($vote->getId(), get_class($vote));
+                if ($comment instanceof VotableCommentInterface) {
+                    foreach ($voteManager->findVotesByComment($comment) as $vote) {
+                        $vote_oid = new ObjectIdentity($vote->getId(), get_class($vote));
 
-                    try {
-                        $provider->findAcl($vote_oid);
-                        $foundVoteAcls++;
-                    }
-                    catch (AclNotFoundException $e) {
-                        $voteAcl->setDefaultAcl($vote);
-                        $createdVoteAcls++;
+                        try {
+                            $provider->findAcl($vote_oid);
+                            $foundVoteAcls++;
+                        } catch (AclNotFoundException $e) {
+                            $voteAcl->setDefaultAcl($vote);
+                            $createdVoteAcls++;
+                        }
                     }
                 }
             }
