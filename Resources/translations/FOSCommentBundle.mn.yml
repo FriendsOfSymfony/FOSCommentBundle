@@ -3,9 +3,10 @@ fos_comment_comment_new_headline:             Шинэ сэтгэгдэл нэм
 fos_comment_comment_new_submit:               Илгээх
 
 fos_comment_comment_reply_reply_to:           %name% -д хариу бичих
-fos_comment_comment_reply_cancel:             Цуцлах 
+fos_comment_comment_reply_cancel:             Цуцлах
 
-fos_comment_comment_show_by:                  
+fos_comment_comment_show_by:                  ""
+
 fos_comment_comment_show_voteup:              Нэмэх оноо
 fos_comment_comment_show_votedown:            Хасах оноо
 fos_comment_comment_show_reply:               Хариулах
@@ -14,6 +15,14 @@ fos_comment_comment_vote_score:               "Оноо: "
 
 fos_comment_comment_tree_load_more:           Сэтгэгдлийг цааш унших
 
-Showing %num% comment|Showing %num% comments: %num% сэтгэгдэл|%num% сэтгэгдлүүд
+Showing %num% comment|Showing %num% comments: %num% сэтгэгдэл харуулна|%num% сэтгэгдэлүүд харуулна
 
 fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Хэлхээг хаах
+fos_comment_thread_open:                      Хэлхээг нээх
+fos_comment_thread_comment_count:             %count% сэтгэгдэлтэй|%count% сэтгэгдэлтэй
+fos_comment_comment_edit:                     Засах
+fos_comment_comment_delete:                   Устгах
+fos_comment_comment_undelete:                 Сэтгэгдлийг сэргээх
+fos_comment_comment_deleted:                  "[устгагдсан]"
