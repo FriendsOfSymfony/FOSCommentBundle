@@ -91,7 +91,7 @@ form.fos_comment_comment_form.error textarea {
     border-color: red;
 }
 div.fos_comment_form_errors {
-    background: #ff0000;
+    color: #ff0000;
 }
 div.fos_comment_submit {
     text-align: right;
