@@ -314,7 +314,7 @@
 
                 // "reset" the form
                 form = $(form[0]);
-                form.find('textarea').val('');
+                form.find('textarea, input').not('[type="submit"][type="reset"][type="hidden"][type="button"]').val('');
                 form.children('.fos_comment_form_errors').remove();
             }
         },
