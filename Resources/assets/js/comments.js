@@ -111,7 +111,7 @@
                     var that = $(this),
                         data = FOS_COMMENT.serializeObject(this);
 
-                    $(that).find("input").prop("disabled", "disabled");
+                    that.find("input").prop("disabled", "disabled");
 
                     FOS_COMMENT.post(
                         this.action,
