@@ -108,11 +108,14 @@
             FOS_COMMENT.thread_container.on('submit',
                 'form.fos_comment_comment_new_form',
                 function(e) {
-                    var that = $(this);
+                    var that = $(this),
+                        data = FOS_COMMENT.serializeObject(this);
+
+                    $(that).find("input").prop("disabled", "disabled");
 
                     FOS_COMMENT.post(
                         this.action,
-                        FOS_COMMENT.serializeObject(this),
+                        data,
                         // success
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
