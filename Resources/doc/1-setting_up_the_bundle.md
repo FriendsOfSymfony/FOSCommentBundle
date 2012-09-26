@@ -22,7 +22,7 @@ public function registerBundles()
         // ...
         new FOS\RestBundle\FOSRestBundle(),
         new FOS\CommentBundle\FOSCommentBundle(),
-        mew JMS\SerializerBundle\JMSSerializerBundle(),
+        new JMS\SerializerBundle\JMSSerializerBundle(),
     );
 }
 ```
