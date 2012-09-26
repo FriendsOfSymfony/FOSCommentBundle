@@ -2,10 +2,6 @@ Step 1: Setting up the bundle
 =============================
 ### A) Download and install FOSCommentBundle
 
-**Note:**
-
-> This bundle depends on the [FOSRestBundle](https://github.com/FriendsOfSymfony/FOSRestBundle). Please follow the instructions of the bundle to set it up.
-
 To install FOSCommentBundle run the following command
 
 ``` bash
