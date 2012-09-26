@@ -10,7 +10,7 @@ $ php composer.phar require friendsofsymfony/comment-bundle
 
 ### B) Enable the bundle
 
-Finally, enable the bundle in the kernel:
+Finally, enable the required bundles in the kernel:
 
 ``` php
 <?php
@@ -22,6 +22,7 @@ public function registerBundles()
         // ...
         new FOS\RestBundle\FOSRestBundle(),
         new FOS\CommentBundle\FOSCommentBundle(),
+        mew JMS\SerializerBundle\JMSSerializerBundle(),
     );
 }
 ```
