@@ -461,7 +461,7 @@ class ThreadController extends Controller
         $form->bindRequest($this->container->get('request'));
 
         if ($form->isValid()) {
-            $commentManager->saveComment($comment);;
+            $commentManager->saveComment($comment);
 
             return $this->onCreateCommentSuccess($form, $id, $parent);
         }
