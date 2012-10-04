@@ -22,6 +22,7 @@ use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
 
 /**
  * Implements ACL checking using the Symfony2 Security component
@@ -89,9 +90,10 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to create a new Comment.
      *
+     * @param ThreadInterface $thread
      * @return boolean
      */
-    public function canCreate()
+    public function canCreate(ThreadInterface $thread = null)
     {
         return $this->securityContext->isGranted('CREATE', $this->oid);
     }
