@@ -211,7 +211,6 @@ class ThreadController extends Controller
                 'thread' => $thread,
                 'parent' => $parent,
                 'id' => $id,
-                'parent' => $parent,
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
 
