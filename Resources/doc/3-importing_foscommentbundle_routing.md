@@ -11,8 +11,12 @@ fos_comment_api:
 ```
 **Note:**
 
-> The `type: rest` part is important. The defaults configuration may not be
-> necessary unless you have changed JMSSerializerBundle's default format.
+> The `type: rest` part is important.
+
+**Note:**
+
+> The defaults configuration may not be necessary unless you have
+> changed FOSRestBundle's default format.
 
 ### Continue to the next step! (final!)
 When you're done. Continue with the final step: enabling the comments on a page:
