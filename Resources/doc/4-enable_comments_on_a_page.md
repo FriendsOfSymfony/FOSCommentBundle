@@ -19,3 +19,5 @@ And the following code at a desired place in the template to load the comments:
 ```
 
 That's the basic setup! For additional information and configuration check the ... section and the cookbook.
+
+**Any problem?** Check our [FAQ](99-faq.md).

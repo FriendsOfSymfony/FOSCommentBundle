@@ -76,13 +76,15 @@ fos_comment:
         model:
             comment: MyProject\MyBundle\Entity\Comment
             thread: MyProject\MyBundle\Entity\Thread
+
+assetic:
+    bundles: [ "FOSCommentBundle" ]     
 ```
 
 Or if you prefer XML:
 
 ``` xml
 # app/config/config.xml
-
 <fos_comment:config db-driver="orm">
     <fos_comment:class>
         <fos_comment:model
@@ -91,6 +93,10 @@ Or if you prefer XML:
         />
     </fos_comment:class>
 </fos_comment:config>
+
+<assetic:config>
+    <assetic:bundle name="FOSCommentBundle" />
+</assetic:config>
 ```
 ### Back to the main step
 [Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).
