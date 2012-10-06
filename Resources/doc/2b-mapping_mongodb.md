@@ -67,6 +67,9 @@ fos_comment:
         model:
             comment: MyProject\MyBundle\Document\Comment
             thread: MyProject\MyBundle\Document\Thread
+
+assetic:
+    bundles: [ "FOSCommentBundle" ]  
 ```
 
 Or if you prefer XML:
@@ -82,6 +85,10 @@ Or if you prefer XML:
         />
     </fos_comment:class>
 </fos_comment:config>
+    
+<assetic:config>
+    <assetic:bundle name="FOSCommentBundle" />
+</assetic:config>
 ```
 
 ### Back to the main step
