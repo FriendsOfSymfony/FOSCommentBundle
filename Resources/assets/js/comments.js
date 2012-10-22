@@ -135,6 +135,10 @@
                     var form_data = $(this).data();
                     var that = this;
 
+                    if($(that).parent().find('.fos_comment_comment_new_form').length > 0) {
+                        return that;
+                    }
+
                     FOS_COMMENT.get(
                         form_data.url,
                         {parentId: form_data.parentId},
@@ -304,7 +308,7 @@
                 var reply_button_holder = form_parent.parent();
                 reply_button_holder.removeClass('fos_comment_replying');
 
-                reply_button_holder.after(commentHtml);
+                reply_button_holder.parent().parent().siblings().prepend(commentHtml);
 
                 // Remove the form
                 form_parent.remove();
