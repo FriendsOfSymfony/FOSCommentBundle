@@ -71,15 +71,16 @@
 
     {% block fos_comment_comment_children %}
         {% if view is not sameas('flat') %}
+            {% if fos_comment_can_comment(comment) %}
+                <div class="fos_comment_comment_reply">
+                    {% block fos_comment_comment_reply %}
+                        <button data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
+                    {% endblock fos_comment_comment_reply %}
+                </div>
+            {% endif %}
+
             <div class="fos_comment_comment_replies">
 
-                {% if fos_comment_can_comment(comment) %}
-                    <div class="fos_comment_comment_reply">
-                        {% block fos_comment_comment_reply %}
-                            <button data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</button>
-                        {% endblock fos_comment_comment_reply %}
-                    </div>
-                {% endif %}
 
                 {% if children is defined %}
                     {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}

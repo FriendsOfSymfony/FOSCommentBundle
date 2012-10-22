@@ -135,11 +135,15 @@
                     var form_data = $(this).data();
                     var that = this;
 
+                    if($(that).closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
+                        return that;
+                    }
+
                     FOS_COMMENT.get(
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
-                            $(that).parent().addClass('fos_comment_replying');
+                            $(that).closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
                             $(that).after(data);
                         }
                     );
@@ -149,8 +153,8 @@
             FOS_COMMENT.thread_container.on('click',
                 '.fos_comment_comment_reply_cancel',
                 function(e) {
-                    var form_holder = $(this).parent().parent().parent();
-                    form_holder.parent().removeClass('fos_comment_replying');
+                    var form_holder = $(this).closest('.fos_comment_comment_form_holder');
+                    form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
                     form_holder.remove();
                 }
             );
@@ -298,13 +302,17 @@
             var form_data = form.data();
 
             if('' != form_data.parent) {
-                var form_parent = form.parent();
+                var form_parent = form.closest('.fos_comment_comment_form_holder');
 
                 // reply button holder
-                var reply_button_holder = form_parent.parent();
+                var reply_button_holder = form.closest('.fos_comment_comment_reply');
+
+                var comment_element = form.closest('.fos_comment_comment_show')
+                    .children('.fos_comment_comment_replies');
+
                 reply_button_holder.removeClass('fos_comment_replying');
 
-                reply_button_holder.after(commentHtml);
+                comment_element.prepend(commentHtml);
 
                 // Remove the form
                 form_parent.remove();
