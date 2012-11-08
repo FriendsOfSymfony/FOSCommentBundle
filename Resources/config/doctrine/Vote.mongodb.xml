@@ -14,7 +14,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="FOS\CommentBundle\Document\Vote" collection="fos_comment_vote" customId="true" change-tracking-policy="DEFERRED_EXPLICIT">
+    <mapped-superclass name="FOS\CommentBundle\Document\Vote" collection="fos_comment_vote" customId="true" change-tracking-policy="DEFERRED_EXPLICIT">
 
         <field name="id" id="true" />
 
@@ -22,6 +22,6 @@
 
         <field name="value" fieldName="value" type="int" />
 
-    </document>
+    </mapped-superclass>
 
 </doctrine-mongo-mapping>
