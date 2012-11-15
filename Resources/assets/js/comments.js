@@ -116,6 +116,7 @@
                         // success
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
+                            that.trigger('FOSCommentBundle.newComment', data);
                         },
                         // error
                         function(data, statusCode) {
@@ -133,9 +134,9 @@
                 '.fos_comment_comment_reply_show_form',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
+                    var that = $(this);
 
-                    if($(that).closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
+                    if(that.closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
                         return that;
                     }
 
@@ -143,8 +144,9 @@
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
-                            $(that).closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
-                            $(that).after(data);
+                            that.closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
+                            that.after(data);
+                            $(that).trigger('FOSCommentBundle.showReplyForm', data);
                         }
                     );
                 }
@@ -192,6 +194,7 @@
                         // success
                         function(data) {
                             FOS_COMMENT.editComment(data);
+                            that.trigger('FOSCommentBundle.editForm', data);
                         },
 
                         // error
@@ -232,6 +235,7 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
+                                    form.trigger('FOSCommentBundle.voteComment', data);
                                 }
                             );
                         }
