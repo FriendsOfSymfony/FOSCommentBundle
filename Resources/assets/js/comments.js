@@ -116,7 +116,7 @@
                         // success
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
-                            that.trigger('FOSCommentBundle.newComment', data);
+                            that.trigger('fos_comment_new_comment', data);
                         },
                         // error
                         function(data, statusCode) {
@@ -146,7 +146,7 @@
                         function(data) {
                             that.closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
                             that.after(data);
-                            $(that).trigger('FOSCommentBundle.showReplyForm', data);
+                            that.trigger('fos_comment_show_form', data);
                         }
                     );
                 }
@@ -194,7 +194,7 @@
                         // success
                         function(data) {
                             FOS_COMMENT.editComment(data);
-                            that.trigger('FOSCommentBundle.editForm', data);
+                            that.trigger('fos_comment_edit_comment', data);
                         },
 
                         // error
@@ -235,7 +235,7 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
-                                    form.trigger('FOSCommentBundle.voteComment', data);
+                                    form.trigger('fos_comment_vote_comment', data);
                                 }
                             );
                         }
