@@ -52,14 +52,17 @@
          * @param function success Optional callback function to use in case of succes.
          * @param function error Optional callback function to use in case of error.
          */
-        post: function(url, data, success, error) {
+        post: function(url, data, success, error, complete) {
             // Wrap the error callback to match return data between jQuery and easyXDM
             var wrappedErrorCallback = function(response){
                 if('undefined' !== typeof error) {
                     error(response.responseText, response.status);
                 }
             };
-            $.post(url, data, success).error(wrappedErrorCallback);
+            var wrappedCompleteCallback = function(response){
+                complete(response.responseText, response.status);
+            };
+            $.post(url, data, success).error(wrappedErrorCallback).complete(wrappedCompleteCallback);
         },
 
         /**
@@ -110,6 +113,7 @@
                 function(e) {
                     var that = $(this);
 
+                    that.trigger('fos_comment_submitting_form');
                     FOS_COMMENT.post(
                         this.action,
                         FOS_COMMENT.serializeObject(this),
@@ -123,6 +127,10 @@
                             var parent = that.parent();
                             parent.after(data);
                             parent.remove();
+                        },
+                        // complete
+                        function(data, statusCode) {
+                            that.trigger('fos_comment_submitted_form', statusCode);
                         }
                     );
 
@@ -158,6 +166,7 @@
                     var form_holder = $(this).closest('.fos_comment_comment_form_holder');
                     form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
                     form_holder.remove();
+                    form_holder.trigger('fos_comment_cancel_form');
                 }
             );
 
@@ -482,6 +491,7 @@
     if(typeof window.fos_comment_thread_id != "undefined") {
         // get the thread comments and init listeners
         FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
+        $(document).trigger('fos_comment_load_comments');
     }
 
     if(typeof window.fos_comment_thread_comment_count_callback != "undefined") {
