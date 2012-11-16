@@ -94,12 +94,15 @@
                 permalink = window.location.href;
             }
 
+            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_comments', identifier);
             FOS_COMMENT.get(
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
                 {permalink: encodeURIComponent(permalink)},
+                // success
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
                     FOS_COMMENT.thread_container.attr('data-thread', identifier);
+                    FOS_COMMENT.thread_container.trigger('fos_comment_load_comments', identifier);
                 }
             );
         },
@@ -491,7 +494,6 @@
     if(typeof window.fos_comment_thread_id != "undefined") {
         // get the thread comments and init listeners
         FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
-        $(document).trigger('fos_comment_load_comments');
     }
 
     if(typeof window.fos_comment_thread_comment_count_callback != "undefined") {
