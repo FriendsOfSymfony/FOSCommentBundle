@@ -24,4 +24,5 @@ fos_comment_thread_open:                      Открыть тред
 fos_comment_thread_comment_count:             %count% комментарий|%count% комментария|%count% комментариев
 fos_comment_comment_delete:                   Удалить комментарий
 fos_comment_comment_undelete:                 Обновить комментарий
+fos_comment_comment_edit:                     Изменить комментарий
 fos_comment_comment_deleted:                  "[удалено]"
