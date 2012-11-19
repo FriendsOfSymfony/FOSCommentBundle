@@ -94,7 +94,7 @@
                 permalink = window.location.href;
             }
 
-            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_comments', identifier);
+            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_thread', identifier);
             FOS_COMMENT.get(
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
                 {permalink: encodeURIComponent(permalink)},
@@ -102,7 +102,7 @@
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
                     FOS_COMMENT.thread_container.attr('data-thread', identifier);
-                    FOS_COMMENT.thread_container.trigger('fos_comment_load_comments', identifier);
+                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', identifier);
                 }
             );
         },
@@ -116,7 +116,6 @@
                 function(e) {
                     var that = $(this);
 
-                    that.trigger('fos_comment_submitting_form');
                     FOS_COMMENT.post(
                         this.action,
                         FOS_COMMENT.serializeObject(this),
@@ -136,6 +135,7 @@
                             that.trigger('fos_comment_submitted_form', statusCode);
                         }
                     );
+                    that.trigger('fos_comment_submitting_form');
 
                     e.preventDefault();
                 }
@@ -329,6 +329,7 @@
                 reply_button_holder.removeClass('fos_comment_replying');
 
                 comment_element.prepend(commentHtml);
+                comment_element.trigger('fos_comment_add_comment', commentHtml);
 
                 // Remove the form
                 form_parent.remove();
