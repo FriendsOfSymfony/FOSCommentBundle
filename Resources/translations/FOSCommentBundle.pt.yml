@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       Seja o primeiro a comentar
+fos_comment_comment_new_headline:             Adicione um Novo Comentário
+fos_comment_comment_new_submit:               Publicar
+fos_comment_comment_new_cancel:               Cancelar
+
+fos_comment_comment_reply_reply_to:           Respondendo para %name%
+fos_comment_comment_reply_cancel:             Cancelar
+
+fos_comment_comment_show_by:                  por
+fos_comment_comment_show_voteup:              Apóio
+fos_comment_comment_show_votedown:            Não apóio
+fos_comment_comment_show_reply:               Responder
+
+fos_comment_comment_vote_score:               "Pontuação: "
+
+fos_comment_comment_tree_load_more:           Carregar Mais Respostas
+
+Showing %num% comment|Showing %num% comments: Mostrando %num% comentário|Mostrando %num% comentários
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Fechar trilha
+fos_comment_thread_open:                      Abrir trilha
+fos_comment_thread_comment_count:             %count% comentário|%count% comentários
+fos_comment_comment_edit:                     Editar
+fos_comment_comment_delete:                   Apagar comentário
+fos_comment_comment_undelete:                 Recuperar comentário
+fos_comment_comment_deleted:                  "[apagado]"
