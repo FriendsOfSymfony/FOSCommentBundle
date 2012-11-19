@@ -51,12 +51,11 @@ template:
 {% endblock body %}
 
 {% block javascript %}
-{# jQuery must be available in the page by this time #}
+{# jQuery must be available in the page by this time, and make sure javascript block is after
+  <div id="fos_comment_thread"> in the DOM Tree, for example right before </body> tag
+#}
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
-<script type="text/javascript" src="{{ asset_url }}">
-// URI identifier for the thread comments
-var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
-</script>
+<script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock javascript %}
 
