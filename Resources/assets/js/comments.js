@@ -52,14 +52,17 @@
          * @param function success Optional callback function to use in case of succes.
          * @param function error Optional callback function to use in case of error.
          */
-        post: function(url, data, success, error) {
+        post: function(url, data, success, error, complete) {
             // Wrap the error callback to match return data between jQuery and easyXDM
             var wrappedErrorCallback = function(response){
                 if('undefined' !== typeof error) {
                     error(response.responseText, response.status);
                 }
             };
-            $.post(url, data, success).error(wrappedErrorCallback);
+            var wrappedCompleteCallback = function(response){
+                complete(response.responseText, response.status);
+            };
+            $.post(url, data, success).error(wrappedErrorCallback).complete(wrappedCompleteCallback);
         },
 
         /**
@@ -91,12 +94,15 @@
                 permalink = window.location.href;
             }
 
+            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_thread', identifier);
             FOS_COMMENT.get(
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
                 {permalink: encodeURIComponent(permalink)},
+                // success
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
                     FOS_COMMENT.thread_container.attr('data-thread', identifier);
+                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', identifier);
                 }
             );
         },
@@ -116,14 +122,20 @@
                         // success
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
+                            that.trigger('fos_comment_new_comment', data);
                         },
                         // error
                         function(data, statusCode) {
                             var parent = that.parent();
                             parent.after(data);
                             parent.remove();
+                        },
+                        // complete
+                        function(data, statusCode) {
+                            that.trigger('fos_comment_submitted_form', statusCode);
                         }
                     );
+                    that.trigger('fos_comment_submitting_form');
 
                     e.preventDefault();
                 }
@@ -133,9 +145,9 @@
                 '.fos_comment_comment_reply_show_form',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
+                    var that = $(this);
 
-                    if($(that).closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
+                    if(that.closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
                         return that;
                     }
 
@@ -143,8 +155,9 @@
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
-                            $(that).closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
-                            $(that).after(data);
+                            that.closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
+                            that.after(data);
+                            that.trigger('fos_comment_show_form', data);
                         }
                     );
                 }
@@ -156,6 +169,7 @@
                     var form_holder = $(this).closest('.fos_comment_comment_form_holder');
                     form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
                     form_holder.remove();
+                    form_holder.trigger('fos_comment_cancel_form');
                 }
             );
 
@@ -192,6 +206,7 @@
                         // success
                         function(data) {
                             FOS_COMMENT.editComment(data);
+                            that.trigger('fos_comment_edit_comment', data);
                         },
 
                         // error
@@ -232,6 +247,7 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
+                                    form.trigger('fos_comment_vote_comment', data);
                                 }
                             );
                         }
@@ -313,6 +329,7 @@
                 reply_button_holder.removeClass('fos_comment_replying');
 
                 comment_element.prepend(commentHtml);
+                comment_element.trigger('fos_comment_add_comment', commentHtml);
 
                 // Remove the form
                 form_parent.remove();
