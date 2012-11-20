@@ -22,6 +22,8 @@ The following steps are optional and the order doesn't matter:
 - [Other ways of adding comments to a page](10-other_ways_of_adding_comments_to_a_page.md)
 - [Running the test suite](11-running_the_test_suite.md)
 - [Enable voting](12-enable_voting.md)
+- [FOSCommentBundle JS events](13-FOSCommentBundle-JS-events.md)
+
 
 **Any problem?** Check our [FAQ](99-faq.md).
 
