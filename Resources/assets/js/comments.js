@@ -336,6 +336,7 @@
             } else {
                 // Insert the comment
                 form.after(commentHtml);
+                form.trigger('fos_comment_add_comment', commentHtml);
 
                 // "reset" the form
                 form = $(form[0]);
