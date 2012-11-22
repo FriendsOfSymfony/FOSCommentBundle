@@ -1,5 +1,5 @@
 Step 9b: Using the Sundown PECL extension
-======================================
+=========================================
 
 The markup system in FOSCommentBundle is flexible and allows you to use any
 syntax language that a parser exists for. PECL has an extension for markdown
@@ -29,10 +29,10 @@ class Sundown implements ParserInterface
     protected function getParser()
     {
         if (null === $this->parser) {
-            $this->parser = new Markdown(\Sundown\Render\HTML, array(
-                'autolink' => true,
-                'filter_html' => true,
-            ));
+            $this->parser = new Markdown(
+                new \Sundown\Render\HTML(array('filter_html' => true)),
+                array('autolink' => true)
+            );
         }
 
         return $this->parser;
