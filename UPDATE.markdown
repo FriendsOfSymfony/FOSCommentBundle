@@ -1,3 +1,11 @@
+2.0.0-beta1 to 2.0.0-beta2
+
+ * Thread identifiers are now specified by adding a `data-thread-id=""` attribute to the thread container. The old method is deprecated and will be removed in 3.0.
+
+1.1.x to 2.0.0-beta1
+
+ * No changes are required. 2.0.0 primarily introduces Symfony 2.1 support while breaking BC with Symfony 2.0.
+
 1.0.0 to 1.1.0
 
  * `Resources/Thread/comment.html.twig` has changed, adding a rawBody option. This change is not relevant unless you are going to use RawComments

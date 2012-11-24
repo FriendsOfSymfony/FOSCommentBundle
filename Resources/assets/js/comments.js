@@ -92,7 +92,7 @@
         getThreadComments: function(identifier, permalink) {
             var event = jQuery.Event('fos_comment_before_load_thread');
 
-            event.identifier = identifier;
+            event.identifier = identifier || FOS_COMMENT.thread_container.data('thread-id');
             event.params = {
                 permalink: encodeURIComponent(permalink || window.location.href)
             };
@@ -495,9 +495,11 @@
     // set the appropriate base url
     FOS_COMMENT.base_url = window.fos_comment_thread_api_base_url;
 
-    // Load the comment if there is a thread id defined.
-    if(typeof window.fos_comment_thread_id != "undefined") {
-        // get the thread comments and init listeners
+    // Check to see if we've got a thread id supporting both the
+    // new and legacy method of supplying an identifier.
+    if (FOS_COMMENT.thread_container.data('thread-id')) {
+        FOS_COMMENT.getThreadComments();
+    } else if (typeof window.fos_comment_thread_id != "undefined") {
         FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
     }
 
