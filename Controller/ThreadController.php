@@ -415,7 +415,7 @@ class ThreadController extends Controller
             ->setData(array(
                 'comments' => $comments,
                 'displayDepth' => $displayDepth,
-                'sorter' => 'date',
+                'sorter' => $sorter,
                 'thread' => $thread,
                 'view' => $viewMode,
             ))

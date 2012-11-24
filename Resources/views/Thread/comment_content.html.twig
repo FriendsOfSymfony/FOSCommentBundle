@@ -10,7 +10,7 @@
 #}
 
 {% block fos_comment_comment %}
-<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_group fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
 
     <div class="fos_comment_comment_metas">
         {% block fos_comment_comment_metas %}

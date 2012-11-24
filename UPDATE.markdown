@@ -1,6 +1,8 @@
 2.0.0-beta1 to 2.0.0-beta2
 
  * Thread identifiers are now specified by adding a `data-thread-id=""` attribute to the thread container. The old method is deprecated and will be removed in 3.0.
+ * Introduced a new method to SortingInterface, `getNewPosition` which should return one of the two POSITION_ constants provided in the interface.
+ * Minor changes to the templates to facilitate different sorting orders in javascript
 
 1.1.x to 2.0.0-beta1
 

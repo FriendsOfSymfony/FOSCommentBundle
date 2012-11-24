@@ -12,12 +12,14 @@
 namespace FOS\CommentBundle\Twig;
 
 use FOS\CommentBundle\Acl\CommentAclInterface;
-use FOS\CommentBundle\Model\CommentInterface;
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\VotableCommentInterface;
-use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Acl\ThreadAclInterface;
 use FOS\CommentBundle\Acl\VoteAclInterface;
+use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\RawCommentInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Sorting\SortingFactory;
+use FOS\CommentBundle\Sorting\SortingInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -26,15 +28,32 @@ use FOS\CommentBundle\Acl\VoteAclInterface;
  */
 class CommentExtension extends \Twig_Extension
 {
+    /**
+     * @var \FOS\CommentBundle\Acl\CommentAclInterface|null
+     */
     protected $commentAcl;
+
+    /**
+     * @var \FOS\CommentBundle\Acl\VoteAclInterface|null
+     */
     protected $voteAcl;
+
+    /**
+     * @var \FOS\CommentBundle\Acl\ThreadAclInterface|null
+     */
     protected $threadAcl;
 
-    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
+    /**
+     * @var \FOS\CommentBundle\Sorting\SortingFactory
+     */
+    protected $sortingFactory;
+
+    public function __construct(SortingFactory $sortingFactory, CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
     {
-        $this->commentAcl = $commentAcl;
-        $this->voteAcl    = $voteAcl;
-        $this->threadAcl  = $threadAcl;
+        $this->commentAcl     = $commentAcl;
+        $this->sortingFactory = $sortingFactory;
+        $this->threadAcl      = $threadAcl;
+        $this->voteAcl        = $voteAcl;
     }
 
     public function getTests()
@@ -99,6 +118,7 @@ class CommentExtension extends \Twig_Extension
             'fos_comment_can_edit_comment'   => new \Twig_Function_Method($this, 'canEditComment'),
             'fos_comment_can_edit_thread'    => new \Twig_Function_Method($this, 'canEditThread'),
             'fos_comment_can_comment_thread' => new \Twig_Function_Method($this, 'canCommentThread'),
+            'fos_comment_sorter'             => new \Twig_Function_Method($this, 'getSorter'),
         );
     }
 
@@ -218,6 +238,17 @@ class CommentExtension extends \Twig_Extension
     {
         return $thread->isCommentable()
             && (null === $this->commentAcl || $this->commentAcl->canCreate());
+    }
+
+    /**
+     * Returns a sorter given its name. If not supplied, the
+     * default sorter will be returned.
+     *
+     * @param SortingInterface $sorterName
+     */
+    public function getSorter($sorterName = null)
+    {
+        return $this->sortingFactory->getSorter($sorterName);
     }
 
     /**

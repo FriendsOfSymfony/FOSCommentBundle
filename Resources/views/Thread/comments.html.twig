@@ -29,6 +29,8 @@
     <h3>{% transchoice count with {'%count%': count} from "FOSCommentBundle" %}fos_comment_thread_comment_count{% endtranschoice %}</h3>
 {% endif %}
 
+<div class="fos_comment_comments">
 {% for commentinfo in comments %}
     {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
 {% endfor %}
+</div>

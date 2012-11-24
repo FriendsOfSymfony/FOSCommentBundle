@@ -9,7 +9,9 @@
 
 #}
 
-<div id="fos_comment_thread" class="fos_comment_comment_group" data-thread-id="{{ id }}"></div>
+{% set sorter   = fos_comment_sorter(sorter | default(null)) %}
+
+<div id="fos_comment_thread" class="fos_comment_comment_group" data-thread-id="{{ id }}" data-new-position="{{ sorter.newPosition }}"></div>
 
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 <script type="text/javascript">
