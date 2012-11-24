@@ -50,11 +50,11 @@ class SortingFactory
 
     public function getSorter($alias = null)
     {
-        if (null === $alias) {
+        if (empty($alias)) {
             $alias = $this->defaultSorter;
         }
 
-        if (!$this->sorters[$alias]) {
+        if (!array_key_exists($alias, $this->sorters)) {
             throw new RuntimeException(sprintf("Unknown sorting alias '%s'", $alias));
         }
 

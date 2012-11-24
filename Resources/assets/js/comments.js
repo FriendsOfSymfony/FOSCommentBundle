@@ -25,7 +25,7 @@
  *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
  *
  *     // Optionally set a custom callback function to update the comment count elements
- *     var window.fos_comment_thread_comment_count_callback = function(elem, threadObject){}
+ *     var fos_comment_thread_comment_count_callback = function(elem, threadObject){}
  *
  *     // Optionally set a different element than div#fos_comment_thread as container
  *     var fos_comment_thread_container = $('#other_element');
@@ -90,19 +90,22 @@
          * @param string url Optional url for the thread. Defaults to current location.
          */
         getThreadComments: function(identifier, permalink) {
-            if('undefined' == typeof permalink) {
-                permalink = window.location.href;
-            }
+            var event = jQuery.Event('fos_comment_before_load_thread');
 
-            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_thread', identifier);
+            event.identifier = identifier;
+            event.params = {
+                permalink: encodeURIComponent(permalink || window.location.href)
+            };
+
+            FOS_COMMENT.thread_container.trigger(event);
             FOS_COMMENT.get(
-                FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
-                {permalink: encodeURIComponent(permalink)},
+                FOS_COMMENT.base_url  + '/' + encodeURIComponent(event.identifier) + '/comments',
+                event.params,
                 // success
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
-                    FOS_COMMENT.thread_container.attr('data-thread', identifier);
-                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', identifier);
+                    FOS_COMMENT.thread_container.attr('data-thread', event.identifier);
+                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', event.identifier);
                 }
             );
         },
