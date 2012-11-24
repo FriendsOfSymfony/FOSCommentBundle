@@ -50,7 +50,7 @@ class SortingFactory
 
     public function getSorter($alias = null)
     {
-        if (null === $alias || '' === $alias) {
+        if (empty($alias)) {
             $alias = $this->defaultSorter;
         }
 

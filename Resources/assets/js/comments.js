@@ -90,19 +90,22 @@
          * @param string url Optional url for the thread. Defaults to current location.
          */
         getThreadComments: function(identifier, permalink) {
-            var params = {
-                permalink: encodeURIComponent(permalink || window.location.href)
-            }
+            var event = jQuery.Event('fos_comment_before_load_thread');
 
-            FOS_COMMENT.thread_container.trigger('fos_comment_before_load_thread', [identifier, params]);
+            event.identifier = identifier;
+            event.params = {
+                permalink: encodeURIComponent(permalink || window.location.href)
+            };
+
+            FOS_COMMENT.thread_container.trigger(event);
             FOS_COMMENT.get(
-                FOS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments',
-                params,
+                FOS_COMMENT.base_url  + '/' + encodeURIComponent(event.identifier) + '/comments',
+                event.params,
                 // success
                 function(data) {
                     FOS_COMMENT.thread_container.html(data);
-                    FOS_COMMENT.thread_container.attr('data-thread', identifier);
-                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', identifier);
+                    FOS_COMMENT.thread_container.attr('data-thread', event.identifier);
+                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', event.identifier);
                 }
             );
         },
