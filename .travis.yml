@@ -10,7 +10,7 @@ before_script:
   - export SAHI_HOME=sahi && sh sahi/bin/sahi.sh > /dev/null &
   - curl --silent http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction --prefer-dist
-  - sudo apt-get -q install nginx
+  - sudo apt-get install nginx > /dev/null
   - nginx -v && sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - for file in `find /home/vagrant/.phpenv -name 'xdebug.ini'`; do echo "xdebug.max_nesting_level=200" >> $file; done;
   - php-cgi -b 127.0.0.1:9000 &
