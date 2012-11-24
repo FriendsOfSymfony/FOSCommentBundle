@@ -9,8 +9,8 @@ before_script:
   - wget --quiet -O sahi.zip http://sourceforge.net/projects/sahi/files/sahi-v35/20110719/sahi_20110719.zip/download && unzip -qq sahi.zip
   - export SAHI_HOME=sahi && sh sahi/bin/sahi.sh > /dev/null &
   - curl --silent http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
-  - sudo apt-get -qq install nginx > /dev/null 2>&1
+  - php composer.phar install --dev --no-interaction --prefer-dist
+  - sudo apt-get -qq install nginx
   - nginx -v && sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
   - for file in `find /home/vagrant/.phpenv -name 'xdebug.ini'`; do echo "xdebug.max_nesting_level=200" >> $file; done;
   - php-cgi -b 127.0.0.1:9000 &
