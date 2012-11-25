@@ -343,7 +343,7 @@
 
                 // "reset" the form
                 form = $(form[0]);
-                form.find('textarea').val('');
+                form.reset();
                 form.children('.fos_comment_form_errors').remove();
             }
         },
