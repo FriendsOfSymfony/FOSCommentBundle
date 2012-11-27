@@ -10,6 +10,10 @@
    `async.html.twig` have had required modifications made and changes
    will need to be made to overridden templates if you use the reference
    javascript.
+ * Removed fos_comment_comment_replies class in favour of
+   fos_comment_comments which also encapsulates the entire comment tree
+ * Removed the fos_comment_comment_depth_N class in favour of a
+   data-depth attribute.
 
 1.1.x to 2.0.0-beta1
 
