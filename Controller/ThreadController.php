@@ -384,10 +384,25 @@ class ThreadController extends Controller
 
         // We're now sure it is no duplicate id, so create the thread
         if (null === $thread) {
+            // Decode the permalink for cleaner storage (it is encoded on the client side)
+            $permalink = urldecode($request->query->get('permalink'));
+
             $thread = $this->container->get('fos_comment.manager.thread')
                 ->createThread();
             $thread->setId($id);
-            $thread->setPermalink($request->query->get('permalink'));
+            $thread->setPermalink($permalink);
+
+            // Validate the entity
+            $validator = $this->get('validator');
+            $errors = $validator->validate($thread, 'NewThread');
+            if (count($errors) > 0) {
+                $view = View::create()
+                    ->setStatusCode(Codes::HTTP_BAD_REQUEST)
+                    ->setData(array('errors' => $errors))
+                    ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'errors'));
+
+                return $this->getViewHandler()->handle($view);
+            }
 
             // Add the thread
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
