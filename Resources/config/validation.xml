@@ -22,7 +22,7 @@
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">3</option>
-                <option name="message">The message is too short</option>
+                <option name="message">The message is too short|The message is too short</option>
             </constraint>
         </property>
     </class>
