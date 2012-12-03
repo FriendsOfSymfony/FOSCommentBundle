@@ -139,7 +139,7 @@ class CommentExtension extends \Twig_Extension
     public function canDeleteComment(CommentInterface $comment)
     {
         if (null === $this->commentAcl) {
-            return true;
+            return false;
         }
 
         return $this->commentAcl->canDelete($comment);
@@ -159,7 +159,7 @@ class CommentExtension extends \Twig_Extension
         }
 
         if (null === $this->commentAcl) {
-            return true;
+            return false;
         }
 
         return $this->commentAcl->canEdit($comment);
@@ -201,7 +201,7 @@ class CommentExtension extends \Twig_Extension
     public function canEditThread(ThreadInterface $thread)
     {
         if (null === $this->threadAcl) {
-            return true;
+            return false;
         }
 
         return $this->threadAcl->canEdit($thread);
