@@ -24,7 +24,8 @@
         "php": ">=5.3.2",
         "symfony/symfony": "2.1.*@stable",
         "sensio/framework-extra-bundle": ">=2.0,<2.3-dev",
-        "friendsofsymfony/rest-bundle": "*"
+        "friendsofsymfony/rest-bundle": "*",
+        "jms/serializer-bundle": "*"
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
