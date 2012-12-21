@@ -113,7 +113,7 @@
          * Initialize the event listeners.
          */
         initializeListeners: function() {
-            FOS_COMMENT.thread_container.on('submit',
+            FOS_COMMENT.thread_container.unbind('submit').on('submit',
                 'form.fos_comment_comment_new_form',
                 function(e) {
                     var that = $(this);
