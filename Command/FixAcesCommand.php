@@ -98,7 +98,7 @@ EOT
                 if ($comment instanceof VotableCommentInterface) {
                     foreach ($voteManager->findVotesByComment($comment) as $vote) {
                         $vote_oid = new ObjectIdentity($vote->getId(), get_class($vote));
-    
+
                         try {
                             $provider->findAcl($vote_oid);
                             $foundVoteAcls++;
