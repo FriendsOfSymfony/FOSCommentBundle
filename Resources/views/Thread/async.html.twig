@@ -9,13 +9,12 @@
 
 #}
 
-<div id="fos_comment_thread"></div>
+{% set sorter   = fos_comment_sorter(sorter | default(null)) %}
+
+<div id="fos_comment_thread" class="fos_comment_comment_group" data-thread-id="{{ id }}" data-new-position="{{ sorter.newPosition }}"></div>
 
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 <script type="text/javascript">
-// thread id
-var fos_comment_thread_id = '{{ id }}';
-
 // api base url to use for initial requests
 var fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}';
 

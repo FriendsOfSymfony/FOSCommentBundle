@@ -20,6 +20,9 @@ use FOS\CommentBundle\Model\Tree;
  */
 interface SortingInterface
 {
+    const POSITION_TOP = 'top';
+    const POSITION_BOTTOM = 'bottom';
+
     /**
      * Takes an array of Tree instances and sorts them.
      *
@@ -35,4 +38,12 @@ interface SortingInterface
      * @return array
      */
     public function sortFlat(array $comments);
+
+    /**
+     * Returns the position constant to be used to position new
+     * comments made to a thread.
+     *
+     * @return string
+     */
+    public function getNewPosition();
 }

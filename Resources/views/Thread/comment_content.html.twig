@@ -10,7 +10,7 @@
 #}
 
 {% block fos_comment_comment %}
-<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_group fos_comment_comment_show" data-depth="{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
 
     <div class="fos_comment_comment_metas">
         {% block fos_comment_comment_metas %}
@@ -79,14 +79,9 @@
                 </div>
             {% endif %}
 
-            <div class="fos_comment_comment_replies">
-
-
-                {% if children is defined %}
-                    {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
-                {% endif %}
-
-            </div>
+            {% if children is defined %}
+                {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
+            {% endif %}
         {% elseif view is sameas('flat') and children is defined %}
             {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
         {% endif %}

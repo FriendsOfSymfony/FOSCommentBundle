@@ -21,7 +21,7 @@ use InvalidArgumentException;
  */
 abstract class AbstractOrderSorting implements SortingInterface
 {
-    const ASC = 'ASC';
+    const ASC  = 'ASC';
     const DESC = 'DESC';
 
     private $order;
@@ -114,4 +114,17 @@ abstract class AbstractOrderSorting implements SortingInterface
      * @return -1|0|1           As expected for usort()
      */
     abstract protected function compare(CommentInterface $a, CommentInterface $b);
+
+    /**
+     * Returns the position constant to be used to position new
+     * comments made to a thread.
+     *
+     * @return string
+     */
+    public function getNewPosition()
+    {
+        return $this->order === static::ASC ?
+            static::POSITION_BOTTOM :
+            static::POSITION_TOP;
+    }
 }

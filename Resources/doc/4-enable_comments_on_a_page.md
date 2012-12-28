@@ -14,8 +14,15 @@ the page load.
 
 And the following code at a desired place in the template to load the comments:
 
+```jinja
+{% include 'FOSCommentBundle:Thread:async.html.twig' with { id: 'foo' } %}
 ```
-{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+
+To be able to sort comments by something other than your default sorting mechanism
+include a sorting variable:
+
+```jinja
+{% include 'FOSCommentBundle:Thread:async.html.twig' with { id: 'foo', sorter: 'date_asc' } %}
 ```
 
 That's the basic setup! For additional information and configuration check the ... section and the cookbook.

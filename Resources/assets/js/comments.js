@@ -92,7 +92,7 @@
         getThreadComments: function(identifier, permalink) {
             var event = jQuery.Event('fos_comment_before_load_thread');
 
-            event.identifier = identifier;
+            event.identifier = identifier || FOS_COMMENT.thread_container.data('thread-id');
             event.params = {
                 permalink: encodeURIComponent(permalink || window.location.href)
             };
@@ -124,7 +124,7 @@
                         FOS_COMMENT.serializeObject(this),
                         // success
                         function(data, statusCode) {
-                            FOS_COMMENT.appendComment(data, that);
+                            FOS_COMMENT.insertComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
                         },
                         // error
@@ -317,35 +317,31 @@
             );
         },
 
-        appendComment: function(commentHtml, form) {
-            var form_data = form.data();
+        insertComment: function(commentHtml, form) {
+            var form_data = form.data(),
+                position  = FOS_COMMENT.thread_container.data('new-position'),
+                group     = form.parents('.fos_comment_comment_group'),
+                comments  = group.find('.fos_comment_comments:first');
 
-            if('' != form_data.parent) {
-                var form_parent = form.closest('.fos_comment_comment_form_holder');
-
-                // reply button holder
-                var reply_button_holder = form.closest('.fos_comment_comment_reply');
-
-                var comment_element = form.closest('.fos_comment_comment_show')
-                    .children('.fos_comment_comment_replies');
-
-                reply_button_holder.removeClass('fos_comment_replying');
-
-                comment_element.prepend(commentHtml);
-                comment_element.trigger('fos_comment_add_comment', commentHtml);
-
-                // Remove the form
-                form_parent.remove();
+            if (form_data.parent) {
+                // Replying to a comment, remove the form entirely
+                form.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
+                form.closest('.fos_comment_comment_form_holder').remove();
             } else {
-                // Insert the comment
-                form.after(commentHtml);
-                form.trigger('fos_comment_add_comment', commentHtml);
-
-                // "reset" the form
+                // Using the primary new comment form, reset it to a
+                // raw state
                 form = $(form[0]);
                 form[0].reset();
                 form.children('.fos_comment_form_errors').remove();
             }
+
+            if ('bottom' === position) {
+                comments.append(commentHtml);
+            } else {
+                comments.prepend(commentHtml);
+            }
+
+            form.trigger('fos_comment_add_comment', commentHtml);
         },
 
         editComment: function(commentHtml) {
@@ -495,9 +491,11 @@
     // set the appropriate base url
     FOS_COMMENT.base_url = window.fos_comment_thread_api_base_url;
 
-    // Load the comment if there is a thread id defined.
-    if(typeof window.fos_comment_thread_id != "undefined") {
-        // get the thread comments and init listeners
+    // Check to see if we've got a thread id supporting both the
+    // new and legacy method of supplying an identifier.
+    if (FOS_COMMENT.thread_container.data('thread-id')) {
+        FOS_COMMENT.getThreadComments();
+    } else if (typeof window.fos_comment_thread_id != "undefined") {
         FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
     }
 
