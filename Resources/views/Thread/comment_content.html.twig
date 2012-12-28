@@ -79,7 +79,9 @@
                 </div>
             {% endif %}
 
-            {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children | default([]), "depth": depth + 1, "parentId": comment.id, "view": view } %}
+            <div class="fos_comment_comment_replies">
+                {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children | default([]), "depth": depth + 1, "parentId": comment.id, "view": view } %}
+            </div>
         {% elseif view is sameas('flat') and children is defined %}
             {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parentId": comment.id, "view": view } %}
         {% endif %}
