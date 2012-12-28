@@ -9,11 +9,4 @@
 
 #}
 
-{% set first = first|default(false) %}
-
-{% set url_parameters = {'id': id } %}
-{% if parent is not null %}
-    {% set url_parameters = url_parameters|merge({'parentId': parent.id}) %}
-{% endif %}
-
 {% include "FOSCommentBundle:Thread:comment_new_content.html.twig" %}

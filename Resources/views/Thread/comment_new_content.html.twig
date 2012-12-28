@@ -9,6 +9,13 @@
 
 #}
 
+{% set first = first|default(false) %}
+
+{% set url_parameters = {'id': id } %}
+{% if parent is not null %}
+    {% set url_parameters = url_parameters|merge({'parentId': parent.id}) %}
+{% endif %}
+
 {% block fos_comment_comment_form_holder %}
     <div class="fos_comment_comment_form_holder">
         {% block fos_comment_form_title %}
@@ -21,15 +28,12 @@
             {% endif %}
         {% endblock %}
 
-
         {% block fos_comment_comment_new_form %}
             <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
 
                 {% block fos_comment_form_fields %}
                     <div class="fos_comment_form_errors">
                     {{ form_errors(form) }}
-                    </div>
-                    <div class="fos_comment_form_errors">
                     {{ form_errors(form.body) }}
                     </div>
                     {{ form_widget(form.body) }}
