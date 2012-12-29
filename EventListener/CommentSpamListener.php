@@ -49,6 +49,6 @@ class CommentSpamListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(Events::COMMENT_PRE_PERSIST, 'spamCheck');
+        return array(Events::COMMENT_PRE_PERSIST => 'spamCheck');
     }
 }
