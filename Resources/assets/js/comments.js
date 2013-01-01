@@ -60,7 +60,9 @@
                 }
             };
             var wrappedCompleteCallback = function(response){
-                complete(response.responseText, response.status);
+                if('undefined' !== typeof complete) {
+                    complete(response.responseText, response.status);
+                }
             };
             $.post(url, data, success).error(wrappedErrorCallback).complete(wrappedCompleteCallback);
         },
@@ -250,7 +252,7 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
-                                    form.trigger('fos_comment_vote_comment', data);
+                                    $(form).trigger('fos_comment_vote_comment', data);
                                 }
                             );
                         }
