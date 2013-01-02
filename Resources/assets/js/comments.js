@@ -172,9 +172,9 @@
                 '.fos_comment_comment_reply_cancel',
                 function(e) {
                     var form_holder = $(this).closest('.fos_comment_comment_form_holder');
+                    form_holder.trigger('fos_comment_cancel_form');
                     form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
                     form_holder.remove();
-                    form_holder.trigger('fos_comment_cancel_form');
                 }
             );
 
@@ -236,7 +236,8 @@
             FOS_COMMENT.thread_container.on('click',
                 '.fos_comment_comment_vote',
                 function(e) {
-                    var form_data = $(this).data();
+                    var that = $(this);
+                    var form_data = that.data();
 
                     // Get the form
                     FOS_COMMENT.get(
@@ -252,7 +253,7 @@
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
-                                    $(form).trigger('fos_comment_vote_comment', data);
+                                    that.trigger('fos_comment_vote_comment', data, form);
                                 }
                             );
                         }
