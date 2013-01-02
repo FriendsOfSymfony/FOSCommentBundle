@@ -120,10 +120,20 @@
                 'form.fos_comment_comment_new_form',
                 function(e) {
                     var that = $(this);
+                    var serializedData = FOS_COMMENT.serializeObject(this);
+
+                    e.preventDefault();
+
+                    var event = $.Event('fos_comment_submitting_form');
+                    that.trigger(event);
+
+                    if (event.isDefaultPrevented()) {
+                        return;
+                    }
 
                     FOS_COMMENT.post(
                         this.action,
-                        FOS_COMMENT.serializeObject(this),
+                        serializedData,
                         // success
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
@@ -140,9 +150,6 @@
                             that.trigger('fos_comment_submitted_form', statusCode);
                         }
                     );
-                    that.trigger('fos_comment_submitting_form');
-
-                    e.preventDefault();
                 }
             );
 
@@ -172,7 +179,14 @@
                 '.fos_comment_comment_reply_cancel',
                 function(e) {
                     var form_holder = $(this).closest('.fos_comment_comment_form_holder');
-                    form_holder.trigger('fos_comment_cancel_form');
+
+                    var event = $.Event('fos_comment_cancel_form');
+                    form_holder.trigger(event);
+
+                    if (event.isDefaultPrevented()) {
+                        return;
+                    }
+
                     form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
                     form_holder.remove();
                 }

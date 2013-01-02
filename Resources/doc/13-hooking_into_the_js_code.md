@@ -30,6 +30,7 @@ Triggered when the request about a new comment submission is completed.
 
 Triggered before posting the new comment form.
 
+Preventing the default action will cancel the submission of the comment.
 
 ### fos_comment_show_form( data )
 
@@ -42,6 +43,7 @@ Triggered when the reply form is inserted into the DOM tree.
 
 Triggered when the comment reply is closed
 
+Preventing the default action will cancel closing the form.
 
 ### fos_comment_edit_comment( data )
 
