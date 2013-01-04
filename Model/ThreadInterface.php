@@ -76,7 +76,7 @@ interface ThreadInterface
      * @param  integer $by The number of comments to increment by
      * @return integer The new comment total
      */
-    public function incrementNumComments($by);
+    public function incrementNumComments($by = 1);
 
     /**
      * Denormalized date of the last comment
