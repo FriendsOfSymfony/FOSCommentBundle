@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       Kommentoi ensimmäisenä
+fos_comment_comment_new_headline:             Lisää uusi kommentti
+fos_comment_comment_new_submit:               Lähetä
+fos_comment_comment_new_cancel:               Peru
+
+fos_comment_comment_reply_reply_to:           Vastaus käyttäjän %name% kommenttiin
+fos_comment_comment_reply_cancel:             Peru
+
+fos_comment_comment_show_by:                  Kirjoittaja
+fos_comment_comment_show_voteup:              Lisää ääni
+fos_comment_comment_show_votedown:            Poista ääni
+fos_comment_comment_show_reply:               Vastaa
+
+fos_comment_comment_vote_score:               "Pisteet: "
+
+fos_comment_comment_tree_load_more:           Lataa lisää vastauksia
+
+Showing %num% comment|Showing %num% comments: Näytetään %num% kommentti|Näytetään %num% kommenttia
+
+fos_comment_rss_feed:                         RSS-syöte
+
+fos_comment_thread_close:                     Sulje viestiketju
+fos_comment_thread_open:                      Avaa viestiketju
+fos_comment_thread_comment_count:             %count% kommentti|%count% kommenttia
+fos_comment_comment_edit:                     Muokkaa
+fos_comment_comment_delete:                   Poista kommentti
+fos_comment_comment_undelete:                 Älä sittenkään poista kommenttia
+fos_comment_comment_deleted:                  "[poistettu]"
