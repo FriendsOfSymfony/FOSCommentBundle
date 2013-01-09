@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Lisa uus kommentaar
 fos_comment_comment_new_submit:               Postita
 fos_comment_comment_new_cancel:               Tühista
 
+fos_comment_comment_edit_submit:              Postita
+fos_comment_comment_edit_cancel:              Tühista
+
 fos_comment_comment_reply_reply_to:           Vasta %name%
 fos_comment_comment_reply_cancel:             Tühista
 

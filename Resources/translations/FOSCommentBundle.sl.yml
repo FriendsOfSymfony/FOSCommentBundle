@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Dodaj nov komentar
 fos_comment_comment_new_submit:               Objavi
 fos_comment_comment_new_cancel:               Prekliči
 
+fos_comment_comment_edit_submit:              Objavi
+fos_comment_comment_edit_cancel:              Prekliči
+
 fos_comment_comment_reply_reply_to:           Odgovor za %name%
 fos_comment_comment_reply_cancel:             Prekliči
 

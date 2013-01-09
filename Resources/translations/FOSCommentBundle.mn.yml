@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Шинэ сэтгэгдэл нэм
 fos_comment_comment_new_submit:               Илгээх
 fos_comment_comment_new_cancel:               Цуцлах
 
+fos_comment_comment_edit_submit:              Илгээх
+fos_comment_comment_edit_cancel:              Цуцлах
+
 fos_comment_comment_reply_reply_to:           %name% -д хариу бичих
 fos_comment_comment_reply_cancel:             Цуцлах
 
