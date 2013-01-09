@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Voeg nieuwe reactie toe
 fos_comment_comment_new_submit:               Plaats reactie
 fos_comment_comment_new_cancel:               Annuleren
 
+fos_comment_comment_edit_submit:              Wijzigingen opslaan
+fos_comment_comment_edit_cancel:              Wijzigingen annuleren
+
 fos_comment_comment_reply_reply_to:           Reageer op %name%
 fos_comment_comment_reply_cancel:             Annuleren
 
