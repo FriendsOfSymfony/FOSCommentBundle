@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Tilføj ny kommentar
 fos_comment_comment_new_submit:               Send
 fos_comment_comment_new_cancel:               Afbryd
 
+fos_comment_comment_edit_submit:              Send
+fos_comment_comment_edit_cancel:              Afbryd
+
 fos_comment_comment_reply_reply_to:           Svarer %name%
 fos_comment_comment_reply_cancel:             Afbryd
 

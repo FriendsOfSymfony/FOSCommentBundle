@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Додај нови комента
 fos_comment_comment_new_submit:               Пошаљи
 fos_comment_comment_new_cancel:               Откажи
 
+fos_comment_comment_edit_submit:              Пошаљи
+fos_comment_comment_edit_cancel:              Откажи
+
 fos_comment_comment_reply_reply_to:           Одговори %name%
 fos_comment_comment_reply_cancel:             Откажи
 

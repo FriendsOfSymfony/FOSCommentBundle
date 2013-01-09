@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Lisää uusi kommentti
 fos_comment_comment_new_submit:               Lähetä
 fos_comment_comment_new_cancel:               Peru
 
+fos_comment_comment_edit_submit:              Lähetä
+fos_comment_comment_edit_cancel:              Peru
+
 fos_comment_comment_reply_reply_to:           Vastaus käyttäjän %name% kommenttiin
 fos_comment_comment_reply_cancel:             Peru
 
