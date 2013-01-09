@@ -10,5 +10,4 @@ echo "==============================="
 echo "BEHAT:"
 echo ""
 
- 
 Tests/Functional/app/console behat --format=progress

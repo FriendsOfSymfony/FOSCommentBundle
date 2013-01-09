@@ -153,11 +153,11 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($extension->isCommentInState($comment, $comment::STATE_DELETED));
     }
 
-    public function testCanDeleteWhenNoCommentAcl()
+    public function testCannotDeleteWhenNoCommentAcl()
     {
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
         $extension = new CommentExtension();
-        $this->assertTrue($extension->canDeleteComment($comment));
+        $this->assertFalse($extension->canDeleteComment($comment));
     }
 
     public function testCanDeleteWhenCommentAclCanDelete()
