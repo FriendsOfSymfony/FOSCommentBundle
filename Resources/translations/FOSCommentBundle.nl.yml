@@ -1,0 +1,28 @@
+fos_comment_comment_new_headline_first:       Reageer als eerste
+fos_comment_comment_new_headline:             Voeg nieuwe reactie toe
+fos_comment_comment_new_submit:               Plaats reactie
+fos_comment_comment_new_cancel:               Annuleren
+
+fos_comment_comment_reply_reply_to:           Reageer op %name%
+fos_comment_comment_reply_cancel:             Annuleren
+
+fos_comment_comment_show_by:                  Door
+fos_comment_comment_show_voteup:              Stem omhoog
+fos_comment_comment_show_votedown:            Stem omlaag
+fos_comment_comment_show_reply:               Reageer
+
+fos_comment_comment_vote_score:               "Score: "
+
+fos_comment_comment_tree_load_more:           Meer reacties laden
+
+Showing %num% comment|Showing %num% comments: %num% reactie zichtbaar|%num% reacties zichtbaar
+
+fos_comment_rss_feed:                         RSS feed
+
+fos_comment_thread_close:                     Discussie sluiten
+fos_comment_thread_open:                      Discussie openen
+fos_comment_thread_comment_count:             %count% reactie|%count% reacties
+fos_comment_comment_edit:                     Bewerken
+fos_comment_comment_delete:                   Verwijder reactie
+fos_comment_comment_undelete:                 Reactie terughalen
+fos_comment_comment_deleted:                  "[verwijderd]"
