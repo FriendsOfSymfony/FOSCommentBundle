@@ -36,10 +36,7 @@
         "doctrine/doctrine-bundle": "*",
         "symfony/assetic-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
-        "ornicar/akismet-bundle": "*",
-        "behat/behat-bundle": "*",
-        "behat/mink-bundle": "*",
-        "behat/sahi-client": "*"
+        "ornicar/akismet-bundle": "*"
     },
     "extra": {
         "branch-alias": {

@@ -1,26 +1,19 @@
 language: php
 
 php:
-  - 5.3.3
+  - 5.3
   - 5.4
   - 5.5
 
+matrix:
+  allow_failures:
+    - php: 5.5
+
 before_script:
-  - export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start
-  - wget --quiet -O sahi.zip http://sourceforge.net/projects/sahi/files/sahi-v35/20110719/sahi_20110719.zip/download && unzip -qq sahi.zip
-  - export SAHI_HOME=sahi && sh sahi/bin/sahi.sh > /dev/null &
   - curl --silent http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
-  - sudo apt-get install nginx > /dev/null
-  - nginx -v && sudo nginx -c app/Behat/nginx.conf.dist -p ./Tests/Functional
-  - for file in `find /home/vagrant/.phpenv -name 'xdebug.ini'`; do echo "xdebug.max_nesting_level=200" >> $file; done;
-  - php-cgi -b 127.0.0.1:9000 &
-  - ./Tests/Functional/app/console assets:install --symlink Tests/Functional/web > /dev/null
-  - ./Tests/Functional/app/console doctrine:database:drop --force > /dev/null
-  - ./Tests/Functional/app/console doctrine:database:create > /dev/null
-  - ./Tests/Functional/app/console doctrine:schema:create > /dev/null
 
-script: ./run_tests.sh
+script: phpunit --coverage-text --colors
 
 notifications:
   email:
