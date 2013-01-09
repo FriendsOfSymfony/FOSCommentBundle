@@ -1,0 +1,50 @@
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+
+    keepalive_timeout  65;
+
+    fastcgi_connect_timeout 60;
+    fastcgi_send_timeout 180;
+    fastcgi_read_timeout 180;
+    fastcgi_buffer_size 32k;
+    fastcgi_buffers 16 16k;
+    fastcgi_intercept_errors on;
+
+    upstream php {
+        server 127.0.0.1:9000;
+    }
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    server {
+        listen 8080 default_server;
+        server_name .localhost;
+
+        charset utf-8;
+
+        root web;
+
+        location / {
+                index app.php;
+                try_files $uri @rewriteapp;
+        }
+
+        location @rewriteapp {
+                rewrite ^(.*)$ /app.php/$1 last;
+        }
+
+        location ~^/app\.php(/|$) {
+                fastcgi_split_path_info ^(.+\.php)(.*)$;
+                fastcgi_pass php;
+                include /etc/nginx/fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param HTTPS off;
+                fastcgi_param ENVIRONMENT 'test';
+        }
+    }
+}

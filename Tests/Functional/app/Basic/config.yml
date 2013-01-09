@@ -1,0 +1,10 @@
+imports:
+    - { resource: ./../config/default.yml }
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Comment
+            thread: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Thread
+            vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote

@@ -1,0 +1,9 @@
+test_thread_inline:
+    pattern: /inline/{id}
+    defaults:
+        _controller: CommentBundle:Comment:inline
+
+test_thread_async:
+    pattern: /async/{id}
+    defaults:
+        _controller: CommentBundle:Comment:async
