@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             افزودن نظر
 fos_comment_comment_new_submit:               فرستادن
 fos_comment_comment_new_cancel:               لغو
 
+fos_comment_comment_edit_submit:              فرستادن
+fos_comment_comment_edit_cancel:              لغو
+
 fos_comment_comment_reply_reply_to:           جواب دادن به %name%
 fos_comment_comment_reply_cancel:             لغو
 

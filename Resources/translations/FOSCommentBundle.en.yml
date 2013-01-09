@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             Add New Comment
 fos_comment_comment_new_submit:               Post
 fos_comment_comment_new_cancel:               Cancel
 
+fos_comment_comment_edit_submit:              Post
+fos_comment_comment_edit_cancel:              Cancel
+
 fos_comment_comment_reply_reply_to:           Replying to %name%
 fos_comment_comment_reply_cancel:             Cancel
 

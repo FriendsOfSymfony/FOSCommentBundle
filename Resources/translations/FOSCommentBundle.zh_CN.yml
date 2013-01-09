@@ -3,6 +3,9 @@ fos_comment_comment_new_headline:             发表新讨论
 fos_comment_comment_new_submit:               提交
 fos_comment_comment_new_cancel:               取消
 
+fos_comment_comment_edit_submit:              提交
+fos_comment_comment_edit_cancel:              取消
+
 fos_comment_comment_reply_reply_to:           回复 %name%
 fos_comment_comment_reply_cancel:             取消
 
