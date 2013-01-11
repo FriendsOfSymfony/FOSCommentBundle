@@ -25,9 +25,22 @@ use Symfony\Component\HttpKernel\Log\LoggerInterface;
  */
 class CommentSpamListener implements EventSubscriberInterface
 {
+    /**
+     * @var SpamDetectionInterface
+     */
     protected $spamDetector;
+
+    /**
+     * @var LoggerInterface
+     */
     protected $logger;
 
+    /**
+     * Constructor.
+     *
+     * @param SpamDetectionInterface $detector
+     * @param LoggerInterface        $logger
+     */
     public function __construct(SpamDetectionInterface $detector, LoggerInterface $logger = null)
     {
         $this->spamDetector = $detector;

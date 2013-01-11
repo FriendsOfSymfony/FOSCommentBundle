@@ -20,9 +20,8 @@
         </service>
 
         <service id="fos_comment.listener.comment_spam" class="FOS\CommentBundle\EventListener\CommentSpamListener" scope="request">
+            <tag name="kernel.event_subscriber" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="spamCheck" />
         </service>
 
     </services>
