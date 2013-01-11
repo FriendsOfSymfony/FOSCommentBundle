@@ -280,6 +280,13 @@
                 function(e) {
                     var form_data = $(this).data();
 
+                    var event = $.Event('fos_comment_removing_comment');
+                    $(this).trigger(event);
+
+                    if (event.isDefaultPrevented()) {
+                        return
+                    }
+
                     // Get the form
                     FOS_COMMENT.get(
                         form_data.url,
