@@ -23,13 +23,26 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ThreadCountersListener implements EventSubscriberInterface
 {
+    /**
+     * @var CommentManagerInterface
+     */
     private $commentManager;
 
+    /**
+     * Constructor.
+     *
+     * @param CommentManagerInterface $commentManager
+     */
     public function __construct(CommentManagerInterface $commentManager)
     {
         $this->commentManager = $commentManager;
     }
 
+    /**
+     * Increase the thread comments number
+     *
+     * @param \FOS\CommentBundle\Event\CommentEvent $event
+     */
     public function onCommentPersist(CommentEvent $event)
     {
         $comment = $event->getComment();
