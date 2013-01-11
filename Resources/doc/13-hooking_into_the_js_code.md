@@ -41,7 +41,7 @@ Triggered when the reply form is inserted into the DOM tree.
 
 ### fos_comment_cancel_form(  )
 
-Triggered when the comment reply is closed
+Triggered when the comment reply is closed.
 
 Preventing the default action will cancel closing the form.
 
@@ -58,12 +58,18 @@ Triggered when the the request about voting a comment succeeds.
  - data: data sent to the server with the request.
 
 
-### fos_comment_add_comment ( commentHtml )
+### fos_comment_add_comment( commentHtml )
 
 Triggered when the comment is inserted into the DOM tree.
 
  - commentHtml: jQuery object to insert into the DOM tree.
 
+
+### fos_comment_removing_comment(  )
+
+Triggered before a comment delete action.
+
+Preventing the default action will cancel the removal.
 
 
 Example:
