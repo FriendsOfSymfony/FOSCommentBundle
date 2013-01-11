@@ -14,10 +14,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.listener.comment_markup" class="FOS\CommentBundle\EventListener\CommentMarkupListener">
-            <!-- TODO: 2.1 <tag name="kernel.event_subscriber" /> -->
-            <tag name="kernel.event_listener" event="fos_comment.comment.pre_persist" method="markup" />
 
+        <service id="fos_comment.listener.comment_markup" class="FOS\CommentBundle\EventListener\CommentMarkupListener">
+            <tag name="kernel.event_subscriber" />
             <argument type="service" id="fos_comment.markup" />
         </service>
 
