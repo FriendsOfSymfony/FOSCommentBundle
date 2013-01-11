@@ -7,12 +7,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Thibault Duplessis",
-            "email": "thibault.duplessis@gmail.com"
-        },
-        {
             "name": "Tim Nagel",
             "email": "tim@nagel.com.au"
+        },
+        {
+            "name": "Alexander Mols",
+            "email": "iam.asm89@gmail.com"
         },
         {
             "name": "FriendsOfSymfony Community",
