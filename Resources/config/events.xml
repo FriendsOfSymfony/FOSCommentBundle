@@ -13,34 +13,43 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="fos_comment.listener.comment_vote_score.class">FOS\CommentBundle\EventListener\CommentVoteScoreListener</parameter>
+        <parameter key="fos_comment.listener.thread_counters.class">FOS\CommentBundle\EventListener\ThreadCountersListener</parameter>
+        <parameter key="fos_comment.listener.thread_permalink.class">FOS\CommentBundle\EventListener\ThreadPermalinkListener</parameter>
+        <parameter key="fos_comment.listener.comment_blamer.class">FOS\CommentBundle\EventListener\CommentBlamerListener</parameter>
+        <parameter key="fos_comment.listener.vote_blamer.class">FOS\CommentBundle\EventListener\VoteBlamerListener</parameter>
+        <parameter key="fos_comment.listener.closed_threads.class">FOS\CommentBundle\EventListener\ClosedThreadListener</parameter>
+    </parameters>
+
     <services>
-        <service id="fos_comment.listener.comment_vote_score" class="FOS\CommentBundle\EventListener\CommentVoteScoreListener">
+        <service id="fos_comment.listener.comment_vote_score" class="%fos_comment.listener.comment_vote_score.class%">
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="fos_comment.listener.thread_counters" class="FOS\CommentBundle\EventListener\ThreadCountersListener">
+        <service id="fos_comment.listener.thread_counters" class="%fos_comment.listener.thread_counters.class%">
             <argument type="service" id="fos_comment.manager.comment" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="fos_comment.listener.thread_permalink" class="FOS\CommentBundle\EventListener\ThreadPermalinkListener">
+        <service id="fos_comment.listener.thread_permalink" class="%fos_comment.listener.thread_permalink.class%">
             <argument type="service" id="service_container" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="fos_comment.listener.comment_blamer" class="FOS\CommentBundle\EventListener\CommentBlamerListener">
+        <service id="fos_comment.listener.comment_blamer" class="%fos_comment.listener.comment_blamer.class%">
             <argument type="service" id="security.context" on-invalid="null" />
             <argument type="service" id="logger" on-invalid="null" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="fos_comment.listener.vote_blamer" class="FOS\CommentBundle\EventListener\VoteBlamerListener">
+        <service id="fos_comment.listener.vote_blamer" class="%fos_comment.listener.vote_blamer.class%">
             <argument type="service" id="security.context" on-invalid="null" />
             <argument type="service" id="logger" on-invalid="null" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="fos_comment.listener.closed_threads" class="FOS\CommentBundle\EventListener\ClosedThreadListener">
+        <service id="fos_comment.listener.closed_threads" class="%fos_comment.listener.closed_threads.class%">
             <tag name="kernel.event_subscriber" />
         </service>
     </services>
