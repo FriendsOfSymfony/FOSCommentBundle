@@ -19,27 +19,25 @@
             "homepage": "https://github.com/friendsofsymfony/FOSCommentBundle/contributors"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
-        "symfony/symfony": "2.1.*@stable",
-        "sensio/framework-extra-bundle": ">=2.0,<2.3-dev",
-        "friendsofsymfony/rest-bundle": "*",
-        "jms/serializer-bundle": "*"
+        "friendsofsymfony/rest": "0.8.*@dev",
+        "friendsofsymfony/rest-bundle": "0.11.*@dev",
+        "jms/serializer": "1.0.*@dev",
+        "jms/serializer-bundle": "1.0.*@dev",
+        "sensio/framework-extra-bundle": "~2.1",
+        "symfony/symfony": "~2.1.6"
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
         "ornicar/akismet-bundle": "Integrate Akismet for spamdetection."
     },
     "require-dev": {
-        "doctrine/orm": "*",
-        "doctrine/doctrine-bundle": "*",
-        "symfony/assetic-bundle": "*",
-        "friendsofsymfony/user-bundle": "*",
-        "ornicar/akismet-bundle": "*",
-        "behat/behat-bundle": "*",
-        "behat/mink-bundle": "*",
-        "behat/sahi-client": "*"
+        "doctrine/orm": "2.3.*",
+        "doctrine/doctrine-bundle": "1.0.*@dev",
+        "symfony/assetic-bundle": "2.1.*@dev",
+        "friendsofsymfony/user-bundle": "1.*",
+        "ornicar/akismet-bundle": "dev-master"
     },
     "extra": {
         "branch-alias": {
