@@ -11,8 +11,6 @@
 
 namespace FOS\CommentBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
-
 /**
  * An event related to a persisting event that can be
  * cancelled by a listener.
