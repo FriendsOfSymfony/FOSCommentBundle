@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Model;
 
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
+use FOS\CommentBundle\Event\VotePersistEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -72,8 +73,12 @@ abstract class VoteManager implements VoteManagerInterface
             throw new \InvalidArgumentException('Vote passed into saveVote must have a comment');
         }
 
-        $event = new VoteEvent($vote);
+        $event = new VotePersistEvent($vote);
         $this->dispatcher->dispatch(Events::VOTE_PRE_PERSIST, $event);
+
+        if ($event->isPersistenceAborted()) {
+            return;
+        }
 
         $this->doSaveVote($vote);
 
