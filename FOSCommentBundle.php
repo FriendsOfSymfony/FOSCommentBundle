@@ -14,7 +14,6 @@ namespace FOS\CommentBundle;
 use FOS\CommentBundle\DependencyInjection\Compiler\SortingPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 class FOSCommentBundle extends Bundle
 {
@@ -22,6 +21,6 @@ class FOSCommentBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new SortingPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+        $container->addCompilerPass(new SortingPass());
     }
 }
