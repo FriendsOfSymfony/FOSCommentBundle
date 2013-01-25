@@ -1,4 +1,4 @@
-fos_comment_comment_new_headline_first:       Se el primero en comentar
+fos_comment_comment_new_headline_first:       Sé el primero en comentar
 fos_comment_comment_new_headline:             Dejar un comentario
 fos_comment_comment_new_submit:               Enviar comentario
 fos_comment_comment_new_cancel:               Cancelar
@@ -23,6 +23,7 @@ Showing %num% comment|Showing %num% comments: Se muestra %num% comentario|Se mue
 fos_comment_thread_close:                     Cerrar hilo
 fos_comment_thread_open:                      Abrir hilo
 fos_comment_thread_comment_count:             %count% comentario|%count% comentarios
+fos_comment_comment_edit:                     Editar
 fos_comment_comment_delete:                   Borrar comentario
 fos_comment_comment_undelete:                 Deshacer borrado del comentario
 fos_comment_comment_deleted:                  "[Borrado]"
