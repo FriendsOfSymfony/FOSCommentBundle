@@ -29,21 +29,21 @@ class AclVoteManager implements VoteManagerInterface
      *
      * @var VoteManagerInterface
      */
-    private $realManager;
+    protected $realManager;
 
     /**
      * The Vote Acl instance for querying Acls.
      *
      * @var VoteAclInterface
      */
-    private $voteAcl;
+    protected $voteAcl;
 
     /**
      * The Comment Acl for querying Acls.
      *
      * @var CommentAclInterface
      */
-    private $commentAcl;
+    protected $commentAcl;
 
     /**
      * {@inheritDoc}

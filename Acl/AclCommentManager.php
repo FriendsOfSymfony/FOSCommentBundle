@@ -29,21 +29,21 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @var CommentManagerInterface
      */
-    private $realManager;
+    protected $realManager;
 
     /**
      * The CommentAcl instance for checking permissions.
      *
      * @var CommentAclInterface
      */
-    private $commentAcl;
+    protected $commentAcl;
 
     /**
      * The ThreadAcl instance for checking permissions.
      *
      * @var ThreadAclInterface
      */
-    private $threadAcl;
+    protected $threadAcl;
 
     /**
      * Constructor.

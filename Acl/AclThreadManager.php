@@ -28,14 +28,14 @@ class AclThreadManager implements ThreadManagerInterface
      *
      * @var ThreadManagerInterface
      */
-    private $realManager;
+    protected $realManager;
 
     /**
      * The Thread Acl instance for querying Acls.
      *
      * @var ThreadAclInterface
      */
-    private $threadAcl;
+    protected $threadAcl;
 
     /**
      * Constructor.
