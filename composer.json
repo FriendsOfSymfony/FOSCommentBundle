@@ -38,7 +38,7 @@
         "ornicar/akismet-bundle": "Integrate Akismet for spamdetection."
     },
     "require-dev": {
-        "doctrine/orm": "2.3.*",
+        "doctrine/orm": "2.3.*@stable",
         "doctrine/doctrine-bundle": "1.0.*@dev",
         "kriswallsmith/assetic": "1.1.*@dev",
         "symfony/assetic-bundle": "2.1.*@dev",
