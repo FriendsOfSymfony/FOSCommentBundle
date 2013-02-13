@@ -7,7 +7,7 @@ php:
 
 before_script:
   - curl --silent http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
+  - php composer.phar install --dev --no-interaction --prefer-source
 
 script: phpunit --coverage-text --colors
 
