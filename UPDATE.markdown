@@ -1,3 +1,11 @@
+2.0.4 to 2.0.5
+ * Editing is more robust and works even if you change the structure of the HTML
+   code. If you have customised the "comment_content.html.twig" you might need to
+   apply the changes made in this version to your customisation.
+
+2.0.3 to 2.0.4
+ * Symfony 2.2 compatibility
+
 2.0.2 to 2.0.3
 
  * A recent change to FOSRestBundle now means that JMSSerializerBundle needs to

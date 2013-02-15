@@ -202,7 +202,7 @@
                         form_data.url,
                         {},
                         function(data) {
-                            var commentBody = $(that).parent().next();
+                            var commentBody = $(form_data.container);
 
                             // save the old comment for the cancel function
                             commentBody.data('original', commentBody.html());
