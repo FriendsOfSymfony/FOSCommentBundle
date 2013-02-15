@@ -27,7 +27,7 @@
 
             {% block fos_comment_comment_metas_edit %}
                 {% if fos_comment_can_edit_comment(comment) %}
-                <button data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit{% endtrans %}</button>
+                <button data-container="#fos_comment_comment_body_{{ comment.id }}" data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit{% endtrans %}</button>
                 {% endif %}
             {% endblock fos_comment_comment_metas_edit %}
 
@@ -55,7 +55,7 @@
         {% endblock fos_comment_comment_metas %}
     </div>
 
-    <div class="fos_comment_comment_body">
+    <div id="fos_comment_comment_body_{{ comment.id }}" class="fos_comment_comment_body">
         {% block fos_comment_comment_body %}
             {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
                 {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
