@@ -27,7 +27,7 @@ services:
 
 fos_comment:
     # ...
-    services:
+    service:
         markup: markup.exercise_html_purifier
     # ...
 ```
