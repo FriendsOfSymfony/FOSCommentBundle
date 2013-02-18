@@ -4,6 +4,25 @@ Step 9: Using a markup parser
 FOSComment bundle allows a developer to implement RawCommentInterface, which
 will tell the bundle that your comments are to be parsed for a markup language.
 
+You will also need to configure a rawBody field in your database to store the parsed comments.
+
+```php
+use FOS\CommentBundle\Model\RawCommentInterface;
+
+class Comment extends BaseComment implements RawCommentInterface
+
+    /**
+     * @ORM\Column(name="rawBody", type="text", nullable=true)
+     * @var string
+     */
+    protected $rawBody;
+    
+    ... also add getter and setter as defined in the RawCommentInterface ...
+```
+
+When a comment is added, it is parsed and setRawBody() is called with the raw version 
+of the comment which is then stored in the database and shown when the comment is later rendered.
+
 Any markup language is supported, all you need is a bridging class that
 implements `Markup\ParserInterface` and returns the parsed result of a comment
 in raw html to be displayed on the page.
