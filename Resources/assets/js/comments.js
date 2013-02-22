@@ -196,7 +196,7 @@
                 '.fos_comment_comment_edit_show_form',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
+                    var that = $(this);
 
                     FOS_COMMENT.get(
                         form_data.url,
@@ -209,6 +209,8 @@
 
                             // show the edit form
                             commentBody.html(data);
+
+                            that.trigger('fos_comment_show_edit_form', data);
                         }
                     );
                 }
