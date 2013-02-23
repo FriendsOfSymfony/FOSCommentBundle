@@ -72,6 +72,13 @@ Triggered before a comment delete action.
 Preventing the default action will cancel the removal.
 
 
+### fos_comment_show_edit_form( data )
+
+Triggered when the edit form is inserted into the DOM tree.
+
+ - data: the edit form content
+
+
 Example:
 =============================
 
