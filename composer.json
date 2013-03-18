@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "doctrine/orm": "2.3.*@stable",
-        "doctrine/doctrine-bundle": "1.0.*@dev",
+        "doctrine/doctrine-bundle": "1.2.*@dev",
         "kriswallsmith/assetic": "1.1.*@dev",
         "symfony/assetic-bundle": "2.1.*@dev",
         "friendsofsymfony/user-bundle": "1.*",

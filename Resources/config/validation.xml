@@ -20,7 +20,7 @@
             <constraint name="NotBlank">
                 <option name="message">Please enter a message</option>
             </constraint>
-            <constraint name="Range">
+            <constraint name="Length">
                 <option name="min">3</option>
                 <option name="minMessage">The message is too short|The message is too short</option>
             </constraint>
