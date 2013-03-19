@@ -44,7 +44,7 @@ class WebTestCase extends BaseWebTestCase
         }
 
         if (null === $this->em) {
-            $this->em = $this->client->getContainer()->get('doctrine')->getEntityManager();
+            $this->em = $this->client->getContainer()->get('doctrine')->getManager();
 
             if (!static::$schemaSetUp) {
                 $st = new SchemaTool($this->em);
