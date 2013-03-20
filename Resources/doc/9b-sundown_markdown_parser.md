@@ -58,7 +58,7 @@ services:
 
 fos_comment:
     # ...
-    services:
+    service:
         markup: markup.sundown_markdown
     # ...
 ```
