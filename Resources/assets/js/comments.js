@@ -261,7 +261,7 @@
                         {},
                         function(data) {
                             // Post it
-                            var form = $(data).children('form')[0];
+                            var form = $($.trim(data)).children('form')[0];
                             var form_data = $(form).data();
 
                             FOS_COMMENT.post(
@@ -295,13 +295,13 @@
                         {},
                         function(data) {
                             // Post it
-                            var form = $(data).children('form')[0];
+                            var form = $($.trim(data)).children('form')[0];
 
                             FOS_COMMENT.post(
                                 form.action,
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
-                                    var commentHtml = $(data);
+                                    var commentHtml = $($.trim(data));
 
                                     var originalComment = $('#' + commentHtml.attr('id'));
 
@@ -375,7 +375,7 @@
         },
 
         editComment: function(commentHtml) {
-            var commentHtml = $(commentHtml);
+            var commentHtml = $($.trim(commentHtml));
             var originalCommentBody = $('#' + commentHtml.attr('id')).children('.fos_comment_comment_body');
 
             originalCommentBody.html(commentHtml.children('.fos_comment_comment_body').html());
