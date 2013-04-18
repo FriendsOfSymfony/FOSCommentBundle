@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return NodeInterface
      */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
 
