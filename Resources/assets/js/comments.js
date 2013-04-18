@@ -136,8 +136,8 @@
                         serializedData,
                         // success
                         function(data, statusCode) {
-                            FOS_COMMENT.appendComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
+                            FOS_COMMENT.appendComment(data, that);
                         },
                         // error
                         function(data, statusCode) {
