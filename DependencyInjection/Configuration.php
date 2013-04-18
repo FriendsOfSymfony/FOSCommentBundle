@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This class contains the configuration information for the bundle
@@ -19,18 +20,18 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
  * This information is solely responsible for how the different configuration
  * sections are normalized, and merged.
  */
-class Configuration
+class Configuration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree.
      *
      * @return NodeInterface
      */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
 
-        $treeBuilder->root('fos_comment', 'array')
+        $treeBuilder->root('fos_comment')
             ->children()
 
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
@@ -162,6 +163,6 @@ class Configuration
             ->end()
         ->end();
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 }
