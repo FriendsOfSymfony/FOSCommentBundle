@@ -27,6 +27,22 @@ public function registerBundles()
 }
 ```
 
+
+### C) Enable method overrides.
+
+This is strictly not needed, but if you want to be able to support editing and hiding
+comments you need to edit your frontcontrollers (web/app.php and web/app_dev.php) and add a call to 
+Request::enableHttpMethodParameterOverride():
+
+``` php
+<?php
+
+Request::enableHttpMethodParameterOverride();  // <-- add this, just before:
+$request = Request::createFromGlobals();
+
+```
+
+
 ### Continue to the next step!
 When you're done. Continue by creating the appropriate Comment and Thread classes:
 [Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).
