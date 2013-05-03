@@ -28,8 +28,8 @@
         "friendsofsymfony/rest": "0.8.*@dev",
         "friendsofsymfony/rest-bundle": ">=0.11,<0.13-dev",
         "jms/serializer-bundle": ">=0.11,<0.13-dev",
-        "sensio/framework-extra-bundle": ">=2.1,<2.3-dev",
-        "symfony/symfony": ">=2.1,<2.3-dev"
+        "sensio/framework-extra-bundle": ">=2.1,<2.4-dev",
+        "symfony/symfony": ">=2.1,<2.4-dev"
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
