@@ -10,7 +10,7 @@ $ php composer.phar require friendsofsymfony/comment-bundle
 
 ### B) Enable the bundle
 
-Finally, enable the required bundles in the kernel:
+Enable the required bundles in the kernel:
 
 ``` php
 <?php
@@ -25,6 +25,19 @@ public function registerBundles()
         new JMS\SerializerBundle\JMSSerializerBundle($this),
     );
 }
+```
+
+### C) Enable Http Method Override
+
+[Enable HTTP Method override as described here](http://symfony.com/doc/master/cookbook/routing/method_parameters.html#faking-the-method-with-method)
+
+As of symfony 2.3, you just have to modify your config.yml :
+
+``` yaml
+# app/config/config.yml
+
+framework:
+    http_method_override: true
 ```
 
 ### Continue to the next step!
