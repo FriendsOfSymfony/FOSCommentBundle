@@ -324,13 +324,13 @@
                         {},
                         function(data) {
                             // Post it
-                            var form = $(data).children('form')[0];
+                            var form = $($.trim(data)).children('form')[0];
 
                             FOS_COMMENT.post(
                                 form.action,
                                 FOS_COMMENT.serializeObject(form),
                                 function(data) {
-                                    var form = $(data).children('form')[0];
+                                    var form = $($.trim(data)).children('form')[0];
                                     var threadId = $(form).data().fosCommentThreadId;
 
                                     // reload the intire thread
