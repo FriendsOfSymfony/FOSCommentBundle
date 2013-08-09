@@ -14,6 +14,8 @@ fos_comment_comment_show_voteup:              "J'aime"
 fos_comment_comment_show_votedown:            "Je n'aime pas"
 fos_comment_comment_show_reply:               Répondre
 
+fos_comment_comment_vote_score:               "Score: "
+
 fos_comment_comment_tree_load_more:           Afficher plus de réponses
 
 Showing %num% comment|Showing %num% comments: Afficher %num% commentaire|Afficher %num% commentaires
