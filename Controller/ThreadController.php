@@ -297,9 +297,9 @@ class ThreadController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $manager->saveComment($comment);
-
-            return $this->getViewHandler()->handle($this->onRemoveThreadCommentSuccess($form, $id));
+            if ($manager->saveComment($comment) !== false) {
+                return $this->getViewHandler()->handle($this->onRemoveThreadCommentSuccess($form, $id));
+            }
         }
 
         return $this->getViewHandler()->handle($this->onRemoveThreadCommentError($form, $id));
@@ -360,9 +360,9 @@ class ThreadController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $commentManager->saveComment($comment);;
-
-            return $this->getViewHandler()->handle($this->onEditCommentSuccess($form, $id, $comment->getParent()));
+            if ($commentManager->saveComment($comment) !== false) {
+                return $this->getViewHandler()->handle($this->onEditCommentSuccess($form, $id, $comment->getParent()));
+            }
         }
 
         return $this->getViewHandler()->handle($this->onEditCommentError($form, $id, $comment->getParent()));
@@ -476,9 +476,9 @@ class ThreadController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $commentManager->saveComment($comment);
-
-            return $this->getViewHandler()->handle($this->onCreateCommentSuccess($form, $id, $parent));
+            if ($commentManager->saveComment($comment) !== false) {
+                return $this->getViewHandler()->handle($this->onCreateCommentSuccess($form, $id, $parent));
+            }
         }
 
         return $this->getViewHandler()->handle($this->onCreateCommentError($form, $id, $parent));
