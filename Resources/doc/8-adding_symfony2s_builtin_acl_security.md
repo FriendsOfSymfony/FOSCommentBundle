@@ -44,7 +44,7 @@ by running:
 $ app/console fos:comment:installAces
 ```
 
-This will make sure that the Acl entries in the database are correct. This comment
+This will make sure that the Acl entries in the database are correct. This command
 must be run whenever any configuration for security changes in FOSCommentBundle,
 including enabling the security features or changing the FQCN of your extended
 FOSCommentBundle objects.
