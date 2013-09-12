@@ -32,12 +32,13 @@ Here is a little exemple.
     class CommentListener
     {
         /**
+        * If not needed, you can delete this (don't forget to delete it in the service description in service.xml)
         * @var CommentManagerInterface
         */
         private $commentManager;
 	
         /**
-        *
+        * If not needed, you can delete this (don't forget to delete it in the service description in service.xml)
         * @var Doctrine 
         */
         private $doctrine;
@@ -54,7 +55,7 @@ Here is a little exemple.
         }
 	
         /**
-        * Increase the thread comments number
+        * Method called on fos_comment.comment.post_persist
         *
         * @param \FOS\CommentBundle\Event\CommentEvent $event
         */
@@ -73,7 +74,7 @@ Here is a little exemple.
         }
     }
 
-Now you need to register you Listener in Service.xml file
+Now you need to register you Listener in `Service.xml` file
 
     <service id="myproject.news.listener.comment" class="MyProject\NewsBundle\Listener\CommentListener">
         <argument type="service" id="fos_comment.manager.comment" />
