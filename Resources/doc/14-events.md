@@ -7,15 +7,15 @@ FOSCommentBundle fires events inside Symfony. It's very handy to add custom task
 
 All the events and their description are listed in the [Events](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Events.php) file.
 
- - fos_comment.comment.pre_persist
- - fos_comment.comment.post_persist
- - fos_comment.comment.create
- - fos_comment.thread.pre_persist
- - fos_comment.thread.post_persist
- - fos_comment.thread.create
- - fos_comment.vote.pre_persist
- - fos_comment.vote.post_persist
- - fos_comment.vote.create
+ - COMMENT_PRE_PERSIST
+ - COMMENT_POST_PERSIST
+ - COMMENT_CREATE
+ - THREAD_PRE_PERSIST
+ - THREAD_POST_PERSIST
+ - THREAD_CREATE
+ - VOTE_PRE_PERSIST
+ - VOTE_POST_PERSIST
+ - VOTE_CREATE
  
 ### Handle an event
 
@@ -25,7 +25,7 @@ Here is a little exemple.
 
     namespace MyProject\NewsBundle\Listener;
 
-    use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+    use Symfony\Bridge\Doctrine\RegistryInterface as Doctrine;
     use FOS\CommentBundle\Event\CommentEvent;
     use FOS\CommentBundle\Model\CommentManagerInterface;
 
@@ -61,16 +61,13 @@ Here is a little exemple.
         */
         public function onCommentPersist(CommentEvent $event)
         {
-		
             /* @var $comment \FOS\CommentBundle\Model\CommentInterface */
             $comment = $event->getComment();
-		
+	    
             /* do whatever you want in here */
-		
+	    
             /* you can access doctrine easily : */
-            $post = $this->doctrine->getEntityManager()->getRepository('MyProjectNewsBundle:Post')->find($postId);
-		
-		
+            $post = $this->doctrine->getManager()->getRepository('MyProjectNewsBundle:Post')->find($postId);
         }
     }
 
