@@ -158,13 +158,15 @@ abstract class CommentManager implements CommentManagerInterface
         $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
 
         if ($event->isPersistenceAborted()) {
-            return;
+            return false;
         }
 
         $this->doSaveComment($comment);
 
         $event = new CommentEvent($comment);
         $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
+
+        return true;
     }
 
     /**
