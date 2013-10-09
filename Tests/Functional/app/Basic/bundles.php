@@ -23,7 +23,5 @@ return array(
 
     new JMS\SerializerBundle\JMSSerializerBundle($this),
 
-    new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-
     new FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\CommentBundle(),
 );
