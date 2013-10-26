@@ -40,6 +40,20 @@ framework:
     http_method_override: true
 ```
 
+### D) Enable translations
+
+If you wish to use default texts provided in this bundle, you have to make
+sure you have translator enabled in your config.
+
+``` yaml
+# app/config/config.yml
+
+framework:
+    translator: ~
+```
+
+For more information about translations, check [Symfony documentation](http://symfony.com/doc/current/book/translation.html).
+
 ### Continue to the next step!
 When you're done. Continue by creating the appropriate Comment and Thread classes:
 [Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).
