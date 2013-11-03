@@ -45,7 +45,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($this->repository));
 
-        $this->classMetadata = new \StdClass();
+        $this->classMetadata = new \stdClass();
         $this->classMetadata->name = $this->class;
 
         $this->em->expects($this->once())

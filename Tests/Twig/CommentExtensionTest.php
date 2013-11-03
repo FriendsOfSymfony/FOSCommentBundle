@@ -34,7 +34,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testIsntVotable()
     {
-        $this->assertFalse($this->extension->isVotable(new \StdClass()));
+        $this->assertFalse($this->extension->isVotable(new \stdClass()));
     }
 
     public function testIsVotable()
