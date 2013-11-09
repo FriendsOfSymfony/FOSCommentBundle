@@ -353,7 +353,7 @@
                 var reply_button_holder = form.closest('.fos_comment_comment_reply');
 
                 var comment_element = form.closest('.fos_comment_comment_show')
-                    .children('.fos_comment_comment_replies');
+                    .find('.fos_comment_comment_replies');
 
                 reply_button_holder.removeClass('fos_comment_replying');
 
