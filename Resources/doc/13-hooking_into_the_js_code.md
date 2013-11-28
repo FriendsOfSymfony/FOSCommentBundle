@@ -11,6 +11,11 @@ Triggered before getting the comments of a thread and placing them in the thread
 
 - identifier: unique identifier url for the thread comments
 
+### fos_comment_load_thread( identifier )
+
+Triggered after placing retrieved comments in the thread holder.
+
+- identifier: unique identifier url for the thread comments
 
 ### fos_comment_new_comment( data )
 
