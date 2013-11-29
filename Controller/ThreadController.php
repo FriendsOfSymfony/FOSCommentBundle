@@ -237,7 +237,7 @@ class ThreadController extends Controller
         }
 
         $ancestors = $comment->getAncestors();
-        if ($ancestors != null) {
+        if (count($ancestors) > 0) {
             $parent = $this->getValidCommentParent($thread, $ancestors[count($ancestors) - 1]);
         }
 
