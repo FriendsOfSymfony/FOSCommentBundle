@@ -375,8 +375,8 @@
         },
 
         editComment: function(commentHtml) {
-            commentHtml = $($.trim(commentHtml));
-            var originalCommentBody = $('#' + commentHtml.find('.fos_comment_comment_show').attr('id')).find('.fos_comment_comment_body');
+            var newComment = $($.trim(commentHtml));
+            var originalCommentBody = $('#' + newComment.find('.fos_comment_comment_show').attr('id')).find('.fos_comment_comment_body');
 
             originalCommentBody.html(commentHtml.find('.fos_comment_comment_body').html());
         },
