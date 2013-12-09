@@ -376,9 +376,10 @@
 
         editComment: function(commentHtml) {
             var newComment = $($.trim(commentHtml));
-            var originalCommentBody = $('#' + newComment.find('.fos_comment_comment_show').attr('id')).find('.fos_comment_comment_body');
+            var id = newComment.hasClass('fos_comment_comment_show') ? newComment.attr('id') : newComment.find('.fos_comment_comment_show').attr('id');
+            var originalCommentBody = $('#' + id).find('.fos_comment_comment_body');
 
-            originalCommentBody.html(commentHtml.find('.fos_comment_comment_body').html());
+            originalCommentBody.html(newComment.find('.fos_comment_comment_body').html());
         },
 
         cancelEditComment: function(commentBody) {
