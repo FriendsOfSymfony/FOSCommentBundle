@@ -18,7 +18,7 @@ use FOS\CommentBundle\Model\Thread as AbstractThread;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class Thread extends AbstractThread
+abstract class Thread extends AbstractThread
 {
 
 }
