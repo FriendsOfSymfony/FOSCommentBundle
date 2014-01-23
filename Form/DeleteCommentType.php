@@ -35,6 +35,9 @@ class DeleteCommentType extends AbstractType
         $builder->add('state', 'hidden');
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -43,6 +46,9 @@ class DeleteCommentType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return "fos_comment_delete_comment";
