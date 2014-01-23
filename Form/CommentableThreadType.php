@@ -35,6 +35,9 @@ class CommentableThreadType extends AbstractType
         $builder->add('isCommentable', 'hidden', array('property_path' => 'commentable'));
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -43,6 +46,9 @@ class CommentableThreadType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return "fos_comment_commentable_thread";
