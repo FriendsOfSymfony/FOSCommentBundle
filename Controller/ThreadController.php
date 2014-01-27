@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -471,6 +472,10 @@ class ThreadController extends Controller
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
+        }
+        
+        if (!$thread->isCommentable()) {
+            throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
         }
 
         $parent = $this->getValidCommentParent($thread, $request->query->get('parentId'));
