@@ -10,7 +10,7 @@ You will also need to configure a rawBody field in your database to store the pa
 use FOS\CommentBundle\Model\RawCommentInterface;
 
 class Comment extends BaseComment implements RawCommentInterface
-
+{
     /**
      * @ORM\Column(name="rawBody", type="text", nullable=true)
      * @var string
@@ -18,6 +18,7 @@ class Comment extends BaseComment implements RawCommentInterface
     protected $rawBody;
     
     ... also add getter and setter as defined in the RawCommentInterface ...
+}
 ```
 
 When a comment is added, it is parsed and setRawBody() is called with the raw version 
@@ -29,7 +30,7 @@ in raw html to be displayed on the page.
 
 To set up your own custom markup parser, you are required to define a service
 that implements the above interface, and to tell FOSCommentBundle about it,
-adjust the configuration accordingly
+adjust the configuration accordingly.
 
 ``` yaml
 # app/config/config.yml
