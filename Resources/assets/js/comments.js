@@ -537,6 +537,15 @@
 
     FOS_COMMENT.initializeListeners();
 
+    // scroll
+    if (window.location.hash.search('#fos_comment_') === 0) {
+        $("#fos_comment_thread").on("fos_comment_load_thread", function () {
+            $('html, body').animate({
+                scrollTop: $(window.location.hash).offset().top
+            }, 1000);
+        });
+    }
+
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;
 })(window, window.jQuery, window.easyXDM);
