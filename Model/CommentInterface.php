@@ -49,7 +49,7 @@ interface CommentInterface
     public function setBody($body);
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getCreatedAt();
 
