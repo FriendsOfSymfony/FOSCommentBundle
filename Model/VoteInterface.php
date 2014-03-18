@@ -44,7 +44,7 @@ interface VoteInterface
     public function getValue();
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getCreatedAt();
 
