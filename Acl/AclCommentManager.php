@@ -179,7 +179,8 @@ class AclCommentManager implements CommentManagerInterface
      * Iterates over a comment tree array and makes sure all comments
      * have appropriate view permissions.
      *
-     * @param  array   $comments A comment tree
+     * @param array $comments A comment tree
+     *
      * @return boolean
      */
     protected function authorizeViewCommentTree(array $comments)

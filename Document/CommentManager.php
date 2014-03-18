@@ -43,10 +43,10 @@ class CommentManager extends BaseCommentManager
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \FOS\CommentBundle\Sorting\SortingFactory                   $factory
-     * @param \Doctrine\ODM\MongoDB\DocumentManager                       $dm
-     * @param string                                                      $class
+     * @param EventDispatcherInterface $dispatcher
+     * @param SortingFactory           $factory
+     * @param DocumentManager          $dm
+     * @param string                   $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, $class)
     {
@@ -60,11 +60,7 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Returns a flat array of comments of a specific thread.
-     *
-     * @param  ThreadInterface $thread
-     * @param  integer         $depth
-     * @return array           of ThreadInterface
+     * {@inheritdoc}
      */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
     {
@@ -93,11 +89,7 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Returns the requested comment tree branch
-     *
-     * @param  integer $commentId
-     * @param  string  $sorter
-     * @return array   See findCommentsByThread
+     * {@inheritdoc}
      */
     public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
@@ -121,9 +113,7 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Adds a comment
-     *
-     * @param CommentInterface $comment
+     * {@inheritdoc}
      */
     protected function doSaveComment(CommentInterface $comment)
     {
@@ -133,17 +123,15 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Find one comment by its ID
-     *
-     * @return Comment or null
-     **/
+     * {@inheritdoc}
+     */
     public function findCommentById($id)
     {
         return $this->repository->find($id);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isNewComment(CommentInterface $comment)
     {
@@ -151,10 +139,8 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Returns the fully qualified comment thread class name
-     *
-     * @return string
-     **/
+     * {@inheritdoc}
+     */
     public function getClass()
     {
         return $this->class;
