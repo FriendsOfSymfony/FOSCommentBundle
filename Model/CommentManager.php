@@ -33,15 +33,15 @@ abstract class CommentManager implements CommentManagerInterface
     protected $sortingFactory;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \FOS\CommentBundle\Sorting\SortingFactory                   $factory
+     * @param EventDispatcherInterface $dispatcher A dispatcher instance.
+     * @param SortingFactory           $factory    A factory instance.
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
@@ -50,9 +50,7 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
-     * Returns an empty comment instance
-     *
-     * @return Comment
+     * {@inheritdoc}
      */
     public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
@@ -71,30 +69,8 @@ abstract class CommentManager implements CommentManagerInterface
         return $comment;
     }
 
-    /*
-     * Returns all thread comments in a nested array
-     * Will typically be used when it comes to display the comments.
-     *
-     * @param  ThreadInterface $thread
-     * @param  string          $sorter
-     * @param  integer         $depth
-     * @return array(
-     *     0 => array(
-     *         'comment' => CommentInterface,
-     *         'children' => array(
-     *             0 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             ),
-     *             1 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             )
-     *         )
-     *     ),
-     *     1 => array(
-     *         ...
-     *     )
+    /**
+     * {@inheritdoc}
      */
     public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
     {
@@ -105,15 +81,16 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
-     * Organises a flat array of comments into a Tree structure. For
-     * organising comment branches of a Tree, certain parents which
-     * have not been fetched should be passed in as an array to
-     * $ignoreParents.
+     * Organises a flat array of comments into a Tree structure.
      *
-     * @param  array       $comments      An array of comments to organise
-     * @param  string|null $sorter        The sorter to use for sorting the tree
-     * @param  array|null  $ignoreParents An array of parents to ignore
-     * @return array       A tree of comments
+     * For organising comment branches of a Tree, certain parents which
+     * have not been fetched should be passed in as an array to $ignoreParents.
+     *
+     * @param CommentInterface[]      $comments      An array of comments to organise
+     * @param SortingInterface        $sorter        The sorter to use for sorting the tree
+     * @param CommentInterface[]|null $ignoreParents An array of parents to ignore
+     *
+     * @return array A tree of comments
      */
     protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null)
     {
@@ -141,12 +118,7 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
-     * Saves a comment to the persistence backend used. Each backend
-     * must implement the abstract doSaveComment method which will
-     * perform the saving of the comment to the backend.
-     *
-     * @param  CommentInterface         $comment
-     * @throws InvalidArgumentException when the comment does not have a thread.
+     * {@inheritdoc}
      */
     public function saveComment(CommentInterface $comment)
     {
@@ -172,7 +144,6 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * Performs the persistence of a comment.
      *
-     * @abstract
      * @param CommentInterface $comment
      */
     abstract protected function doSaveComment(CommentInterface $comment);

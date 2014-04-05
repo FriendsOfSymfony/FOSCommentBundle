@@ -12,8 +12,9 @@
 namespace FOS\CommentBundle\Model;
 
 /**
- * Interface to be implemented by comment managers. This adds an additional level
- * of abstraction between your application, and the actual repository.
+ * Interface to be implemented by comment managers.
+ *
+ * This adds an additional level of abstraction between your application, and the actual repository.
  *
  * All changes to comments should happen through this interface.
  *
@@ -23,28 +24,31 @@ namespace FOS\CommentBundle\Model;
 interface CommentManagerInterface
 {
     /**
-     * Returns a flat array of comments with the specified thread.
+     * Returns a flat array of comments from the specified thread.
      *
      * The sorter parameter should be left alone if you are sorting in the
      * tree methods.
      *
-     * @param  ThreadInterface $thread
-     * @param  integer         $depth
-     * @param  string          $sorterAlias
-     * @return array           of CommentInterface
+     * @param ThreadInterface $thread
+     * @param integer|null    $depth
+     * @param string|null     $sorterAlias
+     *
+     * @return CommentInterface[] An array of commentInterfaces
      */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null);
 
-    /*
-     * Returns all thread comments in a nested array
+    /**
+     * Returns all thread comments in a nested array.
+     *
      * Will typically be used when it comes to display the comments.
      *
      * Will query for an additional level of depth when provided
      * so templates can determine to display a 'load more comments' link.
      *
-     * @param  ThreadInterface $thread
-     * @param  string          $sorter The sorter to use
-     * @param  integer         $depth
+     * @param ThreadInterface $thread      The thread for whom we want to find comments for.
+     * @param string|null     $sorterAlias Optional name of the sorter to use.
+     * @param integer|null    $depth       The depth
+     *
      * @return array(
      *     0 => array(
      *         'comment' => CommentInterface,
@@ -63,49 +67,55 @@ interface CommentManagerInterface
      *         ...
      *     )
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null);
+    public function findCommentTreeByThread(ThreadInterface $thread, $sorterAlias = null, $depth = null);
 
     /**
      * Returns a partial comment tree based on a specific parent commentId.
      *
-     * @param  integer $commentId
-     * @param  string  $sorter    The sorter to use
-     * @return array   see findCommentTreeByThread()
+     * @param mixed       $commentId   The unique comment identifier
+     * @param string|null $sorterAlias Name of the optional sorter
+     *
+     * @return array See findCommentTreeByThread()
      */
-    public function findCommentTreeByCommentId($commentId, $sorter = null);
+    public function findCommentTreeByCommentId($commentId, $sorterAlias = null);
 
     /**
-     * Saves a comment.
+     * Saves a comment to the persistence backend used.
      *
      * @param CommentInterface $comment
      */
     public function saveComment(CommentInterface $comment);
 
     /**
-     * Find one comment by its ID.
+     * Finds a comment by it's unique id.
      *
-     * @return Comment or null
+     * @param mixed $id The unique comment identifier.
+     *
+     * @return CommentInterface|null The comment or null when no comment found
      */
     public function findCommentById($id);
 
     /**
-     * Creates an empty comment instance.
+     * Creates a new comment object.
      *
-     * @return Comment
+     * @param ThreadInterface       $thread A thread instance
+     * @param CommentInterface|null $parent The parent comment or null if no parent comment
+     *
+     * @return CommentInterface The created comment.
      */
-    public function createComment(ThreadInterface $thread, CommentInterface $comment = null);
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null);
 
     /**
      * Checks if the comment was already persisted before, or if it's a new one.
      *
      * @param CommentInterface $comment
      *
-     * @return boolean True, if it's a new comment
+     * @return boolean true if it's a new comment, false otherwise
      */
     public function isNewComment(CommentInterface $comment);
 
     /**
-     * Returns the comment fully qualified class name.
+     * Returns the fully qualified comment class name
      *
      * @return string
      */
