@@ -1,0 +1,31 @@
+fos_comment_comment_new_headline_first:       Коментирай първи
+fos_comment_comment_new_headline:             Добави нов коментар
+fos_comment_comment_new_submit:               Изпрати
+fos_comment_comment_new_cancel:               Отмени
+
+fos_comment_comment_edit_submit:              Отговори
+fos_comment_comment_edit_cancel:              Отмени
+
+fos_comment_comment_reply_reply_to:           Отговори на %name%
+fos_comment_comment_reply_cancel:             Отмени
+
+fos_comment_comment_show_by:                  'Автор:'
+fos_comment_comment_show_voteup:              Гласувай ЗА
+fos_comment_comment_show_votedown:            Гласувай ПРОТИВ
+fos_comment_comment_show_reply:               Отговори
+
+fos_comment_comment_vote_score:               "Вот: "
+
+fos_comment_comment_tree_load_more:           Покажи останалите отговори
+
+Showing %num% comment|Showing %num% comments: Показани %num% коментара|Показан %num% коментара|Показано %num% коментара
+
+fos_comment_rss_feed:                         Лента RSS
+
+fos_comment_thread_close:                     Затвори
+fos_comment_thread_open:                      Отвори
+fos_comment_thread_comment_count:             %count% коментар|%count% коментара|%count% коментара
+fos_comment_comment_delete:                   Изтрий коментара
+fos_comment_comment_undelete:                 Възстанови коментара
+fos_comment_comment_edit:                     Редактирай коментара
+fos_comment_comment_deleted:                  "[изтрито]"
