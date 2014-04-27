@@ -48,7 +48,8 @@
         "doctrine/orm": "~2.3",
         "doctrine/doctrine-bundle": "~1.1",
         "friendsofsymfony/user-bundle": "~1.1",
-        "ornicar/akismet-bundle": "dev-master"
+        "ornicar/akismet-bundle": "dev-master",
+        "symfony/expression-language": "~2.4"
     },
     "extra": {
         "branch-alias": {
