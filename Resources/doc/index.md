@@ -23,6 +23,7 @@ The following steps are optional and the order doesn't matter:
 - [Running the test suite](11-running_the_test_suite.md)
 - [Enable voting](12-enable_voting.md)
 - [Hooking into the JS code](13-hooking_into_the_js_code.md)
+- [Customizing tree sorting](14-customizing_tree_sorting.md)
 
 **Any problem?** Check our [FAQ](99-faq.md).
 
