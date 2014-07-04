@@ -13,7 +13,7 @@ namespace FOS\CommentBundle\Model;
 
 use DateTime;
 
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Context\LegacyExecutionContext as ExecutionContext;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
