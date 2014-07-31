@@ -802,6 +802,7 @@ class ThreadController extends Controller
             ->setData(array(
                 'form' => $form,
                 'id' => $id,
+                'commentId' => $form->getData()->getId(),
                 'value' => $form->getData()->getState(),
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_remove'));
