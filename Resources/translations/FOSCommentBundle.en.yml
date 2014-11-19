@@ -29,3 +29,4 @@ fos_comment_comment_edit:                     Edit
 fos_comment_comment_delete:                   Delete comment
 fos_comment_comment_undelete:                 Undelete comment
 fos_comment_comment_deleted:                  "[deleted]"
+fos_comment_permission_denied:                You must be logged in to comment.

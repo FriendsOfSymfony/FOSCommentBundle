@@ -193,6 +193,8 @@ class ThreadController extends Controller
      */
     public function newThreadCommentsAction(Request $request, $id)
     {
+        $redirectUri = $request->query->get('redirectUri', false);
+
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
@@ -207,11 +209,12 @@ class ThreadController extends Controller
 
         $view = View::create()
             ->setData(array(
-                'form' => $form->createView(),
-                'first' => 0 === $thread->getNumComments(),
-                'thread' => $thread,
-                'parent' => $parent,
-                'id' => $id,
+                'form'        => $form->createView(),
+                'first'       => 0 === $thread->getNumComments(),
+                'thread'      => $thread,
+                'parent'      => $parent,
+                'id'          => $id,
+                'redirectUri' => $redirectUri
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'comment_new'));
 
@@ -396,6 +399,26 @@ class ThreadController extends Controller
             $thread = $this->container->get('fos_comment.manager.thread')
                 ->createThread();
             $thread->setId($id);
+            $thread->setPermalink($permalink);
+
+            // Validate the entity
+            $validator = $this->get('validator');
+            $errors = $validator->validate($thread, 'NewThread');
+            if (count($errors) > 0) {
+                $view = View::create()
+                    ->setStatusCode(Codes::HTTP_BAD_REQUEST)
+                    ->setData(array('errors' => $errors))
+                    ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'errors'));
+
+                return $this->getViewHandler()->handle($view);
+            }
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+        }
+
+        if ($thread->getPermaLink() === '') {
+            $permalink = urldecode($request->query->get('permalink'));
             $thread->setPermalink($permalink);
 
             // Validate the entity
