@@ -416,6 +416,26 @@ class ThreadController extends Controller
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
         }
 
+        if ($thread->getPermaLink() == '') {
+            $permalink = urldecode($request->query->get('permalink'));
+            $thread->setPermalink($permalink);
+
+            // Validate the entity
+            $validator = $this->get('validator');
+            $errors = $validator->validate($thread, 'NewThread');
+            if (count($errors) > 0) {
+                $view = View::create()
+                    ->setStatusCode(Codes::HTTP_BAD_REQUEST)
+                    ->setData(array('errors' => $errors))
+                    ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'errors'));
+
+                return $this->getViewHandler()->handle($view);
+            }
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+        }
+
         $viewMode = $request->query->get('view', 'tree');
         switch ($viewMode) {
             case self::VIEW_FLAT:
