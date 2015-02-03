@@ -79,7 +79,7 @@ interface CommentInterface
     public function getState();
 
     /**
-     * @param integer state
+     * @param integer $state
      */
     public function setState($state);
 

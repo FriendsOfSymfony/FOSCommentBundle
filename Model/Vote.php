@@ -44,6 +44,9 @@ abstract class Vote implements VoteInterface
      */
     protected $value;
 
+    /**
+     * @param VotableCommentInterface $comment
+     */
     public function __construct(VotableCommentInterface $comment = null)
     {
         $this->comment = $comment;
@@ -96,6 +99,9 @@ abstract class Vote implements VoteInterface
         }
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return 'Vote #'.$this->getId();
