@@ -13,7 +13,7 @@ namespace FOS\CommentBundle\Model;
 
 use DateTime;
 
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
@@ -90,12 +90,12 @@ abstract class Vote implements VoteInterface
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid(ExecutionContext $context)
+    public function isVoteValid(ExecutionContextInterface $context)
     {
         if (!$this->checkValue($this->value)) {
             $message = 'A vote cannot have a 0 value';
             $propertyPath = $context->getPropertyPath() . '.value';
-            $context->addViolationAtPath($propertyPath, $message);
+            $context->addViolationAt($propertyPath, $message);
         }
     }
 
