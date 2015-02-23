@@ -14,7 +14,7 @@ namespace FOS\CommentBundle\EventListener;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 /**
  * Blames a comment using Symfony2 security component
@@ -34,7 +34,7 @@ class ClosedThreadListener implements EventSubscriberInterface
         $thread = $comment->getThread();
 
         if (!$thread->isCommentable()) {
-            throw new AccessDeniedHttpException('Cannot add comment to a closed thread');
+            throw new PreconditionFailedHttpException('Cannot add comment to a closed thread');
         }
     }
 
