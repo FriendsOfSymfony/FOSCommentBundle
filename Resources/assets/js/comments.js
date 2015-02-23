@@ -353,7 +353,7 @@
                 var reply_button_holder = form.closest('.fos_comment_comment_reply');
 
                 var comment_element = form.closest('.fos_comment_comment_show')
-                    .children('.fos_comment_comment_replies');
+                    .find('.fos_comment_comment_replies');
 
                 reply_button_holder.removeClass('fos_comment_replying');
 
@@ -375,10 +375,11 @@
         },
 
         editComment: function(commentHtml) {
-            var commentHtml = $($.trim(commentHtml));
-            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.fos_comment_comment_body');
+            var newComment = $($.trim(commentHtml));
+            var id = newComment.hasClass('fos_comment_comment_show') ? newComment.attr('id') : newComment.find('.fos_comment_comment_show').attr('id');
+            var originalCommentBody = $('#' + id).find('.fos_comment_comment_body');
 
-            originalCommentBody.html(commentHtml.children('.fos_comment_comment_body').html());
+            originalCommentBody.html(newComment.find('.fos_comment_comment_body').html());
         },
 
         cancelEditComment: function(commentBody) {
