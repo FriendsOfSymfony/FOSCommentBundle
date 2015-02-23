@@ -59,7 +59,6 @@ class AcmeOrderSorting implements SortingInterface
     {
         //Implement sorting strategy
     }
-
 }
 ```
 
