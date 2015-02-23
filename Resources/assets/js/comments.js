@@ -286,7 +286,7 @@
                     $(this).trigger(event);
 
                     if (event.isDefaultPrevented()) {
-                        return
+                        return;
                     }
 
                     // Get the form
