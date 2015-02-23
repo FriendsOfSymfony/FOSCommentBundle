@@ -7,15 +7,15 @@ To configure ascending sorting by date:
 # app/config/config.yml
 fos_comment:
     service:
-      sorting:
-        default: date_asc
+        sorting:
+            default: date_asc
 ```
 
 
 If you wish to sort comment threads in a custom way which is not provided by FOSCommentBundle you may
 do so by creating a custom sorting service by implementing the SortingInterface and declaring it as a service.
 
-For Example:
+For example:
 
 ``` php
 <?php
@@ -44,8 +44,9 @@ class AcmeOrderSorting implements SortingInterface
      * @param  array $tree
      * @return Tree
      */
-    public function sort(array $tree){
-      //Implement sorting strategy
+    public function sort(array $tree)
+    {
+        //Implement sorting strategy
     }
 
     /**
@@ -54,8 +55,9 @@ class AcmeOrderSorting implements SortingInterface
      * @param  array $comments
      * @return array
      */
-    public function sortFlat(array $comments){
-      //Implement sorting strategy
+    public function sortFlat(array $comments)
+    {
+        //Implement sorting strategy
     }
 
 }
@@ -66,8 +68,8 @@ Then declare the sorter as a service and configure CommentBundle to use it
 
 ``` yaml
 services:
-  acme_comment.sorter.my_sort:
-    class: Acme\CommentBundle\Sorting\AcmeOrderSorting
-    tags:
+    acme_comment.sorter.my_sort:
+        class: Acme\CommentBundle\Sorting\AcmeOrderSorting
+        tags:
             - { name: acme_comment.sorter, alias: my_sort }
 ```
