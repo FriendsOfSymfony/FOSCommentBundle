@@ -36,6 +36,9 @@ class ThreadType extends AbstractType
         $builder->add('permalink', 'textarea');
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -44,6 +47,9 @@ class ThreadType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return "fos_comment_thread";

@@ -35,6 +35,9 @@ class VoteType extends AbstractType
         $builder->add('value', 'textarea');
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -43,6 +46,9 @@ class VoteType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return "fos_comment_vote";
