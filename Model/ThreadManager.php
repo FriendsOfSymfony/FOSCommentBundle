@@ -23,8 +23,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 abstract class ThreadManager implements ThreadManagerInterface
 {
+    /**
+     * @var EventDispatcherInterface
+     */
     protected $dispatcher;
 
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
@@ -41,6 +47,8 @@ abstract class ThreadManager implements ThreadManagerInterface
 
     /**
      * Creates an empty comment thread instance
+     *
+     * @param bool $id
      *
      * @return Thread
      */

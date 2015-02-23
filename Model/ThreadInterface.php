@@ -11,7 +11,9 @@
 
 namespace FOS\CommentBundle\Model;
 
-/*
+use DateTime;
+
+/**
  * Binds a comment tree to anything, using a unique, arbitrary id
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>

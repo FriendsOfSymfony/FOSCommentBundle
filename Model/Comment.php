@@ -132,6 +132,9 @@ abstract class Comment implements CommentInterface
         $this->createdAt = $createdAt;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return 'Comment #'.$this->getId();
@@ -147,11 +150,17 @@ abstract class Comment implements CommentInterface
         return $this->depth;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return $this->parent;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setParent(CommentInterface $parent)
     {
         $this->parent = $parent;

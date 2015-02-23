@@ -67,6 +67,9 @@ abstract class VoteManager implements VoteManagerInterface
         return $vote;
     }
 
+    /**
+     * @param VoteInterface $vote
+     */
     public function saveVote(VoteInterface $vote)
     {
         if (null === $vote->getComment()) {
