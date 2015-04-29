@@ -11,9 +11,7 @@ matrix:
         - php: nightly
     fast_finish: true
 
-before_script:
-  - curl --silent http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction --prefer-source
+install: composer install
 
 script: phpunit --coverage-text --colors
 
