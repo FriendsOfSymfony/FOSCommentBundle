@@ -1,0 +1,31 @@
+fos_comment_comment_new_headline_first:       Szólj hozzá te előszőr!
+fos_comment_comment_new_headline:             Új hozzászólás
+fos_comment_comment_new_submit:               Elküld
+fos_comment_comment_new_cancel:               Mégsem
+
+fos_comment_comment_edit_submit:              Mentés
+fos_comment_comment_edit_cancel:              Mégsem
+
+fos_comment_comment_reply_reply_to:           Válasz %name% hozzászólására
+fos_comment_comment_reply_cancel:             Mégsem
+
+fos_comment_comment_show_by:                  "Szerző:"
+fos_comment_comment_show_voteup:              "+"
+fos_comment_comment_show_votedown:            "-"
+fos_comment_comment_show_reply:               Válasz erre
+
+fos_comment_comment_vote_score:               "Pont: "
+
+fos_comment_comment_tree_load_more:           Még több hozzászólás
+
+Showing %num% comment|Showing %num% comments: %num% hozzászólás mutatása|%num% hozzászólás mutatása
+
+fos_comment_rss_feed:                         RSS
+
+fos_comment_thread_close:                     Szál lezárása
+fos_comment_thread_open:                      Szál megnyitása
+fos_comment_thread_comment_count:             %count% hozzászólás|%count% hozzászólás
+fos_comment_comment_edit:                     Módosít
+fos_comment_comment_delete:                   Hozzászólás törlése
+fos_comment_comment_undelete:                 Hozzászólás törlésének visszavonása
+fos_comment_comment_deleted:                  "[törölt]"
