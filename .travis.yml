@@ -1,10 +1,15 @@
 language: php
 
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
+matrix:
+    include:
+        - php: 5.3
+        - php: 5.4
+        - php: 5.5
+        - php: 5.6
+        - php: nightly
+    allow_failures:
+        - php: nightly
+    fast_finish: true
 
 before_script:
   - curl --silent http://getcomposer.org/installer | php
