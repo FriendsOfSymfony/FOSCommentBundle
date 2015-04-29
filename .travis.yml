@@ -11,7 +11,7 @@ matrix:
         - php: nightly
     fast_finish: true
 
-install: composer install
+install: composer install --no-interaction --prefer-source
 
 script: phpunit --coverage-text --colors
 
