@@ -95,7 +95,15 @@ abstract class Vote implements VoteInterface
         if (!$this->checkValue($this->value)) {
             $message = 'A vote cannot have a 0 value';
             $propertyPath = $context->getPropertyPath() . '.value';
-            $context->addViolationAt($propertyPath, $message);
+
+            if ($context instanceof \Symfony\Component\Validator\Context\ExecutionContextInterface) {
+                // Validator 2.5 API
+                $context->buildViolation($message)
+                    ->atPath($propertyPath)
+                    ->addViolation();
+            } else {
+                $context->addViolationAt($propertyPath, $message);
+            }
         }
     }
 
