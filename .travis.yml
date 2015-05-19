@@ -19,5 +19,4 @@ script: phpunit --coverage-text --colors
 
 notifications:
   email:
-    - friendsofsymfony-dev@googlegroups.com
     - tim+build@nagel.com.au
