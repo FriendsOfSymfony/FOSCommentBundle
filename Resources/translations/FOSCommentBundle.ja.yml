@@ -1,0 +1,31 @@
+fos_comment_comment_new_headline_first:       最初のコメントを投稿する
+fos_comment_comment_new_headline:             コメント追加
+fos_comment_comment_new_submit:               投稿
+fos_comment_comment_new_cancel:               キャンセル
+
+fos_comment_comment_edit_submit:              投稿
+fos_comment_comment_edit_cancel:              キャンセル
+
+fos_comment_comment_reply_reply_to:           %name% に返信
+fos_comment_comment_reply_cancel:             キャンセル
+
+fos_comment_comment_show_by:                  By
+fos_comment_comment_show_voteup:              Vote up
+fos_comment_comment_show_votedown:            Vote down
+fos_comment_comment_show_reply:               返信
+
+fos_comment_comment_vote_score:               "スコア: "
+
+fos_comment_comment_tree_load_more:           返信をもっと表示する
+
+Showing %num% comment|Showing %num% comments: %num% 件のコメント|%num% 件のコメント
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     スレッドを閉じる
+fos_comment_thread_open:                      スレッドを開く
+fos_comment_thread_comment_count:             %count% コメント|%count% コメント
+fos_comment_comment_edit:                     編集
+fos_comment_comment_delete:                   コメント削除
+fos_comment_comment_undelete:                 コメント削除取消
+fos_comment_comment_deleted:                  "[削除済]"
