@@ -1,8 +1,6 @@
 FOSCommentBundle
 =============
 
-> This bundle does not currently have an active maintainer. https://github.com/FriendsOfSymfony/FOSCommentBundle/issues/442
-
 The FOSCommentBundle adds support for a comment system in Symfony2. Features include:
 
 - Manages trees of comments
