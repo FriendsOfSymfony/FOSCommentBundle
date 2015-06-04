@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\CommentInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -22,11 +23,9 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class RoleCommentAcl implements CommentAclInterface
 {
     /**
-     * The current Security Context.
-     *
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    private $securityContext;
+    private $authorizationChecker;
 
     /**
      * The FQCN of the Comment object.
@@ -66,14 +65,14 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
-     * @param string                   $createRole
-     * @param string                   $viewRole
-     * @param string                   $editRole
-     * @param string                   $deleteRole
-     * @param string                   $commentClass
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param string                                                 $createRole
+     * @param string                                                 $viewRole
+     * @param string                                                 $editRole
+     * @param string                                                 $deleteRole
+     * @param string                                                 $commentClass
      */
-    public function __construct(SecurityContextInterface $securityContext,
+    public function __construct($authorizationChecker,
                                 $createRole,
                                 $viewRole,
                                 $editRole,
@@ -81,12 +80,16 @@ class RoleCommentAcl implements CommentAclInterface
                                 $commentClass
     )
     {
-        $this->securityContext   = $securityContext;
-        $this->createRole        = $createRole;
-        $this->viewRole          = $viewRole;
-        $this->editRole          = $editRole;
-        $this->deleteRole        = $deleteRole;
-        $this->commentClass      = $commentClass;
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->createRole           = $createRole;
+        $this->viewRole             = $viewRole;
+        $this->editRole             = $editRole;
+        $this->deleteRole           = $deleteRole;
+        $this->commentClass         = $commentClass;
     }
 
     /**
@@ -96,7 +99,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canCreate()
     {
-        return $this->securityContext->isGranted($this->createRole);
+        return $this->authorizationChecker->isGranted($this->createRole);
     }
 
     /**
@@ -107,7 +110,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canView(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted($this->viewRole);
+        return $this->authorizationChecker->isGranted($this->viewRole);
     }
 
     /**
@@ -133,7 +136,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canEdit(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted($this->editRole);
+        return $this->authorizationChecker->isGranted($this->editRole);
     }
 
     /**
@@ -144,7 +147,7 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function canDelete(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted($this->deleteRole);
+        return $this->authorizationChecker->isGranted($this->deleteRole);
     }
 
     /**

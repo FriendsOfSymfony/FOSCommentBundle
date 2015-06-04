@@ -21,6 +21,7 @@ use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -45,11 +46,9 @@ class SecurityCommentAcl implements CommentAclInterface
     protected $aclProvider;
 
     /**
-     * The current Security Context.
-     *
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    protected $authorizationChecker;
 
     /**
      * The FQCN of the Comment object.
@@ -68,22 +67,26 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface                 $securityContext
-     * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
-     * @param MutableAclProviderInterface              $aclProvider
-     * @param string                                   $commentClass
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param ObjectIdentityRetrievalStrategyInterface               $objectRetrieval
+     * @param MutableAclProviderInterface                            $aclProvider
+     * @param string                                                 $commentClass
      */
-    public function __construct(SecurityContextInterface $securityContext,
+    public function __construct($authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $commentClass
     )
     {
-        $this->objectRetrieval   = $objectRetrieval;
-        $this->aclProvider       = $aclProvider;
-        $this->securityContext   = $securityContext;
-        $this->commentClass      = $commentClass;
-        $this->oid               = new ObjectIdentity('class', $this->commentClass);
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->objectRetrieval      = $objectRetrieval;
+        $this->aclProvider          = $aclProvider;
+        $this->commentClass         = $commentClass;
+        $this->oid                  = new ObjectIdentity('class', $this->commentClass);
     }
 
     /**
@@ -93,7 +96,7 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function canCreate()
     {
-        return $this->securityContext->isGranted('CREATE', $this->oid);
+        return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
 
     /**
@@ -104,7 +107,7 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function canView(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted('VIEW', $comment);
+        return $this->authorizationChecker->isGranted('VIEW', $comment);
     }
 
     /**
@@ -130,7 +133,7 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function canEdit(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted('EDIT', $comment);
+        return $this->authorizationChecker->isGranted('EDIT', $comment);
     }
 
     /**
@@ -141,7 +144,7 @@ class SecurityCommentAcl implements CommentAclInterface
      */
     public function canDelete(CommentInterface $comment)
     {
-        return $this->securityContext->isGranted('DELETE', $comment);
+        return $this->authorizationChecker->isGranted('DELETE', $comment);
     }
 
     /**

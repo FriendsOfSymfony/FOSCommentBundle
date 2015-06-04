@@ -16,6 +16,8 @@ use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -26,9 +28,14 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class CommentBlamerListener implements EventSubscriberInterface
 {
     /**
-     * @var SecurityContext
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    private $authorizationChecker;
+
+    /**
+     * @var TokenStorageInterface|SecurityContextInterface
+     */
+    private $tokenStorage;
 
     /**
      * @var LoggerInterface
@@ -38,32 +45,33 @@ class CommentBlamerListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
-     * @param LoggerInterface          $logger
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param SecurityContextInterface|SecurityContextInterface      $tokenStorage
+     * @param LoggerInterface                                        $logger
      */
-    public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
+    public function __construct($authorizationChecker, $tokenStorage, LoggerInterface $logger = null)
     {
-        $this->securityContext = $securityContext;
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 2 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
         $this->logger = $logger;
     }
 
     /**
      * Assigns the currently logged in user to a Comment.
      *
-     * @param  \FOS\CommentBundle\Event\CommentEvent $event
-     * @return void
+     * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
     public function blame(CommentEvent $event)
     {
         $comment = $event->getComment();
-
-        if (null === $this->securityContext) {
-            if ($this->logger) {
-                $this->logger->debug("Comment Blamer did not receive the security.context service.");
-            }
-
-            return;
-        }
 
         if (!$comment instanceof SignedCommentInterface) {
             if ($this->logger) {
@@ -73,7 +81,7 @@ class CommentBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if (null === $this->securityContext->getToken()) {
+        if (null === $this->tokenStorage->getToken()) {
             if ($this->logger) {
                 $this->logger->debug("There is no firewall configured. We cant get a user.");
             }
@@ -81,8 +89,8 @@ class CommentBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if (null === $comment->getAuthor() && $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $comment->setAuthor($this->securityContext->getToken()->getUser());
+        if (null === $comment->getAuthor() && $this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $comment->setAuthor($this->tokenStorage->getToken()->getUser());
         }
     }
 

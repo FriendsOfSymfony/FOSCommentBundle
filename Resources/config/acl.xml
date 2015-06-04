@@ -21,28 +21,28 @@
 
     <services>
         <service id="fos_comment.acl.thread.security" class="FOS\CommentBundle\Acl\SecurityThreadAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
 
         <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
 
         <service id="fos_comment.acl.vote.security" class="FOS\CommentBundle\Acl\SecurityVoteAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.vote.class%</argument>
         </service>
 
         <service id="fos_comment.acl.thread.roles" class="FOS\CommentBundle\Acl\RoleThreadAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
             <argument /> <!-- Edit role -->
@@ -51,7 +51,7 @@
         </service>
 
         <service id="fos_comment.acl.comment.roles" class="FOS\CommentBundle\Acl\RoleCommentAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
             <argument /> <!-- Edit role -->
@@ -60,7 +60,7 @@
         </service>
 
         <service id="fos_comment.acl.vote.roles" class="FOS\CommentBundle\Acl\RoleVoteAcl" public="false">
-            <argument type="service" id="security.context" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
             <argument /> <!-- Edit role -->

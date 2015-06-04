@@ -20,11 +20,11 @@ use FOS\CommentBundle\Acl\RoleCommentAcl;
  */
 class RoleCommentAclTest extends AbstractRoleAcl
 {
-    public function setup()
+    public function setUp()
     {
         parent::setUp();
 
-        $this->roleAcl = new RoleCommentAcl($this->securityContext,
+        $this->roleAcl = new RoleCommentAcl($this->authorizationChecker,
             $this->createRole,
             $this->viewRole,
             $this->editRole,

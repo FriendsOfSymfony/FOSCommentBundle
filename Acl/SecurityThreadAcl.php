@@ -19,6 +19,7 @@ use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -43,11 +44,9 @@ class SecurityThreadAcl implements ThreadAclInterface
     protected $aclProvider;
 
     /**
-     * The current Security Context.
-     *
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    protected $authorizationChecker;
 
     /**
      * The FQCN of the Thread object.
@@ -66,22 +65,26 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface        $securityContext
-     * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param MutableAclProviderInterface     $aclProvider
-     * @param string                          $threadClass
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param ObjectIdentityRetrievalStrategyInterface               $objectRetrieval
+     * @param MutableAclProviderInterface                            $aclProvider
+     * @param string                                                 $threadClass
      */
-    public function __construct(SecurityContextInterface $securityContext,
+    public function __construct($authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $threadClass
     )
     {
-        $this->objectRetrieval   = $objectRetrieval;
-        $this->aclProvider       = $aclProvider;
-        $this->securityContext   = $securityContext;
-        $this->threadClass       = $threadClass;
-        $this->oid               = new ObjectIdentity('class', $this->threadClass);
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->objectRetrieval      = $objectRetrieval;
+        $this->aclProvider          = $aclProvider;
+        $this->threadClass          = $threadClass;
+        $this->oid                  = new ObjectIdentity('class', $this->threadClass);
     }
 
     /**
@@ -91,7 +94,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function canCreate()
     {
-        return $this->securityContext->isGranted('CREATE', $this->oid);
+        return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
 
     /**
@@ -102,7 +105,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function canView(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted('VIEW', $thread);
+        return $this->authorizationChecker->isGranted('VIEW', $thread);
     }
 
     /**
@@ -113,7 +116,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function canEdit(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted('EDIT', $thread);
+        return $this->authorizationChecker->isGranted('EDIT', $thread);
     }
 
     /**
@@ -124,7 +127,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      */
     public function canDelete(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted('DELETE', $thread);
+        return $this->authorizationChecker->isGranted('DELETE', $thread);
     }
 
     /**

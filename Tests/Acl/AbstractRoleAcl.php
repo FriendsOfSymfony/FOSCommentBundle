@@ -18,7 +18,7 @@ namespace FOS\CommentBundle\Tests\Acl;
  */
 abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
 {
-    protected $securityContext;
+    protected $authorizationChecker;
     protected $roleAcl;
     protected $passObject;
 
@@ -27,9 +27,13 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
     protected $editRole = 'ROLE_EDIT';
     protected $deleteRole = 'ROLE_DELETE';
 
-    public function setup()
+    public function setUp()
     {
-        $this->securityContext = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
+        if (interface_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')) {
+            $this->authorizationChecker = $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        } else {
+            $this->authorizationChecker = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
+        }
     }
 
     public function getRoles()
@@ -47,7 +51,7 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
      */
     public function testRoles($role)
     {
-        $this->securityContext->expects($this->any())
+        $this->authorizationChecker->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValue(true));
 
@@ -60,7 +64,7 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
      */
     public function testRolesFailure($role)
     {
-        $this->securityContext->expects($this->any())
+        $this->authorizationChecker->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValue(false));
 

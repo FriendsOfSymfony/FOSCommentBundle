@@ -21,6 +21,7 @@ use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -45,11 +46,9 @@ class SecurityVoteAcl implements VoteAclInterface
     protected $aclProvider;
 
     /**
-     * The current Security Context.
-     *
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    protected $securityContext;
+    protected $authorizationChecker;
 
     /**
      * The FQCN of the Vote object.
@@ -68,22 +67,26 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface        $securityContext
-     * @param ObjectIdentityRetrievalStrategy $objectRetrieval
-     * @param MutableAclProviderInterface     $aclProvider
-     * @param string                          $voteClass
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param ObjectIdentityRetrievalStrategyInterface               $objectRetrieval
+     * @param MutableAclProviderInterface                            $aclProvider
+     * @param string                                                 $voteClass
      */
-    public function __construct(SecurityContextInterface $securityContext,
+    public function __construct($authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $voteClass
     )
     {
-        $this->objectRetrieval   = $objectRetrieval;
-        $this->aclProvider       = $aclProvider;
-        $this->securityContext   = $securityContext;
-        $this->voteClass         = $voteClass;
-        $this->oid               = new ObjectIdentity('class', $this->voteClass);
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->objectRetrieval      = $objectRetrieval;
+        $this->aclProvider          = $aclProvider;
+        $this->voteClass            = $voteClass;
+        $this->oid                  = new ObjectIdentity('class', $this->voteClass);
     }
 
     /**
@@ -93,7 +96,7 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function canCreate()
     {
-        return $this->securityContext->isGranted('CREATE', $this->oid);
+        return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
 
     /**
@@ -104,7 +107,7 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function canView(VoteInterface $vote)
     {
-        return $this->securityContext->isGranted('VIEW', $vote);
+        return $this->authorizationChecker->isGranted('VIEW', $vote);
     }
 
     /**
@@ -115,7 +118,7 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function canEdit(VoteInterface $vote)
     {
-        return $this->securityContext->isGranted('EDIT', $vote);
+        return $this->authorizationChecker->isGranted('EDIT', $vote);
     }
 
     /**
@@ -126,7 +129,7 @@ class SecurityVoteAcl implements VoteAclInterface
      */
     public function canDelete(VoteInterface $vote)
     {
-        return $this->securityContext->isGranted('DELETE', $vote);
+        return $this->authorizationChecker->isGranted('DELETE', $vote);
     }
 
     /**
