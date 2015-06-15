@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\ThreadInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -22,11 +23,9 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class RoleThreadAcl implements ThreadAclInterface
 {
     /**
-     * The current Security Context.
-     *
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
-    private $securityContext;
+    private $authorizationChecker;
 
     /**
      * The FQCN of the Thread object.
@@ -66,27 +65,31 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
-     * @param string                   $createRole
-     * @param string                   $viewRole
-     * @param string                   $editRole
-     * @param string                   $deleteRole
-     * @param string                   $threadClass
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param string                                                 $createRole
+     * @param string                                                 $viewRole
+     * @param string                                                 $editRole
+     * @param string                                                 $deleteRole
+     * @param string                                                 $threadClass
      */
-    public function __construct(SecurityContextInterface $securityContext,
-        $createRole,
-        $viewRole,
-        $editRole,
-        $deleteRole,
-        $threadClass
+    public function __construct($authorizationChecker,
+                                $createRole,
+                                $viewRole,
+                                $editRole,
+                                $deleteRole,
+                                $threadClass
     )
     {
-        $this->securityContext   = $securityContext;
-        $this->createRole        = $createRole;
-        $this->viewRole          = $viewRole;
-        $this->editRole          = $editRole;
-        $this->deleteRole        = $deleteRole;
-        $this->threadClass       = $threadClass;
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->createRole           = $createRole;
+        $this->viewRole             = $viewRole;
+        $this->editRole             = $editRole;
+        $this->deleteRole           = $deleteRole;
+        $this->threadClass          = $threadClass;
     }
 
     /**
@@ -96,7 +99,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canCreate()
     {
-        return $this->securityContext->isGranted($this->createRole);
+        return $this->authorizationChecker->isGranted($this->createRole);
     }
 
     /**
@@ -107,7 +110,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canView(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted($this->viewRole);
+        return $this->authorizationChecker->isGranted($this->viewRole);
     }
 
     /**
@@ -118,7 +121,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canEdit(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted($this->editRole);
+        return $this->authorizationChecker->isGranted($this->editRole);
     }
 
     /**
@@ -129,7 +132,7 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function canDelete(ThreadInterface $thread)
     {
-        return $this->securityContext->isGranted($this->deleteRole);
+        return $this->authorizationChecker->isGranted($this->deleteRole);
     }
 
     /**

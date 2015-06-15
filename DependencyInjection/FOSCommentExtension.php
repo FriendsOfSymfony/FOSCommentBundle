@@ -15,6 +15,8 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -53,6 +55,19 @@ class FOSCommentExtension extends Extension
         if (array_key_exists('acl', $config)) {
             $this->loadAcl($container, $config);
         }
+
+        $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
+        $def->setPublic(false);
+
+        if (method_exists($def, 'setFactory')) {
+            $def->setFactory(array(new Reference('doctrine'), 'getManager'));
+        } else {
+            // To be removed when dependency on Symfony DependencyInjection is bumped to 2.6
+            $def->setFactoryService('doctrine');
+            $def->setFactoryMethod('getManager');
+        }
+
+        $container->setDefinition('fos_comment.entity_manager', $def);
 
         $container->setParameter('fos_comment.template.engine', $config['template']['engine']);
 

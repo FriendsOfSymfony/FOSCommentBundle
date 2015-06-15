@@ -16,6 +16,8 @@ use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -25,10 +27,17 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class VoteBlamerListener implements EventSubscriberInterface
 {
-    /**
-     * @var SecurityContextInterface
-     */
     protected $securityContext;
+
+    /**
+     * @var AuthorizationCheckerInterface|SecurityContextInterface
+     */
+    private $authorizationChecker;
+
+    /**
+     * @var TokenStorageInterface|SecurityContextInterface
+     */
+    private $tokenStorage;
 
     /**
      * @var LoggerInterface
@@ -38,32 +47,33 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param SecurityContextInterface $securityContext
-     * @param LoggerInterface          $logger
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param SecurityContextInterface|SecurityContextInterface      $tokenStorage
+     * @param LoggerInterface                                        $logger
      */
-    public function __construct(SecurityContextInterface $securityContext = null, LoggerInterface $logger = null)
+    public function __construct($authorizationChecker, $tokenStorage, LoggerInterface $logger = null)
     {
-        $this->securityContext = $securityContext;
+        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
+            throw new \InvalidArgumentException('Argument 2 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
+        }
+
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
         $this->logger = $logger;
     }
 
     /**
      * Assigns the Security token's user to the vote.
      *
-     * @param  VoteEvent $vote
-     * @return void
+     * @param VoteEvent $vote
      */
     public function blame(VoteEvent $event)
     {
         $vote = $event->getVote();
-
-        if (null === $this->securityContext) {
-            if ($this->logger) {
-                $this->logger->debug("Vote Blamer did not receive the security.context service.");
-            }
-
-            return;
-        }
 
         if (!$vote instanceof SignedVoteInterface) {
             if ($this->logger) {
@@ -73,7 +83,7 @@ class VoteBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if (null === $this->securityContext->getToken()) {
+        if (null === $this->tokenStorage->getToken()) {
             if ($this->logger) {
                 $this->logger->debug("There is no firewall configured. We cant get a user.");
             }
@@ -81,8 +91,8 @@ class VoteBlamerListener implements EventSubscriberInterface
             return;
         }
 
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $vote->setVoter($this->securityContext->getToken()->getUser());
+        if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $vote->setVoter($this->tokenStorage->getToken()->getUser());
         }
     }
 

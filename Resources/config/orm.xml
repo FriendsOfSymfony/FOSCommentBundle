@@ -24,10 +24,6 @@
     </parameters>
 
     <services>
-        <service id="fos_comment.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
-            <argument>%fos_comment.model_manager_name%</argument>
-        </service>
-
         <service id="fos_comment.manager.thread.default" class="%fos_comment.manager.thread.default.class%">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.entity_manager" />

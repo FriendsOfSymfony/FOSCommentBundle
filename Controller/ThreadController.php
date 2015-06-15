@@ -104,10 +104,9 @@ class ThreadController extends Controller
         $thread = $threadManager->createThread();
         $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
         $form->setData($thread);
+        $form->handleRequest($request);
 
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
-
+        if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 if (null !== $threadManager->findThreadById($thread->getId())) {
                     $this->onCreateThreadErrorDuplicate($form);
@@ -126,7 +125,7 @@ class ThreadController extends Controller
     /**
      * Get the edit form the open/close a thread.
      *
-     * @param Request $request Currenty request
+     * @param Request $request Current request
      * @param mixed   $id      Thread id
      *
      * @return View
@@ -140,7 +139,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("Thread with id '%s' could not be found.", $id));
         }
 
-        $thread->setCommentable($this->getRequest()->query->get('value', 1));
+        $thread->setCommentable($request->query->get('value', 1));
 
         $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
         $form->setData($thread);
@@ -171,10 +170,9 @@ class ThreadController extends Controller
 
         $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
         $form->setData($thread);
+        $form->handleRequest($request);
 
         if ('PATCH' === $request->getMethod()) {
-            $form->bind($request);
-
             if ($form->isValid()) {
                 $manager->saveThread($thread);
 
@@ -188,11 +186,12 @@ class ThreadController extends Controller
     /**
      * Presents the form to use to create a new Comment for a Thread.
      *
-     * @param string $id
+     * @param Request $request
+     * @param string  $id
      *
      * @return View
      */
-    public function newThreadCommentsAction($id)
+    public function newThreadCommentsAction(Request $request, $id)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         if (!$thread) {
@@ -201,7 +200,7 @@ class ThreadController extends Controller
 
         $comment = $this->container->get('fos_comment.manager.comment')->createComment($thread);
 
-        $parent = $this->getValidCommentParent($thread, $this->getRequest()->query->get('parentId'));
+        $parent = $this->getValidCommentParent($thread, $request->query->get('parentId'));
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
@@ -300,8 +299,7 @@ class ThreadController extends Controller
 
         $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm();
         $form->setData($comment);
-
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             if ($manager->saveComment($comment) !== false) {
@@ -364,7 +362,7 @@ class ThreadController extends Controller
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             if ($commentManager->saveComment($comment) !== false) {
@@ -473,7 +471,7 @@ class ThreadController extends Controller
         if (!$thread) {
             throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
         }
-        
+
         if (!$thread->isCommentable()) {
             throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
         }
@@ -484,7 +482,7 @@ class ThreadController extends Controller
 
         $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
         $form->setData($comment);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             if ($commentManager->saveComment($comment) !== false) {
@@ -524,12 +522,13 @@ class ThreadController extends Controller
     /**
      * Presents the form to use to create a new Vote for a Comment.
      *
-     * @param string $id        Id of the thread
-     * @param mixed  $commentId Id of the comment
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
      *
      * @return View
      */
-    public function newThreadCommentVotesAction($id, $commentId)
+    public function newThreadCommentVotesAction(Request $request, $id, $commentId)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
@@ -539,7 +538,7 @@ class ThreadController extends Controller
         }
 
         $vote = $this->container->get('fos_comment.manager.vote')->createVote($comment);
-        $vote->setValue($this->getRequest()->query->get('value', 1));
+        $vote->setValue($request->query->get('value', 1));
 
         $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
         $form->setData($vote);
@@ -558,12 +557,13 @@ class ThreadController extends Controller
     /**
      * Creates a new Vote for the Comment from the submitted data.
      *
-     * @param string $id        Id of the thread
-     * @param mixed  $commentId Id of the comment
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
      *
      * @return View
      */
-    public function postThreadCommentVotesAction($id, $commentId)
+    public function postThreadCommentVotesAction(Request $request, $id, $commentId)
     {
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
         $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
@@ -577,8 +577,7 @@ class ThreadController extends Controller
 
         $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
         $form->setData($vote);
-
-        $form->bind($this->container->get('request'));
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $voteManager->saveVote($vote);

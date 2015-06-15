@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ThreadType extends AbstractType
@@ -38,7 +39,11 @@ class ThreadType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => $this->threadClass,
         ));

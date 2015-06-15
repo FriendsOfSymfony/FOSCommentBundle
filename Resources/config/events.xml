@@ -38,13 +38,15 @@
         </service>
 
         <service id="fos_comment.listener.comment_blamer" class="%fos_comment.listener.comment_blamer.class%">
-            <argument type="service" id="security.context" on-invalid="null" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
+            <argument /> <!-- TokenStorageInterface|SecurityContextInterface -->
             <argument type="service" id="logger" on-invalid="null" />
             <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="fos_comment.listener.vote_blamer" class="%fos_comment.listener.vote_blamer.class%">
-            <argument type="service" id="security.context" on-invalid="null" />
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
+            <argument /> <!-- TokenStorageInterface|SecurityContextInterface -->
             <argument type="service" id="logger" on-invalid="null" />
             <tag name="kernel.event_subscriber" />
         </service>

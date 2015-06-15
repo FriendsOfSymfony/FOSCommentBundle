@@ -20,11 +20,11 @@ use FOS\CommentBundle\Acl\RoleThreadAcl;
  */
 class RoleThreadAclTest extends AbstractRoleAcl
 {
-    public function setup()
+    public function setUp()
     {
-        parent::setup();
+        parent::setUp();
 
-        $this->roleAcl = new RoleThreadAcl($this->securityContext,
+        $this->roleAcl = new RoleThreadAcl($this->authorizationChecker,
             $this->createRole,
             $this->viewRole,
             $this->editRole,

@@ -14,7 +14,7 @@
 
 {% if depth == 0 %}
     {% if fos_comment_can_comment_thread(thread) %}
-        {% render url("fos_comment_new_thread_comments", {"id": thread.id}) %}
+        {{ render(url('fos_comment_new_thread_comments', {"id": thread.id})) }}
     {% endif %}
 
     {% if fos_comment_can_edit_thread(thread) %}
