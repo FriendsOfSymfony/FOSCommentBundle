@@ -27,8 +27,6 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class VoteBlamerListener implements EventSubscriberInterface
 {
-    protected $securityContext;
-
     /**
      * @var AuthorizationCheckerInterface|SecurityContextInterface
      */
