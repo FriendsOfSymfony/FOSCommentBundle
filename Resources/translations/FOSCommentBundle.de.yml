@@ -26,6 +26,6 @@ fos_comment_thread_close:                     Thread schließen
 fos_comment_thread_open:                      Thread öffnen
 fos_comment_thread_comment_count:             %count% Kommentar|%count% Kommentare
 fos_comment_comment_edit:                     Bearbeiten
-fos_comment_comment_delete:                   Kommentar bearbeiten
+fos_comment_comment_delete:                   Kommentar löschen
 fos_comment_comment_undelete:                 Löschen rückgängig machen
 fos_comment_comment_deleted:                  "[gelöscht]"
