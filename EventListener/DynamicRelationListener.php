@@ -102,20 +102,15 @@ class DynamicRelationListener implements EventSubscriber
     {
         $om = $args->getObjectManager();
         $object = $args->getObject();
+        if(!is_object($object)) return;
 
         $reflectionClass = new \ReflectionClass($object);
-
-        if (!$reflectionClass) {
-            return;
-        }
         $properties = $this->getCommentableProperties($reflectionClass);
+        if (empty($properties)) return;
 
-        if (empty($properties)) {
-            return;
-        }
 
         foreach ($properties as $property) {
-            $commentThreadGetter = "get". ucfirst($property['property']);
+            $commentThreadGetter = 'get'. ucfirst($property['property']);
             $commentThread = $object->$commentThreadGetter();
 
             if (!empty($commentThread)) {
@@ -125,12 +120,12 @@ class DynamicRelationListener implements EventSubscriber
             $threadClass = $this->threadClass;
             $commentThread = new $threadClass();
 
-            $entityIdentifierMethod = "get" . ucfirst($property['config']->identifierProperty);
+            $entityIdentifierMethod = 'get' . ucfirst($property['config']->identifierProperty);
 
             $commentThread->setId($object->$entityIdentifierMethod());
             $commentThread->setPermaLink('');
 
-            $commentThreadSetter = "set". ucfirst($property['property']);
+            $commentThreadSetter = 'set'. ucfirst($property['property']);
             $object->$commentThreadSetter($commentThread);
 
             $om->persist($object);
@@ -138,10 +133,10 @@ class DynamicRelationListener implements EventSubscriber
         $om->flush();
     }
 
-    private function getCommentableProperties(\ReflectionClass $reflectionProperties)
+    private function getCommentableProperties(\ReflectionClass $reflectedObj)
     {
         // get all properties with their reflections
-        $properties = $reflectionProperties->getProperties();
+        $properties = $reflectedObj->getProperties();
 
         $commentableProperties = array();
 
