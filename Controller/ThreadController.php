@@ -106,17 +106,15 @@ class ThreadController extends Controller
         $form->setData($thread);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                if (null !== $threadManager->findThreadById($thread->getId())) {
-                    $this->onCreateThreadErrorDuplicate($form);
-                }
-
-                // Add the thread
-                $threadManager->saveThread($thread);
-
-                return $this->getViewHandler()->handle($this->onCreateThreadSuccess($form));
+        if ($form->isValid()) {
+            if (null !== $threadManager->findThreadById($thread->getId())) {
+                $this->onCreateThreadErrorDuplicate($form);
             }
+
+            // Add the thread
+            $threadManager->saveThread($thread);
+
+            return $this->getViewHandler()->handle($this->onCreateThreadSuccess($form));
         }
 
         return $this->getViewHandler()->handle($this->onCreateThreadError($form));
@@ -172,12 +170,10 @@ class ThreadController extends Controller
         $form->setData($thread);
         $form->handleRequest($request);
 
-        if ('PATCH' === $request->getMethod()) {
-            if ($form->isValid()) {
-                $manager->saveThread($thread);
+        if ($form->isValid()) {
+            $manager->saveThread($thread);
 
-                return $this->getViewHandler()->handle($this->onOpenThreadSuccess($form));
-            }
+            return $this->getViewHandler()->handle($this->onOpenThreadSuccess($form));
         }
 
         return $this->getViewHandler()->handle($this->onOpenThreadError($form));
