@@ -11,19 +11,28 @@
 
 namespace FOS\CommentBundle\Annotation;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
 class Commentable
 {
-	/**
-	 * @var $fetch Enum
-	 */
-    public $fetch = 'EAGER';
 
-    /**
-     * @var $identifierProperty string
-     */
-    public $identifierProperty = 'entityIdentifier';
+	private $defaults =  array(
+		                    'targetEntity' => NULL,
+		                    'fieldName' => NULL,
+		                    'cascade' => array('persist'),
+		                    'fetch' => ClassMetadataInfo::FETCH_LAZY,
+		                    'joinColumn' => array(
+						    	'name' => 'comment_thread_id',
+						        'referencedColumnName' => 'id'
+		                    )
+						);
+	public $value;
+
+	public function __construct(array $data){
+		$this->value = array_merge($this->defaults, $data);
+	}
 }

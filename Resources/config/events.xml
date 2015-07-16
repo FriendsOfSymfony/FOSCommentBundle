@@ -55,11 +55,5 @@
         <service id="fos_comment.listener.closed_threads" class="%fos_comment.listener.closed_threads.class%">
             <tag name="kernel.event_subscriber" />
         </service>
-
-        <service id="fos_comment.listener.dynamic_relations" class="%fos_comment.listener.dynamic_relations.class%">
-            <argument /> <!-- %fos_comment.model.thread.class% (value is dependent on whether using ORM or ODM) -->
-            <argument type="service" id="annotation_reader" />
-            <tag name="doctrine.event_subscriber" />
-        </service>
     </services>
 </container>
