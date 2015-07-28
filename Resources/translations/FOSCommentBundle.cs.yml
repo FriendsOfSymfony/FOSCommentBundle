@@ -1,0 +1,31 @@
+fos_comment_comment_new_headline_first:       Přidej komentář jako první
+fos_comment_comment_new_headline:             Přidat nový komentář
+fos_comment_comment_new_submit:               Odeslat
+fos_comment_comment_new_cancel:               Zrušit
+
+fos_comment_comment_edit_submit:              Odeslat
+fos_comment_comment_edit_cancel:              Zrušit
+
+fos_comment_comment_reply_reply_to:           Odpovědět %name%
+fos_comment_comment_reply_cancel:             Zrušit
+
+fos_comment_comment_show_by:                  Od
+fos_comment_comment_show_voteup:              Libí se
+fos_comment_comment_show_votedown:            Nelíbí se
+fos_comment_comment_show_reply:               Odpovědět
+
+fos_comment_comment_vote_score:               "Hodnocení: "
+
+fos_comment_comment_tree_load_more:           Zobrazit více komentářů
+
+Showing %num% comment|Showing %num% comments: Zobrazuji %num% komentář|Zobrazuji %num% komentáře|Zobrazuji %num% komentářů
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Uzavřít vlákno
+fos_comment_thread_open:                      Otevřít vlákno
+fos_comment_thread_comment_count:             %count% komentář|%count% komentáře|%count% komentářů
+fos_comment_comment_edit:                     Upravit
+fos_comment_comment_delete:                   Smazat komentář
+fos_comment_comment_undelete:                 Obnovit komentář
+fos_comment_comment_deleted:                  "[smazáno]"
