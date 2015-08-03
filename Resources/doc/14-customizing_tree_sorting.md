@@ -70,5 +70,5 @@ services:
     acme_comment.sorter.my_sort:
         class: Acme\CommentBundle\Sorting\AcmeOrderSorting
         tags:
-            - { name: acme_comment.sorter, alias: my_sort }
+            - { name: fos_comment.sorter, alias: my_sort }
 ```
