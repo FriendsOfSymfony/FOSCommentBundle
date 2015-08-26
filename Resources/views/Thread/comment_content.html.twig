@@ -70,7 +70,7 @@
     </div>
 
     {% block fos_comment_comment_children %}
-        {% if view is not sameas('flat') %}
+        {% if view is not same as('flat') %}
             {% if fos_comment_can_comment(comment) %}
                 <div class="fos_comment_comment_reply">
                     {% block fos_comment_comment_reply %}
@@ -86,7 +86,7 @@
                 {% endif %}
 
             </div>
-        {% elseif view is sameas('flat') and children is defined %}
+        {% elseif view is same as('flat') and children is defined %}
             {% include "FOSCommentBundle:Thread:comments.html.twig" with { "comments": children, "depth": depth + 1, "parent": comment, "view": view } %}
         {% endif %}
     {% endblock fos_comment_comment_children %}
