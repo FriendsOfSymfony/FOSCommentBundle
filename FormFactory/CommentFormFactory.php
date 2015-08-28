@@ -52,13 +52,11 @@ class CommentFormFactory implements CommentFormFactoryInterface
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return FormInterface
+     * {@inheritdoc}
      */
-    public function createForm()
+    public function createForm($data = null, $options = array())
     {
-        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type);
+        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, $data, $options);
 
         return $builder->getForm();
     }

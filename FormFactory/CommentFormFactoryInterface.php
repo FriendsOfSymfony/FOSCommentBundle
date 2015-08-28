@@ -23,7 +23,10 @@ interface CommentFormFactoryInterface
     /**
      * Creates a comment form
      *
+     * @param mixed $method
+     * @param array $options
+     *
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm($data = null, $options = array());
 }
