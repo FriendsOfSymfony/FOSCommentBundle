@@ -813,7 +813,7 @@ class ThreadController extends Controller
      *
      * @return CommentInterface|null The comment.
      */
-    private function getValidCommentParent(ThreadInterface $thread, $commentId)
+    protected function getValidCommentParent(ThreadInterface $thread, $commentId)
     {
         if (null !== $commentId) {
             $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
@@ -832,7 +832,7 @@ class ThreadController extends Controller
     /**
      * @return \FOS\RestBundle\View\ViewHandler
      */
-    private function getViewHandler()
+    protected function getViewHandler()
     {
         return $this->container->get('fos_rest.view_handler');
     }
