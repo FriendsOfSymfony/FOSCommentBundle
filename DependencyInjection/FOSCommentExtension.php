@@ -42,10 +42,25 @@ class FOSCommentExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array(strtolower($config['db_driver']), array('mongodb', 'orm'))) {
+        if (!in_array(strtolower($config['db_driver']), array('custom', 'mongodb', 'orm'))) {
             throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
-        $loader->load(sprintf('%s.xml', $config['db_driver']));
+
+        if ('custom' !== $config['db_driver']) {
+            $loader->load(sprintf('%s.xml', $config['db_driver']));
+            $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
+            $def->setPublic(false);
+
+            if (method_exists($def, 'setFactory')) {
+                $def->setFactory(array(new Reference('doctrine'), 'getManager'));
+            } else {
+                // To be removed when dependency on Symfony DependencyInjection is bumped to 2.6
+                $def->setFactoryService('doctrine');
+                $def->setFactoryMethod('getManager');
+            }
+
+            $container->setDefinition('fos_comment.entity_manager', $def);
+        }
 
         foreach (array('events', 'form', 'twig', 'sorting') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
@@ -55,19 +70,6 @@ class FOSCommentExtension extends Extension
         if (array_key_exists('acl', $config)) {
             $this->loadAcl($container, $config);
         }
-
-        $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
-        $def->setPublic(false);
-
-        if (method_exists($def, 'setFactory')) {
-            $def->setFactory(array(new Reference('doctrine'), 'getManager'));
-        } else {
-            // To be removed when dependency on Symfony DependencyInjection is bumped to 2.6
-            $def->setFactoryService('doctrine');
-            $def->setFactoryMethod('getManager');
-        }
-
-        $container->setDefinition('fos_comment.entity_manager', $def);
 
         $container->setParameter('fos_comment.template.engine', $config['template']['engine']);
 
