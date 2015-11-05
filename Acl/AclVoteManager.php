@@ -62,7 +62,7 @@ class AclVoteManager implements VoteManagerInterface
     {
         $vote = $this->realManager->findVoteById($id);
 
-        if (!$this->voteAcl->canView($vote)) {
+        if ($vote && !$this->voteAcl->canView($vote)) {
             throw new AccessDeniedException();
         }
 
@@ -76,7 +76,7 @@ class AclVoteManager implements VoteManagerInterface
     {
         $vote = $this->realManager->findVoteBy($criteria);
 
-        if (!$this->voteAcl->canView($vote)) {
+        if ($vote && !$this->voteAcl->canView($vote)) {
             throw new AccessDeniedException();
         }
 
