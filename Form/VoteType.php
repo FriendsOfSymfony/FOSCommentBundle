@@ -48,8 +48,13 @@ class VoteType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_vote';
+    }
+
     public function getName()
     {
-        return "fos_comment_vote";
+        return $this->getBlockPrefix();
     }
 }
