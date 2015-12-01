@@ -48,8 +48,13 @@ class CommentableThreadType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_commentable_thread';
+    }
+
     public function getName()
     {
-        return "fos_comment_commentable_thread";
+        return $this->getBlockPrefix();
     }
 }

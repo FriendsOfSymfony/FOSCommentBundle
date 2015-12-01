@@ -48,8 +48,13 @@ class DeleteCommentType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_delete_comment';
+    }
+
     public function getName()
     {
-        return "fos_comment_delete_comment";
+        return $this->getBlockPrefix();
     }
 }

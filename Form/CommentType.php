@@ -48,8 +48,13 @@ class CommentType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_comment';
+    }
+
     public function getName()
     {
-        return "fos_comment_comment";
+        return $this->getBlockPrefix();
     }
 }

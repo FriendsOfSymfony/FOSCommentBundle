@@ -49,8 +49,13 @@ class ThreadType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_thread';
+    }
+
     public function getName()
     {
-        return "fos_comment_thread";
+        return $this->getBlockPrefix();
     }
 }
