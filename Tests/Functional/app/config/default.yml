@@ -32,7 +32,8 @@ security:
                     user: { password: user, roles: [ROLE_USER] }
 
     encoders:
-        "Symfony\Component\Security\Core\User\User": plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
 
     firewalls:
         main:

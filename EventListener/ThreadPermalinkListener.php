@@ -45,12 +45,19 @@ class ThreadPermalinkListener implements EventSubscriberInterface
      */
     public function onThreadCreate(ThreadEvent $event)
     {
-        if (!$this->container->isScopeActive('request')) {
+        $request = null;
+        if ($this->container->has('request_stack')) {
+            $request = $this->container->get('request_stack')->getCurrentRequest();
+        } elseif (method_exists($this->container, 'isScopeActive') && $this->container->isScopeActive('request')) {
+            $request = $this->container->get('request');
+        }
+
+        if (null === $request) {
             return;
         }
 
         $thread = $event->getThread();
-        $thread->setPermalink($this->container->get('request')->getUri());
+        $thread->setPermalink($request->getUri());
     }
 
     public static function getSubscribedEvents()
