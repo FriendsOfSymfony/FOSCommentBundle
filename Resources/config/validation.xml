@@ -28,7 +28,7 @@
     </class>
 
     <class name="FOS\CommentBundle\Model\Vote">
-        <constraint name="Callback">
+        <constraint name="FOS\CommentBundle\Constraints\LegacyCallbackHelper">
             <option name="methods">
                 <value>isVoteValid</value>
             </option>

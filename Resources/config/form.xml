@@ -27,7 +27,7 @@
 
         <service id="fos_comment.form_type.commentable_thread.default" class="FOS\CommentBundle\Form\CommentableThreadType">
             <argument>%fos_comment.model.thread.class%</argument>
-            <tag name="form.type" alias="fos_comment_commentable_thread" />
+            <tag name="form.type" alias="fos_comment_commentable_thread" extended-type="FOS\CommentBundle\Form\CommentableThreadType" />
         </service>
 
         <service id="fos_comment.form_factory.commentable_thread.default" class="FOS\CommentBundle\FormFactory\CommentableThreadFormFactory" public="false">
@@ -38,7 +38,7 @@
 
         <service id="fos_comment.form_type.delete_comment.default" class="FOS\CommentBundle\Form\DeleteCommentType">
             <argument>%fos_comment.model.comment.class%</argument>
-            <tag name="form.type" alias="fos_comment_delete_comment" />
+            <tag name="form.type" alias="fos_comment_delete_comment" extended-type="FOS\CommentBundle\Form\DeleteCommentType" />
         </service>
 
         <service id="fos_comment.form_factory.delete_comment.default" class="FOS\CommentBundle\FormFactory\DeleteCommentFormFactory" public="false">
@@ -49,7 +49,7 @@
 
         <service id="fos_comment.form_type.thread.default" class="FOS\CommentBundle\Form\ThreadType">
             <argument>%fos_comment.model.thread.class%</argument>
-            <tag name="form.type" alias="fos_comment_thread" />
+            <tag name="form.type" alias="fos_comment_thread" extended-type="FOS\CommentBundle\Form\ThreadType" />
         </service>
 
         <service id="fos_comment.form_factory.thread.default" class="FOS\CommentBundle\FormFactory\ThreadFormFactory" public="false">
@@ -60,7 +60,7 @@
 
         <service id="fos_comment.form_type.vote.default" class="FOS\CommentBundle\Form\VoteType">
             <argument>%fos_comment.model.vote.class%</argument>
-            <tag name="form.type" alias="fos_comment_vote" />
+            <tag name="form.type" alias="fos_comment_vote" extended-type="FOS\CommentBundle\Form\VoteType" />
         </service>
 
         <service id="fos_comment.form_factory.vote.default" class="FOS\CommentBundle\FormFactory\VoteFormFactory" public="false">

@@ -90,7 +90,7 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
         $event = new CommentEvent($comment);
 
-        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())->method('debug')->with('Comment does not implement SignedCommentInterface, skipping');
 
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);
@@ -102,7 +102,7 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getSignedComment();
         $event = new CommentEvent($comment);
 
-        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())->method('debug')->with('There is no firewall configured. We cant get a user.');
 
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);

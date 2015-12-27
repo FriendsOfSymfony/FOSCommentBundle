@@ -27,7 +27,9 @@ class VoteBlamerListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testNonSignedVoteIsNotBlamed()
     {
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $vote->expects($this->never())->method('setVoter');
         $event = new VoteEvent($vote);
         $this->tokenStorage->expects($this->never())->method('getToken');
@@ -73,10 +75,12 @@ class VoteBlamerListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoggerIsCalledForNonSignedVote()
     {
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $event = new VoteEvent($vote);
 
-        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())->method('debug')->with('Vote does not implement SignedVoteInterface, skipping');
 
         $listener = new VoteBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);
@@ -88,7 +92,7 @@ class VoteBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $vote = $this->getSignedVote();
         $event = new VoteEvent($vote);
 
-        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())->method('debug')->with('There is no firewall configured. We cant get a user.');
 
         $listener = new VoteBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);
@@ -97,6 +101,7 @@ class VoteBlamerListenerTest extends \PHPUnit_Framework_TestCase
 
     protected function getSignedVote()
     {
-        return $this->getMock('FOS\CommentBundle\Model\SignedVoteInterface');
+        // return $this->getMock('FOS\CommentBundle\Model\SignedVoteInterface');
+        return $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractSignedVote');
     }
 }

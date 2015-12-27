@@ -63,7 +63,9 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddVote()
     {
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $vote->expects($this->any())
             ->method('getComment')
             ->will($this->returnValue($this->getMock('FOS\CommentBundle\Model\VotableCommentInterface')));
@@ -80,7 +82,9 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindVoteBy()
     {
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $criteria = array('id' => 123);
 
         $this->repository->expects($this->once())
@@ -97,7 +101,9 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteById()
     {
         $id = 123;
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
 
         $this->repository->expects($this->once())
             ->method('findOneBy')

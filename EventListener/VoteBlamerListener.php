@@ -15,7 +15,7 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;

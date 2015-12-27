@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Tests\Functional;
 
+// get the autoload file
 $dir = __DIR__;
 $lastDir = null;
 while ($dir !== $lastDir) {
@@ -23,6 +24,11 @@ while ($dir !== $lastDir) {
 
     if (file_exists($dir.'/autoload.php.dist')) {
         require_once $dir.'/autoload.php.dist';
+        break;
+    }
+
+    if (file_exists($dir.'/vendor/autoload.php')) {
+        require_once $dir.'/vendor/autoload.php';
         break;
     }
 
@@ -81,6 +87,9 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->rootConfig);
+        if(class_exists('Symfony\Component\Asset\Package')) {
+            $loader->load(__DIR__.'/config/assets.yml');
+        }
     }
 
     public function serialize()

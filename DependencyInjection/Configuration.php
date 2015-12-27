@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\DependencyInjection;
 
+use FOS\CommentBundle\Util\LegacyFormHelper;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -41,31 +42,31 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->arrayNode('comment')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('fos_comment_comment')->end()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\CommentBundle\Form\CommentType'))->end()
                                 ->scalarNode('name')->defaultValue('fos_comment_comment')->end()
                             ->end()
                         ->end()
                         ->arrayNode('thread')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('fos_comment_thread')->end()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\CommentBundle\Form\ThreadType'))->end()
                                 ->scalarNode('name')->defaultValue('fos_comment_thread')->end()
                             ->end()
                         ->end()
                         ->arrayNode('commentable_thread')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('fos_comment_commentable_thread')->end()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\CommentBundle\Form\CommentableThreadType'))->end()
                                 ->scalarNode('name')->defaultValue('fos_comment_commentable_thread')->end()
                             ->end()
                         ->end()
                         ->arrayNode('delete_comment')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('fos_comment_delete_comment')->end()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\CommentBundle\Form\DeleteCommentType'))->end()
                                 ->scalarNode('name')->defaultValue('fos_comment_delete_comment')->end()
                             ->end()
                         ->end()
                         ->arrayNode('vote')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('fos_comment_vote')->end()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\CommentBundle\Form\VoteType'))->end()
                                 ->scalarNode('name')->defaultValue('fos_comment_vote')->end()
                             ->end()
                         ->end()

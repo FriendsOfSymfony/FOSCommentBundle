@@ -1,5 +1,5 @@
 imports:
-    - { resource: ./../config/default.yml }
+    - { resource: ../config/default.yml }
 
 fos_comment:
     db_driver: orm
