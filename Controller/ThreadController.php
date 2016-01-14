@@ -396,7 +396,7 @@ class ThreadController extends Controller
 
             // Validate the entity
             $validator = $this->get('validator');
-            $errors = $validator->validate($thread, 'NewThread');
+            $errors = $validator->validate($thread, null, 'NewThread');
             if (count($errors) > 0) {
                 $view = View::create()
                     ->setStatusCode(Codes::HTTP_BAD_REQUEST)
