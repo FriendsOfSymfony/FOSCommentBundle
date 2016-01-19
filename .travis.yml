@@ -1,8 +1,6 @@
 language: php
 
 php:
-    - 5.3
-    - 5.4
     - 5.5
     - 5.6
     - 7.0
@@ -10,17 +8,24 @@ php:
 
 matrix:
     include:
+        - php: 5.3
+          env: SYMFONY_DEPRECATIONS_HELPER=weak
+        - php: 5.4
+          env: SYMFONY_DEPRECATIONS_HELPER=weak
         - php: 5.6
-          env: SYMFONY_VERSION='2.3.*'
+          env: COMPOSER_FLAGS="--prefer-lowest" SYMFONY_DEPRECATIONS_HELPER=weak
         - php: 5.6
           env: SYMFONY_VERSION='2.7.*'
-    allow_failures:
-        - php: hhvm
+        - php: 5.6
+          env: SYMFONY_VERSION='2.8.*' SYMFONY_DEPRECATIONS_HELPER=weak
+          # Remove SYMFONY_DEPRECATIONS_HELPER when https://github.com/symfony/assetic-bundle/pull/395 is released.
+        - php: 5.6
+          env: SYMFONY_VERSION='3.0.*'
     fast_finish: true
 
 install:
     - composer self-update
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
-    - composer install --no-interaction --prefer-source
+    - composer update --no-interaction --prefer-source $COMPOSER_FLAGS
 
 script: phpunit --coverage-text --colors

@@ -8,7 +8,9 @@ class VotePersistEventTest extends \PHPUnit_Framework_TestCase
 {
     public function testAbortingPersistence()
     {
-        $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // @todo uncomment this in 3.0 and remove the abstract class.
+        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $event = new VotePersistEvent($vote);
         $this->assertFalse($event->isPersistenceAborted());
         $event->abortPersistence();

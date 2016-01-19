@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Form;
 
+use FOS\CommentBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +34,7 @@ class DeleteCommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('state', 'hidden');
+        $builder->add('state', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\HiddenType'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -48,8 +49,13 @@ class DeleteCommentType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_delete_comment';
+    }
+
     public function getName()
     {
-        return "fos_comment_delete_comment";
+        return $this->getBlockPrefix();
     }
 }

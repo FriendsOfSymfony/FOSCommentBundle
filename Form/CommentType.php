@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Form;
 
+use FOS\CommentBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +34,7 @@ class CommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('body', 'textarea');
+        $builder->add('body', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextareaType'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -48,8 +49,13 @@ class CommentType extends AbstractType
         ));
     }
 
+    public function getBlockPrefix()
+    {
+        return 'fos_comment_comment';
+    }
+
     public function getName()
     {
-        return "fos_comment_comment";
+        return $this->getBlockPrefix();
     }
 }

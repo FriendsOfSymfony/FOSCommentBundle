@@ -9,18 +9,18 @@ framework:
         enabled: true
         enable_annotations: true
     router:
-        resource: %kernel.root_dir%/%kernel.test_case%/routing.yml
+        resource: '%kernel.root_dir%/%kernel.test_case%/routing.yml'
     templating:
         engines: [twig]
 
 doctrine:
     dbal:
         driver:   pdo_sqlite
-        path:     %kernel.cache_dir%/db.sqlite
+        path:     '%kernel.cache_dir%/db.sqlite'
         charset:  UTF8
 
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: true
 
 security:
@@ -32,7 +32,7 @@ security:
                     user: { password: user, roles: [ROLE_USER] }
 
     encoders:
-        "Symfony\Component\Security\Core\User\User": plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
         main:
@@ -49,5 +49,5 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
 twig:
-    debug: %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'

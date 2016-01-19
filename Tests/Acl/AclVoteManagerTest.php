@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclVoteManager;
-use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -35,7 +34,8 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $this->voteSecurity = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
         $this->commentSecurity = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
         $this->comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
-        $this->vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // $this->vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $this->vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $this->vote->expects($this->any())
             ->method('getComment')
             ->will($this->returnValue($this->comment));

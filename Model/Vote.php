@@ -13,7 +13,8 @@ namespace FOS\CommentBundle\Model;
 
 use DateTime;
 
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
@@ -90,20 +91,31 @@ abstract class Vote implements VoteInterface
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid(ExecutionContextInterface $context)
+    public function isVoteValid(LegacyExecutionContextInterface $context)
+    {
+        if($context instanceof ExecutionContextInterface) {
+            $this->isValid($context);
+        } elseif (!$this->checkValue($this->value)) {
+            $message = 'A vote cannot have a 0 value';
+            $propertyPath = $context->getPropertyPath() . '.value';
+
+            $context->addViolationAt($propertyPath, $message);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isValid(ExecutionContextInterface $context)
     {
         if (!$this->checkValue($this->value)) {
             $message = 'A vote cannot have a 0 value';
             $propertyPath = $context->getPropertyPath() . '.value';
 
-            if ($context instanceof \Symfony\Component\Validator\Context\ExecutionContextInterface) {
-                // Validator 2.5 API
-                $context->buildViolation($message)
-                    ->atPath($propertyPath)
-                    ->addViolation();
-            } else {
-                $context->addViolationAt($propertyPath, $message);
-            }
+            // Validator 2.5 API
+            $context->buildViolation($message)
+                ->atPath($propertyPath)
+                ->addViolation();
         }
     }
 
