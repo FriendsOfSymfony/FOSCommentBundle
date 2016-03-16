@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Restful controller for the Threads.
@@ -396,7 +397,11 @@ class ThreadController extends Controller
 
             // Validate the entity
             $validator = $this->get('validator');
-            $errors = $validator->validate($thread, 'NewThread');
+            if($validator instanceof ValidatorInterface) {
+                $errors = $validator->validate($thread, null, array('NewThread'));
+            } else {
+                $errors = $validator->validate($thread, array('NewThread'));
+            }
             if (count($errors) > 0) {
                 $view = View::create()
                     ->setStatusCode(Codes::HTTP_BAD_REQUEST)
