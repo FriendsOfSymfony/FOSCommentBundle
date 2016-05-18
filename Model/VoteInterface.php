@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Model;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 
 /**
  * Methods a vote should implement.
@@ -50,11 +49,11 @@ interface VoteInterface
     public function getCreatedAt();
 
     /**
-     * @param LegacyExecutionContextInterface $context
+     * @param ExecutionContextInterface $context
      *
      * @deprecated since 2.1, to be removed in 3.0. Use {@link self::isValid()} instead.
      */
-    public function isVoteValid(LegacyExecutionContextInterface $context);
+    public function isVoteValid(ExecutionContextInterface $context);
 
     /**
      * TODO: Uncomment this in 3.0.
