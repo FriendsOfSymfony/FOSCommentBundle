@@ -14,7 +14,6 @@ namespace FOS\CommentBundle\Model;
 use DateTime;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 
 /**
  * Storage agnostic vote object - Requires FOS\UserBundle
@@ -91,22 +90,7 @@ abstract class Vote implements VoteInterface
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid(LegacyExecutionContextInterface $context)
-    {
-        if($context instanceof ExecutionContextInterface) {
-            $this->isValid($context);
-        } elseif (!$this->checkValue($this->value)) {
-            $message = 'A vote cannot have a 0 value';
-            $propertyPath = $context->getPropertyPath() . '.value';
-
-            $context->addViolationAt($propertyPath, $message);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isValid(ExecutionContextInterface $context)
+    public function isVoteValid(ExecutionContextInterface $context)
     {
         if (!$this->checkValue($this->value)) {
             $message = 'A vote cannot have a 0 value';
