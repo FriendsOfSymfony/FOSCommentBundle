@@ -22,11 +22,15 @@ final class LegacyCallbackHelper extends Callback
 {
     public function __construct($options = null)
     {
-        if($options['value'] == 'isValid' && !class_exists('Symfony\Component\Validator\Context\ExecutionContextInterface')) {
-            $options['value'] = 'isVoteValid';
+        if (isset($options['methods']) && is_array($options['methods'])) {
+            foreach ($options['methods'] as &$method) {
+                if ($method === 'isValid' && !class_exists('Symfony\Component\Validator\Context\ExecutionContextInterface')) {
+                    $method = 'isVoteValid';
+                }
+            }
         }
 
-        parent::__construct();
+        parent::__construct($options);
     }
 
     public function validatedBy()
