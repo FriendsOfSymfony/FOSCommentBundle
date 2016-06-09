@@ -7,7 +7,7 @@ To use the basic CSS in your templates with Assetic, place the following in your
 
 ``` html
 <!-- CSS -->
-{% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+{% stylesheets '@FOSCommentBundle/Resources/public/css/comments.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
 ```
