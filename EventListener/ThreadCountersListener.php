@@ -56,6 +56,9 @@ class ThreadCountersListener implements EventSubscriberInterface
         $thread->setLastCommentAt($comment->getCreatedAt());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'onCommentPersist');

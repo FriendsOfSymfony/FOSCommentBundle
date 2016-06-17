@@ -42,6 +42,9 @@ class CommentableThreadType extends AbstractType
         $this->configureOptions($resolver);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -49,6 +52,9 @@ class CommentableThreadType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'fos_comment_commentable_thread';

@@ -26,10 +26,7 @@ class HtmlPurifier implements ParserInterface
     }
 
     /**
-     * Takes a markup string and returns raw html.
-     *
-     * @param  string $raw
-     * @return string
+     * {@inheritdoc}
      */
     public function parse($raw)
     {
