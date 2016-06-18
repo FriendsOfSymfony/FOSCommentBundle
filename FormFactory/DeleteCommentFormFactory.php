@@ -49,9 +49,7 @@ class DeleteCommentFormFactory implements DeleteCommentFormFactoryInterface
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return FormInterface
+     * {@inheritdoc}
      */
     public function createForm()
     {

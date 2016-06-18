@@ -67,7 +67,7 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * Assigns the Security token's user to the vote.
      *
-     * @param VoteEvent $vote
+     * @param VoteEvent $event
      */
     public function blame(VoteEvent $event)
     {
@@ -94,6 +94,9 @@ class VoteBlamerListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(Events::VOTE_PRE_PERSIST => 'blame');

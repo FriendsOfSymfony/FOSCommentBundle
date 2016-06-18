@@ -43,6 +43,9 @@ class ThreadType extends AbstractType
         $this->configureOptions($resolver);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -50,6 +53,9 @@ class ThreadType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'fos_comment_thread';

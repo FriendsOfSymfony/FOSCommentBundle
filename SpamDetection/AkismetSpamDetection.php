@@ -35,10 +35,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
     }
 
     /**
-     * Returns true if Akismet believes the comment to be spam.
-     *
-     * @param  CommentInterface $comment
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSpam(CommentInterface $comment)
     {
