@@ -1,5 +1,5 @@
 Step 10: Other ways of including comments in a page
-======================================
+===================================================
 
 The default implementation of FOSCommentBundle uses asynchronous javascript
 and jQuery (optionally with easyXDM for cross domain requests) to load a comment
@@ -54,7 +54,7 @@ template:
 {# jQuery must be available in the page by this time, and make sure javascript block is after
   <div id="fos_comment_thread"> in the DOM Tree, for example right before </body> tag
 #}
-{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+{% javascripts '@FOSCommentBundle/Resources/public/js/comments.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock javascript %}
