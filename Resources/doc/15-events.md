@@ -1,4 +1,4 @@
-Step 14 : Create a listener for comment events
+Step 15 : Create a listener for comment events
 ==============================================
 
 FOSCommentBundle fires events inside Symfony. It's very handy to add custom
