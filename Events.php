@@ -123,4 +123,40 @@ final class Events
      * @var string
      */
     const VOTE_CREATE = 'fos_comment.vote.create';
+
+    /**
+     * The CREATE event occurs when the manager is asked to create
+     * a new instance of a Flag.
+     *
+     * The listener receives a FOS\CommentBundle\Event\FlagEvent
+     * instance.
+     *
+     * @var string
+     */
+    const FLAG_CREATE = 'fos_comment.flag.create';
+
+    /**
+     * The PRE_PERSIST event occurs prior to the persistence backend
+     * persisting the Flag.
+     *
+     * This event allows you to modify the data in the Flag prior
+     * to persisting occurring or abort persistence.
+     * The listener receives a FOS\CommentBundle\Event\FlagPersistEvent instance.
+     *
+     * @var string
+     */
+    const FLAG_PRE_PERSIST = 'fos_comment.flag.pre_persist';
+
+    /**
+     * The POST_PERSIST event occurs after the persistence backend
+     * persisted the Flag.
+     *
+     * This event allows you to notify users or perform other actions
+     * that might require the Flag to be persisted before performing
+     * those actions. The listener receives a
+     * FOS\CommentBundle\Event\FlagEvent instance.
+     *
+     * @var string
+     */
+    const FLAG_POST_PERSIST = 'fos_comment.flag.post_persist';
 }
