@@ -46,4 +46,15 @@ interface FlagInterface
      * @return \DateTime
      */
     public function getCreatedAt();
+
+    /**
+     * @return string
+     */
+    public function getReason();
+
+    /**
+     * @param string $body
+     */
+    public function setReason($body);
+
 }

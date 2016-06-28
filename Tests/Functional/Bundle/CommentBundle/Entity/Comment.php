@@ -128,4 +128,13 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     {
         return $this->author ?: parent::getAuthorName();
     }
+
+    /**
+     * @param $flag
+     * @param $reason
+     */
+    public function addFlag($flag, $reason)
+    {
+        // TODO: Implement addFlag() method.
+    }
 }

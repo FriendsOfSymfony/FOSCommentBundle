@@ -10,3 +10,8 @@ fos_comment_thread_api:
     type: rest
     resource: FOS\CommentBundle\Controller\ThreadController
     name_prefix: fos_comment_
+
+fos_comment_flag_api:
+    type: rest
+    resource: FOS\CommentBundle\Controller\CommentController
+    name_prefix: fos_comments_

@@ -10,6 +10,7 @@
  */
 
 namespace FOS\CommentBundle\Tests\Functional;
+use FOS\CommentBundle\Model\FlaggableCommentInterface;
 
 /**
  * Functional tests of the CommentBundle api.
@@ -247,4 +248,23 @@ class ApiTest extends WebTestCase
             $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text()
         );
     }
+
+    /**
+     * @depends testAddCommentToThread
+     * @param $threadId
+     */
+    public function testGetFlagFormAndSubmit($threadId)
+    {
+        $crawler = $this->client->request('GET', "/comment_api/comments/1/flags/new.html");
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $form = $crawler->selectButton('fos_comment_comment_flag_submit')->form();
+        $form['fos_comment_flag[reason]'] = 'Some random reason';
+        $form['fos_comment_flag[type]'] = FlaggableCommentInterface::FLAG_ABUSIVE;
+        $this->client->submit($form);
+
+        $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$threadId}/comments/1");
+    }
+
 }

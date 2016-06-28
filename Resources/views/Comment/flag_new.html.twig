@@ -1,0 +1,33 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+<div class="fos_comment_flage_form_holder">
+    <form class="fos_comment_flag_form" action="{{ url('fos_comments_post_comments_flags', {'id': id }) }}" data-score-holder="fos_comment_flag_{{ id }}" method="POST">
+
+        {% block fos_comment_form_fields %}
+            {{ form_errors(form) }}
+            {{ form_errors(form.reason) }}
+            {{ form_widget(form.reason) }}
+
+            {{ form_errors(form.type) }}
+            {{ form_widget(form.type) }}
+
+            {{ form_rest(form) }}
+        {% endblock %}
+
+        <div class="fos_comment_flag_submit">
+            {% block fos_comment_flag_submit %}
+                <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_flag_submit{% endtrans %}"/>
+            {% endblock %}
+        </div>
+
+    </form>
+</div>

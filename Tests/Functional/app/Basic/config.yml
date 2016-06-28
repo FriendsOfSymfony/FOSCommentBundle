@@ -8,6 +8,7 @@ fos_comment:
             comment: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Comment
             thread: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Thread
             vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote
+            flag: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Flag
 
 fos_rest:
     format_listener:

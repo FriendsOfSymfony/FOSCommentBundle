@@ -69,6 +69,18 @@
             <argument>%fos_comment.form.vote.name%</argument>
         </service>
 
+        <service id="fos_comment.form_type.flag.default" class="FOS\CommentBundle\Form\FlagType">
+            <argument>%fos_comment.model.flag.class%</argument>
+            <tag name="form.type" alias="fos_comment_flag" extended-type="FOS\CommentBundle\Form\FlagType" />
+        </service>
+
+        <service id="fos_comment.form_factory.flag.default" class="FOS\CommentBundle\FormFactory\FlagFormFactory"
+                 public="false">
+            <argument type="service" id="form.factory" />
+            <argument>%fos_comment.form.flag.type%</argument>
+            <argument>%fos_comment.form.flag.name%</argument>
+        </service>
+
     </services>
 
 </container>

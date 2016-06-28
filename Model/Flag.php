@@ -33,6 +33,11 @@ abstract class Flag implements FlagInterface
     protected $comment;
 
     /**
+     * @var string
+     */
+    protected $reason;
+
+    /**
      * @var DateTime
      */
     protected $createdAt;
@@ -106,5 +111,21 @@ abstract class Flag implements FlagInterface
     public function setComment(FlaggableCommentInterface $comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->reason;
+    }
+
+    /**
+     * @param string $reason
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
     }
 }
