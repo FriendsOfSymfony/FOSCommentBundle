@@ -148,10 +148,12 @@ class FOSCommentExtension extends Extension
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
             $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl_roles']['thread'][$perm]);
             $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl_roles']['vote'][$perm]);
+            $container->getDefinition('fos_comment.acl.flag.roles')->replaceArgument($index, $config['acl_roles']['flag'][$perm]);
         }
 
         $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
         $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
         $container->setAlias('fos_comment.acl.vote', $config['service']['acl']['vote']);
+        $container->setAlias('fos_comment.acl.flag', $config['service']['acl']['flag']);
     }
 }

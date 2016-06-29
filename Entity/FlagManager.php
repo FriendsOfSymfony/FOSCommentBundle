@@ -102,7 +102,13 @@ class FlagManager extends BaseFlagManager
      */
     public function findFlagsByComment(FlaggableCommentInterface $comment)
     {
-        // TODO: Implement findFlagsByComment() method.
+        $qb = $this->repository->createQueryBuilder('f')
+            ->join('f.comment', 'c')
+            ->where('c.id = :comment')
+            ->setParameter('comment', $comment->getId());
+        $votes = $qb->getQuery()->execute();
+
+        return $votes;
     }
 
     public function findFlagById($id)
@@ -116,6 +122,5 @@ class FlagManager extends BaseFlagManager
         $this->em->persist($flag);
         $this->em->flush();
     }
-
 
 }

@@ -25,8 +25,12 @@ interface FlaggableCommentInterface extends CommentInterface
     const FLAG_ABUSIVE = 2;
 
     /**
-     * @param $flag
-     * @param $reason
+     * @param $flag FlagInterface
      */
-    public function addFlag($flag, $reason);
+    public function addFlag($flag);
+
+    /**
+     * @return FlagInterface[]
+     */
+    public function getFlags();
 }

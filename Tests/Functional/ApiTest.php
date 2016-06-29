@@ -267,4 +267,21 @@ class ApiTest extends WebTestCase
         $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$threadId}/comments/1");
     }
 
+    /**
+     * @depends testGetFlagFormAndSubmit
+     */
+    public function testGetFlagsForComment()
+    {
+        $crawler = $this->client->request('GET', "/comment_api/comments/1/flags.html");
+
+        $this->assertCount(1, $crawler->filter('.fos_comment_flag'));
+        $this->assertContains(
+            'Some random reason',
+            $crawler->filter('.fos_comment_flag .reason')
+                ->first()
+                ->text()
+        );
+
+    }
+
 }

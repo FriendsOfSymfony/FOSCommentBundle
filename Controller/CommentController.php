@@ -68,20 +68,40 @@ class CommentController extends Controller
             throw new NotFoundHttpException(sprintf('Comment with identifier of "%s" does not exist', $id));
         }
 
-        $threadManager = $this->container->get('fos_comment.manager.flag');
-        $flag = $threadManager->createFlag($comment);
+        $flagManager = $this->container->get('fos_comment.manager.flag');
+        $flag = $flagManager->createFlag($comment);
 
         $form = $this->container->get('fos_comment.form_factory.flag')->createForm();
         $form->setData($flag);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($threadManager->saveFlag($flag) !== false) {
+            if ($flagManager->saveFlag($flag) !== false) {
                 return $this->getViewHandler()->handle($this->onCreateFlagSuccess($id));
             }
         }
 
         return $this->getViewHandler()->handle($this->onCreateFlagError($form, $id));
+    }
+
+    public function getCommentsFlagsAction(Request $request, $id)
+    {
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($id);
+        if (!$comment) {
+            throw new NotFoundHttpException(sprintf('Comment with identifier of "%s" does not exist', $id));
+        }
+
+        $flagManager = $this->container->get('fos_comment.manager.flag');
+        $flags = $flagManager->findFlagsByComment($comment);
+
+        $view = View::create()
+            ->setData(array(
+                          'flags' => $flags,
+                          'id' => $id,
+                      ))
+            ->setTemplate(new TemplateReference('FOSCommentBundle', 'Comment', 'flags'));
+
+        return $this->getViewHandler()->handle($view);
     }
 
 

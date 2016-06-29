@@ -29,4 +29,16 @@ class Flag extends BaseFlag
      */
     protected $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Comment")
+     * @var Comment
+     */
+    protected $comment;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     */
+    protected $reason;
+
 }
