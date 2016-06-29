@@ -261,7 +261,7 @@ class ApiTest extends WebTestCase
 
         $form = $crawler->selectButton('fos_comment_comment_flag_submit')->form();
         $form['fos_comment_flag[reason]'] = 'Some random reason';
-        $form['fos_comment_flag[type]'] = FlaggableCommentInterface::FLAG_ABUSIVE;
+        $form['fos_comment_flag[type]'] = 'fos_comment_flag_abusive';
         $this->client->submit($form);
 
         $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$threadId}/comments/1");
