@@ -22,6 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+
+define('HTTP_BAD_REQUEST', 400);
+define('HTTP_OK', 200);
+
+define('HTTP_CREATED', 201);
 /**
  * Restful controller for the Threads.
  *
@@ -401,7 +406,7 @@ class ThreadController extends Controller
             }
             if (count($errors) > 0) {
                 $view = View::create()
-                    ->setStatusCode(Response::HTTP_BAD_REQUEST)
+                    ->setStatusCode(HTTP_BAD_REQUEST)
                     ->setData(array('errors' => $errors))
                     ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'errors'));
 
@@ -445,7 +450,7 @@ class ThreadController extends Controller
             $templatingHandler = function($handler, $view, $request) {
                 $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'thread_xml_feed'));
 
-                return new Response($handler->renderTemplate($view, 'rss'), Response::HTTP_OK, $view->getHeaders());
+                return new Response($handler->renderTemplate($view, 'rss'), HTTP_OK, $view->getHeaders());
             };
 
             $this->get('fos_rest.view_handler')->registerHandler('rss', $templatingHandler);
@@ -597,7 +602,7 @@ class ThreadController extends Controller
      */
     protected function onCreateCommentSuccess(FormInterface $form, $id, CommentInterface $parent = null)
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), HTTP_CREATED);
     }
 
     /**
@@ -612,7 +617,7 @@ class ThreadController extends Controller
     protected function onCreateCommentError(FormInterface $form, $id, CommentInterface $parent = null)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
                 'id' => $id,
@@ -632,7 +637,7 @@ class ThreadController extends Controller
      */
     protected function onCreateThreadSuccess(FormInterface $form)
     {
-        return View::createRouteRedirect('fos_comment_get_thread', array('id' => $form->getData()->getId()), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread', array('id' => $form->getData()->getId()), HTTP_CREATED);
     }
 
     /**
@@ -645,7 +650,7 @@ class ThreadController extends Controller
     protected function onCreateThreadError(FormInterface $form)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
             ))
@@ -663,7 +668,7 @@ class ThreadController extends Controller
      */
     protected function onCreateThreadErrorDuplicate(FormInterface $form)
     {
-        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), Response::HTTP_BAD_REQUEST);
+        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), HTTP_BAD_REQUEST);
     }
 
     /**
@@ -678,7 +683,7 @@ class ThreadController extends Controller
      */
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId), HTTP_CREATED);
     }
 
     /**
@@ -693,7 +698,7 @@ class ThreadController extends Controller
     protected function onCreateVoteError(FormInterface $form, $id, $commentId)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'id' => $id,
                 'commentId' => $commentId,
@@ -714,7 +719,7 @@ class ThreadController extends Controller
      */
     protected function onEditCommentSuccess(FormInterface $form, $id)
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), HTTP_CREATED);
     }
 
     /**
@@ -728,7 +733,7 @@ class ThreadController extends Controller
     protected function onEditCommentError(FormInterface $form, $id)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
                 'comment' => $form->getData(),
@@ -747,7 +752,7 @@ class ThreadController extends Controller
      */
     protected function onOpenThreadSuccess(FormInterface $form)
     {
-        return View::createRouteRedirect('fos_comment_edit_thread_commentable', array('id' => $form->getData()->getId(), 'value' => !$form->getData()->isCommentable()), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_edit_thread_commentable', array('id' => $form->getData()->getId(), 'value' => !$form->getData()->isCommentable()), HTTP_CREATED);
     }
 
     /**
@@ -760,7 +765,7 @@ class ThreadController extends Controller
     protected function onOpenThreadError(FormInterface $form)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
                 'id' => $form->getData()->getId(),
@@ -781,7 +786,7 @@ class ThreadController extends Controller
      */
     protected function onRemoveThreadCommentSuccess(FormInterface $form, $id)
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', array('id' => $id, 'commentId' => $form->getData()->getId()), HTTP_CREATED);
     }
 
     /**
@@ -795,7 +800,7 @@ class ThreadController extends Controller
     protected function onRemoveThreadCommentError(FormInterface $form, $id)
     {
         $view = View::create()
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(HTTP_BAD_REQUEST)
             ->setData(array(
                 'form' => $form,
                 'id' => $id,
