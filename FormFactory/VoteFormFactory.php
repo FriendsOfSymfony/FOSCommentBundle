@@ -52,9 +52,7 @@ class VoteFormFactory implements VoteFormFactoryInterface
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return FormInterface
+     * {@inheritdoc}
      */
     public function createForm()
     {

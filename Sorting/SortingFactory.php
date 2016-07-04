@@ -61,6 +61,9 @@ class SortingFactory
         return $this->sorters[$alias];
     }
 
+    /**
+     * @return array
+     */
     public function getAvailableSorters()
     {
         return array_keys($this->sorters);

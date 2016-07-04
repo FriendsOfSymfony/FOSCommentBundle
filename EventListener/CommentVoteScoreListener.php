@@ -30,6 +30,9 @@ class CommentVoteScoreListener implements EventSubscriberInterface
         $comment->incrementScore($vote->getValue());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(Events::VOTE_PRE_PERSIST => 'onVotePersist');

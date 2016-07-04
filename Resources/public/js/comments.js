@@ -138,6 +138,9 @@
                         function(data, statusCode) {
                             FOS_COMMENT.appendComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
+                            if (that.data() && that.data().parent !== '') {
+                                that.parents('.fos_comment_comment_form_holder').remove();
+                            }
                         },
                         // error
                         function(data, statusCode) {
@@ -347,8 +350,6 @@
             var form_data = form.data();
 
             if('' != form_data.parent) {
-                var form_parent = form.closest('.fos_comment_comment_form_holder');
-
                 // reply button holder
                 var reply_button_holder = form.closest('.fos_comment_comment_reply');
 
@@ -359,9 +360,6 @@
 
                 comment_element.prepend(commentHtml);
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
-
-                // Remove the form
-                form_parent.remove();
             } else {
                 // Insert the comment
                 form.after(commentHtml);

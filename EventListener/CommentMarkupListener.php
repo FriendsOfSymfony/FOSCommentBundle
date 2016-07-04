@@ -58,6 +58,9 @@ class CommentMarkupListener implements EventSubscriberInterface
         $comment->setRawBody($result);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'markup');

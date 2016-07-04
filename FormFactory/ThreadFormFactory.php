@@ -49,9 +49,7 @@ class ThreadFormFactory implements ThreadFormFactoryInterface
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return FormInterface
+     * {@inheritdoc}
      */
     public function createForm()
     {

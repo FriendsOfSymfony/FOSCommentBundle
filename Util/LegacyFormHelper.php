@@ -31,6 +31,11 @@ final class LegacyFormHelper
         'Symfony\Component\Form\Extension\Core\Type\TextareaType' => 'textarea',
     );
 
+    /**
+     * @param string $class
+     *
+     * @return string|null
+     */
     public static function getType($class)
     {
         if (!self::isLegacy()) {
@@ -44,6 +49,9 @@ final class LegacyFormHelper
         return self::$map[$class];
     }
 
+    /**
+     * @return bool
+     */
     public static function isLegacy()
     {
         return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');

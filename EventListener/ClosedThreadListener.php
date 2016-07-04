@@ -38,6 +38,9 @@ class ClosedThreadListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'onCommentPersist');

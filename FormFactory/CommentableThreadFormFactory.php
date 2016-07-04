@@ -49,9 +49,7 @@ class CommentableThreadFormFactory implements CommentableThreadFormFactoryInterf
     }
 
     /**
-     * Creates a new form.
-     *
-     * @return FormInterface
+     * {@inheritdoc}
      */
     public function createForm()
     {
