@@ -17,8 +17,7 @@ matrix:
         - php: 5.6
           env: SYMFONY_VERSION='2.7.*'
         - php: 5.6
-          env: SYMFONY_VERSION='2.8.*' SYMFONY_DEPRECATIONS_HELPER=weak
-          # Remove SYMFONY_DEPRECATIONS_HELPER when https://github.com/symfony/assetic-bundle/pull/395 is released.
+          env: SYMFONY_VERSION='2.8.*'
         - php: 5.6
           env: SYMFONY_VERSION='3.0.*'
     fast_finish: true
