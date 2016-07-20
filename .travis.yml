@@ -25,6 +25,7 @@ matrix:
 
 install:
     - composer self-update
+    - if [ "$TRAVIS_PHP_VERSION" == "5.3" ]; then phpenv config-add travis.php.ini; fi;
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
     - composer update --no-interaction --prefer-source $COMPOSER_FLAGS
 
