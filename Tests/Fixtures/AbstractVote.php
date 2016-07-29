@@ -13,20 +13,12 @@ namespace FOS\CommentBundle\Tests\Fixtures;
 
 use FOS\CommentBundle\Model\VoteInterface;
 use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 
 abstract class AbstractVote implements VoteInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid(LegacyExecutionContextInterface $context) {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isValid(ExecutionContextInterface $context) {
+    public function isVoteValid($context) {
     }
 }

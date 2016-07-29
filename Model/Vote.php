@@ -91,31 +91,23 @@ abstract class Vote implements VoteInterface
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid(LegacyExecutionContextInterface $context)
+    public function isVoteValid($context)
     {
         if($context instanceof ExecutionContextInterface) {
-            $this->isValid($context);
-        } elseif (!$this->checkValue($this->value)) {
+            if (!$this->checkValue($this->value)) {
+                $message = 'A vote cannot have a 0 value';
+                $propertyPath = $context->getPropertyPath() . '.value';
+
+                // Validator 2.5 API
+                $context->buildViolation($message)
+                    ->atPath($propertyPath)
+                    ->addViolation();
+            }
+        } elseif (!$this->checkValue($this->value)) { // For bc
             $message = 'A vote cannot have a 0 value';
             $propertyPath = $context->getPropertyPath() . '.value';
 
             $context->addViolationAt($propertyPath, $message);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isValid(ExecutionContextInterface $context)
-    {
-        if (!$this->checkValue($this->value)) {
-            $message = 'A vote cannot have a 0 value';
-            $propertyPath = $context->getPropertyPath() . '.value';
-
-            // Validator 2.5 API
-            $context->buildViolation($message)
-                ->atPath($propertyPath)
-                ->addViolation();
         }
     }
 

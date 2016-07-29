@@ -50,16 +50,7 @@ interface VoteInterface
     public function getCreatedAt();
 
     /**
-     * @param LegacyExecutionContextInterface $context
-     *
-     * @deprecated since 2.1, to be removed in 3.0. Use {@link self::isValid()} instead.
+     * @param LegacyExecutionContextInterface|ExecutionContextInterface $context
      */
-    public function isVoteValid(LegacyExecutionContextInterface $context);
-
-    /**
-     * TODO: Uncomment this in 3.0.
-     *
-     * @param ExecutionContextInterface $context
-     */
-    // public function isValid(ExecutionContextInterface $context);
+    public function isVoteValid($context);
 }
