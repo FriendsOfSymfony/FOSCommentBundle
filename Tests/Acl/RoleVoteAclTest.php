@@ -30,7 +30,7 @@ class RoleVoteAclTest extends AbstractRoleAcl
             $this->editRole,
             $this->deleteRole,
             '');
-        // $this->passObject = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // $this->passObject = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $this->passObject = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
     }
 }

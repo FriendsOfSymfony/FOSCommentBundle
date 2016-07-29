@@ -33,7 +33,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Doctrine ORM not installed');
         }
 
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
@@ -75,7 +75,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveCommentNoThread()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $comment->expects($this->once())
             ->method('getThread')
             ->will($this->returnValue(null));
@@ -86,9 +86,9 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testSaveComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
 
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
         $comment->expects($this->any())
             ->method('getThread')
             ->will($this->returnValue($thread));
@@ -114,8 +114,8 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateComment()
     {
-        $thread = $this->getMock('FOS\CommentBundle\Entity\Thread');
-        $parent = $this->getMock('FOS\CommentBundle\Entity\Comment');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Entity\Thread')->getMock();
+        $parent = $this->getMockBuilder('FOS\CommentBundle\Entity\Comment')->getMock();
 
         $parent->expects($this->any())
             ->method('getId')

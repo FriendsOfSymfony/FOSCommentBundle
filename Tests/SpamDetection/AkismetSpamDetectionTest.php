@@ -29,13 +29,13 @@ class AkismetSpamDetectionTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Ornicar\AkismetBundle is not installed');
         }
 
-        $this->akismet = $this->getMock('Ornicar\AkismetBundle\Akismet\AkismetInterface');
+        $this->akismet = $this->getMockBuilder('Ornicar\AkismetBundle\Akismet\AkismetInterface')->getMock();
         $this->detector = new AkismetSpamDetection($this->akismet);
     }
 
     public function testAkismetSpamDetection()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
 
         $this->akismet->expects($this->once())
             ->method('isSpam')

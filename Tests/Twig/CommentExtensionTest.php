@@ -39,7 +39,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testIsVotable()
     {
-        $votableComment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $votableComment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
         $this->assertTrue($this->extension->isVotable($votableComment));
     }
 
@@ -50,7 +50,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCanCreateRootCommentWithAcl()
     {
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canCreate')->will($this->returnValue(true));
         $extension = new CommentExtension($commentAcl);
         $this->assertTrue($extension->canComment());
@@ -58,9 +58,9 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotCreateCommentOnClosedThread()
     {
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
         $thread->expects($this->once())->method('isCommentable')->will($this->returnValue(false));
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $comment->expects($this->exactly(2))->method('getThread')->will($this->returnValue($thread));
         $extension = new CommentExtension();
         $this->assertFalse($extension->canComment($comment));
@@ -68,7 +68,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotCreateRootCommentWithAcl()
     {
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canCreate')->will($this->returnValue(false));
         $extension = new CommentExtension($commentAcl);
         $this->assertFalse($extension->canComment());
@@ -76,8 +76,8 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testAclCanReplyToComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canReply')->with($comment)->will($this->returnValue(true));
         $extension = new CommentExtension($commentAcl);
         $this->assertTrue($extension->canComment($comment));
@@ -85,8 +85,8 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testAclCannotReplyToComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canReply')->with($comment)->will($this->returnValue(false));
         $extension = new CommentExtension($commentAcl);
         $this->assertFalse($extension->canComment($comment));
@@ -94,7 +94,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotVoteOnNonVotable()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $this->assertFalse($this->extension->canVote($comment));
     }
 
@@ -107,9 +107,9 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
     public function testCannotVoteWhenCommentAclCannotView()
     {
         $comment = $this->getVotableComment();
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canView')->with($comment)->will($this->returnValue(false));
-        $voteAcl = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
+        $voteAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
         $voteAcl->expects($this->never())->method('canCreate');
         $extension = new CommentExtension($commentAcl, $voteAcl);
         $this->assertFalse($extension->canVote($comment));
@@ -118,9 +118,9 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
     public function testCanVoteWhenCommentAclCanView()
     {
         $comment = $this->getVotableComment();
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canView')->with($comment)->will($this->returnValue(true));
-        $voteAcl = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
+        $voteAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
         $voteAcl->expects($this->once())->method('canCreate')->will($this->returnValue(true));
         $extension = new CommentExtension($commentAcl, $voteAcl);
         $this->assertTrue($extension->canVote($comment));
@@ -129,7 +129,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
     public function testCanVoteWithNullCommentAcl()
     {
         $comment = $this->getVotableComment();
-        $voteAcl = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
+        $voteAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
         $voteAcl->expects($this->once())->method('canCreate')->will($this->returnValue(true));
         $extension = new CommentExtension(null, $voteAcl);
         $this->assertTrue($extension->canVote($comment));
@@ -137,7 +137,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testIsDeletedWhenStateIsDeleted()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_DELETED));
 
         $extension = new CommentExtension();
@@ -146,7 +146,7 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testIsDeletedWhenStateIsNotDeleted()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $comment->expects($this->once())->method('getState')->will($this->returnValue(\FOS\CommentBundle\Model\CommentInterface::STATE_VISIBLE));
 
         $extension = new CommentExtension();
@@ -155,15 +155,15 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotDeleteWhenNoCommentAcl()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $extension = new CommentExtension();
         $this->assertFalse($extension->canDeleteComment($comment));
     }
 
     public function testCanDeleteWhenCommentAclCanDelete()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canDelete')->with($comment)->will($this->returnValue(true));
         $extension = new CommentExtension($commentAcl);
         $this->assertTrue($extension->canDeleteComment($comment));
@@ -171,8 +171,8 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotDeleteWhenCommentAclCannotDelete()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $commentAcl = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $commentAcl = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $commentAcl->expects($this->once())->method('canDelete')->with($comment)->will($this->returnValue(false));
         $extension = new CommentExtension($commentAcl);
         $this->assertFalse($extension->canDeleteComment($comment));
@@ -180,6 +180,6 @@ class CommentExtensionTest extends \PHPUnit_Framework_TestCase
 
     protected function getVotableComment()
     {
-        return $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        return $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
     }
 }

@@ -30,6 +30,6 @@ class RoleThreadAclTest extends AbstractRoleAcl
             $this->editRole,
             $this->deleteRole,
             '');
-        $this->passObject = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $this->passObject = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
     }
 }

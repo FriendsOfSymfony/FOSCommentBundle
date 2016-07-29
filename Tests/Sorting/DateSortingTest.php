@@ -17,8 +17,8 @@ class DateSortingTest extends \PHPUnit_Framework_TestCase
 
     public function testEqual()
     {
-        $comment1 = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment2 = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment1 = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $comment2 = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
 
         $comment1->expects($this->any())
             ->method('getCreatedAt')
@@ -34,8 +34,8 @@ class DateSortingTest extends \PHPUnit_Framework_TestCase
 
     public function testGreaterOrLess()
     {
-        $comment1 = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment2 = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment1 = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
+        $comment2 = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
 
         $comment1->expects($this->any())
             ->method('getCreatedAt')

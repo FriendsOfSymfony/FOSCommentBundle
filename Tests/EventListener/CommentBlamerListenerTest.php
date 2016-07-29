@@ -13,22 +13,21 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            $this->tokenStorage = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+            $this->tokenStorage = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')->getMock();
         } else {
-            $this->tokenStorage = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
+            $this->tokenStorage = $this->getMockBuilder('Symfony\Component\Security\Core\SecurityContextInterface')->getMock();
         }
 
         if (interface_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')) {
-            $this->authorizationChecker = $this->getMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+            $this->authorizationChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')->getMock();
         } else {
-            $this->authorizationChecker = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
+            $this->authorizationChecker = $this->getMockBuilder('Symfony\Component\Security\Core\SecurityContextInterface')->getMock();
         }
     }
 
     public function testNonSignedCommentIsNotBlamed()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
-        $comment->expects($this->never())->method('setAuthor');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $event = new CommentEvent($comment);
         $this->tokenStorage->expects($this->never())->method('getToken');
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage);
@@ -62,8 +61,8 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $comment->expects($this->once())->method('setAuthor');
         $event = new CommentEvent($comment);
 
-        $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
-        $token->expects($this->once())->method('getUser')->will($this->returnValue($this->getMock('Symfony\Component\Security\Core\User\UserInterface')));
+        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
+        $token->expects($this->once())->method('getUser')->will($this->returnValue($this->getMockBuilder('Symfony\Component\Security\Core\User\UserInterface')->getMock()));
         $this->authorizationChecker->expects($this->once())->method('isGranted')->with('IS_AUTHENTICATED_REMEMBERED')->will($this->returnValue(true));
         $this->tokenStorage->expects($this->exactly(2))->method('getToken')->will($this->returnValue($token));
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage);
@@ -74,10 +73,10 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $comment = $this->getSignedComment();
         $comment->expects($this->never())->method('setAuthor');
-        $comment->expects($this->once())->method('getAuthor')->will($this->returnValue($this->getMock('Symfony\Component\Security\Core\User\UserInterface')));
+        $comment->expects($this->once())->method('getAuthor')->will($this->returnValue($this->getMockBuilder('Symfony\Component\Security\Core\User\UserInterface')->getMock()));
         $event = new CommentEvent($comment);
 
-        $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
         $this->authorizationChecker->expects($this->never())->method('isGranted');
         $this->tokenStorage->expects($this->once())->method('getToken')->will($this->returnValue($token));
 
@@ -87,10 +86,10 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoggerIsCalledForNonSignedComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $event = new CommentEvent($comment);
 
-        $logger = $this->getMock('Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())->method('debug')->with('Comment does not implement SignedCommentInterface, skipping');
 
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);
@@ -102,7 +101,7 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
         $comment = $this->getSignedComment();
         $event = new CommentEvent($comment);
 
-        $logger = $this->getMock('Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())->method('debug')->with('There is no firewall configured. We cant get a user.');
 
         $listener = new CommentBlamerListener($this->authorizationChecker, $this->tokenStorage, $logger);
@@ -111,6 +110,6 @@ class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
 
     protected function getSignedComment()
     {
-        return $this->getMock('FOS\CommentBundle\Model\SignedCommentInterface');
+        return $this->getMockBuilder('FOS\CommentBundle\Model\SignedCommentInterface')->getMock();
     }
 }
