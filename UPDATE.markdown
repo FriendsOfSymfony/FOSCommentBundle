@@ -1,6 +1,6 @@
 2.0.x:
 
- * The dependencies to FOS RestBundle have changed and as a result, you need to ensure that you have defined 
+ * The dependencies to FOS RestBundle have changed and as a result, you need to ensure that you have defined
    a format_listener rule for comment-bundle, for example:
 
 ```yaml
@@ -9,6 +9,9 @@ fos_rest:
          rules:
            - { path: '^/comments', priorities: ['json', 'html'], fallback_format: json }
 ```
+
+ * [BC BREAK] `VoteInterface` signature has been modified. The type hint of
+   `VoteInterface::isVoteValid()` has been removed to support symfony 3.0.
 
 2.0.4 to 2.0.5
  * Editing is more robust and works even if you change the structure of the HTML
