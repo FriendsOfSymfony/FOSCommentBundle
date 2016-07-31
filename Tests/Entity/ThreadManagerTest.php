@@ -32,7 +32,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Doctrine ORM not installed');
         }
 
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
@@ -56,7 +56,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddThread()
     {
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
 
         $this->em->expects($this->once())
                 ->method('persist')
@@ -78,7 +78,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindThreadBy()
     {
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
         $criteria = array('id' => 'hello');
 
         $this->repository->expects($this->once())
@@ -94,7 +94,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindAllThreads()
     {
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
         $threads = array($thread);
 
         $this->repository->expects($this->once())
@@ -110,7 +110,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindThreadById()
     {
         $threadId = 'hello';
-        $thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
 
         $this->repository->expects($this->once())
             ->method('findOneBy')

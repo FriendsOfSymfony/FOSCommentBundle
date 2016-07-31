@@ -32,7 +32,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Doctrine ORM not installed');
         }
 
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
@@ -64,11 +64,11 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testAddVote()
     {
         // @todo uncomment this in 3.0 and remove the abstract class.
-        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $vote->expects($this->any())
             ->method('getComment')
-            ->will($this->returnValue($this->getMock('FOS\CommentBundle\Model\VotableCommentInterface')));
+            ->will($this->returnValue($this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock()));
 
         $this->em->expects($this->exactly(2))
             ->method('persist');
@@ -83,7 +83,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     public function testFindVoteBy()
     {
         // @todo uncomment this in 3.0 and remove the abstract class.
-        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $criteria = array('id' => 123);
 
@@ -102,7 +102,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     {
         $id = 123;
         // @todo uncomment this in 3.0 and remove the abstract class.
-        // $vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
 
         $this->repository->expects($this->once())
@@ -118,7 +118,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateVote()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->createVote($comment);

@@ -8,7 +8,7 @@ class CommentPersistEventTest extends \PHPUnit_Framework_TestCase
 {
     public function testAbortingPersistence()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $event = new CommentPersistEvent($comment);
         $this->assertFalse($event->isPersistenceAborted());
         $event->abortPersistence();

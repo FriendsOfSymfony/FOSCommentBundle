@@ -35,11 +35,11 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->realManager = $this->getMock('FOS\CommentBundle\Model\CommentManagerInterface');
-        $this->commentSecurity = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
-        $this->threadSecurity = $this->getMock('FOS\CommentBundle\Acl\ThreadAclInterface');
-        $this->thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
-        $this->comment = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\CommentManagerInterface')->getMock();
+        $this->commentSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
+        $this->threadSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\ThreadAclInterface')->getMock();
+        $this->thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
+        $this->comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $this->sorting_strategy = 'date_asc';
         $this->depth = 0;
         $this->parent = null;
@@ -214,7 +214,7 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function saveCommentSetup()
     {
-        $this->parent = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $this->parent = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $this->commentReturnsThread();
     }
 
@@ -298,7 +298,7 @@ class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateComment()
     {
-        $this->parent = $this->getMock('FOS\CommentBundle\Model\CommentInterface');
+        $this->parent = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
 
         $this->realManager->expects($this->once())
             ->method('createComment')

@@ -30,11 +30,11 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->realManager = $this->getMock('FOS\CommentBundle\Model\VoteManagerInterface');
-        $this->voteSecurity = $this->getMock('FOS\CommentBundle\Acl\VoteAclInterface');
-        $this->commentSecurity = $this->getMock('FOS\CommentBundle\Acl\CommentAclInterface');
-        $this->comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
-        // $this->vote = $this->getMock('FOS\CommentBundle\Model\VoteInterface');
+        $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\VoteManagerInterface')->getMock();
+        $this->voteSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
+        $this->commentSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
+        $this->comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
+        // $this->vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $this->vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
         $this->vote->expects($this->any())
             ->method('getComment')
@@ -132,7 +132,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindVotesByComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
         $expectedResult = array($this->vote);
 
         $this->realManager->expects($this->once())
@@ -151,7 +151,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testFindVotesByCommentAllowed()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
         $expectedResult = array($this->vote);
 
         $this->realManager->expects($this->once())
@@ -175,7 +175,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVoteNoCreate()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $this->realManager->expects($this->never())
             ->method('saveVote');
@@ -193,7 +193,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVoteNoViewComment()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $this->realManager->expects($this->never())
             ->method('saveVote');
@@ -213,7 +213,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddVote()
     {
-        $comment = $this->getMock('FOS\CommentBundle\Model\VotableCommentInterface');
+        $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $this->realManager->expects($this->once())
             ->method('saveVote')

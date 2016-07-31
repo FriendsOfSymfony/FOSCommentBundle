@@ -29,9 +29,9 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->realManager = $this->getMock('FOS\CommentBundle\Model\ThreadManagerInterface');
-        $this->threadSecurity = $this->getMock('FOS\CommentBundle\Acl\ThreadAclInterface');
-        $this->thread = $this->getMock('FOS\CommentBundle\Model\ThreadInterface');
+        $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadManagerInterface')->getMock();
+        $this->threadSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\ThreadAclInterface')->getMock();
+        $this->thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
     }
 
     /**

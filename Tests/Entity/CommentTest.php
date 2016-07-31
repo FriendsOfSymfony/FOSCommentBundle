@@ -32,7 +32,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $ancestors = array(1, 5, 12);
         $parentId = 14;
 
-        $parent = $this->getMock('FOS\CommentBundle\Entity\Comment');
+        $parent = $this->getMockBuilder('FOS\CommentBundle\Entity\Comment')->getMock();
         $parent->expects($this->once())
             ->method('getAncestors')
             ->will($this->returnValue($ancestors));
@@ -51,7 +51,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetParentNotPersisted()
     {
-        $parent = $this->getMock('FOS\CommentBundle\Entity\Comment');
+        $parent = $this->getMockBuilder('FOS\CommentBundle\Entity\Comment')->getMock();
         $parent->expects($this->any())
             ->method('getId')
             ->will($this->returnValue(null));
