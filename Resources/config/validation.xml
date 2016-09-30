@@ -28,11 +28,7 @@
     </class>
 
     <class name="FOS\CommentBundle\Model\Vote">
-        <constraint name="Callback">
-            <option name="methods">
-                <value>isVoteValid</value>
-            </option>
-        </constraint>
+        <constraint name="Callback">isVoteValid</constraint>
     </class>
 
     <class name="FOS\CommentBundle\Model\Thread">
