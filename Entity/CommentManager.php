@@ -77,7 +77,7 @@ class CommentManager extends BaseCommentManager
             // if the final 'depth' layer has children.
 
             $qb->andWhere('c.depth < :depth')
-               ->setParameter('depth', $depth + 1);
+                ->setParameter('depth', $depth + 1);
         }
 
         $comments = $qb
