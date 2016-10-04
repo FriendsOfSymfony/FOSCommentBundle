@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Score: "
 
 fos_comment_comment_tree_load_more:           Afficher plus de réponses
 
-Showing %num% comment|Showing %num% comments: Afficher %num% commentaire|Afficher %num% commentaires
-
 fos_comment_rss_feed:                         Flux RSS
 
 fos_comment_thread_close:                     Fermer le fil de discussion

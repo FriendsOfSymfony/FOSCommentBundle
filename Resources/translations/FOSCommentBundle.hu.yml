@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Pont: "
 
 fos_comment_comment_tree_load_more:           Még több hozzászólás
 
-Showing %num% comment|Showing %num% comments: %num% hozzászólás mutatása|%num% hozzászólás mutatása
-
 fos_comment_rss_feed:                         RSS
 
 fos_comment_thread_close:                     Szál lezárása

@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               分数：
 
 fos_comment_comment_tree_load_more:           加载更多回复
 
-Showing %num% comment|Showing %num% comments: 显示 %num% 条讨论|显示 %num% 条讨论
-
 fos_comment_rss_feed:                         RSS源
 
 fos_comment_thread_close:                     关闭话题

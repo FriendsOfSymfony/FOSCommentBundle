@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Score: "
 
 fos_comment_comment_tree_load_more:           Meer reacties laden
 
-Showing %num% comment|Showing %num% comments: %num% reactie zichtbaar|%num% reacties zichtbaar
-
 fos_comment_rss_feed:                         RSS feed
 
 fos_comment_thread_close:                     Discussie sluiten
