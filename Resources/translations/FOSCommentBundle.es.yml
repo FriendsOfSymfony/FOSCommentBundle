@@ -20,7 +20,7 @@ fos_comment_comment_tree_load_more:           Cargar más respuestas
 
 fos_comment_thread_close:                     Cerrar hilo
 fos_comment_thread_open:                      Abrir hilo
-fos_comment_thread_comment_count:             %count% comentario|%count% comentarios
+fos_comment_thread_comment_count:             "%count% comentario|%count% comentarios"
 fos_comment_comment_edit:                     Editar
 fos_comment_comment_delete:                   Borrar comentario
 fos_comment_comment_undelete:                 Deshacer borrado del comentario

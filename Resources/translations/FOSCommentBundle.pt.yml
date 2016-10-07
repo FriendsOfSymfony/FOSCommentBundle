@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Fechar trilha
 fos_comment_thread_open:                      Abrir trilha
-fos_comment_thread_comment_count:             %count% comentário|%count% comentários
+fos_comment_thread_comment_count:             "%count% comentário|%count% comentários"
 fos_comment_comment_edit:                     Editar
 fos_comment_comment_delete:                   Apagar comentário
 fos_comment_comment_undelete:                 Recuperar comentário

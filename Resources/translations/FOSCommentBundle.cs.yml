@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Uzavřít vlákno
 fos_comment_thread_open:                      Otevřít vlákno
-fos_comment_thread_comment_count:             %count% komentář|%count% komentáře|%count% komentářů
+fos_comment_thread_comment_count:             "%count% komentář|%count% komentáře|%count% komentářů"
 fos_comment_comment_edit:                     Upravit
 fos_comment_comment_delete:                   Smazat komentář
 fos_comment_comment_undelete:                 Obnovit komentář

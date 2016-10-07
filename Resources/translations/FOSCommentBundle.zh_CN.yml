@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS源
 
 fos_comment_thread_close:                     关闭话题
 fos_comment_thread_open:                      打开话题
-fos_comment_thread_comment_count:             %count% 条讨论|%count% 条讨论
+fos_comment_thread_comment_count:             "%count% 条讨论|%count% 条讨论"
 fos_comment_comment_edit:                     编辑
 fos_comment_comment_delete:                   删除
 fos_comment_comment_undelete:                 取消删除

@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS канал
 
 fos_comment_thread_close:                     Затвори дискусију
 fos_comment_thread_open:                      Отвори дискусију
-fos_comment_thread_comment_count:             %count% коментар|%count% коментара|%count% коментара
+fos_comment_thread_comment_count:             "%count% коментар|%count% коментара|%count% коментара"
 fos_comment_comment_edit:                     Измени
 fos_comment_comment_delete:                   Обриши коментар
 fos_comment_comment_undelete:                 Обнови коментар

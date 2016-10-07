@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS
 
 fos_comment_thread_close:                     Szál lezárása
 fos_comment_thread_open:                      Szál megnyitása
-fos_comment_thread_comment_count:             %count% hozzászólás|%count% hozzászólás
+fos_comment_thread_comment_count:             "%count% hozzászólás|%count% hozzászólás"
 fos_comment_comment_edit:                     Módosít
 fos_comment_comment_delete:                   Hozzászólás törlése
 fos_comment_comment_undelete:                 Hozzászólás törlésének visszavonása

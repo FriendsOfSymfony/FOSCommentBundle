@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     スレッドを閉じる
 fos_comment_thread_open:                      スレッドを開く
-fos_comment_thread_comment_count:             %count% コメント|%count% コメント
+fos_comment_thread_comment_count:             "%count% コメント|%count% コメント"
 fos_comment_comment_edit:                     編集
 fos_comment_comment_delete:                   コメント削除
 fos_comment_comment_undelete:                 コメント削除取消
