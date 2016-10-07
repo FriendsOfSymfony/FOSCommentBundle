@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Zapri objavo
 fos_comment_thread_open:                      Odpri objavo
-fos_comment_thread_comment_count:             %count% komentar|%count% komentarja|%count% komentarji|%count% komentarjev
+fos_comment_thread_comment_count:             "%count% komentar|%count% komentarja|%count% komentarji|%count% komentarjev"
 fos_comment_comment_edit:                     Urejanje
 fos_comment_comment_delete:                   Izbriši komentar
 fos_comment_comment_undelete:                 Prekliči izbris komentarja

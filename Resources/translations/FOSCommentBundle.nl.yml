@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS feed
 
 fos_comment_thread_close:                     Discussie sluiten
 fos_comment_thread_open:                      Discussie openen
-fos_comment_thread_comment_count:             %count% reactie|%count% reacties
+fos_comment_thread_comment_count:             "%count% reactie|%count% reacties"
 fos_comment_comment_edit:                     Bewerken
 fos_comment_comment_delete:                   Verwijder reactie
 fos_comment_comment_undelete:                 Reactie terughalen

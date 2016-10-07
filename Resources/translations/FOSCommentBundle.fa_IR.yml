@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         خوراک RSS
 
 fos_comment_thread_close:                     بستن رشته
 fos_comment_thread_open:                      گشودن رشته
-fos_comment_thread_comment_count:             %count% نظر|%count% نظر
+fos_comment_thread_comment_count:             "%count% نظر|%count% نظر"
 fos_comment_comment_edit:                     ویرایش
 fos_comment_comment_delete:                   حذف نظر
 fos_comment_comment_undelete:                 بهنگام سازی نظر

@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Zamknij wątek
 fos_comment_thread_open:                      Otwórz watek
-fos_comment_thread_comment_count:             %count% komentarz|%count% komentarze|%count% komentarzy
+fos_comment_thread_comment_count:             "%count% komentarz|%count% komentarze|%count% komentarzy"
 fos_comment_comment_edit:                     Edytuj
 fos_comment_comment_delete:                   Usuń komentarz
 fos_comment_comment_undelete:                 Przywróć komentarz

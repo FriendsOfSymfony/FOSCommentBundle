@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS kanal
 
 fos_comment_thread_close:                     Zatvori diskusiju
 fos_comment_thread_open:                      Otvori diskusiju
-fos_comment_thread_comment_count:             %count% komentar|%count% komentara|%count% komentara
+fos_comment_thread_comment_count:             "%count% komentar|%count% komentara|%count% komentara"
 fos_comment_comment_edit:                     Izmeni
 fos_comment_comment_delete:                   Obriši komentar
 fos_comment_comment_undelete:                 Obnovi komentar

@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Хэлхээг хаах
 fos_comment_thread_open:                      Хэлхээг нээх
-fos_comment_thread_comment_count:             %count% сэтгэгдэлтэй|%count% сэтгэгдэлтэй
+fos_comment_thread_comment_count:             "%count% сэтгэгдэлтэй|%count% сэтгэгдэлтэй"
 fos_comment_comment_edit:                     Засах
 fos_comment_comment_delete:                   Устгах
 fos_comment_comment_undelete:                 Сэтгэгдлийг сэргээх
