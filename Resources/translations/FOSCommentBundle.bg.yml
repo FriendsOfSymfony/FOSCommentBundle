@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Вот: "
 
 fos_comment_comment_tree_load_more:           Покажи останалите отговори
 
-Showing %num% comment|Showing %num% comments: Показани %num% коментара|Показан %num% коментара|Показано %num% коментара
-
 fos_comment_rss_feed:                         Лента RSS
 
 fos_comment_thread_close:                     Затвори

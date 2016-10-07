@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Pontuação: "
 
 fos_comment_comment_tree_load_more:           Carregar Mais Respostas
 
-Showing %num% comment|Showing %num% comments: Mostrando %num% comentário|Mostrando %num% comentários
-
 fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Fechar trilha

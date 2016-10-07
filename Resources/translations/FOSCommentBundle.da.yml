@@ -18,6 +18,4 @@ fos_comment_comment_vote_score:               "Score: "
 
 fos_comment_comment_tree_load_more:           Hent flere svar
 
-Showing %num% comment|Showing %num% comments: Viser %num% kommentar|Viser %num% kommentare
-
 fos_comment_rss_feed:                         RSS format

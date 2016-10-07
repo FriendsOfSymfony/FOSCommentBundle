@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Število: "
 
 fos_comment_comment_tree_load_more:           Naloži več odgovorov
 
-Showing %num% comment|Showing %num% comments: Prikazan %num% komentar|Prikazana %num% komentarja|Prikazani %num% komentarji|Prikazanih %num% komentarjev
-
 fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Zapri objavo

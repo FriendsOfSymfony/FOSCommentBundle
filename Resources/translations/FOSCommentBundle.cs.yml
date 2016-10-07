@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Hodnocení: "
 
 fos_comment_comment_tree_load_more:           Zobrazit více komentářů
 
-Showing %num% comment|Showing %num% comments: Zobrazuji %num% komentář|Zobrazuji %num% komentáře|Zobrazuji %num% komentářů
-
 fos_comment_rss_feed:                         RSS Feed
 
 fos_comment_thread_close:                     Uzavřít vlákno

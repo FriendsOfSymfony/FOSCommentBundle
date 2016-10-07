@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "Puntuación:"
 
 fos_comment_comment_tree_load_more:           Cargar más respuestas
 
-Showing %num% comment|Showing %num% comments: Se muestra %num% comentario|Se muestran %num% comentarios
-
 fos_comment_thread_close:                     Cerrar hilo
 fos_comment_thread_open:                      Abrir hilo
 fos_comment_thread_comment_count:             %count% comentario|%count% comentarios

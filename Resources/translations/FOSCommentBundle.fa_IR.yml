@@ -18,8 +18,6 @@ fos_comment_comment_vote_score:               "امتیاز: "
 
 fos_comment_comment_tree_load_more:           بارگزاری جواب های بیشتر
 
-Showing %num% comment|Showing %num% comments: نمایش %num% نظر|نمایش %num% نظر
-
 fos_comment_rss_feed:                         خوراک RSS
 
 fos_comment_thread_close:                     بستن رشته
