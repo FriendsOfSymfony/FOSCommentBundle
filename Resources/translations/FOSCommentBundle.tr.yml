@@ -1,0 +1,30 @@
+fos_comment_comment_new_headline_first:       İlk yorum yapan olun
+fos_comment_comment_new_headline:             Yorum Ekle
+fos_comment_comment_new_submit:               Gönder
+fos_comment_comment_new_cancel:               Vazgeç
+
+fos_comment_comment_edit_submit:              Düzenle
+fos_comment_comment_edit_cancel:              Vazgeç
+
+fos_comment_comment_reply_reply_to:           'Yanıtlanıyor: %name%'
+fos_comment_comment_reply_cancel:             Vazgeç
+
+fos_comment_comment_show_by:                  ''
+fos_comment_comment_show_voteup:              '+1'
+fos_comment_comment_show_votedown:            '-1'
+fos_comment_comment_show_reply:               Yanıtla
+
+fos_comment_comment_vote_score:               "Puan: "
+
+fos_comment_comment_tree_load_more:           Daha fazla yanıt yükle
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Yoruma kapat
+fos_comment_thread_open:                      Yoruma aç
+fos_comment_thread_comment_count:             "%count% yorum|%count% yorum"
+fos_comment_comment_edit:                     Düzenle
+fos_comment_comment_delete:                   Yorumu sil
+fos_comment_comment_undelete:                 Yorumu geri yükle
+fos_comment_comment_deleted:                  "[silindi]"
+
