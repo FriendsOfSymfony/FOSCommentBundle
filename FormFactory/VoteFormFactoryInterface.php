@@ -23,7 +23,8 @@ interface VoteFormFactoryInterface
     /**
      * Creates a comment form
      *
+     * @param $name_suffix string Suffix of the form name
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm($name_suffix = null);
 }

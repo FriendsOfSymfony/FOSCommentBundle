@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\FormFactory;
 
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * ThreadForm factory class.
@@ -38,14 +38,14 @@ class ThreadFormFactory implements ThreadFormFactoryInterface
      * Constructor.
      *
      * @param FormFactoryInterface $formFactory
-     * @param string               $type
-     * @param string               $name
+     * @param string $type
+     * @param string $name
      */
     public function __construct(FormFactoryInterface $formFactory, $type, $name)
     {
         $this->formFactory = $formFactory;
-        $this->type        = $type;
-        $this->name        = $name;
+        $this->type = $type;
+        $this->name = $name;
     }
 
     /**

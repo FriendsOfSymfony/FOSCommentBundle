@@ -139,7 +139,7 @@ class ThreadController extends Controller
 
         $thread->setCommentable($request->query->get('value', 1));
 
-        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm($thread->getId());
         $form->setData($thread);
 
         $view = View::create()
@@ -166,7 +166,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("Thread with id '%s' could not be found.", $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.commentable_thread')->createForm($thread->getId());
         $form->setData($thread);
         $form->handleRequest($request);
 
@@ -198,7 +198,7 @@ class ThreadController extends Controller
 
         $parent = $this->getValidCommentParent($thread, $request->query->get('parentId'));
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array(), $thread->getId());
         $form->setData($comment);
 
         $view = View::create()
@@ -262,7 +262,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm($comment->getId());
         $comment->setState($request->query->get('value', $comment::STATE_DELETED));
 
         $form->setData($comment);
@@ -293,7 +293,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.delete_comment')->createForm($comment->getId());
         $form->setData($comment);
         $form->handleRequest($request);
 
@@ -323,7 +323,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array(), $thread->getId());
         $form->setData($comment);
 
         $view = View::create()
@@ -356,7 +356,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array('method' => 'PUT'));
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array('method' => 'PUT'), $thread->getId());
         $form->setData($comment);
         $form->handleRequest($request);
 
@@ -476,7 +476,7 @@ class ThreadController extends Controller
         $commentManager = $this->container->get('fos_comment.manager.comment');
         $comment = $commentManager->createComment($thread, $parent);
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array('method' => 'POST'));
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array('method' => 'POST'), $thread->getId());
         $form->setData($comment);
         $form->handleRequest($request);
 
@@ -536,7 +536,7 @@ class ThreadController extends Controller
         $vote = $this->container->get('fos_comment.manager.vote')->createVote($comment);
         $vote->setValue($request->query->get('value', 1));
 
-        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm($comment->getId());
         $form->setData($vote);
 
         $view = View::create()
@@ -571,7 +571,7 @@ class ThreadController extends Controller
         $voteManager = $this->container->get('fos_comment.manager.vote');
         $vote = $voteManager->createVote($comment);
 
-        $form = $this->container->get('fos_comment.form_factory.vote')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm($comment->getId());
         $form->setData($vote);
         $form->handleRequest($request);
 

@@ -21,7 +21,8 @@ interface CommentableThreadFormFactoryInterface
     /**
      * Creates a open thread form
      *
+     * @param $name_suffix string the suffix to name the form
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm($name_suffix = null);
 }

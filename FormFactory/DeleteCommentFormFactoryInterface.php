@@ -23,5 +23,5 @@ interface DeleteCommentFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm($name_suffix = null);
 }
