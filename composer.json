@@ -1,5 +1,5 @@
 {
-    "name": "flavienaudin/comment-bundle",
+    "name": "friendsofsymfony/comment-bundle",
     "type": "symfony-bundle",
     "description": "This Bundle provides threaded comment functionality for Symfony 3 applications",
     "keywords": ["comment", "threads", "forum"],
