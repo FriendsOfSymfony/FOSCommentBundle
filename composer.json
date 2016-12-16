@@ -1,14 +1,11 @@
 {
     "name": "friendsofsymfony/comment-bundle",
     "type": "symfony-bundle",
-    "description": "This Bundle provides threaded comment functionality for Symfony 3 applications",
+    "description": "This Bundle provides threaded comment functionality for Symfony2 applications",
     "keywords": ["comment", "threads", "forum"],
     "homepage": "http://friendsofsymfony.github.com",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Flavien Audin"
-        },
         {
             "name": "Tim Nagel",
             "email": "tim@nagel.com.au"
