@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Acl;
 use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
 
 /**
  * Implements Role checking using the Symfony2 Security component
@@ -95,9 +96,10 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token has an appropriate role to create a new Comment.
      *
+     * @param ThreadInterface $thread
      * @return boolean
      */
-    public function canCreate()
+    public function canCreate(ThreadInterface $thread = null)
     {
         return $this->authorizationChecker->isGranted($this->createRole);
     }

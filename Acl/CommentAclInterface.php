@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
 
 /**
  * Used for checking if the ACL system will allow specific actions
@@ -24,9 +25,10 @@ interface CommentAclInterface
     /**
      * Checks if the user should be able to create a comment.
      *
+     * @param ThreadInterface $thread
      * @return boolean
      */
-    public function canCreate();
+    public function canCreate(ThreadInterface $thread = null);
 
     /**
      * Checks if the user should be able to view a comment.
