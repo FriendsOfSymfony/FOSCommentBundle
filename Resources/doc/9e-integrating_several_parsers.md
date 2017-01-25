@@ -8,10 +8,10 @@ Imagine that you need to integrate ExerciseHTMLPurifierBundle parser, bbcode par
 Usage
 -----
 
-First, configure parser classes as services. You don't have to use all parsers that this bundle provides. The main parser of this bundle is PipelineParser which provides pipeline for parser classes.
+First, configure parser classes as services.
 
 ```yaml
-    # See https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/9a-markup_htmlpurifier.md
+    # See 9a-markup_htmlpurifier.md
     markup.exercise_html_purifier:
         class: FOS\CommentBundle\Markup\HtmlPurifier
         arguments: [ @exercise_html_purifier.default ]
@@ -20,6 +20,9 @@ First, configure parser classes as services. You don't have to use all parsers t
     markup.my_parser:
         #This is your own parser that implements ParserInterface
         class: MyBundle\Parser\MyParser
+        # If you don't plan to use this parser somewhere in the code, it's better to make it private.
+        # this should increase service container performance
+        public: false
 ```
 
 Then, you have to define PipelineParser as a service and configure it with parsers.
@@ -35,7 +38,7 @@ Then, you have to define PipelineParser as a service and configure it with parse
 The order of parsers is important. First parser that has been added to pipeline is executed first.
 
 
-The last step is to use pipeline parser as described in [documentation](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/9-using_a_markup_parser.md)
+The last step is to use pipeline parser as described in [documentation](9-using_a_markup_parser.md)
 ```yaml
 # app/config/config.yml
 
