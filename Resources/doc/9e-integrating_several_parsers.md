@@ -15,6 +15,9 @@ First, configure parser classes as services.
     markup.exercise_html_purifier:
         class: FOS\CommentBundle\Markup\HtmlPurifier
         arguments: [ @exercise_html_purifier.default ]
+        # If you don't plan to use this parser somewhere in the code, it's better to make it private.
+        # this should increase service container performance
+        public: false        
         
     # Your own parser    
     markup.my_parser:
@@ -35,7 +38,7 @@ Then, you have to define PipelineParser as a service and configure it with parse
             - [addToPipeline, ["@markup.my_parser"]]
 ```
 
-The order of parsers is important. First parser that has been added to pipeline is executed first.
+Parsers are executed in the order in which they are added to the pipeline.
 
 
 The last step is to use pipeline parser as described in [documentation](9-using_a_markup_parser.md)
