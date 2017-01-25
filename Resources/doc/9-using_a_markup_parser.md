@@ -44,6 +44,7 @@ fos_comment:
  * [Enable the sundown pecl extension to parse comments for markdown](9b-sundown_markdown_parser.md)
  * [Implement a BBCode parser to let your users post comments with BBCode](9c-using_a_bbcode_parser.md)
  * [Implement the PHP Markdown extra parser](9d-php_markdown_extra_parser.md)
+ * [Integrating several parsers together](9e-integrating_several_parsers.md)
 
 ## That is it!
 [Return to the index.](index.md)
