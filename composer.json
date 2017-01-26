@@ -37,7 +37,7 @@
         "symfony/validator": "~2.3|~3.0",
         "symfony/twig-bundle": "~2.3|~3.0",
         "symfony/twig-bridge": "^2.3.4|~3.0",
-        "twig/twig": "~1.21"
+        "twig/twig": "~1.28|~2.0"
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
