@@ -28,6 +28,7 @@
         "friendsofsymfony/rest-bundle": "~1.6|~2.0",
         "jms/serializer-bundle": "~0.11|~1.0",
         "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/asset": "~2.3|~3.0",
         "symfony/dependency-injection": "~2.3|~3.0",
         "symfony/routing": "~2.3|~3.0",
         "symfony/security-bundle": "~2.3|~3.0",
