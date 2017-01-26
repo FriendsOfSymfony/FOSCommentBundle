@@ -1,0 +1,29 @@
+fos_comment_comment_new_headline_first:       Jadilah yang pertama mengomentari
+fos_comment_comment_new_headline:             Tambahkan Komentar Baru
+fos_comment_comment_new_submit:               Kirim
+fos_comment_comment_new_cancel:               Batal
+
+fos_comment_comment_edit_submit:              Kirim
+fos_comment_comment_edit_cancel:              Batal
+
+fos_comment_comment_reply_reply_to:           Membalas ke %name%
+fos_comment_comment_reply_cancel:             Batal
+
+fos_comment_comment_show_by:                  Oleh
+fos_comment_comment_show_voteup:              Memberi suara
+fos_comment_comment_show_votedown:            Menolak
+fos_comment_comment_show_reply:               Balas
+
+fos_comment_comment_vote_score:               "Skor: "
+
+fos_comment_comment_tree_load_more:           Muat Lebih banyak balasan
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Tutup thread
+fos_comment_thread_open:                      Buka thread
+fos_comment_thread_comment_count:             "%count% komentar|%count% komentar"
+fos_comment_comment_edit:                     Ubah
+fos_comment_comment_delete:                   Hapus komentar
+fos_comment_comment_undelete:                 Urungkan hapus komentar
+fos_comment_comment_deleted:                  "[terhapus]"
