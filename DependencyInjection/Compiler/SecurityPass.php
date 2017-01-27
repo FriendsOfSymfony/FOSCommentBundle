@@ -47,6 +47,10 @@ class SecurityPass implements CompilerPassInterface
             ->replaceArgument(0, $authorizationCheckerReference)
             ->replaceArgument(1, $tokenStorageReference);
 
+        $container->getDefinition('fos_comment.listener.flag_blamer')
+            ->replaceArgument(0, $authorizationCheckerReference)
+            ->replaceArgument(1, $tokenStorageReference);
+
         if ($container->has('fos_comment.acl.thread.security')) {
             $container->getDefinition('fos_comment.acl.thread.security')
                 ->replaceArgument(0, $authorizationCheckerReference);

@@ -11,8 +11,11 @@
 
 namespace FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
+use FOS\CommentBundle\Model\FlaggableCommentInterface;
+use FOS\CommentBundle\Model\FlagInterface;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
@@ -24,7 +27,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
+class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface, FlaggableCommentInterface
 {
     /**
      * @ORM\Id
@@ -32,6 +35,14 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * Thread of this comment
+     *
+     * @ORM\OneToMany(targetEntity="Flag", mappedBy="comment")
+     * @var Flag[]
+     */
+    protected $flags;
 
     /**
      * Thread of this comment
@@ -52,6 +63,13 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @var int
      */
     protected $score = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->flags = new ArrayCollection();
+    }
+
 
     /**
      * @return Thread
@@ -126,5 +144,23 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     public function getAuthorName()
     {
         return $this->author ?: parent::getAuthorName();
+    }
+
+    /**
+     * @param $flag
+     * @param $reason
+     */
+    public function addFlag($flag)
+    {
+        $this->flags[] = $flag;
+    }
+
+    /**
+     *
+     * @return FlagInterface[]
+     */
+    public function getFlags()
+    {
+        return $this->flags;
     }
 }

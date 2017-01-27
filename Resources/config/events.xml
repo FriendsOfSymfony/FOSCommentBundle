@@ -19,6 +19,7 @@
         <parameter key="fos_comment.listener.thread_permalink.class">FOS\CommentBundle\EventListener\ThreadPermalinkListener</parameter>
         <parameter key="fos_comment.listener.comment_blamer.class">FOS\CommentBundle\EventListener\CommentBlamerListener</parameter>
         <parameter key="fos_comment.listener.vote_blamer.class">FOS\CommentBundle\EventListener\VoteBlamerListener</parameter>
+        <parameter key="fos_comment.listener.flag_blamer.class">FOS\CommentBundle\EventListener\FlagBlamerListener</parameter>
         <parameter key="fos_comment.listener.closed_threads.class">FOS\CommentBundle\EventListener\ClosedThreadListener</parameter>
     </parameters>
 
@@ -45,6 +46,13 @@
         </service>
 
         <service id="fos_comment.listener.vote_blamer" class="%fos_comment.listener.vote_blamer.class%">
+            <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
+            <argument /> <!-- TokenStorageInterface|SecurityContextInterface -->
+            <argument type="service" id="logger" on-invalid="null" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="fos_comment.listener.flag_blamer" class="%fos_comment.listener.flag_blamer.class%">
             <argument /> <!-- AuthorizationCheckerInterface|SecurityContextInterface -->
             <argument /> <!-- TokenStorageInterface|SecurityContextInterface -->
             <argument type="service" id="logger" on-invalid="null" />

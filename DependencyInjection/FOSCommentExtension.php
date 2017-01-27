@@ -80,6 +80,10 @@ class FOSCommentExtension extends Extension
             $container->setParameter('fos_comment.model.vote.class', $config['class']['model']['vote']);
         }
 
+        if (array_key_exists('flag', $config['class']['model'])) {
+            $container->setParameter('fos_comment.model.flag.class', $config['class']['model']['flag']);
+        }
+
         $container->setParameter('fos_comment.model_manager_name', $config['model_manager_name']);
 
         // handle the MongoDB document manager name in a specific way as it does not have a registry to make it easy
@@ -107,6 +111,9 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.vote.type', $config['form']['vote']['type']);
         $container->setParameter('fos_comment.form.vote.name', $config['form']['vote']['name']);
 
+        $container->setParameter('fos_comment.form.flag.type', $config['form']['flag']['type']);
+        $container->setParameter('fos_comment.form.flag.name', $config['form']['flag']['name']);
+
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
@@ -114,6 +121,7 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.form_factory.delete_comment', $config['service']['form_factory']['delete_comment']);
         $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
         $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
+        $container->setAlias('fos_comment.form_factory.flag', $config['service']['form_factory']['flag']);
 
         if (isset($config['service']['spam_detection'])) {
             $loader->load('spam_detection.xml');
@@ -128,6 +136,7 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+        $container->setAlias('fos_comment.manager.flag', $config['service']['manager']['flag']);
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)
@@ -139,10 +148,12 @@ class FOSCommentExtension extends Extension
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
             $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl_roles']['thread'][$perm]);
             $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl_roles']['vote'][$perm]);
+            $container->getDefinition('fos_comment.acl.flag.roles')->replaceArgument($index, $config['acl_roles']['flag'][$perm]);
         }
 
         $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
         $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
         $container->setAlias('fos_comment.acl.vote', $config['service']['acl']['vote']);
+        $container->setAlias('fos_comment.acl.flag', $config['service']['acl']['flag']);
     }
 }
