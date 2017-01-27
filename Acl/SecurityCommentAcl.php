@@ -22,7 +22,6 @@ use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityRetrievalStrategyInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Implements ACL checking using the Symfony2 Security component
@@ -46,7 +45,7 @@ class SecurityCommentAcl implements CommentAclInterface
     protected $aclProvider;
 
     /**
-     * @var AuthorizationCheckerInterface|SecurityContextInterface
+     * @var AuthorizationCheckerInterface
      */
     protected $authorizationChecker;
 
@@ -67,21 +66,17 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
-     * @param ObjectIdentityRetrievalStrategyInterface               $objectRetrieval
-     * @param MutableAclProviderInterface                            $aclProvider
-     * @param string                                                 $commentClass
+     * @param AuthorizationCheckerInterface            $authorizationChecker
+     * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
+     * @param MutableAclProviderInterface              $aclProvider
+     * @param string                                   $commentClass
      */
-    public function __construct($authorizationChecker,
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $commentClass
     )
     {
-        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
-        }
-
         $this->authorizationChecker = $authorizationChecker;
         $this->objectRetrieval      = $objectRetrieval;
         $this->aclProvider          = $aclProvider;

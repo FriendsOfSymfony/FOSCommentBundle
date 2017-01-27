@@ -50,14 +50,7 @@ class FOSCommentExtension extends Extension
             $loader->load(sprintf('%s.xml', $config['db_driver']));
             $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
             $def->setPublic(false);
-
-            if (method_exists($def, 'setFactory')) {
-                $def->setFactory(array(new Reference('doctrine'), 'getManager'));
-            } else {
-                // To be removed when dependency on Symfony DependencyInjection is bumped to 2.6
-                $def->setFactoryService('doctrine');
-                $def->setFactoryMethod('getManager');
-            }
+            $def->setFactory(array(new Reference('doctrine'), 'getManager'));
 
             $container->setDefinition('fos_comment.entity_manager', $def);
         }

@@ -11,7 +11,6 @@
 
 namespace FOS\CommentBundle;
 
-use FOS\CommentBundle\DependencyInjection\Compiler\SecurityPass;
 use FOS\CommentBundle\DependencyInjection\Compiler\SortingPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,7 +27,6 @@ class FOSCommentBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new SecurityPass());
         $container->addCompilerPass(new SortingPass());
     }
 }

@@ -29,11 +29,7 @@ abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (interface_exists('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')) {
-            $this->authorizationChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')->getMock();
-        } else {
-            $this->authorizationChecker = $this->getMockBuilder('Symfony\Component\Security\Core\SecurityContextInterface')->getMock();
-        }
+        $this->authorizationChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')->getMock();
     }
 
     public function getRoles()

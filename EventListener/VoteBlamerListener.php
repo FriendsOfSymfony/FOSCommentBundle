@@ -18,7 +18,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Assigns a FOS\UserBundle user from the logged in user to a vote.
@@ -28,12 +27,12 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class VoteBlamerListener implements EventSubscriberInterface
 {
     /**
-     * @var AuthorizationCheckerInterface|SecurityContextInterface
+     * @var AuthorizationCheckerInterface
      */
     private $authorizationChecker;
 
     /**
-     * @var TokenStorageInterface|SecurityContextInterface
+     * @var TokenStorageInterface
      */
     private $tokenStorage;
 
@@ -45,20 +44,12 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
-     * @param SecurityContextInterface|SecurityContextInterface      $tokenStorage
-     * @param LoggerInterface                                        $logger
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface         $tokenStorage
+     * @param LoggerInterface               $logger
      */
-    public function __construct($authorizationChecker, $tokenStorage, LoggerInterface $logger = null)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, LoggerInterface $logger = null)
     {
-        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
-        }
-
-        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 2 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
-        }
-
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
         $this->logger = $logger;
