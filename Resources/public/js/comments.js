@@ -64,7 +64,7 @@
                     complete(response.responseText, response.status);
                 }
             };
-            $.post(url, data, success).error(wrappedErrorCallback).complete(wrappedCompleteCallback);
+            $.post(url, data, success).fail(wrappedErrorCallback).always(wrappedCompleteCallback);
         },
 
         /**
@@ -82,7 +82,7 @@
                     error(response.responseText, response.status);
                 }
             };
-            $.get(url, data, success).error(wrappedErrorCallback);
+            $.get(url, data, success).fail(wrappedErrorCallback);
         },
 
         /**
