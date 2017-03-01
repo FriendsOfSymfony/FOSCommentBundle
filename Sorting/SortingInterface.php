@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -23,7 +32,8 @@ interface SortingInterface
     /**
      * Takes an array of Tree instances and sorts them.
      *
-     * @param  array $tree
+     * @param array $tree
+     *
      * @return Tree
      */
     public function sort(array $tree);
@@ -31,7 +41,8 @@ interface SortingInterface
     /**
      * Sorts a flat comment array.
      *
-     * @param  array $comments
+     * @param array $comments
+     *
      * @return array
      */
     public function sortFlat(array $comments);

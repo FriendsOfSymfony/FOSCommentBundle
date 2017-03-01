@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -15,37 +24,37 @@ use DateTime;
 use InvalidArgumentException;
 
 /**
- * Storage agnostic comment object
+ * Storage agnostic comment object.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 abstract class Comment implements CommentInterface
 {
     /**
-     * Comment id
+     * Comment id.
      *
      * @var mixed
      */
     protected $id;
 
     /**
-     * Parent comment id
+     * Parent comment id.
      *
      * @var CommentInterface
      */
     protected $parent;
 
     /**
-     * Comment text
+     * Comment text.
      *
      * @var string
      */
     protected $body;
 
     /**
-     * The depth of the comment
+     * The depth of the comment.
      *
-     * @var integer
+     * @var int
      */
     protected $depth = 0;
 
@@ -57,14 +66,14 @@ abstract class Comment implements CommentInterface
     /**
      * Current state of the comment.
      *
-     * @var integer
+     * @var int
      */
     protected $state = 0;
 
     /**
      * The previous state of the comment.
      *
-     * @var integer
+     * @var int
      */
     protected $previousState = 0;
 
@@ -81,7 +90,7 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * Return the comment unique id
+     * Return the comment unique id.
      *
      * @return mixed
      */
@@ -100,6 +109,7 @@ abstract class Comment implements CommentInterface
 
     /**
      * @param  string
+     *
      * @return null
      */
     public function setBody($body)
@@ -124,7 +134,8 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * Sets the creation date
+     * Sets the creation date.
+     *
      * @param DateTime $createdAt
      */
     public function setCreatedAt(DateTime $createdAt)
@@ -143,7 +154,7 @@ abstract class Comment implements CommentInterface
     /**
      * Returns the depth of the comment.
      *
-     * @return integer
+     * @return int
      */
     public function getDepth()
     {
@@ -194,7 +205,7 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getState()
     {
@@ -202,7 +213,7 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setState($state)
     {
@@ -211,7 +222,7 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPreviousState()
     {

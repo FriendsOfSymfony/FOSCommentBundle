@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -22,6 +31,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="test_comment")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+ *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
@@ -34,21 +44,24 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     protected $id;
 
     /**
-     * Thread of this comment
+     * Thread of this comment.
      *
      * @ORM\ManyToOne(targetEntity="Thread")
+     *
      * @var Thread
      */
     protected $thread;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     *
      * @var string
      */
     protected $author;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     protected $score = 0;
@@ -62,7 +75,8 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     }
 
     /**
-     * @param  Thread $thread
+     * @param Thread $thread
+     *
      * @return null
      */
     public function setThread(ThreadInterface $thread)
@@ -71,7 +85,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     }
 
     /**
-     * Sets the author of the Comment
+     * Sets the author of the Comment.
      *
      * @param string $user
      */
@@ -81,7 +95,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     }
 
     /**
-     * Gets the author of the Comment
+     * Gets the author of the Comment.
      *
      * @return string
      */
@@ -93,7 +107,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * Sets the score of the comment.
      *
-     * @param integer $score
+     * @param int $score
      */
     public function setScore($score)
     {
@@ -103,7 +117,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * Returns the current score of the comment.
      *
-     * @return integer
+     * @return int
      */
     public function getScore()
     {
@@ -114,9 +128,9 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * Increments the comment score by the provided
      * value.
      *
-     * @param integer value
+     * @param int value
      *
-     * @return integer The new comment score
+     * @return int The new comment score
      */
     public function incrementScore($by = 1)
     {

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -72,7 +81,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds a vote by specified criteria.
      *
-     * @param  array         $criteria
+     * @param array $criteria
+     *
      * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
@@ -83,7 +93,8 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds all votes belonging to a comment.
      *
-     * @param  \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
+     *
      * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment)
@@ -99,7 +110,7 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
-     * Returns the fully qualified comment vote class name
+     * Returns the fully qualified comment vote class name.
      *
      * @return string
      */

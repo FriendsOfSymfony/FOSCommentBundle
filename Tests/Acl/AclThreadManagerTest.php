@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -12,9 +21,6 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclThreadManager;
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\ThreadManagerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Tests the functionality provided by Acl\AclThreadManager.
@@ -35,7 +41,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindThreadById()
     {
@@ -71,7 +77,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
 
     // findThreadBy - permission denied, can result in null, what to do about invalid criteria
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindThreadBy()
     {
@@ -110,7 +116,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindAllThreads()
     {
@@ -149,7 +155,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testAddThread()
     {

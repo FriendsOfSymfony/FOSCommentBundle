@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -17,7 +26,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * This command installs global access control entries (ACEs)
+ * This command installs global access control entries (ACEs).
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -34,7 +43,7 @@ class InstallAcesCommand extends ContainerAwareCommand
             ->setDefinition(array(
                 new InputOption('flush', null, InputOption::VALUE_NONE, 'Flush existing Acls'),
             ))
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 This command should be run once during the installation process of the entire bundle or
 after enabling Acl for the first time.
 

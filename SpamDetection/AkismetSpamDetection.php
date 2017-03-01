@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -45,14 +54,15 @@ class AkismetSpamDetection implements SpamDetectionInterface
     /**
      * Compiles comment data into a format Akismet accepts.
      *
-     * @param  CommentInterface $comment
+     * @param CommentInterface $comment
+     *
      * @return array
      */
     protected function getCommentData(CommentInterface $comment)
     {
         $data = array(
-            'comment_type'    => 'comment',
-            'comment_content' => $comment->getBody()
+            'comment_type' => 'comment',
+            'comment_content' => $comment->getBody(),
         );
 
         $data['comment_author'] = $comment->getAuthorName();

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -24,31 +33,34 @@ interface VoteAclInterface
     /**
      * Checks if the user should be allowed to create a vote.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate();
 
     /**
      * Checks if the user should be allowed to view a vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canView(VoteInterface $vote);
 
     /**
      * Checks if the user should be allowed to edit a vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canEdit(VoteInterface $vote);
 
     /**
      * Checks if the user should be allowed to delete a vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canDelete(VoteInterface $vote);
 
@@ -58,7 +70,8 @@ interface VoteAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
      *
-     * @param  VoteInterface $comment
+     * @param VoteInterface $comment
+     *
      * @return void
      */
     public function setDefaultAcl(VoteInterface $vote);
@@ -71,7 +84,7 @@ interface VoteAclInterface
     public function installFallbackAcl();
 
     /**
-     * Removes default Acl entries
+     * Removes default Acl entries.
      *
      * @return void
      */

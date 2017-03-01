@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -14,7 +23,7 @@ namespace FOS\CommentBundle\Model;
 use DateTime;
 
 /**
- * Binds a comment tree to anything, using a unique, arbitrary id
+ * Binds a comment tree to anything, using a unique, arbitrary id.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
@@ -34,19 +43,21 @@ interface ThreadInterface
     public function setId($id);
 
     /**
-     * Url of the page where the thread lives
+     * Url of the page where the thread lives.
+     *
      * @return string
      */
     public function getPermalink();
 
     /**
      * @param  string
+     *
      * @return null
      */
     public function setPermalink($permalink);
 
     /**
-     * Tells if new comments can be added in this thread
+     * Tells if new comments can be added in this thread.
      *
      * @return bool
      */
@@ -58,16 +69,16 @@ interface ThreadInterface
     public function setCommentable($isCommentable);
 
     /**
-     * Gets the number of comments
+     * Gets the number of comments.
      *
-     * @return integer
+     * @return int
      */
     public function getNumComments();
 
     /**
-     * Sets the number of comments
+     * Sets the number of comments.
      *
-     * @param integer $numComments
+     * @param int $numComments
      */
     public function setNumComments($numComments);
 
@@ -75,20 +86,23 @@ interface ThreadInterface
      * Increments the number of comments by the supplied
      * value.
      *
-     * @param  integer $by The number of comments to increment by
-     * @return integer The new comment total
+     * @param int $by The number of comments to increment by
+     *
+     * @return int The new comment total
      */
     public function incrementNumComments($by);
 
     /**
-     * Denormalized date of the last comment
+     * Denormalized date of the last comment.
+     *
      * @return DateTime
      */
     public function getLastCommentAt();
 
-    /**
-     * @param  DateTime
-     * @return null
-     */
-     function setLastCommentAt($lastCommentAt);
+     /**
+      * @param  DateTime
+      *
+      * @return null
+      */
+     public function setLastCommentAt($lastCommentAt);
 }

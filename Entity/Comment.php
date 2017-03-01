@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -23,7 +32,7 @@ use FOS\CommentBundle\Model\Comment as AbstractComment;
 abstract class Comment extends AbstractComment
 {
     /**
-     * All ancestors of the comment
+     * All ancestors of the comment.
      *
      * @var string
      */
@@ -39,6 +48,7 @@ abstract class Comment extends AbstractComment
 
     /**
      * @param  array
+     *
      * @return null
      */
     public function setAncestors(array $ancestors)

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -22,7 +31,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 define('HTTP_BAD_REQUEST', 400);
 define('HTTP_OK', 200);
@@ -279,7 +287,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Edits the comment state
+     * Edits the comment state.
      *
      * @param Request $request   Current request
      * @param mixed   $id        Thread id
@@ -380,6 +388,7 @@ class ThreadController extends Controller
      * @param string  $id      Id of the thread
      *
      * @return View
+     *
      * @todo Add support page/pagesize/sorting/tree-depth parameters
      */
     public function getThreadCommentsAction(Request $request, $id)
@@ -400,7 +409,7 @@ class ThreadController extends Controller
 
             // Validate the entity
             $validator = $this->get('validator');
-            if($validator instanceof ValidatorInterface) {
+            if ($validator instanceof ValidatorInterface) {
                 $errors = $validator->validate($thread, null, array('NewThread'));
             } else {
                 $errors = $validator->validate($thread, array('NewThread'));
@@ -424,9 +433,9 @@ class ThreadController extends Controller
                 $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByThread($thread, $displayDepth, $sorter);
 
                 // We need nodes for the api to return a consistent response, not an array of comments
-                $comments = array_map(function($comment) {
-                        return array('comment' => $comment, 'children' => array());
-                    },
+                $comments = array_map(function ($comment) {
+                    return array('comment' => $comment, 'children' => array());
+                },
                     $comments
                 );
                 break;
@@ -448,7 +457,7 @@ class ThreadController extends Controller
 
         // Register a special handler for RSS. Only available on this route.
         if ('rss' === $request->getRequestFormat()) {
-            $templatingHandler = function($handler, $view, $request) {
+            $templatingHandler = function ($handler, $view, $request) {
                 $view->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'thread_xml_feed'));
 
                 return new Response($handler->renderTemplate($view, 'rss'), HTTP_OK, $view->getHeaders());
@@ -467,6 +476,7 @@ class ThreadController extends Controller
      * @param string  $id      The id of the thread
      *
      * @return View
+     *
      * @todo Add support for comment parent (in form?)
      */
     public function postThreadCommentsAction(Request $request, $id)
@@ -551,7 +561,7 @@ class ThreadController extends Controller
             ->setData(array(
                 'id' => $id,
                 'commentId' => $commentId,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ))
             ->setTemplate(new TemplateReference('FOSCommentBundle', 'Thread', 'vote_new'));
 
@@ -680,7 +690,8 @@ class ThreadController extends Controller
      * @param mixed         $commentId Id of the comment
      *
      * @return View
-     * @todo Think about what to show. For now the new score of the comment.
+     *
+     * @todo Think about what to show. For now the new score of the comment
      */
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
@@ -710,7 +721,7 @@ class ThreadController extends Controller
         return $view;
     }
 
-     /**
+    /**
      * Forwards the action to the comment view on a successful form submission.
      *
      * @param FormInterface $form Form with the error
@@ -781,7 +792,7 @@ class ThreadController extends Controller
      * Forwards the action to the comment view on a successful form submission.
      *
      * @param FormInterface $form Comment delete form
-     * @param integer       $id   Thread id
+     * @param int           $id   Thread id
      *
      * @return View
      */
@@ -794,7 +805,7 @@ class ThreadController extends Controller
      * Returns a HTTP_BAD_REQUEST response when the form submission fails.
      *
      * @param FormInterface $form Comment delete form
-     * @param integer       $id   Thread id
+     * @param int           $id   Thread id
      *
      * @return View
      */
@@ -817,9 +828,9 @@ class ThreadController extends Controller
      * Checks if a comment belongs to a thread. Returns the comment if it does.
      *
      * @param ThreadInterface $thread    Thread object
-     * @param mixed           $commentId Id of the comment.
+     * @param mixed           $commentId Id of the comment
      *
-     * @return CommentInterface|null The comment.
+     * @return CommentInterface|null The comment
      */
     private function getValidCommentParent(ThreadInterface $thread, $commentId)
     {

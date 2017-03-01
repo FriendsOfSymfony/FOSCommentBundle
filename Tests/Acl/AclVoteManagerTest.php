@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -12,8 +21,6 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclVoteManager;
-use FOS\CommentBundle\Model\VoteManagerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Tests the functionality provided by Acl\AclVoteManager.
@@ -42,7 +49,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindVoteById()
     {
@@ -85,7 +92,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindVoteBy()
     {
@@ -128,7 +135,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testFindVotesByComment()
     {
@@ -171,7 +178,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testAddVoteNoCreate()
     {
@@ -189,7 +196,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function testAddVoteNoViewComment()
     {

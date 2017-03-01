@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -36,7 +45,7 @@ class RoleCommentAclTest extends AbstractRoleAcl
     public function getRoles()
     {
         return array_merge(parent::getRoles(), array(
-            array('reply')
+            array('reply'),
         ));
     }
 }

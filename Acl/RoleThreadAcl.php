@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -15,7 +24,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements Role checking using the Symfony2 Security component
+ * Implements Role checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -77,20 +86,19 @@ class RoleThreadAcl implements ThreadAclInterface
                                 $editRole,
                                 $deleteRole,
                                 $threadClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->createRole           = $createRole;
-        $this->viewRole             = $viewRole;
-        $this->editRole             = $editRole;
-        $this->deleteRole           = $deleteRole;
-        $this->threadClass          = $threadClass;
+        $this->createRole = $createRole;
+        $this->viewRole = $viewRole;
+        $this->editRole = $editRole;
+        $this->deleteRole = $deleteRole;
+        $this->threadClass = $threadClass;
     }
 
     /**
      * Checks if the Security token has an appropriate role to create a new Thread.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -100,8 +108,9 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canView(ThreadInterface $thread)
     {
@@ -111,8 +120,9 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canEdit(ThreadInterface $thread)
     {
@@ -122,8 +132,9 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canDelete(ThreadInterface $thread)
     {
@@ -133,12 +144,12 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Role based Acl does not require setup.
      *
-     * @param  ThreadInterface $thread
+     * @param ThreadInterface $thread
+     *
      * @return void
      */
     public function setDefaultAcl(ThreadInterface $thread)
     {
-
     }
 
     /**
@@ -148,7 +159,6 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function installFallbackAcl()
     {
-
     }
 
     /**
@@ -158,6 +168,5 @@ class RoleThreadAcl implements ThreadAclInterface
      */
     public function uninstallFallbackAcl()
     {
-
     }
 }

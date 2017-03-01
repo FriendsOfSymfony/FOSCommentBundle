@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,8 +20,8 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\ThreadEvent;
+use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -37,7 +46,8 @@ abstract class ThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * @param  string          $id
+     * @param string $id
+     *
      * @return ThreadInterface
      */
     public function findThreadById($id)
@@ -46,7 +56,7 @@ abstract class ThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * Creates an empty comment thread instance
+     * Creates an empty comment thread instance.
      *
      * @param bool $id
      *
@@ -55,7 +65,7 @@ abstract class ThreadManager implements ThreadManagerInterface
     public function createThread($id = null)
     {
         $class = $this->getClass();
-        $thread = new $class;
+        $thread = new $class();
 
         if (null !== $id) {
             $thread->setId($id);
@@ -87,6 +97,7 @@ abstract class ThreadManager implements ThreadManagerInterface
      * Performs the persistence of the Thread.
      *
      * @abstract
+     *
      * @param ThreadInterface $thread
      */
     abstract protected function doSaveThread(ThreadInterface $thread);

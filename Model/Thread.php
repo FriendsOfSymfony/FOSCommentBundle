@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -14,7 +23,7 @@ namespace FOS\CommentBundle\Model;
 use DateTime;
 
 /**
- * Storage agnostic comment thread object
+ * Storage agnostic comment thread object.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
@@ -29,28 +38,28 @@ abstract class Thread implements ThreadInterface
     protected $id;
 
     /**
-     * Tells if new comments can be added in this thread
+     * Tells if new comments can be added in this thread.
      *
      * @var bool
      */
     protected $isCommentable = true;
 
     /**
-     * Denormalized number of comments
+     * Denormalized number of comments.
      *
-     * @var integer
+     * @var int
      */
     protected $numComments = 0;
 
     /**
-     * Denormalized date of the last comment
+     * Denormalized date of the last comment.
      *
      * @var DateTime
      */
     protected $lastCommentAt = null;
 
     /**
-     * Url of the page where the thread lives
+     * Url of the page where the thread lives.
      *
      * @var string
      */
@@ -66,6 +75,7 @@ abstract class Thread implements ThreadInterface
 
     /**
      * @param  string
+     *
      * @return null
      */
     public function setId($id)
@@ -83,6 +93,7 @@ abstract class Thread implements ThreadInterface
 
     /**
      * @param  string
+     *
      * @return null
      */
     public function setPermalink($permalink)
@@ -100,6 +111,7 @@ abstract class Thread implements ThreadInterface
 
     /**
      * @param  bool
+     *
      * @return null
      */
     public function setCommentable($isCommentable)
@@ -108,9 +120,9 @@ abstract class Thread implements ThreadInterface
     }
 
     /**
-     * Gets the number of comments
+     * Gets the number of comments.
      *
-     * @return integer
+     * @return int
      */
     public function getNumComments()
     {
@@ -118,9 +130,9 @@ abstract class Thread implements ThreadInterface
     }
 
     /**
-     * Sets the number of comments
+     * Sets the number of comments.
      *
-     * @param integer $numComments
+     * @param int $numComments
      */
     public function setNumComments($numComments)
     {
@@ -131,8 +143,9 @@ abstract class Thread implements ThreadInterface
      * Increments the number of comments by the supplied
      * value.
      *
-     * @param  integer $by Value to increment comments by
-     * @return integer The new comment total
+     * @param int $by Value to increment comments by
+     *
+     * @return int The new comment total
      */
     public function incrementNumComments($by = 1)
     {
@@ -149,6 +162,7 @@ abstract class Thread implements ThreadInterface
 
     /**
      * @param  DateTime
+     *
      * @return null
      */
     public function setLastCommentAt($lastCommentAt)

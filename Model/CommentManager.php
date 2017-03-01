@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,13 +20,13 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Event\CommentPersistEvent;
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use InvalidArgumentException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Abstract Comment Manager implementation which can be used as base class for your
@@ -40,8 +49,8 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * Constructor.
      *
-     * @param EventDispatcherInterface $dispatcher A dispatcher instance.
-     * @param SortingFactory           $factory    A factory instance.
+     * @param EventDispatcherInterface $dispatcher A dispatcher instance
+     * @param SortingFactory           $factory    A factory instance
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
@@ -55,7 +64,7 @@ abstract class CommentManager implements CommentManagerInterface
     public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
         $class = $this->getClass();
-        $comment = new $class;
+        $comment = new $class();
 
         $comment->setThread($thread);
 

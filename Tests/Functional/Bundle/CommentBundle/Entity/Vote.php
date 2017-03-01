@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -24,7 +33,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class Vote extends BaseVote implements SignedVoteInterface
 {
     /**
-     * @var integer
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -38,7 +47,7 @@ class Vote extends BaseVote implements SignedVoteInterface
     protected $voter;
 
     /**
-     * Sets the owner of the vote
+     * Sets the owner of the vote.
      *
      * @param string $user
      */
@@ -48,7 +57,7 @@ class Vote extends BaseVote implements SignedVoteInterface
     }
 
     /**
-     * Gets the owner of the vote
+     * Gets the owner of the vote.
      *
      * @return UserInterface
      */

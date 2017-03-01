@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -23,7 +32,7 @@ class ApiTest extends WebTestCase
     {
         $this->client = self::createClient(array(
             'test_case' => 'Basic',
-            'root_config' => 'config.yml'
+            'root_config' => 'config.yml',
         ), array(
             'PHP_AUTH_USER' => 'user',
             'PHP_AUTH_PW' => 'user',

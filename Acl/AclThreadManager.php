@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -46,11 +55,11 @@ class AclThreadManager implements ThreadManagerInterface
     public function __construct(ThreadManagerInterface $threadManager, ThreadAclInterface $threadAcl)
     {
         $this->realManager = $threadManager;
-        $this->threadAcl   = $threadAcl;
+        $this->threadAcl = $threadAcl;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findThreadById($id)
     {
@@ -64,7 +73,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findThreadBy(array $criteria)
     {
@@ -78,7 +87,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findThreadsBy(array $criteria)
     {
@@ -94,7 +103,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findAllThreads()
     {
@@ -110,7 +119,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createThread($id = null)
     {
@@ -118,7 +127,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function saveThread(ThreadInterface $thread)
     {
@@ -140,7 +149,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isNewThread(ThreadInterface $thread)
     {
@@ -148,7 +157,7 @@ class AclThreadManager implements ThreadManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClass()
     {

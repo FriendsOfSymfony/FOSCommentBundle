@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -12,12 +21,12 @@
 namespace FOS\CommentBundle\Twig;
 
 use FOS\CommentBundle\Acl\CommentAclInterface;
-use FOS\CommentBundle\Model\CommentInterface;
-use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\VotableCommentInterface;
-use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Acl\ThreadAclInterface;
 use FOS\CommentBundle\Acl\VoteAclInterface;
+use FOS\CommentBundle\Model\CommentInterface;
+use FOS\CommentBundle\Model\RawCommentInterface;
+use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\Model\VotableCommentInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -33,8 +42,8 @@ class CommentExtension extends \Twig_Extension
     public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
     {
         $this->commentAcl = $commentAcl;
-        $this->voteAcl    = $voteAcl;
-        $this->threadAcl  = $threadAcl;
+        $this->voteAcl = $voteAcl;
+        $this->threadAcl = $threadAcl;
     }
 
     /**
@@ -57,7 +66,7 @@ class CommentExtension extends \Twig_Extension
      *
      * @return bool
      *
-     * @deprecated Use isCommentInState instead.
+     * @deprecated Use isCommentInState instead
      */
     public function isCommentDeleted(CommentInterface $comment)
     {
@@ -81,16 +90,17 @@ class CommentExtension extends \Twig_Extension
      * Checks if the comment is an instance of a VotableCommentInterface.
      *
      * @param mixed The value to check for VotableCommentInterface
+     *
      * @return bool If $value implements VotableCommentInterface
      */
     public function isVotable($value)
     {
-        return ($value instanceof VotableCommentInterface);
+        return $value instanceof VotableCommentInterface;
     }
 
     public function isRawComment($comment)
     {
-        return ($comment instanceof RawCommentInterface);
+        return $comment instanceof RawCommentInterface;
     }
 
     /**
@@ -175,7 +185,8 @@ class CommentExtension extends \Twig_Extension
      * Checks if the comment is Votable and that the user has
      * permission to vote.
      *
-     * @param  \FOS\CommentBundle\Model\CommentInterface $comment
+     * @param \FOS\CommentBundle\Model\CommentInterface $comment
+     *
      * @return bool
      */
     public function canVote(CommentInterface $comment)

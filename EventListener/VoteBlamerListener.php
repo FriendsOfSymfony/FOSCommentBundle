@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,11 +20,11 @@
 
 namespace FOS\CommentBundle\EventListener;
 
-use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Model\SignedVoteInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -66,7 +75,7 @@ class VoteBlamerListener implements EventSubscriberInterface
 
         if (!$vote instanceof SignedVoteInterface) {
             if ($this->logger) {
-                $this->logger->debug("Vote does not implement SignedVoteInterface, skipping");
+                $this->logger->debug('Vote does not implement SignedVoteInterface, skipping');
             }
 
             return;
@@ -74,7 +83,7 @@ class VoteBlamerListener implements EventSubscriberInterface
 
         if (null === $this->tokenStorage->getToken()) {
             if ($this->logger) {
-                $this->logger->debug("There is no firewall configured. We cant get a user.");
+                $this->logger->debug('There is no firewall configured. We cant get a user.');
             }
 
             return;

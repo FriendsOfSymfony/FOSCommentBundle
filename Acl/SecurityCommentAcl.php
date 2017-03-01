@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -24,7 +33,7 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements ACL checking using the Symfony2 Security component
+ * Implements ACL checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -75,19 +84,18 @@ class SecurityCommentAcl implements CommentAclInterface
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $commentClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->objectRetrieval      = $objectRetrieval;
-        $this->aclProvider          = $aclProvider;
-        $this->commentClass         = $commentClass;
-        $this->oid                  = new ObjectIdentity('class', $this->commentClass);
+        $this->objectRetrieval = $objectRetrieval;
+        $this->aclProvider = $aclProvider;
+        $this->commentClass = $commentClass;
+        $this->oid = new ObjectIdentity('class', $this->commentClass);
     }
 
     /**
      * Checks if the Security token is allowed to create a new Comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -97,8 +105,9 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canView(CommentInterface $comment)
     {
@@ -108,8 +117,9 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to reply to a parent comment.
      *
-     * @param  CommentInterface|null $parent
-     * @return boolean
+     * @param CommentInterface|null $parent
+     *
+     * @return bool
      */
     public function canReply(CommentInterface $parent = null)
     {
@@ -123,8 +133,9 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canEdit(CommentInterface $comment)
     {
@@ -134,8 +145,9 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canDelete(CommentInterface $comment)
     {
@@ -145,7 +157,8 @@ class SecurityCommentAcl implements CommentAclInterface
     /**
      * Sets the default object Acl entry for the supplied Comment.
      *
-     * @param  CommentInterface $comment
+     * @param CommentInterface $comment
+     *
      * @return void
      */
     public function setDefaultAcl(CommentInterface $comment)
@@ -190,8 +203,9 @@ class SecurityCommentAcl implements CommentAclInterface
      * Once this method has been overridden you need to run the
      * `fos:comment:installAces --flush` command
      *
-     * @param  AclInterface $acl
-     * @param  MaskBuilder  $builder
+     * @param AclInterface $acl
+     * @param MaskBuilder  $builder
+     *
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

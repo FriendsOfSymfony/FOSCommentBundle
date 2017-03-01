@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -55,12 +64,12 @@ class AclCommentManager implements CommentManagerInterface
     public function __construct(CommentManagerInterface $commentManager, CommentAclInterface $commentAcl, ThreadAclInterface $threadAcl)
     {
         $this->realManager = $commentManager;
-        $this->commentAcl  = $commentAcl;
-        $this->threadAcl   = $threadAcl;
+        $this->commentAcl = $commentAcl;
+        $this->threadAcl = $threadAcl;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws AccessDeniedException
      */
@@ -76,7 +85,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
     {
@@ -92,7 +101,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findCommentTreeByCommentId($commentId, $sorter = null)
     {
@@ -106,7 +115,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function saveComment(CommentInterface $comment)
     {
@@ -138,7 +147,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      **/
     public function findCommentById($id)
     {
@@ -152,7 +161,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
     {
@@ -160,7 +169,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isNewComment(CommentInterface $comment)
     {
@@ -168,7 +177,7 @@ class AclCommentManager implements CommentManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClass()
     {
@@ -181,7 +190,7 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @param array $comments A comment tree
      *
-     * @return boolean
+     * @return bool
      */
     protected function authorizeViewCommentTree(array $comments)
     {

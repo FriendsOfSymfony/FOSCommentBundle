@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -31,7 +40,7 @@ abstract class AbstractOrderSorting implements SortingInterface
         if ($order == self::ASC || $order == self::DESC) {
             $this->order = $order;
         } else {
-            throw new InvalidArgumentException(sprintf("%s is an invalid sorting order", $order));
+            throw new InvalidArgumentException(sprintf('%s is an invalid sorting order', $order));
         }
     }
 
@@ -45,7 +54,8 @@ abstract class AbstractOrderSorting implements SortingInterface
      *        'children' => array ( .. )
      *    )
      *
-     * @param  array $tree
+     * @param array $tree
+     *
      * @return array
      */
     public function sort(array $tree)
@@ -64,23 +74,25 @@ abstract class AbstractOrderSorting implements SortingInterface
     /**
      * Compares two arrays from the Comment Tree.
      *
-     * @param  array  $a
-     * @param  array  $b
+     * @param array $a
+     * @param array $b
+     *
      * @return -1|0|1 As expected for usort()
      */
     public function doSort($a, $b)
     {
         if ($this->order == self::ASC) {
             return $this->compare($a['comment'], $b['comment']);
-        } else {
-            return $this->compare($b['comment'], $a['comment']);
         }
+
+        return $this->compare($b['comment'], $a['comment']);
     }
 
     /**
      * Sorts a flat array of comments.
      *
-     * @param  array $comments
+     * @param array $comments
+     *
      * @return array
      */
     public function sortFlat(array $comments)
@@ -93,25 +105,27 @@ abstract class AbstractOrderSorting implements SortingInterface
     /**
      * Compares two comments from a flat array.
      *
-     * @param  CommentInterface $a
-     * @param  CommentInterface $b
-     * @return -1|0|1           As expected for uasort()
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     *
+     * @return -1|0|1 As expected for uasort()
      */
     public function doFlatSort($a, $b)
     {
         if ($this->order == self::ASC) {
             return $this->compare($a, $b);
-        } else {
-            return $this->compare($b, $a);
         }
+
+        return $this->compare($b, $a);
     }
 
     /**
      * Compares 2 comments. Implement this to create custom sorting options.
      *
-     * @param  CommentInterface $a
-     * @param  CommentInterface $b
-     * @return -1|0|1           As expected for usort()
+     * @param CommentInterface $a
+     * @param CommentInterface $b
+     *
+     * @return -1|0|1 As expected for usort()
      */
     abstract protected function compare(CommentInterface $a, CommentInterface $b);
 }

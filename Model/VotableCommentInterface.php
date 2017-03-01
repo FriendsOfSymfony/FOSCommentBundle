@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -21,14 +30,14 @@ interface VotableCommentInterface extends CommentInterface
     /**
      * Sets the score of the comment.
      *
-     * @param integer $score
+     * @param int $score
      */
     public function setScore($score);
 
     /**
      * Returns the current score of the comment.
      *
-     * @return integer
+     * @return int
      */
     public function getScore();
 
@@ -36,8 +45,9 @@ interface VotableCommentInterface extends CommentInterface
      * Increments the comment score by the provided
      * value.
      *
-     * @param integer $by
-     * @return integer The new comment score
+     * @param int $by
+     *
+     * @return int The new comment score
      */
     public function incrementScore($by = 1);
 }

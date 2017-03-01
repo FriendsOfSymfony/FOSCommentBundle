@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -40,7 +49,7 @@ interface VoteInterface
     public function setComment(VotableCommentInterface $comment);
 
     /**
-     * @return integer the modification applied to the comment by this vote
+     * @return int the modification applied to the comment by this vote
      */
     public function getValue();
 
