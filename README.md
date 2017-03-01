@@ -11,7 +11,7 @@ The FOSCommentBundle adds support for a comment system in Symfony2. Features inc
 - Extensible through events fired during the comment lifecycle
 - Optional use of Symfony2 Acl to protect comments
 - Optional integration with FOS\UserBundle
-- Optional integration with `Akismet`_
+- Optional integration with `Akismet`
 - Optional markup parser support (eg HtmlPurifier or php-sundown)
 
 **Note:**
