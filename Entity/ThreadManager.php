@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -57,9 +66,10 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * Finds one comment thread by the given criteria
+     * Finds one comment thread by the given criteria.
      *
-     * @param  array           $criteria
+     * @param array $criteria
+     *
      * @return ThreadInterface
      */
     public function findThreadBy(array $criteria)
@@ -68,7 +78,7 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findThreadsBy(array $criteria)
     {
@@ -86,7 +96,7 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isNewThread(ThreadInterface $thread)
     {
@@ -94,7 +104,7 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * Saves a thread
+     * Saves a thread.
      *
      * @param ThreadInterface $thread
      */
@@ -105,7 +115,7 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
-     * Returns the fully qualified comment thread class name
+     * Returns the fully qualified comment thread class name.
      *
      * @return string
      **/

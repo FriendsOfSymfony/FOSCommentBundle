@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -14,14 +23,14 @@ namespace FOS\CommentBundle\FormFactory;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Comment form creator
+ * Comment form creator.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 interface CommentFormFactoryInterface
 {
     /**
-     * Creates a comment form
+     * Creates a comment form.
      *
      * @param mixed $data
      * @param array $options

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -46,7 +55,7 @@ class AclVoteManager implements VoteManagerInterface
     protected $commentAcl;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function __construct(VoteManagerInterface $voteManager, VoteAclInterface $voteAcl, CommentAclInterface $commentAcl)
     {
@@ -56,7 +65,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findVoteById($id)
     {
@@ -70,7 +79,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findVoteBy(array $criteria)
     {
@@ -84,7 +93,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findVotesByComment(VotableCommentInterface $comment)
     {
@@ -100,7 +109,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function saveVote(VoteInterface $vote)
     {
@@ -117,7 +126,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createVote(VotableCommentInterface $comment)
     {
@@ -125,7 +134,7 @@ class AclVoteManager implements VoteManagerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClass()
     {

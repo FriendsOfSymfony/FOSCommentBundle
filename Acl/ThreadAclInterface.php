@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -24,31 +33,34 @@ interface ThreadAclInterface
     /**
      * Checks if the user should be allowed to create a thread.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate();
 
     /**
      * Checks if the user should be allowed to view a thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canView(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to edit a thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canEdit(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to delete a thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canDelete(ThreadInterface $thread);
 
@@ -58,7 +70,8 @@ interface ThreadAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new ThreadInterface instances.
      *
-     * @param  ThreadInterface $thread
+     * @param ThreadInterface $thread
+     *
      * @return void
      */
     public function setDefaultAcl(ThreadInterface $thread);

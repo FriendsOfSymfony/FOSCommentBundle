@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the FOSUserBundle package.
+ * This file is part of the FOSCommentBundle package.
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
@@ -12,7 +12,7 @@
 namespace FOS\CommentBundle\Util;
 
 /**
- * Extracted from FOSUserBundle
+ * Extracted from FOSUserBundle.
  *
  * @internal
  *

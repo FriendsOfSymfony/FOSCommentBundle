@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -22,7 +31,7 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements ACL checking using the Symfony2 Security component
+ * Implements ACL checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -73,19 +82,18 @@ class SecurityThreadAcl implements ThreadAclInterface
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $threadClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->objectRetrieval      = $objectRetrieval;
-        $this->aclProvider          = $aclProvider;
-        $this->threadClass          = $threadClass;
-        $this->oid                  = new ObjectIdentity('class', $this->threadClass);
+        $this->objectRetrieval = $objectRetrieval;
+        $this->aclProvider = $aclProvider;
+        $this->threadClass = $threadClass;
+        $this->oid = new ObjectIdentity('class', $this->threadClass);
     }
 
     /**
      * Checks if the Security token is allowed to create a new Thread.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -95,8 +103,9 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canView(ThreadInterface $thread)
     {
@@ -106,8 +115,9 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canEdit(ThreadInterface $thread)
     {
@@ -117,8 +127,9 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Thread.
      *
-     * @param  ThreadInterface $thread
-     * @return boolean
+     * @param ThreadInterface $thread
+     *
+     * @return bool
      */
     public function canDelete(ThreadInterface $thread)
     {
@@ -128,7 +139,8 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Sets the default object Acl entry for the supplied Thread.
      *
-     * @param  ThreadInterface $thread
+     * @param ThreadInterface $thread
+     *
      * @return void
      */
     public function setDefaultAcl(ThreadInterface $thread)
@@ -167,8 +179,9 @@ class SecurityThreadAcl implements ThreadAclInterface
      * Once this method has been overridden you need to run the
      * `fos:comment:installAces --flush` command
      *
-     * @param  AclInterface $acl
-     * @param  MaskBuilder  $builder
+     * @param AclInterface $acl
+     * @param MaskBuilder  $builder
+     *
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

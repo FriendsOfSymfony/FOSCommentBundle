@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,8 +20,8 @@
 
 namespace FOS\CommentBundle\EventListener;
 
-use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
+use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,7 +29,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Blames a comment using Symfony2 security component
+ * Blames a comment using Symfony2 security component.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
@@ -66,7 +75,7 @@ class CommentBlamerListener implements EventSubscriberInterface
 
         if (!$comment instanceof SignedCommentInterface) {
             if ($this->logger) {
-                $this->logger->debug("Comment does not implement SignedCommentInterface, skipping");
+                $this->logger->debug('Comment does not implement SignedCommentInterface, skipping');
             }
 
             return;
@@ -74,7 +83,7 @@ class CommentBlamerListener implements EventSubscriberInterface
 
         if (null === $this->tokenStorage->getToken()) {
             if ($this->logger) {
-                $this->logger->debug("There is no firewall configured. We cant get a user.");
+                $this->logger->debug('There is no firewall configured. We cant get a user.');
             }
 
             return;

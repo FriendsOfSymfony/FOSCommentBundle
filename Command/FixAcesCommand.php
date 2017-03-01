@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,15 +20,15 @@
 
 namespace FOS\CommentBundle\Command;
 
+use FOS\CommentBundle\Model\VotableCommentInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
-use FOS\CommentBundle\Model\VotableCommentInterface;
 
 /**
- * This command installs global access control entries (ACEs)
+ * This command installs global access control entries (ACEs).
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -33,7 +42,7 @@ class FixAcesCommand extends ContainerAwareCommand
         $this
             ->setName('fos:comment:fixAces')
             ->setDescription('Fixes Object Ace entries')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 This command will fix all Ace entries for existing objects. This command only needs to
 be run when there are Objects that do not have Ace entries.
 
@@ -78,10 +87,10 @@ EOT
 
             try {
                 $provider->findAcl($oid);
-                $foundThreadAcls++;
+                ++$foundThreadAcls;
             } catch (AclNotFoundException $e) {
                 $threadAcl->setDefaultAcl($thread);
-                $createdThreadAcls++;
+                ++$createdThreadAcls;
             }
 
             foreach ($commentManager->findCommentsByThread($thread) as $comment) {
@@ -89,10 +98,10 @@ EOT
 
                 try {
                     $provider->findAcl($comment_oid);
-                    $foundCommentAcls++;
+                    ++$foundCommentAcls;
                 } catch (AclNotFoundException $e) {
                     $commentAcl->setDefaultAcl($comment);
-                    $createdCommentAcls++;
+                    ++$createdCommentAcls;
                 }
 
                 if ($comment instanceof VotableCommentInterface) {
@@ -101,10 +110,10 @@ EOT
 
                         try {
                             $provider->findAcl($vote_oid);
-                            $foundVoteAcls++;
+                            ++$foundVoteAcls;
                         } catch (AclNotFoundException $e) {
                             $voteAcl->setDefaultAcl($vote);
-                            $createdVoteAcls++;
+                            ++$createdVoteAcls;
                         }
                     }
                 }

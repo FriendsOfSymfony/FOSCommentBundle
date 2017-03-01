@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -41,18 +50,20 @@ class Tree
     /**
      * Adds a comment as a child of this node.
      *
-     * @param  CommentInterface $comment
+     * @param CommentInterface $comment
+     *
      * @return void
      */
     public function add(CommentInterface $comment)
     {
-        $this->children[$comment->getId()] = new Tree($comment);
+        $this->children[$comment->getId()] = new self($comment);
     }
 
     /**
      * Returns the Tree related to the supplied id.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return Tree
      */
     public function traverse($id)
@@ -64,22 +75,22 @@ class Tree
      * Converts the Tree structure to arrays.
      *
      * @return array(
-     *     0 => array(
-     *         'comment' => CommentInterface,
-     *         'children' => array(
-     *             0 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             ),
-     *             1 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             )
-     *         )
-     *     ),
-     *     1 => array(
-     *         ...
-     *     )
+     *                0 => array(
+     *                'comment' => CommentInterface,
+     *                'children' => array(
+     *                0 => array (
+     *                'comment' => CommentInterface,
+     *                'children' => array(...)
+     *                ),
+     *                1 => array (
+     *                'comment' => CommentInterface,
+     *                'children' => array(...)
+     *                )
+     *                )
+     *                ),
+     *                1 => array(
+     *                ...
+     *                )
      */
     public function toArray()
     {

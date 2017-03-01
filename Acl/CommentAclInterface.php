@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -24,15 +33,16 @@ interface CommentAclInterface
     /**
      * Checks if the user should be able to create a comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate();
 
     /**
      * Checks if the user should be able to view a comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canView(CommentInterface $comment);
 
@@ -40,24 +50,27 @@ interface CommentAclInterface
      * Checks if the user can reply to the supplied 'parent' comment
      * or if not supplied, just the ability to reply.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canReply(CommentInterface $parent = null);
 
     /**
      * Checks if the user should be able to edit a comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canEdit(CommentInterface $comment);
 
     /**
      * Checks if the user should be able to delete a comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canDelete(CommentInterface $comment);
 
@@ -67,7 +80,8 @@ interface CommentAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
      *
-     * @param  CommentInterface $comment
+     * @param CommentInterface $comment
+     *
      * @return void
      */
     public function setDefaultAcl(CommentInterface $comment);
@@ -80,7 +94,8 @@ interface CommentAclInterface
     public function installFallbackAcl();
 
     /**
-     * Removes default Acl entries
+     * Removes default Acl entries.
+     *
      * @return void
      */
     public function uninstallFallbackAcl();

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -21,14 +30,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 interface SignedCommentInterface extends CommentInterface
 {
     /**
-     * Sets the author of the Comment
+     * Sets the author of the Comment.
      *
      * @param UserInterface $author
      */
     public function setAuthor(UserInterface $author);
 
     /**
-     * Gets the author of the Comment
+     * Gets the author of the Comment.
      *
      * @return UserInterface
      */

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -12,12 +21,10 @@
 namespace FOS\CommentBundle\Model;
 
 use DateTime;
-
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionContextInterface;
 
 /**
- * Storage agnostic vote object - Requires FOS\UserBundle
+ * Storage agnostic vote object - Requires FOS\UserBundle.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -41,7 +48,7 @@ abstract class Vote implements VoteInterface
     /**
      * The value of the vote.
      *
-     * @var integer
+     * @var int
      */
     protected $value;
 
@@ -55,7 +62,7 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * Return the comment unique id
+     * Return the comment unique id.
      *
      * @return mixed
      */
@@ -73,7 +80,7 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @return integer The votes value.
+     * @return int The votes value
      */
     public function getValue()
     {
@@ -81,7 +88,7 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @param integer $value
+     * @param int $value
      */
     public function setValue($value)
     {
@@ -93,10 +100,10 @@ abstract class Vote implements VoteInterface
      */
     public function isVoteValid($context)
     {
-        if($context instanceof ExecutionContextInterface) {
+        if ($context instanceof ExecutionContextInterface) {
             if (!$this->checkValue($this->value)) {
                 $message = 'A vote cannot have a 0 value';
-                $propertyPath = $context->getPropertyPath() . '.value';
+                $propertyPath = $context->getPropertyPath().'.value';
 
                 // Validator 2.5 API
                 $context->buildViolation($message)
@@ -105,7 +112,7 @@ abstract class Vote implements VoteInterface
             }
         } elseif (!$this->checkValue($this->value)) { // For bc
             $message = 'A vote cannot have a 0 value';
-            $propertyPath = $context->getPropertyPath() . '.value';
+            $propertyPath = $context->getPropertyPath().'.value';
 
             $context->addViolationAt($propertyPath, $message);
         }
@@ -124,7 +131,7 @@ abstract class Vote implements VoteInterface
      *
      * @param mixed $value
      *
-     * @return boolean True, if the integer representation of the value is not null or 0.
+     * @return bool True, if the integer representation of the value is not null or 0
      */
     protected function checkValue($value)
     {
@@ -144,7 +151,8 @@ abstract class Vote implements VoteInterface
     /**
      * Sets the comment this vote belongs to.
      *
-     * @param  VotableCommentInterface $comment
+     * @param VotableCommentInterface $comment
+     *
      * @return void
      */
     public function setComment(VotableCommentInterface $comment)

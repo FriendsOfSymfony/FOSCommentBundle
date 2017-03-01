@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -74,19 +83,19 @@ interface CommentInterface
     public function setParent(CommentInterface $comment);
 
     /**
-     * @return integer The current state of the comment
+     * @return int The current state of the comment
      */
     public function getState();
 
     /**
-     * @param integer $state
+     * @param int $state
      */
     public function setState($state);
 
     /**
      * Gets the previous state.
      *
-     * @return integer
+     * @return int
      */
     public function getPreviousState();
 }

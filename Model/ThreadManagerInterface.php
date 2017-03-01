@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -22,21 +31,23 @@ namespace FOS\CommentBundle\Model;
 interface ThreadManagerInterface
 {
     /**
-     * @param  string          $id
+     * @param string $id
+     *
      * @return ThreadInterface
      */
     public function findThreadById($id);
 
     /**
-     * Finds one comment thread by the given criteria
+     * Finds one comment thread by the given criteria.
      *
-     * @param  array           $criteria
+     * @param array $criteria
+     *
      * @return ThreadInterface
      */
     public function findThreadBy(array $criteria);
 
     /**
-     * Finds threads by the given criteria
+     * Finds threads by the given criteria.
      *
      * @param array $criteria
      *
@@ -52,15 +63,16 @@ interface ThreadManagerInterface
     public function findAllThreads();
 
     /**
-     * Creates an empty comment thread instance
+     * Creates an empty comment thread instance.
      *
-     * @param  bool   $id
+     * @param bool $id
+     *
      * @return Thread
      */
     public function createThread($id = null);
 
     /**
-     * Saves a thread
+     * Saves a thread.
      *
      * @param ThreadInterface $thread
      */
@@ -71,12 +83,12 @@ interface ThreadManagerInterface
      *
      * @param ThreadInterface $thread
      *
-     * @return boolean True, if it's a new thread
+     * @return bool True, if it's a new thread
      */
     public function isNewThread(ThreadInterface $thread);
 
     /**
-     * Returns the comment thread fully qualified class name
+     * Returns the comment thread fully qualified class name.
      *
      * @return string
      */

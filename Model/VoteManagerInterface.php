@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -28,7 +37,8 @@ interface VoteManagerInterface
     /**
      * Creates a Vote object.
      *
-     * @param  VotableCommentInterface $comment
+     * @param VotableCommentInterface $comment
+     *
      * @return VoteInterface
      */
     public function createVote(VotableCommentInterface $comment);
@@ -36,7 +46,8 @@ interface VoteManagerInterface
     /**
      * Persists a vote.
      *
-     * @param  VoteInterface $vote
+     * @param VoteInterface $vote
+     *
      * @return void
      */
     public function saveVote(VoteInterface $vote);
@@ -44,7 +55,8 @@ interface VoteManagerInterface
     /**
      * Finds a vote by specified criteria.
      *
-     * @param  array         $criteria
+     * @param array $criteria
+     *
      * @return VoteInterface
      */
     public function findVoteBy(array $criteria);
@@ -53,6 +65,7 @@ interface VoteManagerInterface
      * Finds a vote by id.
      *
      * @param  $id
+     *
      * @return VoteInterface
      */
     public function findVoteById($id);
@@ -60,8 +73,9 @@ interface VoteManagerInterface
     /**
      * Finds all votes for a comment.
      *
-     * @param  VotableCommentInterface $comment
-     * @return array                   of VoteInterface
+     * @param VotableCommentInterface $comment
+     *
+     * @return array of VoteInterface
      */
     public function findVotesByComment(VotableCommentInterface $comment);
 }

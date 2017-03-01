@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,13 +20,13 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Event\VotePersistEvent;
+use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Abstract VotingManager
+ * Abstract VotingManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -42,6 +51,7 @@ abstract class VoteManager implements VoteManagerInterface
      * Finds a vote by id.
      *
      * @param  $id
+     *
      * @return VoteInterface
      */
     public function findVoteById($id)
@@ -52,7 +62,8 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * Creates a Vote object.
      *
-     * @param  VotableCommentInterface $comment
+     * @param VotableCommentInterface $comment
+     *
      * @return VoteInterface
      */
     public function createVote(VotableCommentInterface $comment)
@@ -93,6 +104,7 @@ abstract class VoteManager implements VoteManagerInterface
      * Performs the persistence of the Vote.
      *
      * @abstract
+     *
      * @param VoteInterface $vote
      */
     abstract protected function doSaveVote(VoteInterface $vote);

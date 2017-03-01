@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,13 +20,13 @@
 
 namespace FOS\CommentBundle\Tests\Entity;
 
-use FOS\CommentBundle\Entity\Comment as BaseComment,
-    FOS\CommentBundle\Model\ThreadInterface;
+use FOS\CommentBundle\Entity\Comment as BaseComment;
+use FOS\CommentBundle\Model\ThreadInterface;
 
 class Comment extends BaseComment
 {
     /**
-     * Thread of this comment
+     * Thread of this comment.
      *
      * @var ThreadInterface
      */
@@ -32,7 +41,8 @@ class Comment extends BaseComment
     }
 
     /**
-     * @param  Thread $thread
+     * @param Thread $thread
+     *
      * @return null
      */
     public function setThread(ThreadInterface $thread)

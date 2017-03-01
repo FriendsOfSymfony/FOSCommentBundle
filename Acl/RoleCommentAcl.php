@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -15,7 +24,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements Role checking using the Symfony2 Security component
+ * Implements Role checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -77,20 +86,19 @@ class RoleCommentAcl implements CommentAclInterface
                                 $editRole,
                                 $deleteRole,
                                 $commentClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->createRole           = $createRole;
-        $this->viewRole             = $viewRole;
-        $this->editRole             = $editRole;
-        $this->deleteRole           = $deleteRole;
-        $this->commentClass         = $commentClass;
+        $this->createRole = $createRole;
+        $this->viewRole = $viewRole;
+        $this->editRole = $editRole;
+        $this->deleteRole = $deleteRole;
+        $this->commentClass = $commentClass;
     }
 
     /**
      * Checks if the Security token has an appropriate role to create a new Comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -100,8 +108,9 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canView(CommentInterface $comment)
     {
@@ -111,8 +120,9 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to reply to a parent comment.
      *
-     * @param  CommentInterface|null $parent
-     * @return boolean
+     * @param CommentInterface|null $parent
+     *
+     * @return bool
      */
     public function canReply(CommentInterface $parent = null)
     {
@@ -126,8 +136,9 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canEdit(CommentInterface $comment)
     {
@@ -137,8 +148,9 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Comment.
      *
-     * @param  CommentInterface $comment
-     * @return boolean
+     * @param CommentInterface $comment
+     *
+     * @return bool
      */
     public function canDelete(CommentInterface $comment)
     {
@@ -148,12 +160,12 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Role based Acl does not require setup.
      *
-     * @param  CommentInterface $comment
+     * @param CommentInterface $comment
+     *
      * @return void
      */
     public function setDefaultAcl(CommentInterface $comment)
     {
-
     }
 
     /**
@@ -163,7 +175,6 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function installFallbackAcl()
     {
-
     }
 
     /**
@@ -173,6 +184,5 @@ class RoleCommentAcl implements CommentAclInterface
      */
     public function uninstallFallbackAcl()
     {
-
     }
 }

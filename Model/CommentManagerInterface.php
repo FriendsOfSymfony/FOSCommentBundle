@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -30,7 +39,7 @@ interface CommentManagerInterface
      * tree methods.
      *
      * @param ThreadInterface $thread
-     * @param integer|null    $depth
+     * @param int|null        $depth
      * @param string|null     $sorterAlias
      *
      * @return CommentInterface[] An array of commentInterfaces
@@ -45,27 +54,27 @@ interface CommentManagerInterface
      * Will query for an additional level of depth when provided
      * so templates can determine to display a 'load more comments' link.
      *
-     * @param ThreadInterface $thread      The thread for whom we want to find comments for.
-     * @param string|null     $sorterAlias Optional name of the sorter to use.
-     * @param integer|null    $depth       The depth
+     * @param ThreadInterface $thread      The thread for whom we want to find comments for
+     * @param string|null     $sorterAlias Optional name of the sorter to use
+     * @param int|null        $depth       The depth
      *
      * @return array(
-     *     0 => array(
-     *         'comment' => CommentInterface,
-     *         'children' => array(
-     *             0 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             ),
-     *             1 => array (
-     *                 'comment' => CommentInterface,
-     *                 'children' => array(...)
-     *             )
-     *         )
-     *     ),
-     *     1 => array(
-     *         ...
-     *     )
+     *                0 => array(
+     *                'comment' => CommentInterface,
+     *                'children' => array(
+     *                0 => array (
+     *                'comment' => CommentInterface,
+     *                'children' => array(...)
+     *                ),
+     *                1 => array (
+     *                'comment' => CommentInterface,
+     *                'children' => array(...)
+     *                )
+     *                )
+     *                ),
+     *                1 => array(
+     *                ...
+     *                )
      */
     public function findCommentTreeByThread(ThreadInterface $thread, $sorterAlias = null, $depth = null);
 
@@ -89,7 +98,7 @@ interface CommentManagerInterface
     /**
      * Finds a comment by it's unique id.
      *
-     * @param mixed $id The unique comment identifier.
+     * @param mixed $id The unique comment identifier
      *
      * @return CommentInterface|null The comment or null when no comment found
      */
@@ -101,7 +110,7 @@ interface CommentManagerInterface
      * @param ThreadInterface       $thread A thread instance
      * @param CommentInterface|null $parent The parent comment or null if no parent comment
      *
-     * @return CommentInterface The created comment.
+     * @return CommentInterface The created comment
      */
     public function createComment(ThreadInterface $thread, CommentInterface $parent = null);
 
@@ -110,12 +119,12 @@ interface CommentManagerInterface
      *
      * @param CommentInterface $comment
      *
-     * @return boolean true if it's a new comment, false otherwise
+     * @return bool true if it's a new comment, false otherwise
      */
     public function isNewComment(CommentInterface $comment);
 
     /**
-     * Returns the fully qualified comment class name
+     * Returns the fully qualified comment class name.
      *
      * @return string
      */

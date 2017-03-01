@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,19 +20,20 @@
 
 namespace FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity;
 
-use FOS\CommentBundle\Entity\Thread as BaseThread;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\CommentBundle\Entity\Thread as BaseThread;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="test_thread")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+ *
  * @author Tim Nagel <tim@nagel.com.au>
  */
 class Thread extends BaseThread
 {
     /**
-     * @var string $id
+     * @var string
      *
      * @ORM\Id
      * @ORM\Column(type="string")

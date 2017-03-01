@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,8 +20,8 @@
 
 namespace FOS\CommentBundle\Acl;
 
-use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\SignedVoteInterface;
+use FOS\CommentBundle\Model\VoteInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
@@ -24,7 +33,7 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements ACL checking using the Symfony2 Security component
+ * Implements ACL checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -75,19 +84,18 @@ class SecurityVoteAcl implements VoteAclInterface
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
                                 $voteClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->objectRetrieval      = $objectRetrieval;
-        $this->aclProvider          = $aclProvider;
-        $this->voteClass            = $voteClass;
-        $this->oid                  = new ObjectIdentity('class', $this->voteClass);
+        $this->objectRetrieval = $objectRetrieval;
+        $this->aclProvider = $aclProvider;
+        $this->voteClass = $voteClass;
+        $this->oid = new ObjectIdentity('class', $this->voteClass);
     }
 
     /**
      * Checks if the Security token is allowed to create a new Vote.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -97,8 +105,9 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canView(VoteInterface $vote)
     {
@@ -108,8 +117,9 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to edit the specified Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canEdit(VoteInterface $vote)
     {
@@ -119,8 +129,9 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canDelete(VoteInterface $vote)
     {
@@ -130,7 +141,8 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Sets the default object Acl entry for the supplied Vote.
      *
-     * @param  VoteInterface $vote
+     * @param VoteInterface $vote
+     *
      * @return void
      */
     public function setDefaultAcl(VoteInterface $vote)
@@ -175,8 +187,9 @@ class SecurityVoteAcl implements VoteAclInterface
      * Once this method has been overridden you need to run the
      * `fos_vote:installAces --flush` command
      *
-     * @param  AclInterface $acl
-     * @param  MaskBuilder  $builder
+     * @param AclInterface $acl
+     * @param MaskBuilder  $builder
+     *
      * @return void
      */
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)

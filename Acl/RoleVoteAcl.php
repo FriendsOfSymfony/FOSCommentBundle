@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -15,7 +24,7 @@ use FOS\CommentBundle\Model\VoteInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements Role checking using the Symfony2 Security component
+ * Implements Role checking using the Symfony2 Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -77,20 +86,19 @@ class RoleVoteAcl implements VoteAclInterface
                                 $editRole,
                                 $deleteRole,
                                 $voteClass
-    )
-    {
+    ) {
         $this->authorizationChecker = $authorizationChecker;
-        $this->createRole           = $createRole;
-        $this->viewRole             = $viewRole;
-        $this->editRole             = $editRole;
-        $this->deleteRole           = $deleteRole;
-        $this->voteClass            = $voteClass;
+        $this->createRole = $createRole;
+        $this->viewRole = $viewRole;
+        $this->editRole = $editRole;
+        $this->deleteRole = $deleteRole;
+        $this->voteClass = $voteClass;
     }
 
     /**
      * Checks if the Security token has an appropriate role to create a new Vote.
      *
-     * @return boolean
+     * @return bool
      */
     public function canCreate()
     {
@@ -100,8 +108,9 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canView(VoteInterface $vote)
     {
@@ -111,8 +120,9 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canEdit(VoteInterface $vote)
     {
@@ -122,8 +132,9 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Vote.
      *
-     * @param  VoteInterface $vote
-     * @return boolean
+     * @param VoteInterface $vote
+     *
+     * @return bool
      */
     public function canDelete(VoteInterface $vote)
     {
@@ -133,12 +144,12 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * Role based Acl does not require setup.
      *
-     * @param  VoteInterface $vote
+     * @param VoteInterface $vote
+     *
      * @return void
      */
     public function setDefaultAcl(VoteInterface $vote)
     {
-
     }
 
     /**
@@ -148,7 +159,6 @@ class RoleVoteAcl implements VoteAclInterface
      */
     public function installFallbackAcl()
     {
-
     }
 
     /**
@@ -158,6 +168,5 @@ class RoleVoteAcl implements VoteAclInterface
      */
     public function uninstallFallbackAcl()
     {
-
     }
 }

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSCommentBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 /**
  * This file is part of the FOSCommentBundle package.
  *
@@ -11,7 +20,6 @@
 
 namespace FOS\CommentBundle\FormFactory;
 
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 /**
@@ -44,8 +52,8 @@ class DeleteCommentFormFactory implements DeleteCommentFormFactoryInterface
     public function __construct(FormFactoryInterface $formFactory, $type, $name)
     {
         $this->formFactory = $formFactory;
-        $this->type        = $type;
-        $this->name        = $name;
+        $this->type = $type;
+        $this->name = $name;
     }
 
     /**
