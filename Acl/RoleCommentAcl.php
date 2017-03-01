@@ -13,7 +13,6 @@ namespace FOS\CommentBundle\Acl;
 
 use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Implements Role checking using the Symfony2 Security component
@@ -23,7 +22,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class RoleCommentAcl implements CommentAclInterface
 {
     /**
-     * @var AuthorizationCheckerInterface|SecurityContextInterface
+     * @var AuthorizationCheckerInterface
      */
     private $authorizationChecker;
 
@@ -65,14 +64,14 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
-     * @param string                                                 $createRole
-     * @param string                                                 $viewRole
-     * @param string                                                 $editRole
-     * @param string                                                 $deleteRole
-     * @param string                                                 $commentClass
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param string                        $createRole
+     * @param string                        $viewRole
+     * @param string                        $editRole
+     * @param string                        $deleteRole
+     * @param string                        $commentClass
      */
-    public function __construct($authorizationChecker,
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 $createRole,
                                 $viewRole,
                                 $editRole,
@@ -80,10 +79,6 @@ class RoleCommentAcl implements CommentAclInterface
                                 $commentClass
     )
     {
-        if (!$authorizationChecker instanceof AuthorizationCheckerInterface && !$authorizationChecker instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface or Symfony\Component\Security\Core\SecurityContextInterface');
-        }
-
         $this->authorizationChecker = $authorizationChecker;
         $this->createRole           = $createRole;
         $this->viewRole             = $viewRole;

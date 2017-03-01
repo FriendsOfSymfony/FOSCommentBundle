@@ -11,6 +11,10 @@
 
 namespace FOS\CommentBundle\Tests\Functional;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
+
 // get the autoload file
 $dir = __DIR__;
 $lastDir = null;
@@ -34,10 +38,6 @@ while ($dir !== $lastDir) {
 
     $dir = dirname($dir);
 }
-
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -87,7 +87,7 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->rootConfig);
-        if(class_exists('Symfony\Component\Asset\Package')) {
+        if (class_exists('Symfony\Component\Asset\Package')) {
             $loader->load(__DIR__.'/config/assets.yml');
         }
     }
