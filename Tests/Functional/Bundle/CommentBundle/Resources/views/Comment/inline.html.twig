@@ -11,7 +11,7 @@
 
 {% block javascript %}
 {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset_url }}">
 // URI identifier for the thread comments
 var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';

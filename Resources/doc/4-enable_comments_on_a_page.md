@@ -5,7 +5,7 @@ javascript provided. The javascript will asynchronously load the comments after
 the page load.
 
 > **Note:**
-> The implementation javascript provided with FOSCommentBundle relies on jQuery 1.7
+> The implementation javascript provided with FOSCommentBundle relies on jQuery 3.x
 > You will need to install this separately and make sure that it is available on the
 > page you want to enable comments on.
 >
