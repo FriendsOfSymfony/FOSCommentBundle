@@ -14,7 +14,7 @@ The FOSCommentBundle adds support for a comment system in Symfony2. Features inc
 - Optional integration with `Akismet`
 - Optional markup parser support (eg HtmlPurifier or php-sundown)
 
-[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSCommentBundle.png?branch=master)](http://travis-ci.org/FriendsOfSymfony/FOSCommentBundle)
+[![Build Status](https://travis-ci.org/FriendsOfSymfony/FOSCommentBundle.svg?branch=master)](https://travis-ci.org/FriendsOfSymfony/FOSCommentBundle) [![Total Downloads](https://poser.pugx.org/friendsofsymfony/comment-bundle/downloads.svg)](https://packagist.org/packages/friendsofsymfony/comment-bundle) [![Latest Stable Version](https://poser.pugx.org/friendsofsymfony/comment-bundle/v/stable.svg)](https://packagist.org/packages/friendsofsymfony/comment-bundle)
 
 Documentation
 -------------
