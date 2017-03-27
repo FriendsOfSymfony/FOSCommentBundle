@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
- This file is part of the FOSCommentBundle package.
+This file is part of the FOSCommentBundle package.
 
- (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+(c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
 
- This source file is subject to the MIT license that is bundled
- with this source code in the file LICENSE.
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
 -->
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
 
-        <service id="fos_comment.spam_detection.comment.akismet" class="FOS\CommentBundle\SpamDetection\AkismetSpamDetection" scope="request" public="false">
+        <service id="fos_comment.spam_detection.comment.akismet" class="FOS\CommentBundle\SpamDetection\AkismetSpamDetection" public="false">
             <argument type="service" id="ornicar_akismet" />
         </service>
 
-        <service id="fos_comment.listener.comment_spam" class="FOS\CommentBundle\EventListener\CommentSpamListener" scope="request">
+        <service id="fos_comment.listener.comment_spam" class="FOS\CommentBundle\EventListener\CommentSpamListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
         </service>
