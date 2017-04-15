@@ -90,7 +90,7 @@ interface ThreadInterface
      *
      * @return int The new comment total
      */
-    public function incrementNumComments($by);
+    public function incrementNumComments($by = 1);
 
     /**
      * Denormalized date of the last comment.
