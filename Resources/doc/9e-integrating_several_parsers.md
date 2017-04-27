@@ -3,7 +3,7 @@ Step 9e: Integrating several parsers together
 
 Purpose
 --------
-Imagine that you need to integrate ExerciseHTMLPurifierBundle parser, bbcode parser, any other parser... it's better to have several parsers where each is responsible for it's action. That's why it's better to make chain of parsers, where order is important and parsers works one after other.
+Imagine that you need to integrate ExerciseHTMLPurifierBundle parser, bbcode parser, any other parser... it's better to have several parsers where each is responsible for its action. That's why it's better to make chain of parsers, where order is important and parsers works one after another.
 
 Usage
 -----
