@@ -75,11 +75,12 @@ class CommentManager extends BaseCommentManager
     public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
     {
         $qb = $this->repository
-                ->createQueryBuilder('c')
-                ->join('c.thread', 't')
-                ->where('t.id = :thread')
-                ->orderBy('c.ancestors', 'ASC')
-                ->setParameter('thread', $thread->getId());
+            ->createQueryBuilder('c')
+            ->join('c.thread', 't')
+            ->join('c.author', 'a') //FORCE HYDRATE
+            ->where('t.id = :thread')
+            ->orderBy('c.ancestors', 'ASC')
+            ->setParameter('thread', $thread->getId());
 
         if (null !== $depth && $depth >= 0) {
             // Queries for an additional level so templates can determine
