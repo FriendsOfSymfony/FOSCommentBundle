@@ -12,6 +12,8 @@ framework:
         resource: '%kernel.root_dir%/%kernel.test_case%/routing.yml'
     templating:
         engines: [twig]
+    translator:
+        enabled: false
 
 doctrine:
     dbal:
