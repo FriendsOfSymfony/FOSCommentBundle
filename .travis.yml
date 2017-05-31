@@ -29,4 +29,4 @@ install:
 
 script:
     - composer validate --no-check-lock --strict
-    - phpunit --coverage-text --colors
+    - ./vendor/bin/phpunit --coverage-text --colors
