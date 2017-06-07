@@ -98,5 +98,8 @@ Or if you prefer XML:
     <assetic:bundle name="FOSCommentBundle" />
 </assetic:config>
 ```
+Do not forget to run 'app/console doctrine:generate:entities' on your newly created entities (those 2 classes above). 
+After this you got to run the 'app/console doctrine:schema:update --force' to create the needed tables.
+
 ### Back to the main step
 [Step 2: Create your Comment and Thread classes](2-create_your_comment_and_thread_classes.md).
