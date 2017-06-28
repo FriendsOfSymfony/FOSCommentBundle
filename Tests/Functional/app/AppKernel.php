@@ -87,9 +87,6 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->rootConfig);
-        if(class_exists('Symfony\Component\Asset\Package')) {
-            $loader->load(__DIR__.'/config/assets.yml');
-        }
     }
 
     public function serialize()
