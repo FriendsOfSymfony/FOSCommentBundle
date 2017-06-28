@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="vendor/autoload.php" color="true">
+<phpunit bootstrap="./Tests/bootstrap.php" colors="true">
     <php>
         <ini name="xdebug.max_nesting_level" value="200" />
     </php>
