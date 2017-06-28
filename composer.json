@@ -53,7 +53,8 @@
         "friendsofsymfony/user-bundle": "~1.1|~2.0@dev",
         "ornicar/akismet-bundle": "dev-master",
         "symfony/expression-language": "~2.4|~3.0",
-        "symfony/phpunit-bridge": "~2.7|~3.0"
+        "symfony/phpunit-bridge": "~2.7|~3.0",
+        "phpunit/phpunit": "~4.8"
     },
     "extra": {
         "branch-alias": {
