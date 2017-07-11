@@ -18,8 +18,6 @@
             {{ form_rest(form) }}
         {% endblock %}
 
-        <input type="hidden" name="_method" value="patch" />
-
         <div class="fos_comment_submit">
             {% block fos_comment_form_submit %}
                 <input type="submit" value="{{ 'fos_comment_comment_delete' | trans({}, 'FOSCommentBundle') }}" />
