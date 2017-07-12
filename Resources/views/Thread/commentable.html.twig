@@ -21,8 +21,6 @@
             {{ form_rest(form) }}
         {% endblock %}
 
-        <input type="hidden" name="_method" value="patch" />
-
         <div class="fos_comment_submit">
             {% block fos_comment_form_submit %}
                 <input type="submit" value="{{ (isCommentable ? 'fos_comment_thread_open' : 'fos_comment_thread_close') | trans({}, 'FOSCommentBundle') }}" />
