@@ -86,6 +86,10 @@ class ThreadController extends Controller
     {
         $ids = $request->query->get('ids');
 
+        if (null === $ids) {
+            throw new NotFoundHttpException('Cannot query threads without id\'s.');
+        }
+
         $threads = $this->container->get('fos_comment.manager.thread')->findThreadsBy(array('id' => $ids));
 
         $view = View::create()
