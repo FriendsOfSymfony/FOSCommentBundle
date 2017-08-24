@@ -46,6 +46,19 @@ class ApiTest extends WebTestCase
     }
 
     /**
+     * Tests retrieval of a threads without id's.
+     *
+     * fos_comment_get_threads: GET: /comment_api/threads
+     */
+    public function testGetThreads404()
+    {
+        $this->client->insulate(true);
+
+        $this->client->request('GET', '/comment_api/threads');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
      * Tests creation of a new form.retrieval of a thread that doesnt exist.
      *
      * fos_comment_new_threads: GET: /comment_api/threads/new.{_format}
