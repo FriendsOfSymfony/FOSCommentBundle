@@ -16,7 +16,7 @@
             {{ form_errors(form) }}
             {{ form_errors(form.body) }}
             {{ form_widget(form.body) }}
-            {{ form_widget(form._token) }}
+            {{ form_rest(form) }}
         {% endblock %}
 
         <div class="fos_comment_submit">
@@ -25,8 +25,6 @@
                 <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit_submit{% endtrans %}" />
             {% endblock %}
         </div>
-
-        <input type="hidden" name="_method" value="PUT">
 
     </form>
 </div>
