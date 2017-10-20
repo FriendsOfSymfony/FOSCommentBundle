@@ -54,7 +54,7 @@ class Comment extends BaseComment implements VotableCommentInterface
     // .. fields
 
     /**
-     * @MongoDB\Int
+     * @MongoDB\Field(type="int")
      * @var int
      */
     protected $score = 0;
