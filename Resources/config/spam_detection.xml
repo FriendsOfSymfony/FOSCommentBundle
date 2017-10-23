@@ -15,11 +15,11 @@
 
     <services>
 
-        <service id="fos_comment.spam_detection.comment.akismet" class="FOS\CommentBundle\SpamDetection\AkismetSpamDetection" scope="request" public="false">
+        <service id="fos_comment.spam_detection.comment.akismet" class="FOS\CommentBundle\SpamDetection\AkismetSpamDetection" public="false">
             <argument type="service" id="ornicar_akismet" />
         </service>
 
-        <service id="fos_comment.listener.comment_spam" class="FOS\CommentBundle\EventListener\CommentSpamListener" scope="request">
+        <service id="fos_comment.listener.comment_spam" class="FOS\CommentBundle\EventListener\CommentSpamListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="fos_comment.spam_detection.comment" />
         </service>
