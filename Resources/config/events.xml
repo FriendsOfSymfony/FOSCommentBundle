@@ -33,7 +33,7 @@
         </service>
 
         <service id="fos_comment.listener.thread_permalink" class="%fos_comment.listener.thread_permalink.class%">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="request_stack" />
             <tag name="kernel.event_subscriber" />
         </service>
 
