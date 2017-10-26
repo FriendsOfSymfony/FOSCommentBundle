@@ -91,6 +91,10 @@ class ThreadController extends Controller
     {
         $ids = $request->query->get('ids');
 
+        if (null === $ids) {
+            throw new NotFoundHttpException('Cannot query threads without id\'s.');
+        }
+
         $threads = $this->container->get('fos_comment.manager.thread')->findThreadsBy(array('id' => $ids));
 
         $view = View::create()
@@ -331,7 +335,7 @@ class ThreadController extends Controller
             throw new NotFoundHttpException(sprintf("No comment with id '%s' found for thread with id '%s'", $commentId, $id));
         }
 
-        $form = $this->container->get('fos_comment.form_factory.comment')->createForm();
+        $form = $this->container->get('fos_comment.form_factory.comment')->createForm(null, array('method' => 'PUT'));
         $form->setData($comment);
 
         $view = View::create()
