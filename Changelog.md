@@ -6,3 +6,4 @@ Changelog
 * Dropped PHP < 5.6 support.
 * Dropped Symfony < 2.7 support.
 * Dropped jQuery < 3 support.
+* Signature of `ThreadPermalinkListener` has been changed.
