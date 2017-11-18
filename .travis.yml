@@ -17,10 +17,17 @@ matrix:
           env: SYMFONY_VERSION='2.7.*'
         - php: 7.0
           env: SYMFONY_VERSION='2.8.*'
+        # test the latest stable 3.x release
+        - php: 7.0
+          env: SYMFONY_VERSION='^3.0'
+        # test the latest release (including beta releases)
+        - php: 7.1
+          env: DEPENDENCIES='beta'
     fast_finish: true
 
 install:
     - composer self-update
+    - if [ "$DEPENDENCIES" = "beta" ]; then composer config minimum-stability beta; fi;
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
     - composer update --no-interaction $COMPOSER_FLAGS
 
