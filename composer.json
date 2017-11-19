@@ -58,7 +58,7 @@
         "friendsofsymfony/user-bundle": "~2.0",
         "ornicar/akismet-bundle": "dev-master",
         "symfony/expression-language": "~2.7|~3.0|^4.0",
-        "symfony/phpunit-bridge": "~2.7|~3.0|^4.0",
+        "symfony/phpunit-bridge": "^4.0@beta",
         "phpunit/phpunit": "~4.8|~5.0",
         "friendsofphp/php-cs-fixer": "^1.11"
     },
