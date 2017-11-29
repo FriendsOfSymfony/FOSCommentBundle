@@ -1,0 +1,29 @@
+fos_comment_comment_new_headline_first:       Scrie primul comentariu
+fos_comment_comment_new_headline:             Adaugă un comentariu
+fos_comment_comment_new_submit:               Postează
+fos_comment_comment_new_cancel:               Anulează
+
+fos_comment_comment_edit_submit:              Postează
+fos_comment_comment_edit_cancel:              Anulează
+
+fos_comment_comment_reply_reply_to:           Răspunde lui %name%
+fos_comment_comment_reply_cancel:             Anulează
+
+fos_comment_comment_show_by:                  De către
+fos_comment_comment_show_voteup:              Votează +
+fos_comment_comment_show_votedown:            Votează -
+fos_comment_comment_show_reply:               Răspunde
+
+fos_comment_comment_vote_score:               "Scor: "
+
+fos_comment_comment_tree_load_more:           Încarcă mai multe răspunsuri
+
+fos_comment_rss_feed:                         Feed RSS
+
+fos_comment_thread_close:                     Închide thread-ul
+fos_comment_thread_open:                      Deschide un thread
+fos_comment_thread_comment_count:             "%count% comentariu|%count% comentarii"
+fos_comment_comment_edit:                     Modifică
+fos_comment_comment_delete:                   Șterge comentariul
+fos_comment_comment_undelete:                 Resalvează comentariul
+fos_comment_comment_deleted:                  "[șters]"
