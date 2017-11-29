@@ -139,7 +139,7 @@
                             FOS_COMMENT.appendComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
                             if (that.data() && that.data().parent !== '') {
-                                that.parents('.fos_comment_comment_form_holder').remove();
+                                that.closest('.fos_comment_comment_form_holder').remove();
                             }
                         },
                         // error
