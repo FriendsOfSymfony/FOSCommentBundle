@@ -99,6 +99,10 @@
                 permalink: encodeURIComponent(permalink || window.location.href)
             };
 
+            if (typeof window.fos_comment_thread_view !== 'undefined') {
+                event.params.view = window.fos_comment_thread_view;
+            }
+
             FOS_COMMENT.thread_container.trigger(event);
             FOS_COMMENT.get(
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(event.identifier) + '/comments',
