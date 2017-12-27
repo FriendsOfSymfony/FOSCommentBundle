@@ -7,6 +7,7 @@ Changelog
 * Dropped Symfony < 2.7 support.
 * Dropped jQuery < 3 support.
 * Dropped HHVM support.
+* Added Symfony 4 support.
 * Signature of `ThreadPermalinkListener` has been changed.
 * Decrease `Thread::numComments` after comment removal.
 * Route `ThreadController::getThreadsActions` throws 404 if called without id's.
