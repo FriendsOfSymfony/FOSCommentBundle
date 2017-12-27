@@ -65,7 +65,7 @@ class FOSCommentExtension extends Extension
             $container->setDefinition('fos_comment.entity_manager', $def);
         }
 
-        foreach (array('events', 'form', 'twig', 'sorting') as $basename) {
+        foreach (array('events', 'form', 'twig', 'sorting', 'metadata') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -131,6 +131,20 @@ class FOSCommentExtension extends Extension
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+
+        // probably make this configurable...
+        $cacheDirectory = '%kernel.cache_dir%/fos_comment';
+        $cacheDirectory = $container->getParameterBag()->resolveValue($cacheDirectory);
+        if (!is_dir($cacheDirectory)) {
+        	mkdir($cacheDirectory, 0777, true);
+        }
+
+        // the cache directory should be the first argument of the cache service
+        $container
+        ->getDefinition('fos_comment.metadata.cache')
+        ->replaceArgument(0, $cacheDirectory)
+        ;
+
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)

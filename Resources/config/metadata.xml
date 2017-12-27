@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="fos_comment.metadata_factory.class">Metadata\MetadataFactory</parameter>
+        <parameter key="fos_comment.metadata.annotation_driver.class">FOS\CommentBundle\Metadata\Driver\AnnotationDriver</parameter>
+        <parameter key="fos_comment.metadata.cache_class">Metadata\Cache\FileCache</parameter>
+    </parameters>
+
+    <services>
+        <service id="fos_comment.metadata.annotation_driver" class="%fos_comment.metadata.annotation_driver.class%" public="false">
+            <argument type="service" id="annotation_reader" />
+        </service>
+        
+        <service id="fos_comment.metadata_factory" class="%fos_comment.metadata_factory.class%" public="false">
+            <argument type="service" id="fos_comment.metadata.annotation_driver" />
+        </service>
+        
+        <service id="fos_comment.metadata.cache" class="%fos_comment.metadata.cache_class%" public="false">
+		    <argument /><!-- the cache directory (to be set later) -->
+		</service>
+		
+		<service id="fos_comment.metadata_factory" class="%fos_comment.metadata_factory.class%" public="false">
+		    <argument type="service" id="fos_comment.driver_chain" />
+		    <!-- call setCache with the new cache service: -->
+		    <call method="setCache">
+		        <argument type="service" id="fos_comment.metadata.cache" />
+		    </call>
+		</service>
+    </services>
+</container>

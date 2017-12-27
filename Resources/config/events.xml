@@ -20,6 +20,7 @@
         <parameter key="fos_comment.listener.comment_blamer.class">FOS\CommentBundle\EventListener\CommentBlamerListener</parameter>
         <parameter key="fos_comment.listener.vote_blamer.class">FOS\CommentBundle\EventListener\VoteBlamerListener</parameter>
         <parameter key="fos_comment.listener.closed_threads.class">FOS\CommentBundle\EventListener\ClosedThreadListener</parameter>
+        <parameter key="fos_comment.listener.dynamic_relations.class">FOS\CommentBundle\EventListener\DynamicRelationListener</parameter>
     </parameters>
 
     <services>
