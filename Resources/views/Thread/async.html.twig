@@ -14,6 +14,7 @@
 <script type="text/javascript">
     // thread id
     var fos_comment_thread_id = '{{ id }}';
+    var fos_comment_thread_view = '{{ view|default('tree') }}';
 
     // api base url to use for initial requests
     var fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}';

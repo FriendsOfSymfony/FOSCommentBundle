@@ -99,6 +99,10 @@
                 permalink: encodeURIComponent(permalink || window.location.href)
             };
 
+            if (typeof window.fos_comment_thread_view !== 'undefined') {
+                event.params.view = window.fos_comment_thread_view;
+            }
+
             FOS_COMMENT.thread_container.trigger(event);
             FOS_COMMENT.get(
                 FOS_COMMENT.base_url  + '/' + encodeURIComponent(event.identifier) + '/comments',
@@ -139,7 +143,7 @@
                             FOS_COMMENT.appendComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
                             if (that.data() && that.data().parent !== '') {
-                                that.parents('.fos_comment_comment_form_holder').remove();
+                                that.closest('.fos_comment_comment_form_holder').remove();
                             }
                         },
                         // error
