@@ -5,7 +5,7 @@ By default, votes are made anonymously.
 authentication can be used to sign the votes.
 
 ### A) Setup FOSUserBundle
-First you have to setup [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle). Check the [instructions](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
+First you have to setup [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle). Check the [instructions](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.rst).
 
 ### B) Extend the Vote class
 In order to add an author to a vote, the Vote class should implement the
