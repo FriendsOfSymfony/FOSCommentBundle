@@ -90,6 +90,14 @@ abstract class Comment implements CommentInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Comment #'.$this->getId();
+    }
+
+    /**
      * Return the comment unique id.
      *
      * @return mixed
@@ -141,14 +149,6 @@ abstract class Comment implements CommentInterface
     public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'Comment #'.$this->getId();
     }
 
     /**

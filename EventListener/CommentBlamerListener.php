@@ -36,6 +36,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class CommentBlamerListener implements EventSubscriberInterface
 {
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+    /**
      * @var AuthorizationCheckerInterface
      */
     private $authorizationChecker;
@@ -44,11 +48,6 @@ class CommentBlamerListener implements EventSubscriberInterface
      * @var TokenStorageInterface
      */
     private $tokenStorage;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
 
     /**
      * Constructor.

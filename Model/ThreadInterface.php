@@ -99,10 +99,10 @@ interface ThreadInterface
      */
     public function getLastCommentAt();
 
-     /**
-      * @param  DateTime
-      *
-      * @return null
-      */
-     public function setLastCommentAt($lastCommentAt);
+    /**
+     * @param  DateTime
+     *
+     * @return null
+     */
+    public function setLastCommentAt($lastCommentAt);
 }

@@ -103,6 +103,16 @@ class ThreadManager extends BaseThreadManager
     }
 
     /**
+     * Returns the fully qualified comment thread class name.
+     *
+     * @return string
+     **/
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
      * Saves a thread.
      *
      * @param ThreadInterface $thread
@@ -111,15 +121,5 @@ class ThreadManager extends BaseThreadManager
     {
         $this->dm->persist($thread);
         $this->dm->flush();
-    }
-
-    /**
-     * Returns the fully qualified comment thread class name.
-     *
-     * @return string
-     **/
-    public function getClass()
-    {
-        return $this->class;
     }
 }

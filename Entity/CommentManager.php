@@ -126,18 +126,6 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Performs persisting of the comment.
-     *
-     * @param CommentInterface $comment
-     */
-    protected function doSaveComment(CommentInterface $comment)
-    {
-        $this->em->persist($comment->getThread());
-        $this->em->persist($comment);
-        $this->em->flush();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function findCommentById($id)
@@ -159,5 +147,17 @@ class CommentManager extends BaseCommentManager
     public function getClass()
     {
         return $this->class;
+    }
+
+    /**
+     * Performs persisting of the comment.
+     *
+     * @param CommentInterface $comment
+     */
+    protected function doSaveComment(CommentInterface $comment)
+    {
+        $this->em->persist($comment->getThread());
+        $this->em->persist($comment);
+        $this->em->flush();
     }
 }

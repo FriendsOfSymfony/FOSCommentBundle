@@ -60,7 +60,7 @@
         "symfony/expression-language": "~2.7|~3.0",
         "symfony/phpunit-bridge": "~2.7|~3.0",
         "phpunit/phpunit": "~4.8|~5.0",
-        "friendsofphp/php-cs-fixer": "^1.11"
+        "friendsofphp/php-cs-fixer": "^2.2"
     },
     "extra": {
         "branch-alias": {

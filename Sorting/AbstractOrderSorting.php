@@ -37,7 +37,7 @@ abstract class AbstractOrderSorting implements SortingInterface
 
     public function __construct($order)
     {
-        if ($order == self::ASC || $order == self::DESC) {
+        if (self::ASC == $order || self::DESC == $order) {
             $this->order = $order;
         } else {
             throw new InvalidArgumentException(sprintf('%s is an invalid sorting order', $order));
@@ -81,7 +81,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      */
     public function doSort($a, $b)
     {
-        if ($this->order == self::ASC) {
+        if (self::ASC == $this->order) {
             return $this->compare($a['comment'], $b['comment']);
         }
 
@@ -112,7 +112,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      */
     public function doFlatSort($a, $b)
     {
-        if ($this->order == self::ASC) {
+        if (self::ASC == $this->order) {
             return $this->compare($a, $b);
         }
 

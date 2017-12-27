@@ -118,7 +118,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
     {
         $commentManager = new CommentManager($this->dispatcher, $this->sortingFactory, $this->em, $this->class);
 
-        $this->assertEquals($this->class, $commentManager->getClass());
+        $this->assertSame($this->class, $commentManager->getClass());
     }
 
     public function testCreateComment()
@@ -134,7 +134,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
         $result = $manager->createComment($thread, $parent);
 
         $this->assertInstanceOf('FOS\CommentBundle\Model\CommentInterface', $result);
-        $this->assertEquals($thread, $result->getThread());
-        $this->assertEquals($parent, $result->getParent());
+        $this->assertSame($thread, $result->getThread());
+        $this->assertSame($parent, $result->getParent());
     }
 }

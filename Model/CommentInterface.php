@@ -80,7 +80,7 @@ interface CommentInterface
     /**
      * @param CommentInterface $comment
      */
-    public function setParent(CommentInterface $comment);
+    public function setParent(self $comment);
 
     /**
      * @return int The current state of the comment

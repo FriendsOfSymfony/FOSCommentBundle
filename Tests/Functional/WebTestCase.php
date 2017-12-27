@@ -40,12 +40,6 @@ class WebTestCase extends BaseWebTestCase
      */
     protected $client;
 
-    public static function assertRedirect($response, $location)
-    {
-        self::assertTrue($response->isRedirect(), 'Response should be a redirect, got status code: '.substr($response, 0, 2000));
-        self::assertEquals('http://localhost'.$location, $response->headers->get('Location'));
-    }
-
     protected function setUp()
     {
         if (!class_exists('Twig_Environment')) {
@@ -67,6 +61,12 @@ class WebTestCase extends BaseWebTestCase
         }
 
         parent::setUp();
+    }
+
+    public static function assertRedirect($response, $location)
+    {
+        self::assertTrue($response->isRedirect(), 'Response should be a redirect, got status code: '.substr($response, 0, 2000));
+        self::assertEquals('http://localhost'.$location, $response->headers->get('Location'));
     }
 
     protected function deleteTmpDir($testCase)

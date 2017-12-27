@@ -68,6 +68,14 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return 'Comment thread #'.$this->getId();
+    }
+
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
@@ -168,13 +176,5 @@ abstract class Thread implements ThreadInterface
     public function setLastCommentAt($lastCommentAt)
     {
         $this->lastCommentAt = $lastCommentAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'Comment thread #'.$this->getId();
     }
 }

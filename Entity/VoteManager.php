@@ -67,18 +67,6 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
-     * Persists a vote.
-     *
-     * @param \FOS\CommentBundle\Model\VoteInterface $vote
-     */
-    protected function doSaveVote(VoteInterface $vote)
-    {
-        $this->em->persist($vote->getComment());
-        $this->em->persist($vote);
-        $this->em->flush();
-    }
-
-    /**
      * Finds a vote by specified criteria.
      *
      * @param array $criteria
@@ -117,5 +105,17 @@ class VoteManager extends BaseVoteManager
     public function getClass()
     {
         return $this->class;
+    }
+
+    /**
+     * Persists a vote.
+     *
+     * @param \FOS\CommentBundle\Model\VoteInterface $vote
+     */
+    protected function doSaveVote(VoteInterface $vote)
+    {
+        $this->em->persist($vote->getComment());
+        $this->em->persist($vote);
+        $this->em->flush();
     }
 }

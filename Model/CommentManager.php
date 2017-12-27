@@ -90,6 +90,30 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function saveComment(CommentInterface $comment)
+    {
+        if (null === $comment->getThread()) {
+            throw new InvalidArgumentException('The comment must have a thread');
+        }
+
+        $event = new CommentPersistEvent($comment);
+        $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
+
+        if ($event->isPersistenceAborted()) {
+            return false;
+        }
+
+        $this->doSaveComment($comment);
+
+        $event = new CommentEvent($comment);
+        $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
+
+        return true;
+    }
+
+    /**
      * Organises a flat array of comments into a Tree structure.
      *
      * For organising comment branches of a Tree, certain parents which
@@ -124,30 +148,6 @@ abstract class CommentManager implements CommentManagerInterface
         $tree = $sorter->sort($tree);
 
         return $tree;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function saveComment(CommentInterface $comment)
-    {
-        if (null === $comment->getThread()) {
-            throw new InvalidArgumentException('The comment must have a thread');
-        }
-
-        $event = new CommentPersistEvent($comment);
-        $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
-
-        if ($event->isPersistenceAborted()) {
-            return false;
-        }
-
-        $this->doSaveComment($comment);
-
-        $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
-
-        return true;
     }
 
     /**

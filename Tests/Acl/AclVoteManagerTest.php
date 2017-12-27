@@ -88,7 +88,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVoteById($id);
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
@@ -131,7 +131,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVoteBy($conditions);
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
@@ -174,7 +174,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->findVotesByComment($comment);
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
@@ -250,7 +250,7 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->getClass();
 
-        $this->assertEquals($class, $result);
+        $this->assertSame($class, $result);
     }
 
     public function testCreateVote()
@@ -263,6 +263,6 @@ class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
         $result = $manager->createVote($this->comment);
 
-        $this->assertEquals($this->vote, $result);
+        $this->assertSame($this->vote, $result);
     }
 }

@@ -62,6 +62,14 @@ abstract class Vote implements VoteInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Vote #'.$this->getId();
+    }
+
+    /**
      * Return the comment unique id.
      *
      * @return mixed
@@ -119,26 +127,6 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'Vote #'.$this->getId();
-    }
-
-    /**
-     * Checks if the value is an appropriate one.
-     *
-     * @param mixed $value
-     *
-     * @return bool True, if the integer representation of the value is not null or 0
-     */
-    protected function checkValue($value)
-    {
-        return null !== $value && intval($value);
-    }
-
-    /**
      * Gets the comment this vote belongs to.
      *
      * @return VotableCommentInterface
@@ -158,5 +146,17 @@ abstract class Vote implements VoteInterface
     public function setComment(VotableCommentInterface $comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * Checks if the value is an appropriate one.
+     *
+     * @param mixed $value
+     *
+     * @return bool True, if the integer representation of the value is not null or 0
+     */
+    protected function checkValue($value)
+    {
+        return null !== $value && intval($value);
     }
 }

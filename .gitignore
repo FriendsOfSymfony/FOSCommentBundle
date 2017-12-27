@@ -5,4 +5,5 @@ Tests/autoload.php
 Tests/Functional/app/Behat/nginx.conf
 Tests/Functional/web/bundles
 vendor
+.php_cs
 .php_cs.cache

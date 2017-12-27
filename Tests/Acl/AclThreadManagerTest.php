@@ -76,6 +76,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     // findThreadBy - permission denied, can result in null, what to do about invalid criteria
+
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
@@ -151,7 +152,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->findAllThreads();
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
@@ -198,7 +199,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->createThread();
 
-        $this->assertEquals($this->thread, $result);
+        $this->assertSame($this->thread, $result);
     }
 
     public function testGetClass()
@@ -212,6 +213,6 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->getClass();
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 }

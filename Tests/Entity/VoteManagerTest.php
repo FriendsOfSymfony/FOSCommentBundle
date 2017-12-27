@@ -67,7 +67,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
     {
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
 
-        $this->assertEquals($this->class, $manager->getClass());
+        $this->assertSame($this->class, $manager->getClass());
     }
 
     public function testAddVote()
@@ -104,7 +104,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findVoteBy($criteria);
 
-        $this->assertEquals($vote, $result);
+        $this->assertSame($vote, $result);
     }
 
     public function testFindVoteById()
@@ -122,7 +122,7 @@ class VoteManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findVoteById($id);
 
-        $this->assertEquals($vote, $result);
+        $this->assertSame($vote, $result);
     }
 
     public function testCreateVote()

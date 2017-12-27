@@ -51,7 +51,7 @@ class ApiTest extends WebTestCase
         $this->client->insulate(true);
 
         $this->client->request('GET', '/comment_api/threads/non-existant.json');
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -64,7 +64,7 @@ class ApiTest extends WebTestCase
         $this->client->insulate(true);
 
         $this->client->request('GET', '/comment_api/threads');
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -79,7 +79,7 @@ class ApiTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/comment_api/threads/new.html');
 
-        $this->assertEquals(
+        $this->assertSame(
             'http://localhost/comment_api/threads',
             $crawler->filter('form.fos_comment_comment_form')->attr('action')
         );
@@ -259,12 +259,12 @@ class ApiTest extends WebTestCase
         $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
         $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
 
-        $this->assertEquals(
+        $this->assertSame(
             $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(),
             $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(),
             $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text()
         );

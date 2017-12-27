@@ -82,7 +82,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
     {
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
 
-        $this->assertEquals($this->class, $manager->getClass());
+        $this->assertSame($this->class, $manager->getClass());
     }
 
     public function testFindThreadBy()
@@ -98,7 +98,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findThreadBy($criteria);
 
-        $this->assertEquals($thread, $result);
+        $this->assertSame($thread, $result);
     }
 
     public function testFindAllThreads()
@@ -113,7 +113,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findAllThreads();
 
-        $this->assertEquals($threads, $result);
+        $this->assertSame($threads, $result);
     }
 
     public function testFindThreadById()
@@ -129,7 +129,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findThreadById($threadId);
 
-        $this->assertEquals($thread, $result);
+        $this->assertSame($thread, $result);
     }
 
     public function testCreateThread()

@@ -1,12 +1,12 @@
 <?php
 
-/**
+/*
  * This file is part of the FOSCommentBundle package.
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace FOS\CommentBundle\Markup;
@@ -34,9 +34,9 @@ class PipelineParser implements ParserInterface
     /**
      * Parses comment with all parsers in pipeline.
      *
-     * @param string $raw Comment to be parsed.
+     * @param string $raw comment to be parsed
      *
-     * @return string Comment that has been parsed with all parsers in pipeline.
+     * @return string comment that has been parsed with all parsers in pipeline
      */
     public function parse($raw)
     {

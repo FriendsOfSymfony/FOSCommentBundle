@@ -33,7 +33,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $comment = new Comment();
         $comment->setAncestors($ancestors);
 
-        $this->assertEquals(count($ancestors), $comment->getDepth());
+        $this->assertSame(count($ancestors), $comment->getDepth());
     }
 
     public function testSetParentSetsAncestors()
@@ -52,7 +52,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $comment = new Comment();
         $comment->setParent($parent);
 
-        $this->assertEquals(array_merge($ancestors, array($parentId)), $comment->getAncestors());
+        $this->assertSame(array_merge($ancestors, array($parentId)), $comment->getAncestors());
     }
 
     /**
