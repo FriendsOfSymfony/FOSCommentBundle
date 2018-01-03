@@ -33,6 +33,7 @@ class ApiTest extends WebTestCase
         $this->client = self::createClient(array(
             'test_case' => 'Basic',
             'root_config' => 'config.yml',
+            'debug' => false,
         ), array(
             'PHP_AUTH_USER' => 'user',
             'PHP_AUTH_PW' => 'user',
