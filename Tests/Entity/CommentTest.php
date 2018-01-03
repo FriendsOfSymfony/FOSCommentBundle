@@ -38,8 +38,8 @@ class CommentTest extends \PHPUnit_Framework_TestCase
 
     public function testSetParentSetsAncestors()
     {
-        $ancestors = array(1, 5, 12);
-        $parentId = 14;
+        $ancestors = array('1', '5', '12');
+        $parentId = '14';
 
         $parent = $this->getMockBuilder('FOS\CommentBundle\Entity\Comment')->getMock();
         $parent->expects($this->once())
