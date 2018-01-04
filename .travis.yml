@@ -20,7 +20,7 @@ matrix:
     fast_finish: true
 
 install:
-    - if [[ -v $DEPENDENCIES ]]; then composer require --no-update $DEPENDENCIES; fi;
+    - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
     - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
