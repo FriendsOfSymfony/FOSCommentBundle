@@ -80,9 +80,11 @@ class FOSCommentExtension extends Extension
         // TODO: change it if https://github.com/symfony/DoctrineMongoDBBundle/pull/31 is merged
         if ('mongodb' === $config['db_driver']) {
             if (null === $config['model_manager_name']) {
-                $container->setAlias('fos_comment.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false))->setPublic(true);
+                $container->setAlias('fos_comment.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
+                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             } else {
-                $container->setAlias('fos_comment.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false))->setPublic(true);
+                $container->setAlias('fos_comment.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false));
+                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             }
         }
 
@@ -103,25 +105,36 @@ class FOSCommentExtension extends Extension
 
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
-        $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment'])->setPublic(true);
-        $container->setAlias('fos_comment.form_factory.commentable_thread', $config['service']['form_factory']['commentable_thread'])->setPublic(true);
-        $container->setAlias('fos_comment.form_factory.delete_comment', $config['service']['form_factory']['delete_comment'])->setPublic(true);
-        $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread'])->setPublic(true);
-        $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote'])->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
+        $container->getAlias('fos_comment.form_factory.comment')->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.commentable_thread', $config['service']['form_factory']['commentable_thread']);
+        $container->getAlias('fos_comment.form_factory.commentable_thread')->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.delete_comment', $config['service']['form_factory']['delete_comment']);
+        $container->getAlias('fos_comment.form_factory.delete_comment')->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
+        $container->getAlias('fos_comment.form_factory.thread')->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
+        $container->getAlias('fos_comment.form_factory.vote')->setPublic(true);
 
         if (isset($config['service']['spam_detection'])) {
             $loader->load('spam_detection.xml');
-            $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment'])->setPublic(true);
+            $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
+            $container->getAlias('fos_comment.spam_detection.comment')->setPublic(true);
         }
 
         if (isset($config['service']['markup'])) {
-            $container->setAlias('fos_comment.markup', new Alias($config['service']['markup'], false))->setPublic(true);
+            $container->setAlias('fos_comment.markup', new Alias($config['service']['markup'], false));
+            $container->getAlias('fos_comment.markup')->setPublic(true);
             $loader->load('markup.xml');
         }
 
-        $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread'])->setPublic(true);
-        $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment'])->setPublic(true);
-        $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote'])->setPublic(true);
+        $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
+        $container->getAlias('fos_comment.manager.thread')->setPublic(true);
+        $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
+        $container->getAlias('fos_comment.manager.comment')->setPublic(true);
+        $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+        $container->getAlias('fos_comment.manager.vote')->setPublic(true);
+
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)
@@ -135,8 +148,11 @@ class FOSCommentExtension extends Extension
             $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl_roles']['vote'][$perm]);
         }
 
-        $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread'])->setPublic(true);
-        $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment'])->setPublic(true);
-        $container->setAlias('fos_comment.acl.vote', $config['service']['acl']['vote'])->setPublic(true);
+        $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
+        $container->getAlias('fos_comment.acl.thread')->setPublic(true);
+        $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
+        $container->getAlias('fos_comment.acl.comment')->setPublic(true);
+        $container->setAlias('fos_comment.acl.vote', $config['service']['acl']['vote']);
+        $container->getAlias('fos_comment.acl.vote')->setPublic(true);
     }
 }
