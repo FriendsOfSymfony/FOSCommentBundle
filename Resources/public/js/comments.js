@@ -96,7 +96,7 @@
 
             event.identifier = identifier;
             event.params = {
-                permalink: encodeURIComponent(permalink || window.location.href)
+                permalink: encodeURI(permalink || window.location.href)
             };
 
             if (typeof window.fos_comment_thread_view !== 'undefined') {
