@@ -17,6 +17,10 @@ matrix:
           env: DEPENDENCIES="symfony/lts:^2"
         - php: 7.1
           env: DEPENDENCIES="symfony/lts:^3"
+        - php 7.1
+          env: SYMFONY_VERSION="4.0.*"
+        - php 7.2
+          env: SYMFONY_VERSION="4.0.*"
     fast_finish: true
 
 install:
