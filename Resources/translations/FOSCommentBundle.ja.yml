@@ -6,7 +6,7 @@ fos_comment_comment_new_cancel:               キャンセル
 fos_comment_comment_edit_submit:              投稿
 fos_comment_comment_edit_cancel:              キャンセル
 
-fos_comment_comment_reply_reply_to:           %name% に返信
+fos_comment_comment_reply_reply_to:           "%name% に返信"
 fos_comment_comment_reply_cancel:             キャンセル
 
 fos_comment_comment_show_by:                  By
