@@ -96,7 +96,7 @@ fos_rest:
    of a comment thread using the REST api.
 
    ``` jinja
-   {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+   {% include '@FOSComment/Thread/async.html.twig' with {'id': 'foo'} %}
    ```
 
 2012-01-21
