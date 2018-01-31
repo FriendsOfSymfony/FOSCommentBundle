@@ -41,7 +41,7 @@ template:
 {# ... #}
 <div id="fos_comment_thread" data-thread="{{ thread.id }}">
 
-{% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+{% include '@FOSComment/Thread/comments.html.twig' with {
     'comments': comments,
     'thread': thread
 } %}
