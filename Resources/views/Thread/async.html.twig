@@ -11,7 +11,7 @@
 
 <div id="fos_comment_thread"></div>
 
-<script type="text/javascript">
+<script>
     // thread id
     var fos_comment_thread_id = '{{ id }}';
     var fos_comment_thread_view = '{{ view|default('tree') }}';
@@ -24,7 +24,6 @@
         var fos_comment_script = document.createElement('script');
         fos_comment_script.async = true;
         fos_comment_script.src = '{{ asset('bundles/foscomment/js/comments.js') }}';
-        fos_comment_script.type = 'text/javascript';
 
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
     })();

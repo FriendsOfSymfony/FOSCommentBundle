@@ -55,7 +55,7 @@ template:
   <div id="fos_comment_thread"> in the DOM Tree, for example right before </body> tag
 #}
 {% javascripts '@FOSCommentBundle/Resources/public/js/comments.js' %}
-<script type="text/javascript" src="{{ asset_url }}"></script>
+<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock javascript %}
 
