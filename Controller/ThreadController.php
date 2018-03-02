@@ -391,8 +391,7 @@ class ThreadController extends Controller
 
         // We're now sure it is no duplicate id, so create the thread
         if (null === $thread) {
-            // Decode the permalink for cleaner storage (it is encoded on the client side)
-            $permalink = urldecode($request->query->get('permalink'));
+            $permalink = $request->query->get('permalink');
 
             $thread = $this->container->get('fos_comment.manager.thread')
                 ->createThread();
@@ -409,6 +408,9 @@ class ThreadController extends Controller
 
                 return $this->getViewHandler()->handle($view);
             }
+
+            // Decode the permalink for cleaner storage (it is encoded on the client side)
+            $thread->setPermalink(urldecode($permalink));
 
             // Add the thread
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
