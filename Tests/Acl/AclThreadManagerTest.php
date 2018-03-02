@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclThreadManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Acl\AclThreadManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
+class AclThreadManagerTest extends TestCase
 {
     protected $realManager;
     protected $threadSecurity;

@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\SpamDetection;
 
 use FOS\CommentBundle\SpamDetection\AkismetSpamDetection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Acl\AclCommentManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class AkismetSpamDetectionTest extends \PHPUnit_Framework_TestCase
+class AkismetSpamDetectionTest extends TestCase
 {
     protected $akismet;
     protected $detector;

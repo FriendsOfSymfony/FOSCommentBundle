@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Entity;
 
 use FOS\CommentBundle\Entity\VoteManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Entity\VoteManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class VoteManagerTest extends \PHPUnit_Framework_TestCase
+class VoteManagerTest extends TestCase
 {
     protected $dispatcher;
     protected $em;

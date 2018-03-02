@@ -13,8 +13,9 @@ namespace FOS\CommentBundle\Tests\EventListener;
 
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\EventListener\VoteBlamerListener;
+use PHPUnit\Framework\TestCase;
 
-class VoteBlamerListenerTest extends \PHPUnit_Framework_TestCase
+class VoteBlamerListenerTest extends TestCase
 {
     protected $authorizationChecker;
     protected $tokenStorage;

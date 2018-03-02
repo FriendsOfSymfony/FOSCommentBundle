@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Entity;
 
 use FOS\CommentBundle\Entity\CommentManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Entity\CommentManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentManagerTest extends \PHPUnit_Framework_TestCase
+class CommentManagerTest extends TestCase
 {
     protected $em;
     protected $repository;

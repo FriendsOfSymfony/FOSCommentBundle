@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Twig;
 
 use FOS\CommentBundle\Twig\CommentExtension;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Twig\Extension.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentExtensionTest extends \PHPUnit_Framework_TestCase
+class CommentExtensionTest extends TestCase
 {
     protected $extension;
 

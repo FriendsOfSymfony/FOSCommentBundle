@@ -12,8 +12,9 @@
 namespace FOS\CommentBundle\Tests\Sorting;
 
 use FOS\CommentBundle\Sorting\DateSorting;
+use PHPUnit\Framework\TestCase;
 
-class DateSortingTest extends \PHPUnit_Framework_TestCase
+class DateSortingTest extends TestCase
 {
     private $sorterAsc;
     private $sorterDesc;

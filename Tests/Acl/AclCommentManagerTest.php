@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclCommentManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Acl\AclCommentManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class AclCommentManagerTest extends \PHPUnit_Framework_TestCase
+class AclCommentManagerTest extends TestCase
 {
     protected $realManager;
     protected $commentSecurity;
