@@ -15,3 +15,4 @@ Changelog
 * Added flat view for async thread.
 * Removed HTTP class constants in `ThreadController`.
 * Fixed form disappearing when creating a new reply.
+* Fixed failing validator with encoded permalink.
