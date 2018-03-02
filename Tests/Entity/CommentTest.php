@@ -11,12 +11,14 @@
 
 namespace FOS\CommentBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Tests the functionality provided by Acl\AclCommentManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentTest extends \PHPUnit_Framework_TestCase
+class CommentTest extends TestCase
 {
     public function testSetAncestorsAddsDepth()
     {

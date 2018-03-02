@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclVoteManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Acl\AclVoteManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class AclVoteManagerTest extends \PHPUnit_Framework_TestCase
+class AclVoteManagerTest extends TestCase
 {
     protected $realManager;
     protected $voteSecurity;

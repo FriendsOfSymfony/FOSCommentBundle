@@ -13,8 +13,9 @@ namespace FOS\CommentBundle\Tests\EventListener;
 
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\EventListener\CommentBlamerListener;
+use PHPUnit\Framework\TestCase;
 
-class CommentBlamerListenerTest extends \PHPUnit_Framework_TestCase
+class CommentBlamerListenerTest extends TestCase
 {
     protected $authorizationChecker;
     protected $tokenStorage;

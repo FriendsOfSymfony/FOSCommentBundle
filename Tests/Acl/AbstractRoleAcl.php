@@ -11,12 +11,14 @@
 
 namespace FOS\CommentBundle\Tests\Acl;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Abstract functionality for the Role*Acl test classes.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-abstract class AbstractRoleAcl extends \PHPUnit_Framework_TestCase
+abstract class AbstractRoleAcl extends TestCase
 {
     protected $authorizationChecker;
     protected $roleAcl;

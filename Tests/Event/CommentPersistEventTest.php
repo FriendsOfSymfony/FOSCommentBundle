@@ -12,8 +12,9 @@
 namespace FOS\CommentBundle\Tests\Event;
 
 use FOS\CommentBundle\Event\CommentPersistEvent;
+use PHPUnit\Framework\TestCase;
 
-class CommentPersistEventTest extends \PHPUnit_Framework_TestCase
+class CommentPersistEventTest extends TestCase
 {
     public function testAbortingPersistence()
     {

@@ -12,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Entity;
 
 use FOS\CommentBundle\Entity\ThreadManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Entity\ThreadManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class ThreadManagerTest extends \PHPUnit_Framework_TestCase
+class ThreadManagerTest extends TestCase
 {
     protected $em;
     protected $repository;
