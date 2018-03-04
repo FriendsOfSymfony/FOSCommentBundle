@@ -268,7 +268,6 @@ class ThreadController extends Controller
         $comment->setState($request->query->get('value', $comment::STATE_DELETED));
 
         $thread->incrementNumComments(-1);
-        $this->container->get('fos_comment.manager.thread')->saveThread($thread);
 
         $form->setData($comment);
 
