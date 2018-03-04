@@ -17,7 +17,7 @@ if (method_exists(Security::class, 'getUser') && !class_exists(UserValueResolver
         'firewalls' => array(
             'main' => array(
                 'logout_on_user_change' => true,
-            )
-        )
+            ),
+        ),
     ));
 }

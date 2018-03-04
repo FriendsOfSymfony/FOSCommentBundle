@@ -134,7 +134,6 @@ class FOSCommentExtension extends Extension
         $container->getAlias('fos_comment.manager.comment')->setPublic(true);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
         $container->getAlias('fos_comment.manager.vote')->setPublic(true);
-
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)
