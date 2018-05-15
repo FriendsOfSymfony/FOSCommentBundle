@@ -43,7 +43,8 @@
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
-        "ornicar/akismet-bundle": "Integrate Akismet for spam detection."
+        "ornicar/akismet-bundle": "Integrate Akismet for spam detection.",
+        "symfony/acl-bundle": "Integrates the ACL Security component."
     },
     "conflict": {
         "twig/twig": "<1.28"
