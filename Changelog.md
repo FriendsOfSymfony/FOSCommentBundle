@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.1.1 (2018-xx-xx)
+
+* Allow template override in Symfony 4.
+
 ### 2.1.0 (2018-03-04)
 
 * Dropped PHP < 5.6 support.
