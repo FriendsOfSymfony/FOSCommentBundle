@@ -140,6 +140,7 @@ class FOSCommentExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('acl.xml');
+        $loader->load('commands.xml');
 
         foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
