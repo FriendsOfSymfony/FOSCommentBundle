@@ -43,10 +43,6 @@ class FOSCommentExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array(strtolower($config['db_driver']), array('custom', 'mongodb', 'orm'))) {
-            throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
-        }
-
         if ('custom' !== $config['db_driver']) {
             $loader->load(sprintf('%s.xml', $config['db_driver']));
             $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
