@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Blames a comment using Symfony2 security component.
+ * Blames a comment using Symfony security component.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */

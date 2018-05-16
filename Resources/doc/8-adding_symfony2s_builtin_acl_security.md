@@ -5,7 +5,7 @@ Step 8: Adding ACL security
 
 > This bundle ships with support different security setups. You can also have a look at [Adding role based ACL security](7-adding_role_based_acl_security.md).
 
-To use the built in Acl system, it must first be initialised with the Symfony2 console:
+To use the built in Acl system, it must first be initialised with the Symfony console:
 
 ``` bash
 $ app/console init:acl

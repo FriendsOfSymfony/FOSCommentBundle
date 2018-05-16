@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 /**
- * Blames a comment using Symfony2 security component.
+ * Blames a comment using Symfony security component.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */

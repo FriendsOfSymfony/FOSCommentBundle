@@ -22,7 +22,7 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements ACL checking using the Symfony2 Security component.
+ * Implements ACL checking using the Symfony Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */

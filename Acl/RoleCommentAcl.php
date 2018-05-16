@@ -15,7 +15,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements Role checking using the Symfony2 Security component.
+ * Implements Role checking using the Symfony Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */

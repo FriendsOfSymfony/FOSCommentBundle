@@ -1,7 +1,7 @@
 {
     "name": "friendsofsymfony/comment-bundle",
     "type": "symfony-bundle",
-    "description": "This Bundle provides threaded comment functionality for Symfony2 applications",
+    "description": "This Bundle provides threaded comment functionality for Symfony applications",
     "keywords": ["comment", "threads", "forum"],
     "homepage": "http://friendsofsymfony.github.com",
     "license": "MIT",
