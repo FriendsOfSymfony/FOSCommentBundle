@@ -35,7 +35,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->root('fos_comment')
             ->children()
 
-                ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+                ->scalarNode('db_driver')
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->validate()
+                        ->ifNotInArray(array('custom', 'mongodb', 'orm'))
+                        ->thenInvalid('Invalid db driver "%s".')
+                    ->end()
+                ->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
 
                 ->arrayNode('form')->addDefaultsIfNotSet()
