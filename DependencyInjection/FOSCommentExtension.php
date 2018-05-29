@@ -52,7 +52,7 @@ class FOSCommentExtension extends Extension
             $container->setDefinition('fos_comment.entity_manager', $def);
         }
 
-        foreach (array('events', 'form', 'twig', 'sorting') as $basename) {
+        foreach (array('events', 'form', 'twig', 'sorting', 'model') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
