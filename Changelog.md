@@ -1,10 +1,11 @@
 Changelog
 =========
 
-### 2.1.1 (2018-xx-xx)
+### 2.2.0 (2018-xx-xx)
 
 * Allow template override in Symfony 4.
 * Commands are now lazy loaded.
+* Service class parameters have been removed.
 
 ### 2.1.0 (2018-03-04)
 
