@@ -17,25 +17,21 @@
         <parameter key="fos_comment.model.thread.class">FOS\CommentBundle\Document\Thread</parameter>
         <parameter key="fos_comment.model.comment.class">FOS\CommentBundle\Document\Comment</parameter>
         <parameter key="fos_comment.model.vote.class">FOS\CommentBundle\Document\Vote</parameter>
-
-        <parameter key="fos_comment.manager.thread.default.class">FOS\CommentBundle\Document\ThreadManager</parameter>
-        <parameter key="fos_comment.manager.comment.default.class">FOS\CommentBundle\Document\CommentManager</parameter>
-        <parameter key="fos_comment.manager.vote.default.class">FOS\CommentBundle\Document\VoteManager</parameter>
     </parameters>
 
     <services>
-        <service id="fos_comment.manager.thread.default" class="%fos_comment.manager.thread.default.class%">
+        <service id="fos_comment.manager.thread.default" class="FOS\CommentBundle\Document\ThreadManager">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.document_manager" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
-        <service id="fos_comment.manager.comment.default" class="%fos_comment.manager.comment.default.class%">
+        <service id="fos_comment.manager.comment.default" class="FOS\CommentBundle\Document\CommentManager">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.sorting_factory" />
             <argument type="service" id="fos_comment.document_manager" />
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
-        <service id="fos_comment.manager.vote.default" class="%fos_comment.manager.vote.default.class%">
+        <service id="fos_comment.manager.vote.default" class="FOS\CommentBundle\Document\VoteManager">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_comment.document_manager" />
             <argument>%fos_comment.model.vote.class%</argument>
