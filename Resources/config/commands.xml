@@ -16,7 +16,7 @@
     <services>
         <service id="fos_comment.command.fix_aces" class="FOS\CommentBundle\Command\FixAcesCommand">
             <argument type="service" id="security.acl.provider" />
-            <argument type="service" id="fos_comment.acl.command" />
+            <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.manager.comment.default" />
             <argument type="service" id="fos_comment.acl.thread" />
             <argument type="service" id="fos_comment.manager.thread.default" />
@@ -25,7 +25,7 @@
             <tag name="console.command" command="fos:comment:fixAces" />
         </service>
         <service id="fos_comment.command.install_aces" class="FOS\CommentBundle\Command\InstallAcesCommand">
-            <argument type="service" id="fos_comment.acl.command" />
+            <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.acl.thread" />
             <argument type="service" id="fos_comment.acl.vote" />
             <tag name="console.command" command="fos:comment:installAces" />
