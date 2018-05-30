@@ -6,6 +6,7 @@ Changelog
 * Allow template override in Symfony 4.
 * Commands are now lazy loaded.
 * Service class parameters have been removed.
+* Added autowire support for model managers.
 
 ### 2.1.0 (2018-03-04)
 
