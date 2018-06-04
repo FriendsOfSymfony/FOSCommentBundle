@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.2.0 (2018-xx-xx)
+### 2.2.0 (2018-06-04)
 
 * Allow template override in Symfony 4.
 * Commands are now lazy loaded.
