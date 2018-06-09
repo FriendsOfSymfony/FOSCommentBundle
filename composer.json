@@ -44,13 +44,13 @@
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
         "ornicar/akismet-bundle": "Integrate Akismet for spam detection.",
-        "symfony/acl-bundle": "Integrates the ACL Security component."
+        "symfony/acl-bundle": "Integrates the ACL Security component.",
+        "symfony/assetic-bundle": "Integrates Assetic into Symfony."
     },
     "conflict": {
         "twig/twig": "<1.28"
     },
     "require-dev": {
-        "symfony/assetic-bundle": "~2.7",
         "symfony/browser-kit": "~2.7|~3.0|^4.0",
         "symfony/dom-crawler": "~2.7|~3.0|^4.0",
         "symfony/css-selector": "~2.7|~3.0|^4.0",
