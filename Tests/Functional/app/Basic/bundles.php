@@ -12,7 +12,6 @@
 return array(
     new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 
-    new Symfony\Bundle\AsseticBundle\AsseticBundle(),
     new Symfony\Bundle\SecurityBundle\SecurityBundle(),
     new Symfony\Bundle\TwigBundle\TwigBundle(),
 
