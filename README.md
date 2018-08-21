@@ -3,11 +3,12 @@ FOSCommentBundle
 
 The FOSCommentBundle adds support for a comment system in Symfony. Features include:
 
+- Supports Symfony 2.8, 3.x, 4.x
 - Manages trees of comments
 - Can include comment threads in any page
 - Compatible with any persistence backend. Doctrine2 mongodb-odm and ORM are implemented.
 - Configurable sorting of the comment tree
-- REST api
+- REST api (via FOSRestBundle)
 - Extensible through events fired during the comment lifecycle
 - Optional use of Symfony Acl to protect comments
 - Optional integration with FOS\UserBundle
