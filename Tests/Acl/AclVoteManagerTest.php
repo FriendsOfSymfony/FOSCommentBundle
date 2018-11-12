@@ -257,4 +257,36 @@ class AclVoteManagerTest extends TestCase
 
         $this->assertSame($this->vote, $result);
     }
+
+    public function testRemoveVote()
+    {
+        $this->realManager->expects($this->once())
+            ->method('removeVote')
+            ->with($this->vote);
+
+        $this->voteSecurity->expects($this->once())
+            ->method('canDelete')
+            ->with($this->vote)
+            ->will($this->returnValue(true));
+
+        $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
+        $manager->removeVote($this->vote);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    public function testRemoveVoteNoDeletePermission()
+    {
+        $this->realManager->expects($this->never())
+            ->method('removeVote');
+
+        $this->voteSecurity->expects($this->once())
+            ->method('canDelete')
+            ->with($this->vote)
+            ->will($this->returnValue(false));
+
+        $manager = new AclVoteManager($this->realManager, $this->voteSecurity, $this->commentSecurity);
+        $manager->removeVote($this->vote);
+    }
 }

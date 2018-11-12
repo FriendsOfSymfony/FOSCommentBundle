@@ -87,6 +87,14 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function isNewVote(VoteInterface $vote)
+    {
+        return !$this->dm->getUnitOfWork()->isInIdentityMap($vote);
+    }
+
+    /**
      * Returns the fully qualified comment vote class name.
      *
      * @return string
@@ -105,6 +113,16 @@ class VoteManager extends BaseVoteManager
     {
         $this->dm->persist($vote->getComment());
         $this->dm->persist($vote);
+        $this->dm->flush();
+    }
+
+    /**
+     * @param VoteInterface $vote
+     */
+    protected function doRemoveVote(VoteInterface $vote)
+    {
+        $this->dm->persist($vote->getComment());
+        $this->dm->remove($vote);
         $this->dm->flush();
     }
 }

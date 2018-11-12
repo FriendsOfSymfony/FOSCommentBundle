@@ -14,13 +14,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.twig.comment_extension" class="FOS\CommentBundle\Twig\CommentExtension" public="false">
-            <argument type="service" id="fos_comment.acl.comment" on-invalid="null" />
-            <argument type="service" id="fos_comment.acl.vote" on-invalid="null" />
-            <argument type="service" id="fos_comment.acl.thread" on-invalid="null" />
-            <argument type="service" id="fos_comment.vote.vote_accessor" on-invalid="null" />
-            <argument>%fos_comment.vote_unique%</argument>
-            <tag name="twig.extension" />
+        <service id="fos_comment.vote.vote_accessor" class="FOS\CommentBundle\Vote\VoteAccessor" public="false">
+            <argument type="service" id="fos_comment.manager.vote" />
+            <argument type="service" id="security.token_storage" />
         </service>
     </services>
 

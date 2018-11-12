@@ -16,6 +16,7 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Default ORM VoteManager.
@@ -89,6 +90,31 @@ class VoteManager extends BaseVoteManager
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function findVotesByCommentThreadAndVoter(VotableCommentInterface $comment, UserInterface $voter)
+    {
+        $qb = $this->repository->createQueryBuilder('v');
+        $qb->join('v.comment', 'c');
+        $qb->andWhere('(c.thread) = :thread');
+        $qb->andWhere('(v.voter) = :voter');
+        $qb->setParameter('thread', $comment->getThread());
+        $qb->setParameter('voter', $voter);
+
+        $votes = $qb->getQuery()->execute();
+
+        return $votes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isNewVote(VoteInterface $vote)
+    {
+        return !$this->em->getUnitOfWork()->isInIdentityMap($vote);
+    }
+
+    /**
      * Returns the fully qualified comment vote class name.
      *
      * @return string
@@ -107,6 +133,16 @@ class VoteManager extends BaseVoteManager
     {
         $this->em->persist($vote->getComment());
         $this->em->persist($vote);
+        $this->em->flush();
+    }
+
+    /**
+     * @param VoteInterface $vote
+     */
+    protected function doRemoveVote(VoteInterface $vote)
+    {
+        $this->em->persist($vote->getComment());
+        $this->em->remove($vote);
         $this->em->flush();
     }
 }

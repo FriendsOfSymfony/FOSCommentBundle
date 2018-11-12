@@ -512,9 +512,9 @@ class ThreadController extends Controller
 
         $view = View::create()
             ->setData(array(
-                'commentScore' => $comment->getScore(),
+                'comment' => $comment,
             ))
-            ->setTemplate('@FOSComment/Thread/comment_votes.html.twig');
+            ->setTemplate('@FOSComment/Thread/comment_votes_control.html.twig');
 
         return $this->getViewHandler()->handle($view);
     }
@@ -586,6 +586,146 @@ class ThreadController extends Controller
         }
 
         return $this->getViewHandler()->handle($this->onCreateVoteError($form, $id, $commentId));
+    }
+
+    /**
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
+     * @param mixed   $voteId    Id of the vote
+     *
+     * @return View
+     */
+    public function editThreadCommentVotesAction(Request $request, $id, $commentId, $voteId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+        $vote = $this->container->get('fos_comment.manager.vote')->findVoteById($voteId);
+
+        if (null === $thread || null === $comment || null === $vote || $comment->getThread() !== $thread || $vote->getComment() !== $comment) {
+            throw new NotFoundHttpException(sprintf(
+                'No vote with id "%s" for comment with id "%s" and thread with id "%s"', $voteId, $commentId, $id
+            ));
+        }
+
+        $vote = $this->container->get('fos_comment.manager.vote')->createVote($comment);
+        $vote->setValue($request->query->get('value', 1));
+
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm(null, array('method' => 'PUT'));
+        $form->setData($vote);
+
+        $view = View::create()
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'voteId' => $voteId,
+                'form' => $form->createView(),
+            ))
+            ->setTemplate('@FOSComment/Thread/vote_edit.html.twig');
+
+        return $this->getViewHandler()->handle($view);
+    }
+
+    /**
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
+     *
+     * @return View
+     */
+    public function putThreadCommentVotesAction(Request $request, $id, $commentId, $voteId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+        $vote = $this->container->get('fos_comment.manager.vote')->findVoteById($voteId);
+
+        if (null === $thread || null === $comment || null === $vote || $comment->getThread() !== $thread || $vote->getComment() !== $comment) {
+            throw new NotFoundHttpException(sprintf(
+                'No vote with id "%s" for comment with id "%s" and thread with id "%s"', $voteId, $commentId, $id
+            ));
+        }
+
+        $voteManager = $this->container->get('fos_comment.manager.vote');
+        $form = $this->container->get('fos_comment.form_factory.vote')->createForm(null, array('method' => 'PUT'));
+
+        $form->setData($vote);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $voteManager->saveVote($vote);
+
+            return $this->getViewHandler()->handle($this->onEditVoteSuccess($form, $id, $commentId, $voteId));
+        }
+
+        return $this->getViewHandler()->handle($this->onEditVoteError($form, $id, $commentId, $voteId));
+    }
+
+    /**
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
+     * @param mixed   $voteId    Id of the vote
+     *
+     * @return View
+     */
+    public function removeThreadCommentVotesAction($id, $commentId, $voteId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+        $vote = $this->container->get('fos_comment.manager.vote')->findVoteById($voteId);
+
+        if (null === $thread || null === $comment || null === $vote || $comment->getThread() !== $thread || $vote->getComment() !== $comment) {
+            throw new NotFoundHttpException(sprintf(
+                'No vote with id "%s" for comment with id "%s" and thread with id "%s"', $voteId, $commentId, $id
+            ));
+        }
+
+        $form = $this->container->get('fos_comment.form_factory.delete_vote')
+            ->createForm(null, array('method' => 'DELETE'));
+
+        $view = View::create()
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'voteId' => $voteId,
+                'form' => $form->createView(),
+            ))
+            ->setTemplate('@FOSComment/Thread/vote_remove.html.twig');
+
+        return $this->getViewHandler()->handle($view);
+    }
+
+    /**
+     * @param Request $request   Current request
+     * @param string  $id        Id of the thread
+     * @param mixed   $commentId Id of the comment
+     *
+     * @return View
+     */
+    public function deleteThreadCommentVotesAction(Request $request, $id, $commentId, $voteId)
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($commentId);
+        $vote = $this->container->get('fos_comment.manager.vote')->findVoteById($voteId);
+
+        if (null === $thread || null === $comment || null === $vote || $comment->getThread() !== $thread || $vote->getComment() !== $comment) {
+            throw new NotFoundHttpException(sprintf(
+                'No vote with id "%s" for comment with id "%s" and thread with id "%s"', $voteId, $commentId, $id
+            ));
+        }
+
+        $voteManager = $this->container->get('fos_comment.manager.vote');
+        $form = $this->container->get('fos_comment.form_factory.delete_vote')->createForm(null, array('method' => 'DELETE'));
+
+        $form->setData($vote);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $voteManager->removeVote($vote);
+
+            return $this->getViewHandler()->handle($this->onRemoveVoteSuccess($form, $id, $commentId, $voteId));
+        }
+
+        return $this->getViewHandler()->handle($this->onRemoveVoteError($form, $id, $commentId, $voteId));
     }
 
     /**
@@ -703,6 +843,78 @@ class ThreadController extends Controller
                 'form' => $form,
             ))
             ->setTemplate('@FOSComment/Thread/vote_new.html.twig');
+
+        return $view;
+    }
+
+    /**
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
+     * @param mixed         $voteId    Id of the vote
+     *
+     * @return View
+     */
+    protected function onEditVoteSuccess(FormInterface $form, $id, $commentId, $voteId)
+    {
+        return View::createRouteRedirect('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId, 'voteId' => $voteId), Response::HTTP_CREATED);
+    }
+
+    /**
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
+     * @param mixed         $voteId    Id of the vote
+     *
+     * @return View
+     */
+    protected function onEditVoteError(FormInterface $form, $id, $commentId, $voteId)
+    {
+        $view = View::create()
+            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'voteId' => $voteId,
+                'form' => $form,
+            ))
+            ->setTemplate('@FOSComment/Thread/vote_edit.html.twig');
+
+        return $view;
+    }
+
+    /**
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
+     * @param mixed         $voteId    Id of the vote
+     *
+     * @return View
+     */
+    protected function onRemoveVoteSuccess(FormInterface $form, $id, $commentId, $voteId)
+    {
+        return View::createRouteRedirect('fos_comment_get_thread_comment_votes', array('id' => $id, 'commentId' => $commentId, 'voteId' => $voteId), Response::HTTP_CREATED);
+    }
+
+    /**
+     * @param FormInterface $form      Form with the error
+     * @param string        $id        Id of the thread
+     * @param mixed         $commentId Id of the comment
+     * @param mixed         $voteId    Id of the vote
+     *
+     * @return View
+     */
+    protected function onRemoveVoteError(FormInterface $form, $id, $commentId, $voteId)
+    {
+        $view = View::create()
+            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setData(array(
+                'id' => $id,
+                'commentId' => $commentId,
+                'voteId' => $voteId,
+                'form' => $form,
+            ))
+            ->setTemplate('@FOSComment/Thread/vote_remove.html.twig');
 
         return $view;
     }

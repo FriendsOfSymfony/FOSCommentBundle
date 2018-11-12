@@ -15,6 +15,7 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Wraps a real implementation of VoteManagerInterface and
@@ -102,6 +103,22 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
+    public function findVotesByCommentThreadAndVoter(VotableCommentInterface $comment, UserInterface $voter)
+    {
+        $votes = $this->realManager->findVotesByCommentThreadAndVoter($comment, $voter);
+
+        foreach ($votes as $vote) {
+            if (!$this->voteAcl->canView($vote)) {
+                throw new AccessDeniedException();
+            }
+        }
+
+        return $votes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function saveVote(VoteInterface $vote)
     {
         if (!$this->voteAcl->canCreate()) {
@@ -122,6 +139,26 @@ class AclVoteManager implements VoteManagerInterface
     public function createVote(VotableCommentInterface $comment)
     {
         return $this->realManager->createVote($comment);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeVote(VoteInterface $vote)
+    {
+        if (!$this->voteAcl->canDelete($vote)) {
+            throw new AccessDeniedException();
+        }
+
+        $this->realManager->removeVote($vote);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isNewVote(VoteInterface $vote)
+    {
+        return $this->realManager->isNewVote($vote);
     }
 
     /**

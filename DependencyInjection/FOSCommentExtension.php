@@ -52,13 +52,18 @@ class FOSCommentExtension extends Extension
             $container->setDefinition('fos_comment.entity_manager', $def);
         }
 
-        foreach (array('events', 'form', 'twig', 'sorting', 'model') as $basename) {
+        foreach (array('events', 'form', 'twig', 'sorting', 'model', 'vote') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         // only load acl services if acl is enabled for the project
         if (array_key_exists('acl', $config)) {
             $this->loadAcl($container, $config);
+        }
+
+        $container->setParameter('fos_comment.vote_unique', $config['vote_unique']);
+        if (false === $config['vote_unique']) {
+            $container->removeDefinition('fos_comment.listener.vote_unique');
         }
 
         $container->setParameter('fos_comment.template.engine', $config['template']['engine']);
@@ -99,6 +104,9 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.form.vote.type', $config['form']['vote']['type']);
         $container->setParameter('fos_comment.form.vote.name', $config['form']['vote']['name']);
 
+        $container->setParameter('fos_comment.form.delete_vote.type', $config['form']['delete_vote']['type']);
+        $container->setParameter('fos_comment.form.delete_vote.name', $config['form']['delete_vote']['name']);
+
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
@@ -111,6 +119,8 @@ class FOSCommentExtension extends Extension
         $container->getAlias('fos_comment.form_factory.thread')->setPublic(true);
         $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
         $container->getAlias('fos_comment.form_factory.vote')->setPublic(true);
+        $container->setAlias('fos_comment.form_factory.delete_vote', $config['service']['form_factory']['delete_vote']);
+        $container->getAlias('fos_comment.form_factory.delete_vote')->setPublic(true);
 
         if (isset($config['service']['spam_detection'])) {
             $loader->load('spam_detection.xml');

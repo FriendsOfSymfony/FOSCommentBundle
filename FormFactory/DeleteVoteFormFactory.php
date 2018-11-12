@@ -13,13 +13,7 @@ namespace FOS\CommentBundle\FormFactory;
 
 use Symfony\Component\Form\FormFactoryInterface;
 
-/**
- * VoteForm factory class.
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Tim Nagel <tim@nagel.com.au>
- */
-class VoteFormFactory implements VoteFormFactoryInterface
+class DeleteVoteFormFactory implements DeleteVoteFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface

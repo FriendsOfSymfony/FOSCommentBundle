@@ -128,6 +128,14 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
         $this->score += $by;
     }
 
+    /**
+     * @param int $by
+     */
+    public function decrementScore($by = 1)
+    {
+        $this->score -= $by;
+    }
+
     public function getAuthorName()
     {
         return $this->author ?: parent::getAuthorName();

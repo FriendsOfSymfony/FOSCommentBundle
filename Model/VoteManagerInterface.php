@@ -11,6 +11,8 @@
 
 namespace FOS\CommentBundle\Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Manages voting scores for comments.
  *
@@ -44,6 +46,13 @@ interface VoteManagerInterface
     public function saveVote(VoteInterface $vote);
 
     /**
+     * @param VoteInterface $vote
+     *
+     * @return void
+     */
+    public function removeVote(VoteInterface $vote);
+
+    /**
      * Finds a vote by specified criteria.
      *
      * @param array $criteria
@@ -69,4 +78,14 @@ interface VoteManagerInterface
      * @return array of VoteInterface
      */
     public function findVotesByComment(VotableCommentInterface $comment);
+
+    /**
+     * @return SignedVoteInterface[]
+     */
+    public function findVotesByCommentThreadAndVoter(VotableCommentInterface $comment, UserInterface $voter);
+
+    /**
+     * @return bool
+     */
+    public function isNewVote(VoteInterface $vote);
 }

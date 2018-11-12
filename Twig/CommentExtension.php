@@ -18,6 +18,7 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Vote\VoteAccessorInterface;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
@@ -29,12 +30,16 @@ class CommentExtension extends \Twig_Extension
     protected $commentAcl;
     protected $voteAcl;
     protected $threadAcl;
+    protected $voteAccessor;
+    protected $voteUnique;
 
-    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
+    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null, VoteAccessorInterface $voteAccessor = null, $voteUnique = false)
     {
         $this->commentAcl = $commentAcl;
         $this->voteAcl = $voteAcl;
         $this->threadAcl = $threadAcl;
+        $this->voteAccessor = $voteAccessor;
+        $this->voteUnique = $voteUnique;
     }
 
     /**
@@ -106,6 +111,8 @@ class CommentExtension extends \Twig_Extension
             new \Twig_SimpleFunction('fos_comment_can_edit_comment', array($this, 'canEditComment')),
             new \Twig_SimpleFunction('fos_comment_can_edit_thread', array($this, 'canEditThread')),
             new \Twig_SimpleFunction('fos_comment_can_comment_thread', array($this, 'canCommentThread')),
+            new \Twig_SimpleFunction('fos_comment_vote_unique', array($this, 'voteUnique')),
+            new \Twig_SimpleFunction('fos_comment_vote_by_voter', array($this, 'voteByVoter')),
         );
     }
 
@@ -226,6 +233,28 @@ class CommentExtension extends \Twig_Extension
     {
         return $thread->isCommentable()
             && (null === $this->commentAcl || $this->commentAcl->canCreate());
+    }
+
+    /**
+     * @return bool
+     */
+    public function voteUnique()
+    {
+        return $this->voteUnique;
+    }
+
+    /**
+     * @param VotableCommentInterface $comment
+     *
+     * @return SignedVoteInterface|null
+     */
+    public function voteByVoter(VotableCommentInterface $comment)
+    {
+        if (null === $this->voteAccessor) {
+            return null;
+        }
+
+        return $this->voteAccessor->voteByVoter($comment);
     }
 
     /**

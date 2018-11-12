@@ -13,12 +13,7 @@ namespace FOS\CommentBundle\FormFactory;
 
 use Symfony\Component\Form\FormInterface;
 
-/**
- * Vote form creator.
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- */
-interface VoteFormFactoryInterface
+interface DeleteVoteFormFactoryInterface
 {
     /**
      * @param mixed $data

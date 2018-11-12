@@ -41,4 +41,9 @@ interface VotableCommentInterface extends CommentInterface
      * @return int The new comment score
      */
     public function incrementScore($by = 1);
+
+    /**
+     * @param int $by
+     */
+    public function decrementScore($by = 1);
 }

@@ -123,4 +123,26 @@ final class Events
      * @var string
      */
     const VOTE_CREATE = 'fos_comment.vote.create';
+
+    /**
+     * The PRE_REMOVE event occurs prior when the manager is asked to remove
+     * a instance of a Vote.
+     *
+     * The listener receives a FOS\CommentBundle\Event\VoteEvent
+     * instance.
+     *
+     * @var string
+     */
+    const VOTE_PRE_REMOVE = 'fos_comment.vote.pre_remove';
+
+    /**
+     * The POST_REMOVE event occurs after when the manager removed
+     * a instance of a Vote.
+     *
+     * The listener receives a FOS\CommentBundle\Event\VoteEvent
+     * instance.
+     *
+     * @var string
+     */
+    const VOTE_POST_REMOVE = 'fos_comment.vote.post_remove';
 }

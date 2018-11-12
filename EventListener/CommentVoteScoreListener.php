@@ -13,6 +13,8 @@ namespace FOS\CommentBundle\EventListener;
 
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Model\VoteManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -23,11 +25,42 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class CommentVoteScoreListener implements EventSubscriberInterface
 {
+    private $voteManager;
+    private $voteUnique;
+
+    /**
+     * @param bool $voteUnique
+     */
+    public function __construct(VoteManagerInterface $voteManager, $voteUnique = false)
+    {
+        $this->voteManager = $voteManager;
+        $this->voteUnique = $voteUnique;
+    }
+
     public function onVotePersist(VoteEvent $event)
     {
         $vote = $event->getVote();
         $comment = $vote->getComment();
-        $comment->incrementScore($vote->getValue());
+        if (!$comment instanceof VotableCommentInterface) {
+            return;
+        }
+
+        if (true === $this->voteManager->isNewVote($vote)) {
+            $comment->incrementScore($vote->getValue());
+        } else if (false === $this->voteManager->isNewVote($vote) && true === $this->voteUnique) {
+            $comment->incrementScore($vote->getValue() * 2);
+        }
+    }
+
+    public function onVoteRemove(VoteEvent $event)
+    {
+        $vote = $event->getVote();
+        $comment = $vote->getComment();
+        if (!$comment instanceof VotableCommentInterface) {
+            return;
+        }
+
+        $comment->decrementScore($vote->getValue());
     }
 
     /**
@@ -35,6 +68,9 @@ class CommentVoteScoreListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(Events::VOTE_PRE_PERSIST => 'onVotePersist');
+        return array(
+            Events::VOTE_PRE_PERSIST => 'onVotePersist',
+            Events::VOTE_PRE_REMOVE => 'onVoteRemove',
+        );
     }
 }

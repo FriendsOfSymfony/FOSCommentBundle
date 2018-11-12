@@ -126,4 +126,21 @@ class VoteManagerTest extends TestCase
 
         $this->assertInstanceOf('FOS\CommentBundle\Model\VoteInterface', $result);
     }
+
+    public function testRemoveVote()
+    {
+        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
+
+        $this->em->expects($this->once())
+            ->method('persist');
+
+        $this->em->expects($this->once())
+            ->method('remove');
+
+        $this->em->expects($this->once())
+            ->method('flush');
+
+        $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
+        $manager->removeVote($vote);
+    }
 }

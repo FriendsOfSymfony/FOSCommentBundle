@@ -92,6 +92,16 @@ class Comment extends BaseComment implements VotableCommentInterface
         $this->score += $by;
     }
 
+    /**
+     * Decrements the comment score by the provided
+     * value.
+     *
+     * @param int $by
+     */
+    public function decrementScore($by = 1)
+    {
+        $this->score -= $by;
+    }
 }
 ```
 

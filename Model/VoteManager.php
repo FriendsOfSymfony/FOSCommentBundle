@@ -92,6 +92,20 @@ abstract class VoteManager implements VoteManagerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function removeVote(VoteInterface $vote)
+    {
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(Events::VOTE_PRE_REMOVE, $event);
+
+        $this->doRemoveVote($vote);
+
+        $event = new VoteEvent($vote);
+        $this->dispatcher->dispatch(Events::VOTE_POST_REMOVE, $event);
+    }
+
+    /**
      * Performs the persistence of the Vote.
      *
      * @abstract
@@ -99,4 +113,11 @@ abstract class VoteManager implements VoteManagerInterface
      * @param VoteInterface $vote
      */
     abstract protected function doSaveVote(VoteInterface $vote);
+
+    /**
+     * @abstract
+     *
+     * @param VoteInterface $vote
+     */
+    abstract protected function doRemoveVote(VoteInterface $vote);
 }
