@@ -1,5 +1,6 @@
 imports:
     - { resource: ../config/default.yml }
+    - { resource: security.php }
 
 fos_comment:
     db_driver: orm

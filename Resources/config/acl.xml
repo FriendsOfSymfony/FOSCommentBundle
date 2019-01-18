@@ -13,12 +13,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fos_comment.manager.thread.acl.class">FOS\CommentBundle\Acl\AclThreadManager</parameter>
-        <parameter key="fos_comment.manager.comment.acl.class">FOS\CommentBundle\Acl\AclCommentManager</parameter>
-        <parameter key="fos_comment.manager.vote.acl.class">FOS\CommentBundle\Acl\AclVoteManager</parameter>
-    </parameters>
-
     <services>
         <service id="fos_comment.acl.thread.security" class="FOS\CommentBundle\Acl\SecurityThreadAcl" public="false">
             <argument type="service" id="security.authorization_checker" />
@@ -68,18 +62,18 @@
             <argument>%fos_comment.model.vote.class%</argument>
         </service>
 
-        <service id="fos_comment.manager.thread.acl" class="%fos_comment.manager.thread.acl.class%" public="false">
+        <service id="fos_comment.manager.thread.acl" class="FOS\CommentBundle\Acl\AclThreadManager" public="false">
             <argument type="service" id="fos_comment.manager.thread.default" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
-        <service id="fos_comment.manager.comment.acl" class="%fos_comment.manager.comment.acl.class%" public="false">
+        <service id="fos_comment.manager.comment.acl" class="FOS\CommentBundle\Acl\AclCommentManager" public="false">
             <argument type="service" id="fos_comment.manager.comment.default" />
             <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
-        <service id="fos_comment.manager.vote.acl" class="%fos_comment.manager.vote.acl.class%" public="false">
+        <service id="fos_comment.manager.vote.acl" class="FOS\CommentBundle\Acl\AclVoteManager" public="false">
             <argument type="service" id="fos_comment.manager.vote.default" />
             <argument type="service" id="fos_comment.acl.vote" />
             <argument type="service" id="fos_comment.acl.comment" />

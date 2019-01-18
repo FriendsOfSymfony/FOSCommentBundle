@@ -2,8 +2,9 @@ language: php
 
 php:
     - 5.6
-    - 7.0
     - 7.1
+    - 7.2
+    - 7.3
 
 cache:
     directories:
@@ -13,16 +14,18 @@ matrix:
     include:
         - php: 5.6
           env: COMPOSER_FLAGS="--prefer-lowest" SYMFONY_DEPRECATIONS_HELPER=weak
-        - php: 7.0
-          env: SYMFONY_VERSION='2.7.*'
-        - php: 7.0
-          env: SYMFONY_VERSION='2.8.*'
+        - php: 5.6
+          env: DEPENDENCIES="symfony/lts:^2"
+        - php: 7.1
+          env: DEPENDENCIES="symfony/lts:^3"
     fast_finish: true
 
+before_install:
+    - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
+
 install:
-    - composer self-update
-    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
-    - composer update --no-interaction $COMPOSER_FLAGS
+    - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
+    - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
     - composer validate --no-check-lock --strict

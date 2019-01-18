@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -126,18 +117,6 @@ class CommentManager extends BaseCommentManager
     }
 
     /**
-     * Performs persisting of the comment.
-     *
-     * @param CommentInterface $comment
-     */
-    protected function doSaveComment(CommentInterface $comment)
-    {
-        $this->em->persist($comment->getThread());
-        $this->em->persist($comment);
-        $this->em->flush();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function findCommentById($id)
@@ -159,5 +138,17 @@ class CommentManager extends BaseCommentManager
     public function getClass()
     {
         return $this->class;
+    }
+
+    /**
+     * Performs persisting of the comment.
+     *
+     * @param CommentInterface $comment
+     */
+    protected function doSaveComment(CommentInterface $comment)
+    {
+        $this->em->persist($comment->getThread());
+        $this->em->persist($comment);
+        $this->em->flush();
     }
 }

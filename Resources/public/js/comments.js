@@ -16,7 +16,7 @@
  * Then a comment thread can be embedded on any page:
  *
  * <div id="fos_comment_thread">#comments</div>
- * <script type="text/javascript">
+ * <script>
  *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
  *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
  *     var fos_comment_thread_api_base_url = 'http://example.org/api/threads';
@@ -34,7 +34,6 @@
  *     var fos_comment_script = document.createElement('script');
  *     fos_comment_script.async = true;
  *     fos_comment_script.src = 'http://example.org/path/to/this/file.js';
- *     fos_comment_script.type = 'text/javascript';
  *
  *     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
  * })();
@@ -96,8 +95,12 @@
 
             event.identifier = identifier;
             event.params = {
-                permalink: encodeURIComponent(permalink || window.location.href)
+                permalink: encodeURI(permalink || window.location.href)
             };
+
+            if (typeof window.fos_comment_thread_view !== 'undefined') {
+                event.params.view = window.fos_comment_thread_view;
+            }
 
             FOS_COMMENT.thread_container.trigger(event);
             FOS_COMMENT.get(
@@ -139,7 +142,7 @@
                             FOS_COMMENT.appendComment(data, that);
                             that.trigger('fos_comment_new_comment', data);
                             if (that.data() && that.data().parent !== '') {
-                                that.parents('.fos_comment_comment_form_holder').remove();
+                                that.closest('.fos_comment_comment_form_holder').remove();
                             }
                         },
                         // error

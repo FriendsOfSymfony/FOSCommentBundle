@@ -5,8 +5,8 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace FOS\CommentBundle\Util;
@@ -30,6 +30,14 @@ final class LegacyFormHelper
         'Symfony\Component\Form\Extension\Core\Type\HiddenType' => 'hidden',
         'Symfony\Component\Form\Extension\Core\Type\TextareaType' => 'textarea',
     );
+
+    private function __construct()
+    {
+    }
+
+    private function __clone()
+    {
+    }
 
     /**
      * @param string $class
@@ -55,13 +63,5 @@ final class LegacyFormHelper
     public static function isLegacy()
     {
         return !method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
-    }
-
-    private function __construct()
-    {
-    }
-
-    private function __clone()
-    {
     }
 }

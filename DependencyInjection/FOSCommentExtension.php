@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -52,10 +43,6 @@ class FOSCommentExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array(strtolower($config['db_driver']), array('custom', 'mongodb', 'orm'))) {
-            throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
-        }
-
         if ('custom' !== $config['db_driver']) {
             $loader->load(sprintf('%s.xml', $config['db_driver']));
             $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
@@ -65,7 +52,7 @@ class FOSCommentExtension extends Extension
             $container->setDefinition('fos_comment.entity_manager', $def);
         }
 
-        foreach (array('events', 'form', 'twig', 'sorting') as $basename) {
+        foreach (array('events', 'form', 'twig', 'sorting', 'model') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -90,8 +77,10 @@ class FOSCommentExtension extends Extension
         if ('mongodb' === $config['db_driver']) {
             if (null === $config['model_manager_name']) {
                 $container->setAlias('fos_comment.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
+                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             } else {
                 $container->setAlias('fos_comment.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false));
+                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             }
         }
 
@@ -113,30 +102,41 @@ class FOSCommentExtension extends Extension
         $container->setParameter('fos_comment.sorting_factory.default_sorter', $config['service']['sorting']['default']);
 
         $container->setAlias('fos_comment.form_factory.comment', $config['service']['form_factory']['comment']);
+        $container->getAlias('fos_comment.form_factory.comment')->setPublic(true);
         $container->setAlias('fos_comment.form_factory.commentable_thread', $config['service']['form_factory']['commentable_thread']);
+        $container->getAlias('fos_comment.form_factory.commentable_thread')->setPublic(true);
         $container->setAlias('fos_comment.form_factory.delete_comment', $config['service']['form_factory']['delete_comment']);
+        $container->getAlias('fos_comment.form_factory.delete_comment')->setPublic(true);
         $container->setAlias('fos_comment.form_factory.thread', $config['service']['form_factory']['thread']);
+        $container->getAlias('fos_comment.form_factory.thread')->setPublic(true);
         $container->setAlias('fos_comment.form_factory.vote', $config['service']['form_factory']['vote']);
+        $container->getAlias('fos_comment.form_factory.vote')->setPublic(true);
 
         if (isset($config['service']['spam_detection'])) {
             $loader->load('spam_detection.xml');
             $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
+            $container->getAlias('fos_comment.spam_detection.comment')->setPublic(true);
         }
 
         if (isset($config['service']['markup'])) {
             $container->setAlias('fos_comment.markup', new Alias($config['service']['markup'], false));
+            $container->getAlias('fos_comment.markup')->setPublic(true);
             $loader->load('markup.xml');
         }
 
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
+        $container->getAlias('fos_comment.manager.thread')->setPublic(true);
         $container->setAlias('fos_comment.manager.comment', $config['service']['manager']['comment']);
+        $container->getAlias('fos_comment.manager.comment')->setPublic(true);
         $container->setAlias('fos_comment.manager.vote', $config['service']['manager']['vote']);
+        $container->getAlias('fos_comment.manager.vote')->setPublic(true);
     }
 
     protected function loadAcl(ContainerBuilder $container, array $config)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('acl.xml');
+        $loader->load('commands.xml');
 
         foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
@@ -145,7 +145,10 @@ class FOSCommentExtension extends Extension
         }
 
         $container->setAlias('fos_comment.acl.thread', $config['service']['acl']['thread']);
+        $container->getAlias('fos_comment.acl.thread')->setPublic(true);
         $container->setAlias('fos_comment.acl.comment', $config['service']['acl']['comment']);
+        $container->getAlias('fos_comment.acl.comment')->setPublic(true);
         $container->setAlias('fos_comment.acl.vote', $config['service']['acl']['vote']);
+        $container->getAlias('fos_comment.acl.vote')->setPublic(true);
     }
 }

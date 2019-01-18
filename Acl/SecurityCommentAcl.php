@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -33,7 +24,7 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Implements ACL checking using the Symfony2 Security component.
+ * Implements ACL checking using the Symfony Security component.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
@@ -197,6 +188,20 @@ class SecurityCommentAcl implements CommentAclInterface
     }
 
     /**
+     * Removes fallback Acl entries for the Comment class.
+     *
+     * This should be run when uninstalling the CommentBundle, or when
+     * the Class Acl entry end up corrupted.
+     *
+     * @return void
+     */
+    public function uninstallFallbackAcl()
+    {
+        $oid = new ObjectIdentity('class', $this->commentClass);
+        $this->aclProvider->deleteAcl($oid);
+    }
+
+    /**
      * Installs the default Class Ace entries into the provided $acl object.
      *
      * Override this method in a subclass to change what permissions are defined.
@@ -222,19 +227,5 @@ class SecurityCommentAcl implements CommentAclInterface
         $builder->add('create');
         $builder->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_USER'), $builder->get());
-    }
-
-    /**
-     * Removes fallback Acl entries for the Comment class.
-     *
-     * This should be run when uninstalling the CommentBundle, or when
-     * the Class Acl entry end up corrupted.
-     *
-     * @return void
-     */
-    public function uninstallFallbackAcl()
-    {
-        $oid = new ObjectIdentity('class', $this->commentClass);
-        $this->aclProvider->deleteAcl($oid);
     }
 }

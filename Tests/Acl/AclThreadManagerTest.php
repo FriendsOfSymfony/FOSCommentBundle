@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -21,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclThreadManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Acl\AclThreadManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
+class AclThreadManagerTest extends TestCase
 {
     protected $realManager;
     protected $threadSecurity;
@@ -76,6 +68,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     // findThreadBy - permission denied, can result in null, what to do about invalid criteria
+
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
@@ -151,7 +144,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->findAllThreads();
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
@@ -198,7 +191,7 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->createThread();
 
-        $this->assertEquals($this->thread, $result);
+        $this->assertSame($this->thread, $result);
     }
 
     public function testGetClass()
@@ -212,6 +205,6 @@ class AclThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new AclThreadManager($this->realManager, $this->threadSecurity);
         $result = $manager->getClass();
 
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 }

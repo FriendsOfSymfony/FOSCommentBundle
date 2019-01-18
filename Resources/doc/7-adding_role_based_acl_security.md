@@ -3,7 +3,7 @@ Step 7: Adding role based ACL security
 
 **Note:**
 
-> This bundle ships with support different security setups. You can also have a look at [Adding Symfony2's built in ACL security](8-adding_symfony2s_builtin_acl_security.md).
+> This bundle ships with support different security setups. You can also have a look at [Adding Symfony's built in ACL security](8-adding_symfony2s_builtin_acl_security.md).
 
 CommentBundle also provides the ability to configure permissions based on the roles
 a specific user has. See the configuration example below for how to customise the

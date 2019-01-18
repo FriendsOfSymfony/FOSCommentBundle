@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -21,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Entity;
 
 use FOS\CommentBundle\Entity\ThreadManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Entity\ThreadManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class ThreadManagerTest extends \PHPUnit_Framework_TestCase
+class ThreadManagerTest extends TestCase
 {
     protected $em;
     protected $repository;
@@ -82,7 +74,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
     {
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
 
-        $this->assertEquals($this->class, $manager->getClass());
+        $this->assertSame($this->class, $manager->getClass());
     }
 
     public function testFindThreadBy()
@@ -98,7 +90,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findThreadBy($criteria);
 
-        $this->assertEquals($thread, $result);
+        $this->assertSame($thread, $result);
     }
 
     public function testFindAllThreads()
@@ -113,7 +105,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findAllThreads();
 
-        $this->assertEquals($threads, $result);
+        $this->assertSame($threads, $result);
     }
 
     public function testFindThreadById()
@@ -129,7 +121,7 @@ class ThreadManagerTest extends \PHPUnit_Framework_TestCase
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);
         $result = $manager->findThreadById($threadId);
 
-        $this->assertEquals($thread, $result);
+        $this->assertSame($thread, $result);
     }
 
     public function testCreateThread()

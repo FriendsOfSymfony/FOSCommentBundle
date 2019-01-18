@@ -5,15 +5,16 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace FOS\CommentBundle\Tests\Sorting;
 
 use FOS\CommentBundle\Sorting\DateSorting;
+use PHPUnit\Framework\TestCase;
 
-class DateSortingTest extends \PHPUnit_Framework_TestCase
+class DateSortingTest extends TestCase
 {
     private $sorterAsc;
     private $sorterDesc;
@@ -37,8 +38,8 @@ class DateSortingTest extends \PHPUnit_Framework_TestCase
             ->method('getCreatedAt')
             ->will($this->returnValue(new \DateTime('2015-09-20 12:39:10')));
 
-        $this->assertEquals(0, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
-        $this->assertEquals(0, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(0, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(0, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
     }
 
     public function testGreaterOrLess()
@@ -54,9 +55,9 @@ class DateSortingTest extends \PHPUnit_Framework_TestCase
             ->method('getCreatedAt')
             ->will($this->returnValue(new \DateTime('2015-09-20 12:39:10')));
 
-        $this->assertEquals(-1, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
-        $this->assertEquals(1, $this->sorterAsc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
-        $this->assertEquals(-1, $this->sorterDesc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
-        $this->assertEquals(1, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(-1, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(1, $this->sorterAsc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
+        $this->assertSame(-1, $this->sorterDesc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
+        $this->assertSame(1, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
     }
 }

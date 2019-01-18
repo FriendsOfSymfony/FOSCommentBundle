@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -59,6 +50,14 @@ abstract class Vote implements VoteInterface
     {
         $this->comment = $comment;
         $this->createdAt = new DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Vote #'.$this->getId();
     }
 
     /**
@@ -119,26 +118,6 @@ abstract class Vote implements VoteInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'Vote #'.$this->getId();
-    }
-
-    /**
-     * Checks if the value is an appropriate one.
-     *
-     * @param mixed $value
-     *
-     * @return bool True, if the integer representation of the value is not null or 0
-     */
-    protected function checkValue($value)
-    {
-        return null !== $value && intval($value);
-    }
-
-    /**
      * Gets the comment this vote belongs to.
      *
      * @return VotableCommentInterface
@@ -158,5 +137,17 @@ abstract class Vote implements VoteInterface
     public function setComment(VotableCommentInterface $comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * Checks if the value is an appropriate one.
+     *
+     * @param mixed $value
+     *
+     * @return bool True, if the integer representation of the value is not null or 0
+     */
+    protected function checkValue($value)
+    {
+        return null !== $value && intval($value);
     }
 }

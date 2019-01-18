@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -44,7 +35,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->root('fos_comment')
             ->children()
 
-                ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+                ->scalarNode('db_driver')
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->validate()
+                        ->ifNotInArray(array('custom', 'mongodb', 'orm'))
+                        ->thenInvalid('Invalid db driver "%s".')
+                    ->end()
+                ->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
 
                 ->arrayNode('form')->addDefaultsIfNotSet()

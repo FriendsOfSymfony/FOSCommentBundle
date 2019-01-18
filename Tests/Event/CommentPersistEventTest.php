@@ -5,15 +5,16 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace FOS\CommentBundle\Tests\Event;
 
 use FOS\CommentBundle\Event\CommentPersistEvent;
+use PHPUnit\Framework\TestCase;
 
-class CommentPersistEventTest extends \PHPUnit_Framework_TestCase
+class CommentPersistEventTest extends TestCase
 {
     public function testAbortingPersistence()
     {

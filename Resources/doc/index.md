@@ -17,7 +17,7 @@ The following steps are optional and the order doesn't matter:
 - [Style it](5-style_it.md)
 - [Integration with FOSUserBundle](6-integration_with_fosuserbundle.md)
 - [Adding role based ACL security](7-adding_role_based_acl_security.md)
-- [Adding Symfony2's built in ACL security](8-adding_symfony2s_builtin_acl_security.md)
+- [Adding Symfony's built in ACL security](8-adding_symfony2s_builtin_acl_security.md)
 - [Setting up a parser to allow marked up comments](9-using_a_markup_parser.md)
 - [Other ways of adding comments to a page](10-other_ways_of_adding_comments_to_a_page.md)
 - [Running the test suite](11-running_the_test_suite.md)

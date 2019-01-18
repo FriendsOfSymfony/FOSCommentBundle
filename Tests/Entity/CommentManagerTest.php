@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -21,13 +12,14 @@
 namespace FOS\CommentBundle\Tests\Entity;
 
 use FOS\CommentBundle\Entity\CommentManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the functionality provided by Entity\CommentManager.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentManagerTest extends \PHPUnit_Framework_TestCase
+class CommentManagerTest extends TestCase
 {
     protected $em;
     protected $repository;
@@ -118,7 +110,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
     {
         $commentManager = new CommentManager($this->dispatcher, $this->sortingFactory, $this->em, $this->class);
 
-        $this->assertEquals($this->class, $commentManager->getClass());
+        $this->assertSame($this->class, $commentManager->getClass());
     }
 
     public function testCreateComment()
@@ -134,7 +126,7 @@ class CommentManagerTest extends \PHPUnit_Framework_TestCase
         $result = $manager->createComment($thread, $parent);
 
         $this->assertInstanceOf('FOS\CommentBundle\Model\CommentInterface', $result);
-        $this->assertEquals($thread, $result->getThread());
-        $this->assertEquals($parent, $result->getParent());
+        $this->assertSame($thread, $result->getThread());
+        $this->assertSame($parent, $result->getParent());
     }
 }

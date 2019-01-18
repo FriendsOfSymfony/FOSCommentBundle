@@ -5,15 +5,6 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -33,6 +24,7 @@ class ApiTest extends WebTestCase
         $this->client = self::createClient(array(
             'test_case' => 'Basic',
             'root_config' => 'config.yml',
+            'debug' => false,
         ), array(
             'PHP_AUTH_USER' => 'user',
             'PHP_AUTH_PW' => 'user',
@@ -51,7 +43,7 @@ class ApiTest extends WebTestCase
         $this->client->insulate(true);
 
         $this->client->request('GET', '/comment_api/threads/non-existant.json');
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -64,7 +56,7 @@ class ApiTest extends WebTestCase
         $this->client->insulate(true);
 
         $this->client->request('GET', '/comment_api/threads');
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -79,7 +71,7 @@ class ApiTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/comment_api/threads/new.html');
 
-        $this->assertEquals(
+        $this->assertSame(
             'http://localhost/comment_api/threads',
             $crawler->filter('form.fos_comment_comment_form')->attr('action')
         );
@@ -259,12 +251,12 @@ class ApiTest extends WebTestCase
         $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
         $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
 
-        $this->assertEquals(
+        $this->assertSame(
             $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(),
             $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(),
             $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text()
         );

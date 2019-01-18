@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the FOSCommentBundle package.
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
@@ -34,9 +34,9 @@ class PipelineParser implements ParserInterface
     /**
      * Parses comment with all parsers in pipeline.
      *
-     * @param string $raw Comment to be parsed.
+     * @param string $raw comment to be parsed
      *
-     * @return string Comment that has been parsed with all parsers in pipeline.
+     * @return string comment that has been parsed with all parsers in pipeline
      */
     public function parse($raw)
     {

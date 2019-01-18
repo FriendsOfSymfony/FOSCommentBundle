@@ -5,22 +5,16 @@
  *
  * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
 
 namespace FOS\CommentBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use FOS\CommentBundle\Acl\CommentAclInterface;
+use FOS\CommentBundle\Acl\ThreadAclInterface;
+use FOS\CommentBundle\Acl\VoteAclInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,15 +24,52 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class InstallAcesCommand extends ContainerAwareCommand
+class InstallAcesCommand extends Command
 {
     /**
-     * @see Command
+     * @var string
+     */
+    protected static $defaultName = 'fos:comment:installAces';
+
+    /**
+     * @var CommentAclInterface
+     */
+    private $commentAcl;
+
+    /**
+     * @var ThreadAclInterface
+     */
+    private $threadAcl;
+
+    /**
+     * @var VoteAclInterface
+     */
+    private $voteAcl;
+
+    /**
+     * @param CommentAclInterface $commentAcl
+     * @param ThreadAclInterface  $threadAcl
+     * @param VoteAclInterface    $voteAcl
+     */
+    public function __construct(
+        CommentAclInterface $commentAcl,
+        ThreadAclInterface $threadAcl,
+        VoteAclInterface $voteAcl
+    ) {
+        parent::__construct();
+
+        $this->commentAcl = $commentAcl;
+        $this->threadAcl = $threadAcl;
+        $this->voteAcl = $voteAcl;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName('fos:comment:installAces')
+            ->setName(static::$defaultName) // BC with 2.8
             ->setDescription('Installs global ACEs')
             ->setDefinition(array(
                 new InputOption('flush', null, InputOption::VALUE_NONE, 'Flush existing Acls'),
@@ -54,31 +85,21 @@ EOT
     }
 
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!$this->getContainer()->has('security.acl.provider')) {
-            $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
-
-            return;
-        }
-
-        $threadAcl = $this->getContainer()->get('fos_comment.acl.thread');
-        $commentAcl = $this->getContainer()->get('fos_comment.acl.comment');
-        $voteAcl = $this->getContainer()->get('fos_comment.acl.vote');
-
         if ($input->getOption('flush')) {
             $output->writeln('Flushing Global ACEs');
 
-            $threadAcl->uninstallFallbackAcl();
-            $commentAcl->uninstallFallbackAcl();
-            $voteAcl->uninstallFallbackAcl();
+            $this->threadAcl->uninstallFallbackAcl();
+            $this->commentAcl->uninstallFallbackAcl();
+            $this->voteAcl->uninstallFallbackAcl();
         }
 
-        $threadAcl->installFallbackAcl();
-        $commentAcl->installFallbackAcl();
-        $voteAcl->installFallbackAcl();
+        $this->threadAcl->installFallbackAcl();
+        $this->commentAcl->installFallbackAcl();
+        $this->voteAcl->installFallbackAcl();
 
         $output->writeln('Global ACEs have been installed.');
     }

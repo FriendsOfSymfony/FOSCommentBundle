@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="FOS\CommentBundle\Model\CommentManagerInterface" alias="fos_comment.manager.comment" public="false" />
+        <service id="FOS\CommentBundle\Model\ThreadManagerInterface" alias="fos_comment.manager.thread" public="false" />
+        <service id="FOS\CommentBundle\Model\VoteManagerInterface" alias="fos_comment.manager.vote" public="false" />
+    </services>
+
+</container>
