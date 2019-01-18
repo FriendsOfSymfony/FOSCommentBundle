@@ -22,7 +22,7 @@ fos_comment_rss_feed:                         Feed RSS
 
 fos_comment_thread_close:                     Închide thread-ul
 fos_comment_thread_open:                      Deschide un thread
-fos_comment_thread_comment_count:             "%count% comentariu|%count% comentarii"
+fos_comment_thread_comment_count:             "{0}|{1} %count% comentariu|]1,Inf[%count% comentarii"
 fos_comment_comment_edit:                     Modifică
 fos_comment_comment_delete:                   Șterge comentariul
 fos_comment_comment_undelete:                 Resalvează comentariul
