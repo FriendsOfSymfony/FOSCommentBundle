@@ -26,7 +26,7 @@
     "require": {
         "php": "^5.5.9|~7.0",
         "friendsofsymfony/rest-bundle": "~1.6|~2.0",
-        "jms/serializer-bundle": "~2.0",
+        "jms/serializer-bundle": "~2.0|~3.0",
         "symfony/framework-bundle": "~2.7|~3.0|^4.0",
         "symfony/asset": "~2.7|~3.0|^4.0",
         "symfony/dependency-injection": "~2.7|~3.0|^4.0",
