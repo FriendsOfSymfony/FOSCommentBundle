@@ -1,9 +1,11 @@
 Changelog
 =========
 
-### 2.2.1 (2018-xx-xx)
+### 2.2.1 (2019-03-29)
 
-* Fix: commands should use the manager alias.
+* Commands should use the manager alias.
+* Fixed Romanian translation.
+* Allow installation of `JMSSerializerBundle 3.x`.
 
 ### 2.2.0 (2018-06-04)
 
