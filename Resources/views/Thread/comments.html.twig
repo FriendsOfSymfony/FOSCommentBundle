@@ -25,8 +25,7 @@
     </div>
     {% endif %}
 
-    {% set count = thread.numComments %}
-    <h3>{% transchoice count with {'%count%': count} from 'FOSCommentBundle' %}fos_comment_thread_comment_count{% endtranschoice %}</h3>
+    <h3>{% trans with {'%count%': thread.numComments} from 'FOSCommentBundle' %}fos_comment_thread_comment_count{% endtranschoice %}</h3>
 {% endif %}
 
 {% for commentinfo in comments %}
