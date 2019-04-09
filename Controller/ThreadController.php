@@ -14,6 +14,7 @@ namespace FOS\CommentBundle\Controller;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\RestBundle\View\View;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @author Alexander <iam.asm89@gmail.com>
  */
-class ThreadController extends AbstractController
+class ThreadController extends Controller
 {
     const VIEW_FLAT = 'flat';
     const VIEW_TREE = 'tree';
