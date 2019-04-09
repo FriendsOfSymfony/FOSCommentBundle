@@ -30,9 +30,16 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('fos_comment');
 
-        $treeBuilder->root('fos_comment')
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('maker');
+        }
+
+        $rootNode
             ->children()
 
                 ->scalarNode('db_driver')
