@@ -18,13 +18,16 @@ use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\RawCommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
 
 /**
  * Extends Twig to provide some helper functions for the CommentBundle.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentExtension extends \Twig_Extension
+class CommentExtension extends AbstractExtension
 {
     protected $commentAcl;
     protected $voteAcl;
@@ -43,10 +46,10 @@ class CommentExtension extends \Twig_Extension
     public function getTests()
     {
         return array(
-            new \Twig_SimpleTest('fos_comment_deleted', array($this, 'isCommentDeleted')),
-            new \Twig_SimpleTest('fos_comment_in_state', array($this, 'isCommentInState')),
-            new \Twig_SimpleTest('fos_comment_votable', array($this, 'isVotable')),
-            new \Twig_SimpleTest('fos_comment_raw', array($this, 'isRawComment')),
+            new TwigTest('fos_comment_deleted', array($this, 'isCommentDeleted')),
+            new TwigTest('fos_comment_in_state', array($this, 'isCommentInState')),
+            new TwigTest('fos_comment_votable', array($this, 'isVotable')),
+            new TwigTest('fos_comment_raw', array($this, 'isRawComment')),
         );
     }
 
@@ -100,12 +103,12 @@ class CommentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('fos_comment_can_comment', array($this, 'canComment')),
-            new \Twig_SimpleFunction('fos_comment_can_vote', array($this, 'canVote')),
-            new \Twig_SimpleFunction('fos_comment_can_delete_comment', array($this, 'canDeleteComment')),
-            new \Twig_SimpleFunction('fos_comment_can_edit_comment', array($this, 'canEditComment')),
-            new \Twig_SimpleFunction('fos_comment_can_edit_thread', array($this, 'canEditThread')),
-            new \Twig_SimpleFunction('fos_comment_can_comment_thread', array($this, 'canCommentThread')),
+            new TwigFunction('fos_comment_can_comment', array($this, 'canComment')),
+            new TwigFunction('fos_comment_can_vote', array($this, 'canVote')),
+            new TwigFunction('fos_comment_can_delete_comment', array($this, 'canDeleteComment')),
+            new TwigFunction('fos_comment_can_edit_comment', array($this, 'canEditComment')),
+            new TwigFunction('fos_comment_can_edit_thread', array($this, 'canEditThread')),
+            new TwigFunction('fos_comment_can_comment_thread', array($this, 'canCommentThread')),
         );
     }
 
