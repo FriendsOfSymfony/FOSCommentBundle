@@ -1,9 +1,9 @@
 test_thread_inline:
     path: /inline/{id}
     defaults:
-        _controller: CommentBundle:Comment:inline
+        _controller: CommentBundle:CommentController:inlineAction
 
 test_thread_async:
     path: /async/{id}
     defaults:
-        _controller: CommentBundle:Comment:async
+        _controller: CommentBundle:CommentController:asyncAction
