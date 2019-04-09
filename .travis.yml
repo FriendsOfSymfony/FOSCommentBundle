@@ -24,8 +24,8 @@ before_install:
     - echo "memory_limit=4G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
 
 install:
-    - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
-    - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+    - if [ "$DEPENDENCIES" != "" ]; then travis_wait composer require --no-update $DEPENDENCIES; fi;
+    - travis_wait composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
     - composer validate --no-check-lock --strict
