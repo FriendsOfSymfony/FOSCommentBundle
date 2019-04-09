@@ -53,3 +53,4 @@ security:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    default_path: '%kernel.root_dir%/Resources/views'
