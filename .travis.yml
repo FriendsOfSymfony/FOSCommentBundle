@@ -21,7 +21,7 @@ matrix:
     fast_finish: true
 
 before_install:
-    - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
+    - echo "memory_limit=4G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini;
 
 install:
     - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
