@@ -15,13 +15,15 @@ namespace FOS\CommentBundle\Controller;
  * Determine which base class to use depending on what version of Symfony is installed.
  *
  * Symfony 3.3+ uses AbstractController, while older versions use Controller.
+ *
+ * @internal
  */
 if (class_exists('Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
-    class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+    abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
     {
     }
 } else {
-    class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
+    abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
     {
     }
 }
