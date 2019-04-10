@@ -9,6 +9,7 @@ php:
     - 7.1
     - 7.2
     - 7.3
+
 cache:
     directories:
         - $HOME/.composer/cache/files
@@ -16,7 +17,7 @@ cache:
 matrix:
     include:
         - php: 5.6
-          env: COMPOSER_FLAGS="--prefer-lowest" SYMFONY_DEPRECATIONS_HELPER=weak
+          env: COMPOSER_FLAGS="--prefer-lowest"
         - php: 5.6
           env: DEPENDENCIES="symfony/lts:^2"
         - php: 7.1
