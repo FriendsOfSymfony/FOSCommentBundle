@@ -14,8 +14,3 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/', priorities: ['json', 'html'], fallback_format: json }
-
-services:
-    FOS\CommentBundle\Controller\ThreadController:
-        class: FOS\CommentBundle\Controller\ThreadController
-        tags: ~
