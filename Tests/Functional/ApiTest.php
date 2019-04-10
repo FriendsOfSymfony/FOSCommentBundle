@@ -40,6 +40,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetThread404()
     {
@@ -56,6 +57,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetThreads404()
     {
@@ -75,6 +77,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetThreadFormAndSubmit()
     {
@@ -108,6 +111,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetThread($id)
     {
@@ -126,6 +130,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetEmptyThread($id)
     {
@@ -148,6 +153,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testAddCommentToThread($id)
     {
@@ -177,6 +183,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testReplyToComment($id)
     {
@@ -214,6 +221,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetCommentTree($id)
     {
@@ -233,6 +241,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetCommentTreeDepth($id)
     {
@@ -253,6 +262,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetCommentFlat($id)
     {
@@ -273,6 +283,7 @@ class ApiTest extends WebTestCase
      *
      * @group legacy
      * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
+     * @expectedDeprecation The "FOS\CommentBundle\Controller\ThreadController" service is private, checking for its existence is deprecated since Symfony 3.2 and will fail in 4.0.
      */
     public function testGetCommentFlatSorted($id)
     {
