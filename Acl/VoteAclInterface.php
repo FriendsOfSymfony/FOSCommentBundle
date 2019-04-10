@@ -61,7 +61,7 @@ interface VoteAclInterface
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
      *
-     * @param VoteInterface $comment
+     * @param VoteInterface $vote
      *
      * @return void
      */

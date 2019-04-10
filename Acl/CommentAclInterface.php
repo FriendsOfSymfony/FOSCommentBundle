@@ -41,7 +41,7 @@ interface CommentAclInterface
      * Checks if the user can reply to the supplied 'parent' comment
      * or if not supplied, just the ability to reply.
      *
-     * @param CommentInterface $comment
+     * @param CommentInterface $parent
      *
      * @return bool
      */
