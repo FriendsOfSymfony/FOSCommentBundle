@@ -1,20 +1,20 @@
 language: php
 
+env:
+    global:
+        - SYMFONY_DEPRECATIONS_HELPER=weak
+
+php:
+    - 5.6
+    - 7.1
+    - 7.2
+    - 7.3
 cache:
     directories:
         - $HOME/.composer/cache/files
 
 matrix:
     include:
-        - php: 5.6
-          env: SYMFONY_DEPRECATIONS_HELPER=weak
-        - php: 7.1
-          env: SYMFONY_DEPRECATIONS_HELPER=weak
-        - php: 7.2
-          env: SYMFONY_DEPRECATIONS_HELPER=weak
-        - php: 7.3
-          env: SYMFONY_DEPRECATIONS_HELPER=weak
-
         - php: 5.6
           env: COMPOSER_FLAGS="--prefer-lowest" SYMFONY_DEPRECATIONS_HELPER=weak
         - php: 5.6
