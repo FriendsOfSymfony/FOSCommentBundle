@@ -1,6 +1,15 @@
 Changelog
 =========
 
+### 2.3.0 (2019-xx-xx)
+
+* Removed deprecated transchoice tag.
+* Updated deprecated routing syntax.
+* Updated deprecated `TreeBuilder` usage.
+* Updated deprecated unit test warnings.
+* Switched all Twig classes to use PHP namespaces.
+* If available, `ThreadController` will extend `AbstractController`.
+
 ### 2.2.1 (2019-03-29)
 
 * Commands should use the manager alias.
