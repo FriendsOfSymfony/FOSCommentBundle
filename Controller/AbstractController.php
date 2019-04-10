@@ -11,7 +11,7 @@
 
 namespace FOS\CommentBundle\Controller;
 
-if (class_exists('\Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
+if (class_exists('Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
     abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
     {
     }
