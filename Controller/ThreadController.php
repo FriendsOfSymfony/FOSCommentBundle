@@ -26,7 +26,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @author Alexander <iam.asm89@gmail.com>
  */
-class ThreadController extends Controller
+//class ThreadController extends Controller
+class ThreadController extends AbstractController
 {
     const VIEW_FLAT = 'flat';
     const VIEW_TREE = 'tree';

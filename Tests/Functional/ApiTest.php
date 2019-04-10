@@ -37,6 +37,9 @@ class ApiTest extends WebTestCase
      * Tests retrieval of a thread that doesnt exist.
      *
      * fos_comment_get_thread: GET: /comment_api/threads/{id}.{_format}
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetThread404()
     {
@@ -50,6 +53,9 @@ class ApiTest extends WebTestCase
      * Tests retrieval of a threads without id's.
      *
      * fos_comment_get_threads: GET: /comment_api/threads
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetThreads404()
     {
@@ -66,6 +72,9 @@ class ApiTest extends WebTestCase
      * fos_comment_post_threads: POST: /comment_api/threads.{_format}
      *
      * @return string The id of the created thread
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetThreadFormAndSubmit()
     {
@@ -96,6 +105,9 @@ class ApiTest extends WebTestCase
      *
      * @param mixed $id
      * @depends testGetThreadFormAndSubmit
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetThread($id)
     {
@@ -111,6 +123,9 @@ class ApiTest extends WebTestCase
      *
      * @param mixed $id
      * @depends testGetThreadFormAndSubmit
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetEmptyThread($id)
     {
@@ -130,6 +145,9 @@ class ApiTest extends WebTestCase
      *
      * @param mixed $id
      * @depends testGetEmptyThread
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testAddCommentToThread($id)
     {
@@ -156,6 +174,9 @@ class ApiTest extends WebTestCase
      *
      * @param mixed $id
      * @depends testAddCommentToThread
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testReplyToComment($id)
     {
@@ -190,6 +211,9 @@ class ApiTest extends WebTestCase
      *
      * @param $id
      * @depends testReplyToComment
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetCommentTree($id)
     {
@@ -206,6 +230,9 @@ class ApiTest extends WebTestCase
      *
      * @param $id
      * @depends testReplyToComment
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetCommentTreeDepth($id)
     {
@@ -223,6 +250,9 @@ class ApiTest extends WebTestCase
      *
      * @param $id
      * @depends testReplyToComment
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetCommentFlat($id)
     {
@@ -240,6 +270,9 @@ class ApiTest extends WebTestCase
      *
      * @param $id
      * @depends testReplyToComment
+     *
+     * @group legacy
+     * @expectedDeprecation Auto-injection of the container for "FOS\CommentBundle\Controller\ThreadController" is deprecated since Symfony 4.2. Configure it as a service instead.
      */
     public function testGetCommentFlatSorted($id)
     {
