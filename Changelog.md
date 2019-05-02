@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.3.0 (2019-xx-xx)
+### 2.3.0 (2019-05-02)
 
 * Removed deprecated transchoice tag.
 * Updated deprecated routing syntax.
