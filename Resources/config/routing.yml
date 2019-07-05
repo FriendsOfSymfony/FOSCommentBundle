@@ -8,5 +8,5 @@
 #
 fos_comment_thread_api:
     type: rest
-    resource: FOS\CommentBundle\Controller\ThreadController
+    resource: fos_comment.controller.thread
     name_prefix: fos_comment_
