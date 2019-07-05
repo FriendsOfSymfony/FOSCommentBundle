@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.3.1 (2019-07-05)
+
+* Auto-injection of the container is deprecated since Symfony 4.2.
+
 ### 2.3.0 (2019-05-02)
 
 * Removed deprecated transchoice tag.
