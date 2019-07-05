@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="fos_comment.controller.thread" class="FOS\CommentBundle\Controller\ThreadController" public="true">
+            <tag name="controller.service_arguments" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+    </services>
+
+</container>
