@@ -14,7 +14,7 @@ Enable the required bundles in the kernel:
 
 ``` php
 <?php
-// app/AppKernel.php
+// app/AppKernel.php OR config/bundles.php for Symfony 4.x
 
 public function registerBundles()
 {
