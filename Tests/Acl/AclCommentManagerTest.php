@@ -227,6 +227,11 @@ class AclCommentManagerTest extends TestCase
              ->with($this->equalTo($this->comment))
              ->will($this->returnValue(true));
 
+        $this->realManager->expects($this->once())
+             ->method('saveComment')
+             ->with($this->equalTo($this->comment))
+             ->will($this->returnValue(true));
+
         $manager = new AclCommentManager($this->realManager, $this->commentSecurity, $this->threadSecurity);
         $manager->saveComment($this->comment, $this->parent);
     }

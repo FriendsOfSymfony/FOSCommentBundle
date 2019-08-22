@@ -130,11 +130,13 @@ class AclCommentManager implements CommentManagerInterface
             throw new AccessDeniedException();
         }
 
-        $this->realManager->saveComment($comment);
+        $state = $this->realManager->saveComment($comment);
 
-        if ($newComment) {
+        if ($state && $newComment) {
             $this->commentAcl->setDefaultAcl($comment);
         }
+
+        return $state;
     }
 
     /**
