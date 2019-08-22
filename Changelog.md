@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.3.2 (2019-08-22)
+
+* Fix: `AclCommentManager::saveComment` must have a return value.
+
 ### 2.3.1 (2019-07-05)
 
 * Auto-injection of the container is deprecated since Symfony 4.2.
