@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.3.3 (2019-11-06)
+
+* Fix: use `Symfony\Contracts\EventDispatcher\Event` if available.
+* Fix: use `LegacyEventDispatcherProxy` if available.
+
 ### 2.3.2 (2019-08-22)
 
 * Fix: `AclCommentManager::saveComment` must have a return value.
