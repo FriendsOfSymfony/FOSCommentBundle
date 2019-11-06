@@ -23,6 +23,7 @@ return PhpCsFixer\Config::create()
         'php_unit_construct' => true,
         'php_unit_strict' => true,
         'phpdoc_no_empty_return' => false,
+        'no_superfluous_phpdoc_tags' => false,
     ])
     ->setUsingCache(true)
     ->setRiskyAllowed(true)
