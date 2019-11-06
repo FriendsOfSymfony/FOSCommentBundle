@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Event\CommentPersistEvent;
 use FOS\CommentBundle\Events;
@@ -18,6 +19,7 @@ use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
 use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
 /**
  * Abstract Comment Manager implementation which can be used as base class for your
@@ -45,7 +47,7 @@ abstract class CommentManager implements CommentManagerInterface
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
         $this->sortingFactory = $factory;
     }
 
@@ -64,7 +66,7 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(Events::COMMENT_CREATE, $event);
+        $this->dispatch($event, Events::COMMENT_CREATE);
 
         return $comment;
     }
@@ -90,7 +92,7 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $event = new CommentPersistEvent($comment);
-        $this->dispatcher->dispatch(Events::COMMENT_PRE_PERSIST, $event);
+        $this->dispatch($event, Events::COMMENT_PRE_PERSIST);
 
         if ($event->isPersistenceAborted()) {
             return false;
@@ -99,7 +101,7 @@ abstract class CommentManager implements CommentManagerInterface
         $this->doSaveComment($comment);
 
         $event = new CommentEvent($comment);
-        $this->dispatcher->dispatch(Events::COMMENT_POST_PERSIST, $event);
+        $this->dispatch($event, Events::COMMENT_POST_PERSIST);
 
         return true;
     }
@@ -139,6 +141,22 @@ abstract class CommentManager implements CommentManagerInterface
         $tree = $sorter->sort($tree);
 
         return $tree;
+    }
+
+    /**
+     * @param Event  $event
+     * @param string $eventName
+     */
+    protected function dispatch(Event $event, $eventName)
+    {
+        // LegacyEventDispatcherProxy exists in Symfony >= 4.3
+        if (class_exists(LegacyEventDispatcherProxy::class)) {
+            // New Symfony 4.3 EventDispatcher signature
+            $this->dispatcher->dispatch($event, $eventName);
+        } else {
+            // Old EventDispatcher signature
+            $this->dispatcher->dispatch($eventName, $event);
+        }
     }
 
     /**

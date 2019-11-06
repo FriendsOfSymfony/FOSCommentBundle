@@ -11,10 +11,12 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Event\VotePersistEvent;
 use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
 /**
  * Abstract VotingManager.
@@ -35,7 +37,7 @@ abstract class VoteManager implements VoteManagerInterface
      */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
     }
 
     /**
@@ -64,7 +66,7 @@ abstract class VoteManager implements VoteManagerInterface
         $vote->setComment($comment);
 
         $event = new VoteEvent($vote);
-        $this->dispatcher->dispatch(Events::VOTE_CREATE, $event);
+        $this->dispatch($event, Events::VOTE_CREATE);
 
         return $vote;
     }
@@ -79,7 +81,7 @@ abstract class VoteManager implements VoteManagerInterface
         }
 
         $event = new VotePersistEvent($vote);
-        $this->dispatcher->dispatch(Events::VOTE_PRE_PERSIST, $event);
+        $this->dispatch($event, Events::VOTE_PRE_PERSIST);
 
         if ($event->isPersistenceAborted()) {
             return;
@@ -88,7 +90,23 @@ abstract class VoteManager implements VoteManagerInterface
         $this->doSaveVote($vote);
 
         $event = new VoteEvent($vote);
-        $this->dispatcher->dispatch(Events::VOTE_POST_PERSIST, $event);
+        $this->dispatch($event, Events::VOTE_POST_PERSIST);
+    }
+
+    /**
+     * @param Event  $event
+     * @param string $eventName
+     */
+    protected function dispatch(Event $event, $eventName)
+    {
+        // LegacyEventDispatcherProxy exists in Symfony >= 4.3
+        if (class_exists(LegacyEventDispatcherProxy::class)) {
+            // New Symfony 4.3 EventDispatcher signature
+            $this->dispatcher->dispatch($event, $eventName);
+        } else {
+            // Old EventDispatcher signature
+            $this->dispatcher->dispatch($eventName, $event);
+        }
     }
 
     /**

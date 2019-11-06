@@ -11,9 +11,11 @@
 
 namespace FOS\CommentBundle\Model;
 
+use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\ThreadEvent;
 use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
 /**
  * Abstract Thread Manager implementation which can be used as base class for your
@@ -33,7 +35,7 @@ abstract class ThreadManager implements ThreadManagerInterface
      */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
     }
 
     /**
@@ -63,7 +65,7 @@ abstract class ThreadManager implements ThreadManagerInterface
         }
 
         $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(Events::THREAD_CREATE, $event);
+        $this->dispatch($event, Events::THREAD_CREATE);
 
         return $thread;
     }
@@ -76,12 +78,28 @@ abstract class ThreadManager implements ThreadManagerInterface
     public function saveThread(ThreadInterface $thread)
     {
         $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(Events::THREAD_PRE_PERSIST, $event);
+        $this->dispatch($event, Events::THREAD_PRE_PERSIST);
 
         $this->doSaveThread($thread);
 
         $event = new ThreadEvent($thread);
-        $this->dispatcher->dispatch(Events::THREAD_POST_PERSIST, $event);
+        $this->dispatch($event, Events::THREAD_POST_PERSIST);
+    }
+
+    /**
+     * @param Event  $event
+     * @param string $eventName
+     */
+    protected function dispatch(Event $event, $eventName)
+    {
+        // LegacyEventDispatcherProxy exists in Symfony >= 4.3
+        if (class_exists(LegacyEventDispatcherProxy::class)) {
+            // New Symfony 4.3 EventDispatcher signature
+            $this->dispatcher->dispatch($event, $eventName);
+        } else {
+            // Old EventDispatcher signature
+            $this->dispatcher->dispatch($eventName, $event);
+        }
     }
 
     /**
