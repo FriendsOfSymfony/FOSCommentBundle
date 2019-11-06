@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Event;
 
 use FOS\CommentBundle\Model\VoteInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * An event that occurs related to a vote.
