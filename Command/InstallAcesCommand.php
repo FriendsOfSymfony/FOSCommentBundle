@@ -69,7 +69,6 @@ class InstallAcesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName(static::$defaultName) // BC with 2.8
             ->setDescription('Installs global ACEs')
             ->setDefinition(array(
                 new InputOption('flush', null, InputOption::VALUE_NONE, 'Flush existing Acls'),

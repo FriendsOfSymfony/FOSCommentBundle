@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 3.0.0 (xxxx-xx-xx)
+
+* Dropped PHP 5 support.
+* Dropped Symfony 2 support.
+
 ### 2.3.3 (2019-11-06)
 
 * Fix: use `Symfony\Contracts\EventDispatcher\Event` if available.

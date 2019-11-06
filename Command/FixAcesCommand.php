@@ -107,7 +107,6 @@ class FixAcesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName(static::$defaultName) // BC with 2.8
             ->setDescription('Fixes Object Ace entries')
             ->setHelp(<<<'EOT'
 This command will fix all Ace entries for existing objects. This command only needs to
