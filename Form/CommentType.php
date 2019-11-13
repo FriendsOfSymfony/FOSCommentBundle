@@ -20,7 +20,7 @@ class CommentType extends AbstractType
 {
     private $commentClass;
 
-    public function __construct($commentClass)
+    public function __construct(string $commentClass)
     {
         $this->commentClass = $commentClass;
     }

@@ -23,5 +23,5 @@ interface CommentableThreadFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm(): FormInterface;
 }

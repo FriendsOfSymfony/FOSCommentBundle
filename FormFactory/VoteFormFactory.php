@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\FormFactory;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * VoteForm factory class.
@@ -37,13 +38,11 @@ class VoteFormFactory implements VoteFormFactoryInterface
     protected $name;
 
     /**
-     * Constructor.
-     *
      * @param FormFactoryInterface $formFactory
      * @param string               $type
      * @param string               $name
      */
-    public function __construct(FormFactoryInterface $formFactory, $type, $name)
+    public function __construct(FormFactoryInterface $formFactory, string $type, string $name)
     {
         $this->formFactory = $formFactory;
         $this->type = $type;
@@ -53,7 +52,7 @@ class VoteFormFactory implements VoteFormFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createForm()
+    public function createForm(): FormInterface
     {
         $builder = $this->formFactory->createNamedBuilder($this->name, $this->type);
 

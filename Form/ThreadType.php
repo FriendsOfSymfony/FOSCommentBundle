@@ -21,7 +21,7 @@ class ThreadType extends AbstractType
 {
     private $threadClass;
 
-    public function __construct($threadClass)
+    public function __construct(string $threadClass)
     {
         $this->threadClass = $threadClass;
     }
