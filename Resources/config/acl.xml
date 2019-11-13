@@ -14,28 +14,28 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.acl.thread.security" class="FOS\CommentBundle\Acl\SecurityThreadAcl" public="false">
+        <service id="fos_comment.acl.thread.security" class="FOS\CommentBundle\Acl\SecurityThreadAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
 
-        <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl" public="false">
+        <service id="fos_comment.acl.comment.security" class="FOS\CommentBundle\Acl\SecurityCommentAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
 
-        <service id="fos_comment.acl.vote.security" class="FOS\CommentBundle\Acl\SecurityVoteAcl" public="false">
+        <service id="fos_comment.acl.vote.security" class="FOS\CommentBundle\Acl\SecurityVoteAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
             <argument type="service" id="security.acl.provider" />
             <argument>%fos_comment.model.vote.class%</argument>
         </service>
 
-        <service id="fos_comment.acl.thread.roles" class="FOS\CommentBundle\Acl\RoleThreadAcl" public="false">
+        <service id="fos_comment.acl.thread.roles" class="FOS\CommentBundle\Acl\RoleThreadAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
@@ -44,7 +44,7 @@
             <argument>%fos_comment.model.thread.class%</argument>
         </service>
 
-        <service id="fos_comment.acl.comment.roles" class="FOS\CommentBundle\Acl\RoleCommentAcl" public="false">
+        <service id="fos_comment.acl.comment.roles" class="FOS\CommentBundle\Acl\RoleCommentAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
@@ -53,7 +53,7 @@
             <argument>%fos_comment.model.comment.class%</argument>
         </service>
 
-        <service id="fos_comment.acl.vote.roles" class="FOS\CommentBundle\Acl\RoleVoteAcl" public="false">
+        <service id="fos_comment.acl.vote.roles" class="FOS\CommentBundle\Acl\RoleVoteAcl">
             <argument type="service" id="security.authorization_checker" />
             <argument /> <!-- Create role -->
             <argument /> <!-- View role -->
@@ -62,18 +62,18 @@
             <argument>%fos_comment.model.vote.class%</argument>
         </service>
 
-        <service id="fos_comment.manager.thread.acl" class="FOS\CommentBundle\Acl\AclThreadManager" public="false">
+        <service id="fos_comment.manager.thread.acl" class="FOS\CommentBundle\Acl\AclThreadManager">
             <argument type="service" id="fos_comment.manager.thread.default" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
-        <service id="fos_comment.manager.comment.acl" class="FOS\CommentBundle\Acl\AclCommentManager" public="false">
+        <service id="fos_comment.manager.comment.acl" class="FOS\CommentBundle\Acl\AclCommentManager">
             <argument type="service" id="fos_comment.manager.comment.default" />
             <argument type="service" id="fos_comment.acl.comment" />
             <argument type="service" id="fos_comment.acl.thread" />
         </service>
 
-        <service id="fos_comment.manager.vote.acl" class="FOS\CommentBundle\Acl\AclVoteManager" public="false">
+        <service id="fos_comment.manager.vote.acl" class="FOS\CommentBundle\Acl\AclVoteManager">
             <argument type="service" id="fos_comment.manager.vote.default" />
             <argument type="service" id="fos_comment.acl.vote" />
             <argument type="service" id="fos_comment.acl.comment" />
