@@ -33,8 +33,7 @@ class AclVoteManagerTest extends TestCase
         $this->voteSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
         $this->commentSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
         $this->comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
-        // $this->vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
-        $this->vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
+        $this->vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $this->vote->expects($this->any())
             ->method('getComment')
             ->will($this->returnValue($this->comment));
