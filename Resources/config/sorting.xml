@@ -14,12 +14,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_comment.sorter.date_asc" class="FOS\CommentBundle\Sorting\DateSorting" public="false">
+        <service id="fos_comment.sorter.date_asc" class="FOS\CommentBundle\Sorting\DateSorting">
             <tag name="fos_comment.sorter" alias="date_asc" />
             <argument>ASC</argument>
         </service>
 
-        <service id="fos_comment.sorter.date_desc" class="FOS\CommentBundle\Sorting\DateSorting" public="false">
+        <service id="fos_comment.sorter.date_desc" class="FOS\CommentBundle\Sorting\DateSorting">
             <tag name="fos_comment.sorter" alias="date_desc" />
             <argument>DESC</argument>
         </service>
