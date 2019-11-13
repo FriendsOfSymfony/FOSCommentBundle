@@ -73,9 +73,7 @@ class VoteBlamerListenerTest extends TestCase
 
     public function testLoggerIsCalledForNonSignedVote()
     {
-        // @todo uncomment this in 3.0 and remove the abstract class.
-        // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
-        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
+        $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $event = new VoteEvent($vote);
 
         $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();

@@ -18,9 +18,7 @@ class VotePersistEventTest extends TestCase
 {
     public function testAbortingPersistence()
     {
-        // @todo uncomment this in 3.0 and remove the abstract class.
-        // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
-        $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
+        $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $event = new VotePersistEvent($vote);
         $this->assertFalse($event->isPersistenceAborted());
         $event->abortPersistence();
