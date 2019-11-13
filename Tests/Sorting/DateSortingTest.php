@@ -38,8 +38,8 @@ class DateSortingTest extends TestCase
             ->method('getCreatedAt')
             ->will($this->returnValue(new \DateTime('2015-09-20 12:39:10')));
 
-        $this->assertSame(0, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
-        $this->assertSame(0, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(0, $this->sorterAsc->doSort(['comment' => $comment1], ['comment' => $comment2]));
+        $this->assertSame(0, $this->sorterDesc->doSort(['comment' => $comment1], ['comment' => $comment2]));
     }
 
     public function testGreaterOrLess()
@@ -55,9 +55,9 @@ class DateSortingTest extends TestCase
             ->method('getCreatedAt')
             ->will($this->returnValue(new \DateTime('2015-09-20 12:39:10')));
 
-        $this->assertSame(-1, $this->sorterAsc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
-        $this->assertSame(1, $this->sorterAsc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
-        $this->assertSame(-1, $this->sorterDesc->doSort(array('comment' => $comment2), array('comment' => $comment1)));
-        $this->assertSame(1, $this->sorterDesc->doSort(array('comment' => $comment1), array('comment' => $comment2)));
+        $this->assertSame(-1, $this->sorterAsc->doSort(['comment' => $comment1], ['comment' => $comment2]));
+        $this->assertSame(1, $this->sorterAsc->doSort(['comment' => $comment2], ['comment' => $comment1]));
+        $this->assertSame(-1, $this->sorterDesc->doSort(['comment' => $comment2], ['comment' => $comment1]));
+        $this->assertSame(1, $this->sorterDesc->doSort(['comment' => $comment1], ['comment' => $comment2]));
     }
 }

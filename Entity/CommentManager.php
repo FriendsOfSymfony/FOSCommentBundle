@@ -106,7 +106,7 @@ class CommentManager extends BaseCommentManager
         $comments = $qb->getQuery()->execute();
 
         if (!$comments) {
-            return array();
+            return [];
         }
 
         $sorter = $this->sortingFactory->getSorter($sorter);

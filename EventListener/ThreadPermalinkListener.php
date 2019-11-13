@@ -58,6 +58,6 @@ class ThreadPermalinkListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(Events::THREAD_CREATE => 'onThreadCreate');
+        return [Events::THREAD_CREATE => 'onThreadCreate'];
     }
 }

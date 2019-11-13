@@ -46,7 +46,7 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeOverwritten()
                     ->isRequired()
                     ->validate()
-                        ->ifNotInArray(array('custom', 'mongodb', 'orm'))
+                        ->ifNotInArray(['custom', 'mongodb', 'orm'])
                         ->thenInvalid('Invalid db driver "%s".')
                     ->end()
                 ->end()

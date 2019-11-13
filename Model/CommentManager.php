@@ -11,9 +11,9 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Event\CommentPersistEvent;
+use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;

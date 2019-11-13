@@ -70,9 +70,9 @@ class InstallAcesCommand extends Command
     {
         $this
             ->setDescription('Installs global ACEs')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputOption('flush', null, InputOption::VALUE_NONE, 'Flush existing Acls'),
-            ))
+            ])
             ->setHelp(<<<'EOT'
 This command should be run once during the installation process of the entire bundle or
 after enabling Acl for the first time.

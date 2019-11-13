@@ -45,12 +45,12 @@ class CommentExtension extends AbstractExtension
      */
     public function getTests()
     {
-        return array(
-            new TwigTest('fos_comment_deleted', array($this, 'isCommentDeleted')),
-            new TwigTest('fos_comment_in_state', array($this, 'isCommentInState')),
-            new TwigTest('fos_comment_votable', array($this, 'isVotable')),
-            new TwigTest('fos_comment_raw', array($this, 'isRawComment')),
-        );
+        return [
+            new TwigTest('fos_comment_deleted', [$this, 'isCommentDeleted']),
+            new TwigTest('fos_comment_in_state', [$this, 'isCommentInState']),
+            new TwigTest('fos_comment_votable', [$this, 'isVotable']),
+            new TwigTest('fos_comment_raw', [$this, 'isRawComment']),
+        ];
     }
 
     /**
@@ -102,14 +102,14 @@ class CommentExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        return array(
-            new TwigFunction('fos_comment_can_comment', array($this, 'canComment')),
-            new TwigFunction('fos_comment_can_vote', array($this, 'canVote')),
-            new TwigFunction('fos_comment_can_delete_comment', array($this, 'canDeleteComment')),
-            new TwigFunction('fos_comment_can_edit_comment', array($this, 'canEditComment')),
-            new TwigFunction('fos_comment_can_edit_thread', array($this, 'canEditThread')),
-            new TwigFunction('fos_comment_can_comment_thread', array($this, 'canCommentThread')),
-        );
+        return [
+            new TwigFunction('fos_comment_can_comment', [$this, 'canComment']),
+            new TwigFunction('fos_comment_can_vote', [$this, 'canVote']),
+            new TwigFunction('fos_comment_can_delete_comment', [$this, 'canDeleteComment']),
+            new TwigFunction('fos_comment_can_edit_comment', [$this, 'canEditComment']),
+            new TwigFunction('fos_comment_can_edit_thread', [$this, 'canEditThread']),
+            new TwigFunction('fos_comment_can_comment_thread', [$this, 'canCommentThread']),
+        ];
     }
 
     /*

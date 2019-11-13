@@ -52,7 +52,7 @@ class ThreadFormFactory implements ThreadFormFactoryInterface
      */
     public function createForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null, array('validation_groups' => array('CreateThread')));
+        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null, ['validation_groups' => ['CreateThread']]);
 
         return $builder->getForm();
     }

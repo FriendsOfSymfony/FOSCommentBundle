@@ -89,6 +89,6 @@ class CommentBlamerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(Events::COMMENT_PRE_PERSIST => 'blame');
+        return [Events::COMMENT_PRE_PERSIST => 'blame'];
     }
 }

@@ -25,7 +25,7 @@ abstract class Comment extends AbstractComment
      *
      * @var array
      */
-    protected $ancestors = array();
+    protected $ancestors = [];
 
     /**
      * @return array

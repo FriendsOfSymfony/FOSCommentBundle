@@ -86,7 +86,7 @@ class VoteManagerTest extends TestCase
         // @todo uncomment this in 3.0 and remove the abstract class.
         // $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
         $vote = $this->getMockForAbstractClass('FOS\CommentBundle\Tests\Fixtures\AbstractVote');
-        $criteria = array('id' => 123);
+        $criteria = ['id' => 123];
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
@@ -108,7 +108,7 @@ class VoteManagerTest extends TestCase
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
-            ->with(array('id' => $id))
+            ->with(['id' => $id])
             ->will($this->returnValue($vote));
 
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);
