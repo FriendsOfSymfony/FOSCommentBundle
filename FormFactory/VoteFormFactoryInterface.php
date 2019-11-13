@@ -25,5 +25,5 @@ interface VoteFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm(): FormInterface;
 }

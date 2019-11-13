@@ -20,7 +20,7 @@ class VoteType extends AbstractType
 {
     private $voteClass;
 
-    public function __construct($voteClass)
+    public function __construct(string $voteClass)
     {
         $this->voteClass = $voteClass;
     }
