@@ -63,6 +63,6 @@ class CommentMarkupListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(Events::COMMENT_PRE_PERSIST => 'markup');
+        return [Events::COMMENT_PRE_PERSIST => 'markup'];
     }
 }

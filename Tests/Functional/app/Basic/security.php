@@ -13,11 +13,11 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Controller\UserValueResolver;
 
 if (method_exists(Security::class, 'getUser') && !class_exists(UserValueResolver::class)) {
-    $container->loadFromExtension('security', array(
-        'firewalls' => array(
-            'main' => array(
+    $container->loadFromExtension('security', [
+        'firewalls' => [
+            'main' => [
                 'logout_on_user_change' => true,
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
 }

@@ -28,5 +28,5 @@ interface CommentFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm($data = null, $options = array());
+    public function createForm($data = null, $options = []);
 }

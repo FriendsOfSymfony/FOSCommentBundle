@@ -57,7 +57,7 @@ abstract class AbstractOrderSorting implements SortingInterface
             }
         }
 
-        usort($tree, array($this, 'doSort'));
+        usort($tree, [$this, 'doSort']);
 
         return $tree;
     }
@@ -88,7 +88,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      */
     public function sortFlat(array $comments)
     {
-        usort($comments, array($this, 'doFlatSort'));
+        usort($comments, [$this, 'doFlatSort']);
 
         return $comments;
     }

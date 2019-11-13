@@ -44,12 +44,12 @@ class AclCommentManagerTest extends TestCase
 
     public function testFindCommentTreeByThreadNestedResult()
     {
-        $expectedResult = array(
-            array('comment' => $this->comment, 'children' => array(
-                array('comment' => $this->comment, 'children' => array()),
-                array('comment' => $this->comment, 'children' => array()),
-            )),
-        );
+        $expectedResult = [
+            ['comment' => $this->comment, 'children' => [
+                ['comment' => $this->comment, 'children' => []],
+                ['comment' => $this->comment, 'children' => []],
+            ]],
+        ];
 
         $this->realManager->expects($this->once())
              ->method('findCommentTreeByThread')
@@ -69,7 +69,7 @@ class AclCommentManagerTest extends TestCase
      */
     public function testFindCommentTreeByThread()
     {
-        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
+        $expectedResult = [['comment' => $this->comment, 'children' => []]];
         $this->realManager->expects($this->once())
              ->method('findCommentTreeByThread')
              ->with($this->equalTo($this->thread),
@@ -84,7 +84,7 @@ class AclCommentManagerTest extends TestCase
 
     public function testFindCommentsByThreadCanView()
     {
-        $expectedResult = array($this->comment);
+        $expectedResult = [$this->comment];
         $this->realManager->expects($this->once())
             ->method('findCommentsByThread')
             ->with($this->thread,
@@ -102,7 +102,7 @@ class AclCommentManagerTest extends TestCase
      */
     public function testFindCommentsByThread()
     {
-        $expectedResult = array($this->comment);
+        $expectedResult = [$this->comment];
         $this->realManager->expects($this->once())
             ->method('findCommentsByThread')
             ->with($this->thread,
@@ -156,7 +156,7 @@ class AclCommentManagerTest extends TestCase
     public function testFindCommentTreeByCommentId()
     {
         $commentId = 123;
-        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
+        $expectedResult = [['comment' => $this->comment, 'children' => []]];
 
         $this->realManager->expects($this->once())
             ->method('findCommentTreeByCommentId')
@@ -173,7 +173,7 @@ class AclCommentManagerTest extends TestCase
     public function testFindCommentTreeByCommentIdCanView()
     {
         $commentId = 123;
-        $expectedResult = array(array('comment' => $this->comment, 'children' => array()));
+        $expectedResult = [['comment' => $this->comment, 'children' => []]];
 
         $this->realManager->expects($this->once())
             ->method('findCommentTreeByCommentId')

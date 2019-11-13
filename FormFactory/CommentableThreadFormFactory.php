@@ -52,7 +52,7 @@ class CommentableThreadFormFactory implements CommentableThreadFormFactoryInterf
      */
     public function createForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null, array('validation_groups' => array('OpenThread'), 'method' => 'PATCH'));
+        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null, ['validation_groups' => ['OpenThread'], 'method' => 'PATCH']);
 
         return $builder->getForm();
     }

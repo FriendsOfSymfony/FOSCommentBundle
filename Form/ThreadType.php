@@ -43,9 +43,9 @@ class ThreadType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => $this->threadClass,
-        ));
+        ]);
     }
 
     /**
