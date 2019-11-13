@@ -45,14 +45,14 @@ class FOSCommentExtension extends Extension
 
         if ('custom' !== $config['db_driver']) {
             $loader->load(sprintf('%s.xml', $config['db_driver']));
-            $def = new Definition('Doctrine\ORM\EntityManager', array('%fos_comment.model_manager_name%'));
+            $def = new Definition('Doctrine\ORM\EntityManager', ['%fos_comment.model_manager_name%']);
             $def->setPublic(false);
-            $def->setFactory(array(new Reference('doctrine'), 'getManager'));
+            $def->setFactory([new Reference('doctrine'), 'getManager']);
 
             $container->setDefinition('fos_comment.entity_manager', $def);
         }
 
-        foreach (array('controller', 'events', 'form', 'twig', 'sorting', 'model') as $basename) {
+        foreach (['controller', 'events', 'form', 'twig', 'sorting', 'model'] as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -138,7 +138,7 @@ class FOSCommentExtension extends Extension
         $loader->load('acl.xml');
         $loader->load('commands.xml');
 
-        foreach (array(1 => 'create', 'view', 'edit', 'delete') as $index => $perm) {
+        foreach ([1 => 'create', 'view', 'edit', 'delete'] as $index => $perm) {
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
             $container->getDefinition('fos_comment.acl.thread.roles')->replaceArgument($index, $config['acl_roles']['thread'][$perm]);
             $container->getDefinition('fos_comment.acl.vote.roles')->replaceArgument($index, $config['acl_roles']['vote'][$perm]);

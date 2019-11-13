@@ -74,7 +74,7 @@ class AclThreadManagerTest extends TestCase
      */
     public function testFindThreadBy()
     {
-        $conditions = array('id' => 123);
+        $conditions = ['id' => 123];
         $expectedResult = $this->thread;
 
         $this->realManager->expects($this->once())
@@ -93,7 +93,7 @@ class AclThreadManagerTest extends TestCase
 
     public function testFindThreadByNoResult()
     {
-        $conditions = array('id' => 123);
+        $conditions = ['id' => 123];
         $expectedResult = null;
 
         $this->realManager->expects($this->once())
@@ -113,7 +113,7 @@ class AclThreadManagerTest extends TestCase
      */
     public function testFindAllThreads()
     {
-        $expectedResult = array($this->thread);
+        $expectedResult = [$this->thread];
 
         $this->realManager->expects($this->once())
             ->method('findAllThreads')
@@ -130,7 +130,7 @@ class AclThreadManagerTest extends TestCase
 
     public function testFindAllThreadsCanView()
     {
-        $expectedResult = array($this->thread);
+        $expectedResult = [$this->thread];
 
         $this->realManager->expects($this->once())
             ->method('findAllThreads')

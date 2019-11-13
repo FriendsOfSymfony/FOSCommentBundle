@@ -23,9 +23,9 @@ class CommentController extends Controller
 {
     public function asyncAction($id)
     {
-        return $this->render('CommentBundle:Comment:async.html.twig', array(
+        return $this->render('CommentBundle:Comment:async.html.twig', [
             'id' => $id,
-        ));
+        ]);
     }
 
     public function inlineAction(Request $request, $id)
@@ -42,9 +42,9 @@ class CommentController extends Controller
 
         $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
-        return $this->render('CommentBundle:Comment:inline.html.twig', array(
+        return $this->render('CommentBundle:Comment:inline.html.twig', [
             'comments' => $comments,
             'thread' => $thread,
-        ));
+        ]);
     }
 }

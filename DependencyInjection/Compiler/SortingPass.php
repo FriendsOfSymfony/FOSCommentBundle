@@ -32,7 +32,7 @@ class SortingPass implements CompilerPassInterface
             return;
         }
 
-        $sorters = array();
+        $sorters = [];
         foreach ($container->findTaggedServiceIds('fos_comment.sorter') as $id => $tags) {
             foreach ($tags as $tag) {
                 if (empty($tag['alias'])) {

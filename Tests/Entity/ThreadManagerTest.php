@@ -80,7 +80,7 @@ class ThreadManagerTest extends TestCase
     public function testFindThreadBy()
     {
         $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
-        $criteria = array('id' => 'hello');
+        $criteria = ['id' => 'hello'];
 
         $this->repository->expects($this->once())
                 ->method('findOneBy')
@@ -96,7 +96,7 @@ class ThreadManagerTest extends TestCase
     public function testFindAllThreads()
     {
         $thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
-        $threads = array($thread);
+        $threads = [$thread];
 
         $this->repository->expects($this->once())
             ->method('findAll')
@@ -115,7 +115,7 @@ class ThreadManagerTest extends TestCase
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
-            ->with(array('id' => $threadId))
+            ->with(['id' => $threadId])
             ->will($this->returnValue($thread));
 
         $manager = new ThreadManager($this->dispatcher, $this->em, $this->class);

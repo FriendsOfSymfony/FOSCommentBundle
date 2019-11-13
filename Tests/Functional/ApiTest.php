@@ -21,14 +21,14 @@ class ApiTest extends WebTestCase
 {
     protected function setUp()
     {
-        $this->client = self::createClient(array(
+        $this->client = self::createClient([
             'test_case' => 'Basic',
             'root_config' => 'config.yml',
             'debug' => false,
-        ), array(
+        ], [
             'PHP_AUTH_USER' => 'user',
             'PHP_AUTH_PW' => 'user',
-        ));
+        ]);
 
         parent::setUp();
     }
@@ -167,9 +167,9 @@ class ApiTest extends WebTestCase
 
         $parentId = $crawler->filter('.fos_comment_comment_reply_show_form')->first()->attr('data-parent-id');
 
-        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments/new.html", array(
+        $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments/new.html", [
             'parentId' => $parentId,
-        ));
+        ]);
 
         $form = $crawler->selectButton('fos_comment_comment_new_submit')->form();
         $form['fos_comment_comment[body]'] = 'Test Reply Comment';

@@ -35,8 +35,8 @@ class RoleCommentAclTest extends AbstractRoleAcl
 
     public function getRoles()
     {
-        return array_merge(parent::getRoles(), array(
-            array('reply'),
-        ));
+        return array_merge(parent::getRoles(), [
+            ['reply'],
+        ]);
     }
 }

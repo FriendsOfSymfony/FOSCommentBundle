@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-return array(
+return [
     new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 
     new Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -23,4 +23,4 @@ return array(
     new JMS\SerializerBundle\JMSSerializerBundle($this),
 
     new FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\CommentBundle(),
-);
+];

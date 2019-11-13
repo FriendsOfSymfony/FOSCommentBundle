@@ -15,4 +15,4 @@ if (!file_exists($file)) {
 }
 
 $autoload = require $file;
-Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($autoload, 'loadClass'));
+Doctrine\Common\Annotations\AnnotationRegistry::registerLoader([$autoload, 'loadClass']);

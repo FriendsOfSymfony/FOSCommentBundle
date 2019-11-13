@@ -82,7 +82,7 @@ class VoteManagerTest extends TestCase
     public function testFindVoteBy()
     {
         $vote = $this->getMockBuilder('FOS\CommentBundle\Model\VoteInterface')->getMock();
-        $criteria = array('id' => 123);
+        $criteria = ['id' => 123];
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
@@ -102,7 +102,7 @@ class VoteManagerTest extends TestCase
 
         $this->repository->expects($this->once())
             ->method('findOneBy')
-            ->with(array('id' => $id))
+            ->with(['id' => $id])
             ->will($this->returnValue($vote));
 
         $manager = new VoteManager($this->dispatcher, $this->em, $this->class);

@@ -89,6 +89,6 @@ class VoteBlamerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(Events::VOTE_PRE_PERSIST => 'blame');
+        return [Events::VOTE_PRE_PERSIST => 'blame'];
     }
 }

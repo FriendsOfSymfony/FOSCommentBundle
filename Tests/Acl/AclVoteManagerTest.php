@@ -87,7 +87,7 @@ class AclVoteManagerTest extends TestCase
      */
     public function testFindVoteBy()
     {
-        $conditions = array('id' => 1);
+        $conditions = ['id' => 1];
         $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
@@ -106,7 +106,7 @@ class AclVoteManagerTest extends TestCase
 
     public function testFindVoteByAllowed()
     {
-        $conditions = array('id' => 1);
+        $conditions = ['id' => 1];
         $expectedResult = $this->vote;
 
         $this->realManager->expects($this->once())
@@ -131,7 +131,7 @@ class AclVoteManagerTest extends TestCase
     public function testFindVotesByComment()
     {
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
-        $expectedResult = array($this->vote);
+        $expectedResult = [$this->vote];
 
         $this->realManager->expects($this->once())
             ->method('findVotesByComment')
@@ -150,7 +150,7 @@ class AclVoteManagerTest extends TestCase
     public function testFindVotesByCommentAllowed()
     {
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
-        $expectedResult = array($this->vote);
+        $expectedResult = [$this->vote];
 
         $this->realManager->expects($this->once())
             ->method('findVotesByComment')

@@ -77,7 +77,7 @@ class WebTestCase extends BaseWebTestCase
         return 'FOS\\CommentBundle\\Tests\\Functional\\AppKernel';
     }
 
-    protected static function createKernel(array $options = array())
+    protected static function createKernel(array $options = [])
     {
         $class = self::getKernelClass();
 

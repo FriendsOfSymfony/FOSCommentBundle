@@ -36,12 +36,12 @@ abstract class AbstractRoleAcl extends TestCase
 
     public function getRoles()
     {
-        return array(
-            array('create'),
-            array('view'),
-            array('edit'),
-            array('delete'),
-        );
+        return [
+            ['create'],
+            ['view'],
+            ['edit'],
+            ['delete'],
+        ];
     }
 
     /**

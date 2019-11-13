@@ -22,7 +22,7 @@ class CommentTest extends TestCase
 {
     public function testSetAncestorsAddsDepth()
     {
-        $ancestors = array(1, 5, 12, 14);
+        $ancestors = [1, 5, 12, 14];
         $comment = new Comment();
         $comment->setAncestors($ancestors);
 
@@ -31,7 +31,7 @@ class CommentTest extends TestCase
 
     public function testSetParentSetsAncestors()
     {
-        $ancestors = array('1', '5', '12');
+        $ancestors = ['1', '5', '12'];
         $parentId = '14';
 
         $parent = $this->getMockBuilder('FOS\CommentBundle\Entity\Comment')->getMock();
@@ -45,7 +45,7 @@ class CommentTest extends TestCase
         $comment = new Comment();
         $comment->setParent($parent);
 
-        $this->assertSame(array_merge($ancestors, array($parentId)), $comment->getAncestors());
+        $this->assertSame(array_merge($ancestors, [$parentId]), $comment->getAncestors());
     }
 
     /**
