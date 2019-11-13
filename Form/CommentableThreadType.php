@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\Form;
 
-use FOS\CommentBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -34,12 +34,9 @@ class CommentableThreadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('isCommentable', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\HiddenType'), array('property_path' => 'commentable'));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
+        $builder->add('isCommentable', HiddenType::class, [
+            'property_path' => 'commentable',
+        ]);
     }
 
     /**
@@ -58,10 +55,5 @@ class CommentableThreadType extends AbstractType
     public function getBlockPrefix()
     {
         return 'fos_comment_commentable_thread';
-    }
-
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }

@@ -11,6 +11,8 @@ fos_comment:
             vote: FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\Entity\Vote
 
 fos_rest:
+    service:
+        templating: twig
     format_listener:
         rules:
             - { path: '^/', priorities: ['json', 'html'], fallback_format: json }
