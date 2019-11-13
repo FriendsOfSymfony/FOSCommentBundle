@@ -11,11 +11,11 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\ThreadEvent;
 use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Abstract Thread Manager implementation which can be used as base class for your

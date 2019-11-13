@@ -13,13 +13,13 @@ namespace FOS\CommentBundle\Model;
 
 use FOS\CommentBundle\Event\CommentEvent;
 use FOS\CommentBundle\Event\CommentPersistEvent;
-use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Sorting\SortingFactory;
 use FOS\CommentBundle\Sorting\SortingInterface;
 use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Abstract Comment Manager implementation which can be used as base class for your

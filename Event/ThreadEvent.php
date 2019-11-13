@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Event;
 
 use FOS\CommentBundle\Model\ThreadInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * An event that occurs related to a thread.

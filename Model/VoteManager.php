@@ -11,12 +11,12 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Event\VotePersistEvent;
 use FOS\CommentBundle\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Abstract VotingManager.
