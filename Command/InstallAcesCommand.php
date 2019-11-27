@@ -86,7 +86,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($input->getOption('flush')) {
             $output->writeln('Flushing Global ACEs');
@@ -101,5 +101,7 @@ EOT
         $this->voteAcl->installFallbackAcl();
 
         $output->writeln('Global ACEs have been installed.');
+
+        return 0;
     }
 }
