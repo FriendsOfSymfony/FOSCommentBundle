@@ -17,8 +17,10 @@ matrix:
     include:
         - php: 7.1
           env: COMPOSER_FLAGS="--prefer-lowest"
-        - php: 7.1
+        - php: 7.3
           env: DEPENDENCIES="symfony/lts:^3"
+        - php: 7.3
+          env: DEPENDENCIES="symfony/lts:^4"
     fast_finish: true
 
 before_install:
