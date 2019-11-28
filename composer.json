@@ -40,7 +40,7 @@
         "twig/twig": "~2.0",
         "phpoption/phpoption": "~1.1",
         "doctrine/annotations": "~1.0",
-        "symfony/contracts": "^2.0"
+        "symfony/contracts": "^1.1"
     },
     "suggest": {
         "friendsofsymfony/user-bundle": "Allows for user integration.",
