@@ -27,11 +27,11 @@ use Twig\TwigTest;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentExtension extends AbstractExtension
+final class CommentExtension extends AbstractExtension
 {
-    protected $commentAcl;
-    protected $voteAcl;
-    protected $threadAcl;
+    private $commentAcl;
+    private $voteAcl;
+    private $threadAcl;
 
     public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
     {
