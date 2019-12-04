@@ -3,9 +3,17 @@ Changelog
 
 ### 3.0.0 (xxxx-xx-xx)
 
-* Dropped PHP 5 support.
+* Dropped PHP 5, 7.1 support.
+* Switched to short array syntax.
 * Dropped Symfony 2 support.
-* Marked form factories as final.
+* Dropped Symfony < 3.4 support.
+* Dropped Symfony < 4.3 support.
+* Removed `AbstractVote` fixture.
+* Removed legacy form helpers.
+* Add type hints and return types to several classes.
+* Marked form factories final.
+* Marked `CommentExtension` final.
+* Removed deprecated `CommentExtension::isCommentDeleted` method.
 
 ### 2.3.3 (2019-11-06)
 
