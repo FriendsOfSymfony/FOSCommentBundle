@@ -20,22 +20,22 @@ use Symfony\Component\Form\FormInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class VoteFormFactory implements VoteFormFactoryInterface
+final class VoteFormFactory implements VoteFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param FormFactoryInterface $formFactory

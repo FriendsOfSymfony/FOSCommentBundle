@@ -17,22 +17,22 @@ use Symfony\Component\Form\FormInterface;
 /**
  * CommentableThreadForm factory class.
  */
-class CommentableThreadFormFactory implements CommentableThreadFormFactoryInterface
+final class CommentableThreadFormFactory implements CommentableThreadFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param FormFactoryInterface $formFactory

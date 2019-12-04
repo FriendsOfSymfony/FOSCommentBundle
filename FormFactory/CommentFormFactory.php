@@ -20,22 +20,22 @@ use Symfony\Component\Form\FormInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Tim Nagel <tim@nagel.com.au>
  */
-class CommentFormFactory implements CommentFormFactoryInterface
+final class CommentFormFactory implements CommentFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param FormFactoryInterface $formFactory

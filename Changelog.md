@@ -5,6 +5,7 @@ Changelog
 
 * Dropped PHP 5 support.
 * Dropped Symfony 2 support.
+* Marked form factories as final.
 
 ### 2.3.3 (2019-11-06)
 
