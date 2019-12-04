@@ -17,22 +17,22 @@ use Symfony\Component\Form\FormInterface;
 /**
  * ThreadForm factory class.
  */
-class ThreadFormFactory implements ThreadFormFactoryInterface
+final class ThreadFormFactory implements ThreadFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param FormFactoryInterface $formFactory

@@ -17,22 +17,22 @@ use Symfony\Component\Form\FormInterface;
 /**
  * DeleteCommentFormFactory factory class.
  */
-class DeleteCommentFormFactory implements DeleteCommentFormFactoryInterface
+final class DeleteCommentFormFactory implements DeleteCommentFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param FormFactoryInterface $formFactory
