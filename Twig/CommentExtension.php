@@ -46,25 +46,10 @@ class CommentExtension extends AbstractExtension
     public function getTests()
     {
         return [
-            new TwigTest('fos_comment_deleted', [$this, 'isCommentDeleted']),
             new TwigTest('fos_comment_in_state', [$this, 'isCommentInState']),
             new TwigTest('fos_comment_votable', [$this, 'isVotable']),
             new TwigTest('fos_comment_raw', [$this, 'isRawComment']),
         ];
-    }
-
-    /**
-     * Check if the state of the comment is deleted.
-     *
-     * @param CommentInterface $comment
-     *
-     * @return bool
-     *
-     * @deprecated Use isCommentInState instead
-     */
-    public function isCommentDeleted(CommentInterface $comment)
-    {
-        return $this->isCommentInState($comment, $comment::STATE_DELETED);
     }
 
     /**
