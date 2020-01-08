@@ -64,6 +64,8 @@ class CommentExtension extends AbstractExtension
      */
     public function isCommentDeleted(CommentInterface $comment)
     {
+        @trigger_error('The "isCommentDeleted" method is deprecated since version 2.4 and will be removed in 3.0. Use "isCommentInState" instead.', E_USER_DEPRECATED);
+
         return $this->isCommentInState($comment, $comment::STATE_DELETED);
     }
 
