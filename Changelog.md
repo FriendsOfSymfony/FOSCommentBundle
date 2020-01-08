@@ -15,6 +15,10 @@ Changelog
 * Marked `CommentExtension` final.
 * Removed deprecated `CommentExtension::isCommentDeleted` method.
 
+### 2.4.0 (2020-01-08)
+
+* Deprecated the `CommentExtension::isCommentDeleted` method.
+
 ### 2.3.3 (2019-11-06)
 
 * Fix: use `Symfony\Contracts\EventDispatcher\Event` if available.
