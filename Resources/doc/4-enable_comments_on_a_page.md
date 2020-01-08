@@ -14,7 +14,7 @@ the page load.
 
 And the following code at a desired place in the template to load the comments:
 
-```
+```twig
 {% include '@FOSComment/Thread/async.html.twig' with {'id': 'foo'} %}
 ```
 
