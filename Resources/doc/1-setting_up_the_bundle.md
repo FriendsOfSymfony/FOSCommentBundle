@@ -27,17 +27,27 @@ public function registerBundles()
 }
 ```
 
-### C) Enable Http Method Override
+### C) Enable HTTP Method Override
 
-[Enable HTTP Method override as described here](http://symfony.com/doc/master/cookbook/routing/method_parameters.html#faking-the-method-with-method)
-
-As of symfony 2.3, you just have to modify your config.yml :
+[Enable HTTP Method override as described here](https://symfony.com/doc/current/reference/configuration/framework.html#http-method-override)
 
 ``` yaml
 # app/config/config.yml
 
 framework:
     http_method_override: true
+```
+
+Or
+
+
+``` php
+// public/index.php
+
+$kernel = new CacheKernel($kernel);
+
+Request::enableHttpMethodParameterOverride(); // <-- add this line
+$request = Request::createFromGlobals();
 ```
 
 ### D) Enable translations
