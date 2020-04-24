@@ -303,10 +303,13 @@
                         function(data) {
                             // Post it
                             var form = $($.trim(data)).children('form')[0];
+                            // Fix wrong _method used with the controler
+                            var serialized_form = FOS_COMMENT.serializeObject(form);
+                            serialized_form._method = 'patch';
 
                             FOS_COMMENT.post(
                                 form.action,
-                                FOS_COMMENT.serializeObject(form),
+                                serialized_form,
                                 function(data) {
                                     var commentHtml = $($.trim(data));
 
