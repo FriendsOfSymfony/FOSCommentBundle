@@ -18,7 +18,7 @@ final class Events
      * persisting the Comment.
      *
      * This event allows you to modify the data in the Comment prior
-     * to persisting occuring. The listener receives a
+     * to persisting occurring. The listener receives a
      * FOS\CommentBundle\Event\CommentPersistEvent instance.
      *
      * Persisting of the comment can be aborted by calling
@@ -57,7 +57,7 @@ final class Events
      * persisting the Thread.
      *
      * This event allows you to modify the data in the Thread prior
-     * to persisting occuring. The listener receives a
+     * to persisting occurring. The listener receives a
      * FOS\CommentBundle\Event\ThreadEvent instance.
      *
      * @var string
@@ -93,7 +93,7 @@ final class Events
      * persisting the Vote.
      *
      * This event allows you to modify the data in the Vote prior
-     * to persisting occuring. The listener receives a
+     * to persisting occurring. The listener receives a
      * FOS\CommentBundle\Event\VoteEvent instance.
      *
      * @var string

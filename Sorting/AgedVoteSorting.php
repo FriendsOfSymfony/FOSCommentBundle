@@ -23,7 +23,7 @@ class AgedVoteSorting extends AbstractOrderSorting
     /**
      * Compares the comments score divided by the number of days since the 1970.
      *
-     * The end result is a comment that is newer with tje same votes will be ranked
+     * The end result is a comment that is newer with the same votes will be ranked
      * higher.
      *
      * @param CommentInterface $a
