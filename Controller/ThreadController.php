@@ -153,7 +153,7 @@ class ThreadController extends AbstractController
     /**
      * Edits the thread.
      *
-     * @param Request $request Currenty request
+     * @param Request $request Currently request
      * @param mixed   $id      Thread id
      *
      * @return View
@@ -669,7 +669,7 @@ class ThreadController extends AbstractController
     }
 
     /**
-     * Action executed when a vote was succesfully created.
+     * Action executed when a vote was successfully created.
      *
      * @param FormInterface $form      Form with the error
      * @param string        $id        Id of the thread
