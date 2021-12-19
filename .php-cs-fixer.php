@@ -9,7 +9,7 @@ This source file is subject to the MIT license that is bundled
 with this source code in the file LICENSE.
 EOF;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
@@ -25,7 +25,6 @@ return PhpCsFixer\Config::create()
         'phpdoc_no_empty_return' => false,
         'no_superfluous_phpdoc_tags' => false,
     ])
-    ->setUsingCache(true)
     ->setRiskyAllowed(true)
     ->setFinder(
         PhpCsFixer\Finder::create()
