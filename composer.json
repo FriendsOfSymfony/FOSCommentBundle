@@ -20,7 +20,6 @@
         }
     ],
     "support": {
-        "irc": "irc://irc.freenode.org/symfony-dev",
         "issues": "https://github.com/FriendsOfSymfony/FOSCommentBundle/issues"
     },
     "require": {
