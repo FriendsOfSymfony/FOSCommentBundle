@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 4.0.0 (xxxx-xx-xx)
+
+* Dropped PHP 7.2 and 7.3 support.
+* Dropped Symfony 3.4 support.
+* Added Symfony 5.4 support.
+
 ### 3.0.0 (2020-01-08)
 
 * Dropped PHP 5, 7.1 support.
