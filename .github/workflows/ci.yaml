@@ -19,7 +19,6 @@ jobs:
 
       - name: Display tools versions
         run: |
-          composer-normalize --version
           php-cs-fixer --version
 
       - name: Check PHP code
