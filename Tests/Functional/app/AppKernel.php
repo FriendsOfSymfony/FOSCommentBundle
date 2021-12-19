@@ -87,20 +87,7 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->rootConfig);
-
-        if (Kernel::MAJOR_VERSION >= 4 && Kernel::MINOR_VERSION >= 1) {
-            $loader->load(__DIR__.'/config/twig.yml');
-        }
-    }
-
-    public function serialize()
-    {
-        return serialize([$this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug()]);
-    }
-
-    public function unserialize($str)
-    {
-        call_user_func_array([$this, '__construct'], unserialize($str));
+        $loader->load(__DIR__.'/config/twig.yml');
     }
 
     protected function getKernelParameters()
