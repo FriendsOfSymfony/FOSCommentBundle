@@ -29,6 +29,7 @@
         "jms/serializer-bundle": "~2.0|~3.0",
         "symfony/framework-bundle": "~3.4|^4.3",
         "symfony/asset": "~3.4|^4.3",
+        "symfony/console": "~3.4|^4.3",
         "symfony/dependency-injection": "~3.4|^4.3",
         "symfony/routing": "~3.4|^4.3",
         "symfony/security-bundle": "~3.4|^4.3",
