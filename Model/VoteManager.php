@@ -43,7 +43,7 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * Finds a vote by id.
      *
-     * @param  $id
+     * @param $id
      *
      * @return VoteInterface
      */

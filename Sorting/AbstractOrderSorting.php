@@ -21,8 +21,8 @@ use InvalidArgumentException;
  */
 abstract class AbstractOrderSorting implements SortingInterface
 {
-    const ASC = 'ASC';
-    const DESC = 'DESC';
+    public const ASC = 'ASC';
+    public const DESC = 'DESC';
 
     private $order;
 
