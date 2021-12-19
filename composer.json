@@ -58,7 +58,7 @@
         "symfony/expression-language": "~3.4|^4.3",
         "symfony/phpunit-bridge": "~3.4|^4.3",
         "phpunit/phpunit": "^6.5",
-        "friendsofphp/php-cs-fixer": "^2.2"
+        "friendsofphp/php-cs-fixer": "^3.4"
     },
     "extra": {
         "branch-alias": {
