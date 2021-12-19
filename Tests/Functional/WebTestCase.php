@@ -12,7 +12,6 @@
 namespace FOS\CommentBundle\Tests\Functional;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use FOS\CommentBundle\Tests\Functional\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
 /**
@@ -76,16 +75,6 @@ class WebTestCase extends BaseWebTestCase
         require_once __DIR__.'/app/AppKernel.php';
 
         return AppKernel::class;
-    }
-
-    public function serialize()
-    {
-        return serialize([$this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug()]);
-    }
-
-    public function unserialize($str)
-    {
-        call_user_func_array([$this, '__construct'], unserialize($str));
     }
 
     protected static function createKernel(array $options = [])

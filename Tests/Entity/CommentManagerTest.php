@@ -11,8 +11,8 @@
 
 namespace FOS\CommentBundle\Tests\Entity;
 
-use InvalidArgumentException;
 use FOS\CommentBundle\Entity\CommentManager;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
