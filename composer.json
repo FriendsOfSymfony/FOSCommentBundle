@@ -53,7 +53,7 @@
         "symfony/css-selector": "^4.4|^5.4",
         "doctrine/orm": "~2.10",
         "doctrine/doctrine-bundle": "^2.0",
-        "friendsofsymfony/user-bundle": "3.0@dev",
+        "friendsofsymfony/user-bundle": "^3.0@dev",
         "ornicar/akismet-bundle": "dev-master",
         "symfony/expression-language": "^4.4|^5.4",
         "symfony/phpunit-bridge": "^4.4|^5.4",
