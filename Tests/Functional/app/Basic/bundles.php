@@ -20,7 +20,7 @@ return [
     new FOS\RestBundle\FOSRestBundle(),
     new FOS\CommentBundle\FOSCommentBundle(),
 
-    new JMS\SerializerBundle\JMSSerializerBundle($this),
+    new JMS\SerializerBundle\JMSSerializerBundle(),
 
     new FOS\CommentBundle\Tests\Functional\Bundle\CommentBundle\CommentBundle(),
 ];
