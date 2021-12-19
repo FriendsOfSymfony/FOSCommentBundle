@@ -23,13 +23,6 @@ PHPUnit will use phpunit.xml.dist provided by `FOSCommentBundle`. You can
 customise the test run by copying `phpunit.xml.dist` to `phpunit.xml` and making
 your modifications.
 
-Travis CI
----------
-
-FOSCommentBundle uses Travis-CI and provides set up in the `.travis.yml` file. You
-can enable Travis CI on your fork to get build notifications on any branch you
-create for a pull request.
-
 
 ## That is it!
 [Return to the index.](index.md)

@@ -1,0 +1,66 @@
+name: CI
+
+on: ['push', 'pull_request']
+
+jobs:
+  cs:
+    runs-on: ubuntu-latest
+    name: Coding style
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: json, mbstring
+          tools: composer, php-cs-fixer
+
+      - name: Display tools versions
+        run: |
+          composer-normalize --version
+          php-cs-fixer --version
+
+      - name: Check PHP code
+        run: php-cs-fixer fix --dry-run --diff --ansi
+
+  phpunit:
+    name: PHPUnit (PHP ${{ matrix.php }} + ${{ matrix.symfony-version}})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SYMFONY_REQUIRE: "${{ matrix.symfony_require }}"
+    strategy:
+      matrix:
+        include:
+          - php: '7.4'
+            dependencies: 'lowest'
+            symfony_require: '3.4.*'
+          - php: '7.4'
+            dependencies: 'highest'
+            symfony_require: '4.4.*'
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php }}"
+          tools: pecl, composer
+          extensions: curl, json, mbstring, openssl
+
+      - name: Globally install symfony/flex
+        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
+
+      - name: Install Composer dependencies (${{ matrix.dependencies }})
+        uses: ramsey/composer-install@v1
+        with:
+            dependency-versions: "${{ matrix.dependencies }}"
+            composer-options: "--prefer-dist --prefer-stable"
+
+      - name: Run unit tests
+        run: |
+          vendor/bin/phpunit
