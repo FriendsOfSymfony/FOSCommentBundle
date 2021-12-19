@@ -3,5 +3,5 @@ _commenttest:
 
 FOSComentBundle:
     resource: "@FOSCommentBundle/Resources/config/routing.yml"
-    type: rest
+    type: annotation
     prefix: /comment_api

@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclVoteManager;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Tests the functionality provided by Acl\AclVoteManager.
@@ -27,7 +28,7 @@ class AclVoteManagerTest extends TestCase
     protected $vote;
     protected $comment;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\VoteManagerInterface')->getMock();
         $this->voteSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\VoteAclInterface')->getMock();
@@ -39,11 +40,10 @@ class AclVoteManagerTest extends TestCase
             ->will($this->returnValue($this->comment));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindVoteById()
     {
+        self::expectException(AccessDeniedException::class);
+
         $id = 1;
         $expectedResult = $this->vote;
 
@@ -82,11 +82,10 @@ class AclVoteManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindVoteBy()
     {
+        self::expectException(AccessDeniedException::class);
+
         $conditions = ['id' => 1];
         $expectedResult = $this->vote;
 
@@ -125,11 +124,10 @@ class AclVoteManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindVotesByComment()
     {
+        self::expectException(AccessDeniedException::class);
+
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
         $expectedResult = [$this->vote];
 
@@ -168,11 +166,10 @@ class AclVoteManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testAddVoteNoCreate()
     {
+        self::expectException(AccessDeniedException::class);
+
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $this->realManager->expects($this->never())
@@ -186,11 +183,10 @@ class AclVoteManagerTest extends TestCase
         $manager->saveVote($this->vote, $comment);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testAddVoteNoViewComment()
     {
+        self::expectException(AccessDeniedException::class);
+
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\VotableCommentInterface')->getMock();
 
         $this->realManager->expects($this->never())

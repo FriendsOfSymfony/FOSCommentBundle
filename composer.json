@@ -57,7 +57,7 @@
         "ornicar/akismet-bundle": "dev-master",
         "symfony/expression-language": "^4.4|^5.4",
         "symfony/phpunit-bridge": "^4.4|^5.4",
-        "phpunit/phpunit": "^6.5",
+        "phpunit/phpunit": "^9.5",
         "friendsofphp/php-cs-fixer": "^3.4"
     },
     "extra": {

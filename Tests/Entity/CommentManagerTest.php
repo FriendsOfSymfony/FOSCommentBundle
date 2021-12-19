@@ -11,6 +11,7 @@
 
 namespace FOS\CommentBundle\Tests\Entity;
 
+use InvalidArgumentException;
 use FOS\CommentBundle\Entity\CommentManager;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +29,7 @@ class CommentManagerTest extends TestCase
     protected $classMetadata;
     protected $dispatcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Doctrine\\ORM\\EntityManager')) {
             $this->markTestSkipped('Doctrine ORM not installed');
@@ -71,11 +72,10 @@ class CommentManagerTest extends TestCase
         $commentManager->findCommentById($commentId);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSaveCommentNoThread()
     {
+        self::expectException(InvalidArgumentException::class);
+
         $comment = $this->getMockBuilder('FOS\CommentBundle\Model\CommentInterface')->getMock();
         $comment->expects($this->once())
             ->method('getThread')

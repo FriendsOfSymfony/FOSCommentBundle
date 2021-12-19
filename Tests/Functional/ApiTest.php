@@ -19,7 +19,7 @@ namespace FOS\CommentBundle\Tests\Functional;
  */
 class ApiTest extends WebTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = self::createClient([
             'test_case' => 'Basic',
