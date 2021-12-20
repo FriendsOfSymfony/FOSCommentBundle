@@ -142,7 +142,7 @@ class ApiTest extends WebTestCase
         $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/1");
         $crawler = $this->client->followRedirect();
 
-        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->text());
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->text(null, false));
 
         return $id;
     }
@@ -178,7 +178,7 @@ class ApiTest extends WebTestCase
         $this->assertRedirect($this->client->getResponse(), "/comment_api/threads/{$id}/comments/2");
         $crawler = $this->client->followRedirect();
 
-        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_body')->text());
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_body')->text(null, false));
 
         return $id;
     }
@@ -196,7 +196,7 @@ class ApiTest extends WebTestCase
         $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html");
 
         $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
-        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show .fos_comment_comment_depth_1 .fos_comment_comment_body')->first()->text());
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show .fos_comment_comment_depth_1 .fos_comment_comment_body')->first()->text(null, false));
     }
 
     /**
@@ -212,8 +212,8 @@ class ApiTest extends WebTestCase
         $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?displayDepth=0");
 
         $this->assertCount(1, $crawler->filter('.fos_comment_comment_body'));
-        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->first()->text());
-        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->last()->text());
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->first()->text(null, false));
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_body')->last()->text(null, false));
     }
 
     /**
@@ -229,8 +229,8 @@ class ApiTest extends WebTestCase
         $crawler = $this->client->request('GET', "/comment_api/threads/{$id}/comments.html?view=flat");
 
         $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
-        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
-        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(null, false));
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(null, false));
     }
 
     /**
@@ -248,17 +248,17 @@ class ApiTest extends WebTestCase
 
         $this->assertCount(2, $crawler->filter('.fos_comment_comment_body'));
         $this->assertCount(2, $crawler2->filter('.fos_comment_comment_body'));
-        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text());
-        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text());
+        $this->assertContains('Test Reply Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(null, false));
+        $this->assertContains('Test Comment', $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(null, false));
 
         $this->assertSame(
-            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(),
-            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text()
+            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(null, false),
+            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(null, false)
         );
 
         $this->assertSame(
-            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(),
-            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text()
+            $crawler->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->last()->text(null, false),
+            $crawler2->filter('.fos_comment_comment_show.fos_comment_comment_depth_0 .fos_comment_comment_body')->first()->text(null, false)
         );
     }
 }
