@@ -14,12 +14,12 @@ namespace FOS\CommentBundle\Controller;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\RestBundle\View\View;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Restful controller for the Threads.
@@ -41,8 +41,13 @@ class ThreadController extends AbstractController
         $form = $this->container->get('fos_comment.form_factory.thread')->createForm();
 
         $view = View::create()
-            ->setData(['form' => $form->createView()])
-            ->setTemplate('@FOSComment/Thread/new.html.twig');
+            ->setData([
+                'data' => [
+                    'form' => $form->createView(),
+                ],
+                'template' => '@FOSComment/Thread/new.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -144,8 +149,15 @@ class ThreadController extends AbstractController
         $form->setData($thread);
 
         $view = View::create()
-            ->setData(['form' => $form, 'id' => $id, 'isCommentable' => $thread->isCommentable()])
-            ->setTemplate('@FOSComment/Thread/commentable.html.twig');
+            ->setData([
+                'data' => [
+                    'form' => $form,
+                    'id' => $id,
+                    'isCommentable' => $thread->isCommentable(),
+                ],
+                'template' => '@FOSComment/Thread/commentable.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -204,13 +216,16 @@ class ThreadController extends AbstractController
 
         $view = View::create()
             ->setData([
-                'form' => $form->createView(),
-                'first' => 0 === $thread->getNumComments(),
-                'thread' => $thread,
-                'parent' => $parent,
-                'id' => $id,
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_new.html.twig');
+                'data' => [
+                    'form' => $form->createView(),
+                    'first' => 0 === $thread->getNumComments(),
+                    'thread' => $thread,
+                    'parent' => $parent,
+                    'id' => $id,
+                ],
+                'template' => '@FOSComment/Thread/comment_new.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -239,8 +254,16 @@ class ThreadController extends AbstractController
         }
 
         $view = View::create()
-            ->setData(['comment' => $comment, 'thread' => $thread, 'parent' => $parent, 'depth' => $comment->getDepth()])
-            ->setTemplate('@FOSComment/Thread/comment.html.twig');
+            ->setData([
+                'data' => [
+                    'comment' => $comment,
+                    'thread' => $thread,
+                    'parent' => $parent,
+                    'depth' => $comment->getDepth(),
+                ],
+                'template' => '@FOSComment/Thread/comment.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -269,8 +292,15 @@ class ThreadController extends AbstractController
         $form->setData($comment);
 
         $view = View::create()
-            ->setData(['form' => $form, 'id' => $id, 'commentId' => $commentId])
-            ->setTemplate('@FOSComment/Thread/comment_remove.html.twig');
+            ->setData([
+                'data' => [
+                    'form' => $form,
+                    'id' => $id,
+                    'commentId' => $commentId,
+                ],
+                'template' => '@FOSComment/Thread/comment_remove.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -329,10 +359,13 @@ class ThreadController extends AbstractController
 
         $view = View::create()
             ->setData([
-                'form' => $form->createView(),
-                'comment' => $comment,
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_edit.html.twig');
+                'data' => [
+                    'form' => $form->createView(),
+                    'comment' => $comment,
+                ],
+                'template' => '@FOSComment/Thread/comment_edit.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -400,8 +433,13 @@ class ThreadController extends AbstractController
             if (count($errors) > 0) {
                 $view = View::create()
                     ->setStatusCode(Response::HTTP_BAD_REQUEST)
-                    ->setData(['errors' => $errors])
-                    ->setTemplate('@FOSComment/Thread/errors.html.twig');
+                    ->setData([
+                        'data' => [
+                            'errors' => $errors,
+                        ],
+                        'template' => '@FOSComment/Thread/errors.html.twig',
+                    ]
+                );
 
                 return $this->getViewHandler()->handle($view);
             }
@@ -433,18 +471,24 @@ class ThreadController extends AbstractController
 
         $view = View::create()
             ->setData([
-                'comments' => $comments,
-                'displayDepth' => $displayDepth,
-                'sorter' => 'date',
-                'thread' => $thread,
-                'view' => $viewMode,
-            ])
-            ->setTemplate('@FOSComment/Thread/comments.html.twig');
+                'data' => [
+                    'comments' => $comments,
+                    'displayDepth' => $displayDepth,
+                    'sorter' => 'date',
+                    'thread' => $thread,
+                    'view' => $viewMode,
+                ],
+                'template' => '@FOSComment/Thread/comments.html.twig',
+            ]
+        );
 
         // Register a special handler for RSS. Only available on this route.
         if ('rss' === $request->getRequestFormat()) {
             $templatingHandler = function ($handler, $view, $request) {
-                $view->setTemplate('@FOSComment/Thread/thread_xml_feed.html.twig');
+                $data = $view->getData();
+                $data['template'] = '@FOSComment/Thread/thread_xml_feed.html.twig';
+
+                $view->setData($data);
 
                 return new Response($handler->renderTemplate($view, 'rss'), Response::HTTP_OK, $view->getHeaders());
             };
@@ -512,9 +556,12 @@ class ThreadController extends AbstractController
 
         $view = View::create()
             ->setData([
-                'commentScore' => $comment->getScore(),
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_votes.html.twig');
+                'data' => [
+                    'commentScore' => $comment->getScore(),
+                ],
+                'template' => '@FOSComment/Thread/comment_votes.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -545,11 +592,14 @@ class ThreadController extends AbstractController
 
         $view = View::create()
             ->setData([
-                'id' => $id,
-                'commentId' => $commentId,
-                'form' => $form->createView(),
-            ])
-            ->setTemplate('@FOSComment/Thread/vote_new.html.twig');
+                'data' => [
+                    'id' => $id,
+                    'commentId' => $commentId,
+                    'form' => $form->createView(),
+                ],
+                'template' => '@FOSComment/Thread/vote_new.html.twig',
+            ]
+        );
 
         return $this->getViewHandler()->handle($view);
     }
@@ -616,11 +666,14 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'form' => $form,
-                'id' => $id,
-                'parent' => $parent,
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_new.html.twig');
+                'data' => [
+                    'form' => $form,
+                    'id' => $id,
+                    'parent' => $parent,
+                ],
+                'template' => '@FOSComment/Thread/comment_new.html.twig',
+            ]
+        );
 
         return $view;
     }
@@ -649,9 +702,12 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'form' => $form,
-            ])
-            ->setTemplate('@FOSComment/Thread/new.html.twig');
+                'data' => [
+                    'form' => $form,
+                ],
+                'template' => '@FOSComment/Thread/new.html.twig',
+            ]
+        );
 
         return $view;
     }
@@ -698,11 +754,14 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'id' => $id,
-                'commentId' => $commentId,
-                'form' => $form,
-            ])
-            ->setTemplate('@FOSComment/Thread/vote_new.html.twig');
+                'data' => [
+                    'id' => $id,
+                    'commentId' => $commentId,
+                    'form' => $form,
+                ],
+                'template' => '@FOSComment/Thread/vote_new.html.twig',
+            ]
+        );
 
         return $view;
     }
@@ -733,10 +792,13 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'form' => $form,
-                'comment' => $form->getData(),
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_edit.html.twig');
+                'data' => [
+                    'form' => $form,
+                    'comment' => $form->getData(),
+                ],
+                'template' => '@FOSComment/Thread/comment_edit.html.twig',
+            ]
+        );
 
         return $view;
     }
@@ -765,11 +827,14 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'form' => $form,
-                'id' => $form->getData()->getId(),
-                'isCommentable' => $form->getData()->isCommentable(),
-            ])
-            ->setTemplate('@FOSComment/Thread/commentable.html.twig');
+                'data' => [
+                    'form' => $form,
+                    'id' => $form->getData()->getId(),
+                    'isCommentable' => $form->getData()->isCommentable(),
+                ],
+                'template' => '@FOSComment/Thread/commentable.html.twig',
+            ]
+        );
 
         return $view;
     }
@@ -800,12 +865,15 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
-                'form' => $form,
-                'id' => $id,
-                'commentId' => $form->getData()->getId(),
-                'value' => $form->getData()->getState(),
-            ])
-            ->setTemplate('@FOSComment/Thread/comment_remove.html.twig');
+                'data' => [
+                    'form' => $form,
+                    'id' => $id,
+                    'commentId' => $form->getData()->getId(),
+                    'value' => $form->getData()->getState(),
+                ],
+                'template' => '@FOSComment/Thread/comment_remove.html.twig',
+            ]
+        );
 
         return $view;
     }

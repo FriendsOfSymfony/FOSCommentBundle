@@ -20,12 +20,11 @@
         }
     ],
     "support": {
-        "irc": "irc://irc.freenode.org/symfony-dev",
         "issues": "https://github.com/FriendsOfSymfony/FOSCommentBundle/issues"
     },
     "require": {
         "php": "^7.2",
-        "friendsofsymfony/rest-bundle": "~2.6",
+        "friendsofsymfony/rest-bundle": "~2.8",
         "jms/serializer-bundle": "~2.0|~3.0",
         "symfony/framework-bundle": "~3.4|^4.3",
         "symfony/asset": "~3.4|^4.3",
@@ -52,7 +51,7 @@
         "symfony/dom-crawler": "~3.4|^4.3",
         "symfony/css-selector": "~3.4|^4.3",
         "doctrine/orm": "~2.3",
-        "doctrine/doctrine-bundle": "~1.6",
+        "doctrine/doctrine-bundle": "^1.6|^2.0",
         "friendsofsymfony/user-bundle": "~2.0",
         "ornicar/akismet-bundle": "dev-master",
         "symfony/expression-language": "~3.4|^4.3",
