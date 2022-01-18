@@ -28,8 +28,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ThreadController extends AbstractController
 {
-    const VIEW_FLAT = 'flat';
-    const VIEW_TREE = 'tree';
+    public const VIEW_FLAT = 'flat';
+    public const VIEW_TREE = 'tree';
 
     /**
      * Presents the form to use to create a new Thread.
@@ -76,8 +76,6 @@ class ThreadController extends AbstractController
 
     /**
      * Gets the threads for the specified ids.
-     *
-     * @param Request $request
      *
      * @return View
      */
@@ -195,8 +193,7 @@ class ThreadController extends AbstractController
     /**
      * Presents the form to use to create a new Comment for a Thread.
      *
-     * @param Request $request
-     * @param string  $id
+     * @param string $id
      *
      * @return View
      */
@@ -681,8 +678,6 @@ class ThreadController extends AbstractController
     /**
      * Forwards the action to the thread view on a successful form submission.
      *
-     * @param FormInterface $form
-     *
      * @return View
      */
     protected function onCreateThreadSuccess(FormInterface $form)
@@ -692,8 +687,6 @@ class ThreadController extends AbstractController
 
     /**
      * Returns a HTTP_BAD_REQUEST response when the form submission fails.
-     *
-     * @param FormInterface $form
      *
      * @return View
      */
@@ -714,8 +707,6 @@ class ThreadController extends AbstractController
 
     /**
      * Returns a HTTP_BAD_REQUEST response when the Thread creation fails due to a duplicate id.
-     *
-     * @param FormInterface $form
      *
      * @return View
      */
@@ -806,8 +797,6 @@ class ThreadController extends AbstractController
     /**
      * Forwards the action to the open thread edit view on a successful form submission.
      *
-     * @param FormInterface $form
-     *
      * @return View
      */
     protected function onOpenThreadSuccess(FormInterface $form)
@@ -817,8 +806,6 @@ class ThreadController extends AbstractController
 
     /**
      * Returns a HTTP_BAD_REQUEST response when the form submission fails.
-     *
-     * @param FormInterface $form
      *
      * @return View
      */

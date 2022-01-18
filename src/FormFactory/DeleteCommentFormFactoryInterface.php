@@ -20,8 +20,6 @@ interface DeleteCommentFormFactoryInterface
 {
     /**
      * Creates a delete comment form.
-     *
-     * @return FormInterface
      */
     public function createForm(): FormInterface;
 }

@@ -43,10 +43,7 @@ class CommentManager extends BaseCommentManager
     /**
      * Constructor.
      *
-     * @param EventDispatcherInterface $dispatcher
-     * @param SortingFactory           $factory
-     * @param DocumentManager          $dm
-     * @param string                   $class
+     * @param string $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, $class)
     {

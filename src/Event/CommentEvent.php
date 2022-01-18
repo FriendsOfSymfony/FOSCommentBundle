@@ -24,8 +24,6 @@ class CommentEvent extends Event
 
     /**
      * Constructs an event.
-     *
-     * @param \FOS\CommentBundle\Model\CommentInterface $comment
      */
     public function __construct(CommentInterface $comment)
     {

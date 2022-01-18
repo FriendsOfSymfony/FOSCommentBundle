@@ -144,7 +144,6 @@ abstract class CommentManager implements CommentManagerInterface
     }
 
     /**
-     * @param Event  $event
      * @param string $eventName
      */
     protected function dispatch(Event $event, $eventName)
@@ -161,8 +160,6 @@ abstract class CommentManager implements CommentManagerInterface
 
     /**
      * Performs the persistence of a comment.
-     *
-     * @param CommentInterface $comment
      */
     abstract protected function doSaveComment(CommentInterface $comment);
 }

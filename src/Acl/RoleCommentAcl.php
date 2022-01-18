@@ -64,12 +64,11 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param string                        $createRole
-     * @param string                        $viewRole
-     * @param string                        $editRole
-     * @param string                        $deleteRole
-     * @param string                        $commentClass
+     * @param string $createRole
+     * @param string $viewRole
+     * @param string $editRole
+     * @param string $deleteRole
+     * @param string $commentClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 $createRole,
@@ -99,8 +98,6 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canView(CommentInterface $comment)
@@ -110,8 +107,6 @@ class RoleCommentAcl implements CommentAclInterface
 
     /**
      * Checks if the Security token is allowed to reply to a parent comment.
-     *
-     * @param CommentInterface|null $parent
      *
      * @return bool
      */
@@ -127,8 +122,6 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canEdit(CommentInterface $comment)
@@ -139,8 +132,6 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canDelete(CommentInterface $comment)
@@ -150,8 +141,6 @@ class RoleCommentAcl implements CommentAclInterface
 
     /**
      * Role based Acl does not require setup.
-     *
-     * @param CommentInterface $comment
      *
      * @return void
      */

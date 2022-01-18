@@ -21,8 +21,8 @@ use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionCont
  */
 interface VoteInterface
 {
-    const VOTE_UP = 1;
-    const VOTE_DOWN = -1;
+    public const VOTE_UP = 1;
+    public const VOTE_DOWN = -1;
 
     /**
      * @return mixed unique ID for this vote
@@ -34,9 +34,6 @@ interface VoteInterface
      */
     public function getComment();
 
-    /**
-     * @param VotableCommentInterface $comment
-     */
     public function setComment(VotableCommentInterface $comment);
 
     /**

@@ -24,8 +24,6 @@ class ThreadEvent extends Event
 
     /**
      * Constructs an event.
-     *
-     * @param \FOS\CommentBundle\Model\ThreadInterface $thread
      */
     public function __construct(ThreadInterface $thread)
     {

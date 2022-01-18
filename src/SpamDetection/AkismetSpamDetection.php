@@ -26,9 +26,6 @@ class AkismetSpamDetection implements SpamDetectionInterface
      */
     protected $akismet;
 
-    /**
-     * @param AkismetInterface $akismet
-     */
     public function __construct(AkismetInterface $akismet)
     {
         $this->akismet = $akismet;
@@ -44,8 +41,6 @@ class AkismetSpamDetection implements SpamDetectionInterface
 
     /**
      * Compiles comment data into a format Akismet accepts.
-     *
-     * @param CommentInterface $comment
      *
      * @return array
      */

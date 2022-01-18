@@ -30,8 +30,6 @@ class Tree
 
     /**
      * Constructor.
-     *
-     * @param CommentInterface|null $comment
      */
     public function __construct(CommentInterface $comment = null)
     {
@@ -40,8 +38,6 @@ class Tree
 
     /**
      * Adds a comment as a child of this node.
-     *
-     * @param CommentInterface $comment
      *
      * @return void
      */

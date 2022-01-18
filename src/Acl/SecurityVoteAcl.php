@@ -66,10 +66,7 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface            $authorizationChecker
-     * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
-     * @param MutableAclProviderInterface              $aclProvider
-     * @param string                                   $voteClass
+     * @param string $voteClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
@@ -96,8 +93,6 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Vote.
      *
-     * @param VoteInterface $vote
-     *
      * @return bool
      */
     public function canView(VoteInterface $vote)
@@ -107,8 +102,6 @@ class SecurityVoteAcl implements VoteAclInterface
 
     /**
      * Checks if the Security token is allowed to edit the specified Vote.
-     *
-     * @param VoteInterface $vote
      *
      * @return bool
      */
@@ -120,8 +113,6 @@ class SecurityVoteAcl implements VoteAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Vote.
      *
-     * @param VoteInterface $vote
-     *
      * @return bool
      */
     public function canDelete(VoteInterface $vote)
@@ -131,8 +122,6 @@ class SecurityVoteAcl implements VoteAclInterface
 
     /**
      * Sets the default object Acl entry for the supplied Vote.
-     *
-     * @param VoteInterface $vote
      *
      * @return void
      */
@@ -191,9 +180,6 @@ class SecurityVoteAcl implements VoteAclInterface
      * Override this method in a subclass to change what permissions are defined.
      * Once this method has been overridden you need to run the
      * `fos_vote:installAces --flush` command
-     *
-     * @param AclInterface $acl
-     * @param MaskBuilder  $builder
      *
      * @return void
      */

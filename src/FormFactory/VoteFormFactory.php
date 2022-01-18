@@ -37,11 +37,6 @@ final class VoteFormFactory implements VoteFormFactoryInterface
      */
     private $name;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param string               $type
-     * @param string               $name
-     */
     public function __construct(FormFactoryInterface $formFactory, string $type, string $name)
     {
         $this->formFactory = $formFactory;

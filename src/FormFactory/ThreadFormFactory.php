@@ -34,11 +34,6 @@ final class ThreadFormFactory implements ThreadFormFactoryInterface
      */
     private $name;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param string               $type
-     * @param string               $name
-     */
     public function __construct(FormFactoryInterface $formFactory, string $type, string $name)
     {
         $this->formFactory = $formFactory;

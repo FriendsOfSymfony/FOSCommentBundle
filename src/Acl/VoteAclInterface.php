@@ -31,8 +31,6 @@ interface VoteAclInterface
     /**
      * Checks if the user should be allowed to view a vote.
      *
-     * @param VoteInterface $vote
-     *
      * @return bool
      */
     public function canView(VoteInterface $vote);
@@ -40,16 +38,12 @@ interface VoteAclInterface
     /**
      * Checks if the user should be allowed to edit a vote.
      *
-     * @param VoteInterface $vote
-     *
      * @return bool
      */
     public function canEdit(VoteInterface $vote);
 
     /**
      * Checks if the user should be allowed to delete a vote.
-     *
-     * @param VoteInterface $vote
      *
      * @return bool
      */
@@ -60,8 +54,6 @@ interface VoteAclInterface
      *
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
-     *
-     * @param VoteInterface $vote
      *
      * @return void
      */

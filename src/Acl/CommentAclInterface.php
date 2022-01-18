@@ -31,8 +31,6 @@ interface CommentAclInterface
     /**
      * Checks if the user should be able to view a comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canView(CommentInterface $comment);
@@ -41,8 +39,6 @@ interface CommentAclInterface
      * Checks if the user can reply to the supplied 'parent' comment
      * or if not supplied, just the ability to reply.
      *
-     * @param CommentInterface|null $parent
-     *
      * @return bool
      */
     public function canReply(CommentInterface $parent = null);
@@ -50,16 +46,12 @@ interface CommentAclInterface
     /**
      * Checks if the user should be able to edit a comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canEdit(CommentInterface $comment);
 
     /**
      * Checks if the user should be able to delete a comment.
-     *
-     * @param CommentInterface $comment
      *
      * @return bool
      */
@@ -70,8 +62,6 @@ interface CommentAclInterface
      *
      * Note: this does not remove any existing Acl and should only
      * be called on new CommentInterface instances.
-     *
-     * @param CommentInterface $comment
      *
      * @return void
      */

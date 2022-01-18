@@ -64,12 +64,11 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param string                        $createRole
-     * @param string                        $viewRole
-     * @param string                        $editRole
-     * @param string                        $deleteRole
-     * @param string                        $threadClass
+     * @param string $createRole
+     * @param string $viewRole
+     * @param string $editRole
+     * @param string $deleteRole
+     * @param string $threadClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 $createRole,
@@ -99,8 +98,6 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canView(ThreadInterface $thread)
@@ -110,8 +107,6 @@ class RoleThreadAcl implements ThreadAclInterface
 
     /**
      * Checks if the Security token has an appropriate role to edit the supplied Thread.
-     *
-     * @param ThreadInterface $thread
      *
      * @return bool
      */
@@ -123,8 +118,6 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete a specific Thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canDelete(ThreadInterface $thread)
@@ -134,8 +127,6 @@ class RoleThreadAcl implements ThreadAclInterface
 
     /**
      * Role based Acl does not require setup.
-     *
-     * @param ThreadInterface $thread
      *
      * @return void
      */

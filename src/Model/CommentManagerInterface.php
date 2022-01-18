@@ -29,9 +29,8 @@ interface CommentManagerInterface
      * The sorter parameter should be left alone if you are sorting in the
      * tree methods.
      *
-     * @param ThreadInterface $thread
-     * @param int|null        $depth
-     * @param string|null     $sorterAlias
+     * @param int|null    $depth
+     * @param string|null $sorterAlias
      *
      * @return CommentInterface[] An array of commentInterfaces
      */
@@ -81,8 +80,6 @@ interface CommentManagerInterface
 
     /**
      * Saves a comment to the persistence backend used.
-     *
-     * @param CommentInterface $comment
      */
     public function saveComment(CommentInterface $comment);
 
@@ -107,8 +104,6 @@ interface CommentManagerInterface
 
     /**
      * Checks if the comment was already persisted before, or if it's a new one.
-     *
-     * @param CommentInterface $comment
      *
      * @return bool true if it's a new comment, false otherwise
      */

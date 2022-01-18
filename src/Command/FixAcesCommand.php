@@ -72,15 +72,6 @@ class FixAcesCommand extends Command
      */
     private $voteManager;
 
-    /**
-     * @param AclProviderInterface    $provider
-     * @param CommentAclInterface     $commentAcl
-     * @param CommentManagerInterface $commentManager
-     * @param ThreadAclInterface      $threadAcl
-     * @param ThreadManagerInterface  $threadManager
-     * @param VoteAclInterface        $voteAcl
-     * @param VoteManagerInterface    $voteManager
-     */
     public function __construct(
         AclProviderInterface $provider,
         CommentAclInterface $commentAcl,

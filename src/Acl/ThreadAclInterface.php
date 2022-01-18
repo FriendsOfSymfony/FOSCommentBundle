@@ -31,8 +31,6 @@ interface ThreadAclInterface
     /**
      * Checks if the user should be allowed to view a thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canView(ThreadInterface $thread);
@@ -40,16 +38,12 @@ interface ThreadAclInterface
     /**
      * Checks if the user should be allowed to edit a thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canEdit(ThreadInterface $thread);
 
     /**
      * Checks if the user should be allowed to delete a thread.
-     *
-     * @param ThreadInterface $thread
      *
      * @return bool
      */
@@ -60,8 +54,6 @@ interface ThreadAclInterface
      *
      * Note: this does not remove any existing Acl and should only
      * be called on new ThreadInterface instances.
-     *
-     * @param ThreadInterface $thread
      *
      * @return void
      */

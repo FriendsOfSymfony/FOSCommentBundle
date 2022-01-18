@@ -130,8 +130,6 @@ abstract class Vote implements VoteInterface
     /**
      * Sets the comment this vote belongs to.
      *
-     * @param VotableCommentInterface $comment
-     *
      * @return void
      */
     public function setComment(VotableCommentInterface $comment)

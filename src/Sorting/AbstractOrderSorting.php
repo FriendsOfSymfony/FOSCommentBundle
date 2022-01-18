@@ -21,8 +21,8 @@ use InvalidArgumentException;
  */
 abstract class AbstractOrderSorting implements SortingInterface
 {
-    const ASC = 'ASC';
-    const DESC = 'DESC';
+    public const ASC = 'ASC';
+    public const DESC = 'DESC';
 
     private $order;
 
@@ -44,8 +44,6 @@ abstract class AbstractOrderSorting implements SortingInterface
      *        'comment' => CommentInterface $comment,
      *        'children' => array ( .. )
      *    )
-     *
-     * @param array $tree
      *
      * @return array
      */
@@ -82,8 +80,6 @@ abstract class AbstractOrderSorting implements SortingInterface
     /**
      * Sorts a flat array of comments.
      *
-     * @param array $comments
-     *
      * @return array
      */
     public function sortFlat(array $comments)
@@ -112,9 +108,6 @@ abstract class AbstractOrderSorting implements SortingInterface
 
     /**
      * Compares 2 comments. Implement this to create custom sorting options.
-     *
-     * @param CommentInterface $a
-     * @param CommentInterface $b
      *
      * @return -1|0|1 As expected for usort()
      */

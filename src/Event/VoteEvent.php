@@ -24,8 +24,6 @@ class VoteEvent extends Event
 
     /**
      * Constructs an event.
-     *
-     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
     public function __construct(VoteInterface $vote)
     {
