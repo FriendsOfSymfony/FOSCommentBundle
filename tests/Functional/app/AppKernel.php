@@ -60,6 +60,16 @@ class AppKernel extends Kernel
         parent::__construct($environment, $debug);
     }
 
+    public function __sleep()
+    {
+        return ['testCase', 'rootConfig', 'environment', 'debug'];
+    }
+
+    public function __wakeup()
+    {
+        $this->__construct($this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug());
+    }
+
     public function registerBundles()
     {
         if (!is_file($filename = $this->getProjectDir().'/'.$this->testCase.'/bundles.php')) {
@@ -91,16 +101,6 @@ class AppKernel extends Kernel
         if (Kernel::MAJOR_VERSION >= 4 && Kernel::MINOR_VERSION >= 1) {
             $loader->load(__DIR__.'/config/twig.yml');
         }
-    }
-
-    public function __sleep()
-    {
-        return ['testCase', 'rootConfig', 'environment', 'debug'];
-    }
-
-    public function __wakeup()
-    {
-        $this->__construct($this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug());
     }
 
     protected function getKernelParameters()
