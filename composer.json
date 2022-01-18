@@ -65,8 +65,14 @@
         }
     },
     "autoload": {
-        "psr-4": { "FOS\\CommentBundle\\": "" },
-        "exclude-from-classmap": [ "/Tests/" ]
+        "psr-4": {
+            "FOS\\CommentBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FOS\\CommentBundle\\Tests\\": "tests/"
+        }
     },
     "prefer-stable": true
 }

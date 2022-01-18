@@ -23,16 +23,16 @@ Documentation
 The bulk of the documentation is stored in the `Resources/doc/index.md`
 file in this bundle:
 
-[Read the Documentation](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/index.md)
+[Read the Documentation](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/docs/index.md)
 
 Installation
 ------------
 
-All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/Resources/doc/index.md).
+All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSCommentBundle/blob/master/docs/index.md).
 
 License
 -------
 
 This bundle is under the MIT license. See the complete license in the bundle:
 
-    Resources/meta/LICENSE
+    LICENSE
