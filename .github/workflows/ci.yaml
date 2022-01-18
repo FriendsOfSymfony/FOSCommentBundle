@@ -33,10 +33,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '7.2'
+          - php: '7.4'
             dependencies: 'lowest'
             symfony_require: '3.4.*'
           - php: '7.4'
+            dependencies: 'highest'
+            symfony_require: '4.4.*'
+          - php: '8.0'
             dependencies: 'highest'
             symfony_require: '4.4.*'
       fail-fast: false
