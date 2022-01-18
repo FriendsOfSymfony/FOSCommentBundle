@@ -20,7 +20,7 @@ use FOS\CommentBundle\Acl\RoleThreadAcl;
  */
 class RoleThreadAclTest extends AbstractRoleAcl
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclCommentManager;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Tests the functionality provided by Acl\AclCommentManager.
@@ -30,7 +31,7 @@ class AclCommentManagerTest extends TestCase
     protected $depth;
     protected $parent;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\CommentManagerInterface')->getMock();
         $this->commentSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\CommentAclInterface')->getMock();
@@ -64,11 +65,10 @@ class AclCommentManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindCommentTreeByThread()
     {
+        self::expectException(AccessDeniedException::class);
+
         $expectedResult = [['comment' => $this->comment, 'children' => []]];
         $this->realManager->expects($this->once())
              ->method('findCommentTreeByThread')
@@ -97,11 +97,10 @@ class AclCommentManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindCommentsByThread()
     {
+        self::expectException(AccessDeniedException::class);
+
         $expectedResult = [$this->comment];
         $this->realManager->expects($this->once())
             ->method('findCommentsByThread')
@@ -114,11 +113,10 @@ class AclCommentManagerTest extends TestCase
         $manager->findCommentsByThread($this->thread, $this->depth);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindCommentById()
     {
+        self::expectException(AccessDeniedException::class);
+
         $commentId = 123;
         $expectedResult = $this->comment;
 
@@ -150,11 +148,10 @@ class AclCommentManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindCommentTreeByCommentId()
     {
+        self::expectException(AccessDeniedException::class);
+
         $commentId = 123;
         $expectedResult = [['comment' => $this->comment, 'children' => []]];
 
@@ -188,11 +185,10 @@ class AclCommentManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testSaveCommentNoReplyPermission()
     {
+        self::expectException(AccessDeniedException::class);
+
         $this->saveCommentSetup();
         $this->configureThreadSecurity('canView', true);
         $this->configureCommentSecurity('canReply', false);
@@ -201,11 +197,10 @@ class AclCommentManagerTest extends TestCase
         $manager->saveComment($this->comment, $this->parent);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testSaveCommentNoThreadViewPermission()
     {
+        self::expectException(AccessDeniedException::class);
+
         $this->saveCommentSetup();
         $this->configureThreadSecurity('canView', false);
 
@@ -247,11 +242,10 @@ class AclCommentManagerTest extends TestCase
         $manager->saveComment($this->comment, $this->parent);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testSaveEditedCommentNoEditPermission()
     {
+        self::expectException(AccessDeniedException::class);
+
         $this->editCommentSetup();
         $this->configureCommentSecurity('canEdit', false);
 

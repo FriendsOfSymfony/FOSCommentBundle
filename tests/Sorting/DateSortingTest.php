@@ -19,7 +19,7 @@ class DateSortingTest extends TestCase
     private $sorterAsc;
     private $sorterDesc;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->sorterAsc = new DateSorting('ASC');
         $this->sorterDesc = new DateSorting('DESC');

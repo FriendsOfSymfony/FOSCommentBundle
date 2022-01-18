@@ -31,7 +31,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('Twig\Environment')) {
             $this->markTestSkipped('Twig is not available.');
