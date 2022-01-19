@@ -20,8 +20,6 @@ interface ThreadFormFactoryInterface
 {
     /**
      * Creates a thread form.
-     *
-     * @return FormInterface
      */
     public function createForm(): FormInterface;
 }

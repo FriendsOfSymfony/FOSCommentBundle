@@ -134,8 +134,6 @@ abstract class Comment implements CommentInterface
 
     /**
      * Sets the creation date.
-     *
-     * @param DateTime $createdAt
      */
     public function setCreatedAt(DateTime $createdAt)
     {
@@ -186,8 +184,6 @@ abstract class Comment implements CommentInterface
     }
 
     /**
-     * @param ThreadInterface $thread
-     *
      * @return void
      */
     public function setThread(ThreadInterface $thread)

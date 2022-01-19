@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Tests\Acl;
 
 use FOS\CommentBundle\Acl\AclThreadManager;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Tests the functionality provided by Acl\AclThreadManager.
@@ -25,18 +26,17 @@ class AclThreadManagerTest extends TestCase
     protected $threadSecurity;
     protected $thread;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->realManager = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadManagerInterface')->getMock();
         $this->threadSecurity = $this->getMockBuilder('FOS\CommentBundle\Acl\ThreadAclInterface')->getMock();
         $this->thread = $this->getMockBuilder('FOS\CommentBundle\Model\ThreadInterface')->getMock();
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindThreadById()
     {
+        self::expectException(AccessDeniedException::class);
+
         $threadId = 'hello';
         $this->realManager->expects($this->once())
             ->method('findThreadById')
@@ -69,11 +69,10 @@ class AclThreadManagerTest extends TestCase
 
     // findThreadBy - permission denied, can result in null, what to do about invalid criteria
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindThreadBy()
     {
+        self::expectException(AccessDeniedException::class);
+
         $conditions = ['id' => 123];
         $expectedResult = $this->thread;
 
@@ -108,11 +107,10 @@ class AclThreadManagerTest extends TestCase
         $this->assertNull($manager->findThreadBy($conditions));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testFindAllThreads()
     {
+        self::expectException(AccessDeniedException::class);
+
         $expectedResult = [$this->thread];
 
         $this->realManager->expects($this->once())
@@ -147,11 +145,10 @@ class AclThreadManagerTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
     public function testAddThread()
     {
+        self::expectException(AccessDeniedException::class);
+
         $this->realManager->expects($this->never())
             ->method('saveThread');
 

@@ -23,8 +23,6 @@ class PipelineParser implements ParserInterface
 
     /**
      * Adds a parser to pipeline.
-     *
-     * @param ParserInterface $parser
      */
     public function addToPipeline(ParserInterface $parser)
     {

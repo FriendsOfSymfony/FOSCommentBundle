@@ -31,16 +31,12 @@ interface ThreadManagerInterface
     /**
      * Finds one comment thread by the given criteria.
      *
-     * @param array $criteria
-     *
      * @return ThreadInterface
      */
     public function findThreadBy(array $criteria);
 
     /**
      * Finds threads by the given criteria.
-     *
-     * @param array $criteria
      *
      * @return array of ThreadInterface
      */
@@ -64,15 +60,11 @@ interface ThreadManagerInterface
 
     /**
      * Saves a thread.
-     *
-     * @param ThreadInterface $thread
      */
     public function saveThread(ThreadInterface $thread);
 
     /**
      * Checks if the thread was already persisted before, or if it's a new one.
-     *
-     * @param ThreadInterface $thread
      *
      * @return bool True, if it's a new thread
      */

@@ -31,9 +31,6 @@ class FOSCommentExtension extends Extension
      *
      * @throws InvalidArgumentException
      *
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     *
      * @return void
      */
     public function load(array $configs, ContainerBuilder $container)

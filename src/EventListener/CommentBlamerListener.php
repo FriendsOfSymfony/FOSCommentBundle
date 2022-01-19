@@ -43,9 +43,7 @@ class CommentBlamerListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface         $tokenStorage
-     * @param LoggerInterface               $logger
+     * @param LoggerInterface $logger
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, LoggerInterface $logger = null)
     {
@@ -56,8 +54,6 @@ class CommentBlamerListener implements EventSubscriberInterface
 
     /**
      * Assigns the currently logged in user to a Comment.
-     *
-     * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
     public function blame(CommentEvent $event)
     {

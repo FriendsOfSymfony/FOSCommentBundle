@@ -43,9 +43,7 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface         $tokenStorage
-     * @param LoggerInterface               $logger
+     * @param LoggerInterface $logger
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, LoggerInterface $logger = null)
     {
@@ -56,8 +54,6 @@ class VoteBlamerListener implements EventSubscriberInterface
 
     /**
      * Assigns the Security token's user to the vote.
-     *
-     * @param VoteEvent $event
      */
     public function blame(VoteEvent $event)
     {

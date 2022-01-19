@@ -55,8 +55,7 @@ final class CommentExtension extends AbstractExtension
     /**
      * Checks if comment is in given state.
      *
-     * @param CommentInterface $comment
-     * @param int              $state   CommentInterface::STATE_*
+     * @param int $state CommentInterface::STATE_*
      *
      * @return bool
      */
@@ -127,8 +126,6 @@ final class CommentExtension extends AbstractExtension
     /**
      * Checks if the current user is able to delete a comment.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function canDeleteComment(CommentInterface $comment)
@@ -142,8 +139,6 @@ final class CommentExtension extends AbstractExtension
 
     /**
      * Checks if the current user is able to edit a comment.
-     *
-     * @param CommentInterface $comment
      *
      * @return bool If the user is able to comment
      */
@@ -163,8 +158,6 @@ final class CommentExtension extends AbstractExtension
     /**
      * Checks if the comment is Votable and that the user has
      * permission to vote.
-     *
-     * @param \FOS\CommentBundle\Model\CommentInterface $comment
      *
      * @return bool
      */
@@ -190,8 +183,6 @@ final class CommentExtension extends AbstractExtension
      *
      * Will use the specified ACL, or return true otherwise.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canEditThread(ThreadInterface $thread)
@@ -205,8 +196,6 @@ final class CommentExtension extends AbstractExtension
 
     /**
      * Checks if the thread can be commented.
-     *
-     * @param ThreadInterface $thread
      *
      * @return bool
      */

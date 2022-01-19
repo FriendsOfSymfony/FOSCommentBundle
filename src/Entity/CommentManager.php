@@ -44,10 +44,7 @@ class CommentManager extends BaseCommentManager
     /**
      * Constructor.
      *
-     * @param EventDispatcherInterface $dispatcher
-     * @param SortingFactory           $factory
-     * @param EntityManager            $em
-     * @param string                   $class
+     * @param string $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, EntityManager $em, $class)
     {
@@ -142,8 +139,6 @@ class CommentManager extends BaseCommentManager
 
     /**
      * Performs persisting of the comment.
-     *
-     * @param CommentInterface $comment
      */
     protected function doSaveComment(CommentInterface $comment)
     {

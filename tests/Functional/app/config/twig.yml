@@ -1,2 +1,2 @@
 twig:
-    default_path: '%kernel.root_dir%/Resources/views'
+    default_path: '%kernel.project_dir%/Resources/views'

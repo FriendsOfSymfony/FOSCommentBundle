@@ -42,8 +42,6 @@ class VoteManager extends BaseVoteManager
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Doctrine\ORM\EntityManager                                 $em
      * @param $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
@@ -60,8 +58,6 @@ class VoteManager extends BaseVoteManager
     /**
      * Finds a vote by specified criteria.
      *
-     * @param array $criteria
-     *
      * @return VoteInterface
      */
     public function findVoteBy(array $criteria)
@@ -71,8 +67,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Finds all votes belonging to a comment.
-     *
-     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
      *
      * @return array|null
      */
@@ -100,8 +94,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Persists a vote.
-     *
-     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
     protected function doSaveVote(VoteInterface $vote)
     {

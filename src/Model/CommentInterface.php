@@ -20,13 +20,13 @@ namespace FOS\CommentBundle\Model;
  */
 interface CommentInterface
 {
-    const STATE_VISIBLE = 0;
+    public const STATE_VISIBLE = 0;
 
-    const STATE_DELETED = 1;
+    public const STATE_DELETED = 1;
 
-    const STATE_SPAM = 2;
+    public const STATE_SPAM = 2;
 
-    const STATE_PENDING = 3;
+    public const STATE_PENDING = 3;
 
     /**
      * @return mixed unique ID for this comment
@@ -58,9 +58,6 @@ interface CommentInterface
      */
     public function getThread();
 
-    /**
-     * @param ThreadInterface $thread
-     */
     public function setThread(ThreadInterface $thread);
 
     /**

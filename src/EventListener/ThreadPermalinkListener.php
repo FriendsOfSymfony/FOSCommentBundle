@@ -28,9 +28,6 @@ class ThreadPermalinkListener implements EventSubscriberInterface
      */
     protected $requestStack;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
@@ -38,8 +35,6 @@ class ThreadPermalinkListener implements EventSubscriberInterface
 
     /**
      * Creates and persists a thread with the specified id.
-     *
-     * @param \FOS\CommentBundle\Event\ThreadEvent $event
      */
     public function onThreadCreate(ThreadEvent $event)
     {

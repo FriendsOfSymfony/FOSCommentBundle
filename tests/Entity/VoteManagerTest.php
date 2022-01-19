@@ -27,7 +27,7 @@ class VoteManagerTest extends TestCase
     protected $class;
     protected $classMetadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Doctrine\\ORM\\EntityManager')) {
             $this->markTestSkipped('Doctrine ORM not installed');

@@ -30,8 +30,6 @@ class ThreadCountersListener implements EventSubscriberInterface
 
     /**
      * Constructor.
-     *
-     * @param CommentManagerInterface $commentManager
      */
     public function __construct(CommentManagerInterface $commentManager)
     {
@@ -40,8 +38,6 @@ class ThreadCountersListener implements EventSubscriberInterface
 
     /**
      * Increase the thread comments number.
-     *
-     * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
     public function onCommentPersist(CommentEvent $event)
     {

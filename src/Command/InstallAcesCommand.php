@@ -46,11 +46,6 @@ class InstallAcesCommand extends Command
      */
     private $voteAcl;
 
-    /**
-     * @param CommentAclInterface $commentAcl
-     * @param ThreadAclInterface  $threadAcl
-     * @param VoteAclInterface    $voteAcl
-     */
     public function __construct(
         CommentAclInterface $commentAcl,
         ThreadAclInterface $threadAcl,

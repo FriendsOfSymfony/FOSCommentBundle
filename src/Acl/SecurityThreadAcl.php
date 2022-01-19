@@ -64,10 +64,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface            $authorizationChecker
-     * @param ObjectIdentityRetrievalStrategyInterface $objectRetrieval
-     * @param MutableAclProviderInterface              $aclProvider
-     * @param string                                   $threadClass
+     * @param string $threadClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
@@ -94,8 +91,6 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to view the specified Thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canView(ThreadInterface $thread)
@@ -105,8 +100,6 @@ class SecurityThreadAcl implements ThreadAclInterface
 
     /**
      * Checks if the Security token is allowed to edit the specified Thread.
-     *
-     * @param ThreadInterface $thread
      *
      * @return bool
      */
@@ -118,8 +111,6 @@ class SecurityThreadAcl implements ThreadAclInterface
     /**
      * Checks if the Security token is allowed to delete the specified Thread.
      *
-     * @param ThreadInterface $thread
-     *
      * @return bool
      */
     public function canDelete(ThreadInterface $thread)
@@ -129,8 +120,6 @@ class SecurityThreadAcl implements ThreadAclInterface
 
     /**
      * Sets the default object Acl entry for the supplied Thread.
-     *
-     * @param ThreadInterface $thread
      *
      * @return void
      */
@@ -183,9 +172,6 @@ class SecurityThreadAcl implements ThreadAclInterface
      * Override this method in a subclass to change what permissions are defined.
      * Once this method has been overridden you need to run the
      * `fos:comment:installAces --flush` command
-     *
-     * @param AclInterface $acl
-     * @param MaskBuilder  $builder
      *
      * @return void
      */

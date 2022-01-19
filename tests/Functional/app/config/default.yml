@@ -9,7 +9,7 @@ framework:
         enabled: true
         enable_annotations: true
     router:
-        resource: '%kernel.root_dir%/%kernel.test_case%/routing.yml'
+        resource: '%kernel.project_dir%/%kernel.test_case%/routing.yml'
     translator:
         enabled: false
 
@@ -51,3 +51,4 @@ security:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    exception_controller: ~

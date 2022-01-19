@@ -25,8 +25,6 @@ class ClosedThreadListener implements EventSubscriberInterface
 {
     /**
      * Disallows comments in a closed thread.
-     *
-     * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
     public function onCommentPersist(CommentEvent $event)
     {

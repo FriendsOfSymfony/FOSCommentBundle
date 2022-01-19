@@ -38,8 +38,7 @@ class CommentSpamListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param SpamDetectionInterface $detector
-     * @param LoggerInterface        $logger
+     * @param LoggerInterface $logger
      */
     public function __construct(SpamDetectionInterface $detector, LoggerInterface $logger = null)
     {

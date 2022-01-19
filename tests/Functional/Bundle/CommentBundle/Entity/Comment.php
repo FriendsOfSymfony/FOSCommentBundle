@@ -77,8 +77,6 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
 
     /**
      * Sets the author of the Comment.
-     *
-     * @param string $user
      */
     public function setAuthor(UserInterface $author)
     {

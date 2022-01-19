@@ -41,9 +41,7 @@ class ThreadManager extends BaseThreadManager
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Doctrine\ORM\EntityManager                                 $em
-     * @param string                                                      $class
+     * @param string $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
@@ -58,8 +56,6 @@ class ThreadManager extends BaseThreadManager
 
     /**
      * Finds one comment thread by the given criteria.
-     *
-     * @param array $criteria
      *
      * @return ThreadInterface
      */
@@ -106,8 +102,6 @@ class ThreadManager extends BaseThreadManager
 
     /**
      * Saves a thread.
-     *
-     * @param ThreadInterface $thread
      */
     protected function doSaveThread(ThreadInterface $thread)
     {

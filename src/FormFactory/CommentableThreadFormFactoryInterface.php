@@ -20,8 +20,6 @@ interface CommentableThreadFormFactoryInterface
 {
     /**
      * Creates a open thread form.
-     *
-     * @return FormInterface
      */
     public function createForm(): FormInterface;
 }

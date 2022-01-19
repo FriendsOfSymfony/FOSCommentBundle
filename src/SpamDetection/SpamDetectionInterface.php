@@ -24,8 +24,6 @@ interface SpamDetectionInterface
      * Takes the comment instance and should return a boolean value
      * depending on if the Spam service thinks the comment is spam.
      *
-     * @param CommentInterface $comment
-     *
      * @return bool
      */
     public function isSpam(CommentInterface $comment);

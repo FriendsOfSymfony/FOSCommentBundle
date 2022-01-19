@@ -25,8 +25,6 @@ interface CommentFormFactoryInterface
      *
      * @param mixed $data
      * @param array $options
-     *
-     * @return FormInterface
      */
     public function createForm($data = null, $options = []): FormInterface;
 }

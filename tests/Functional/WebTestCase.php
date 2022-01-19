@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 class WebTestCase extends BaseWebTestCase
 {
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var \Doctrine\Persistence\ObjectManager
      */
     protected $em;
     protected static $schemaSetUp = false;
@@ -31,7 +31,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('Twig\Environment')) {
             $this->markTestSkipped('Twig is not available.');

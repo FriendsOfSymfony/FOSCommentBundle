@@ -22,8 +22,6 @@ interface VoteFormFactoryInterface
 {
     /**
      * Creates a comment form.
-     *
-     * @return FormInterface
      */
     public function createForm(): FormInterface;
 }
